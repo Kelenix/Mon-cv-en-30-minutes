@@ -12,7 +12,7 @@ import {
   FREE_GENERATIONS_PER_IP_PER_DAY,
   OPERATION_COSTS,
 } from "@/features/plans/catalog";
-import { getActivePlan } from "@/features/credits/wallet";
+import { getActivePlan } from "@/features/billing/subscription";
 import {
   canUseIncludedCredits,
   planCharge,

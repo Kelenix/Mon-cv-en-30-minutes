@@ -1,7 +1,7 @@
 # Sécurité — Mon CV en 30 Secondes (version Web)
 
 > Rôle : security-engineer. Mis à jour à chaque incrément qui touche l'authentification, les
-> données, les paiements ou un service tiers. Dernière revue : Inc-5 (exports), 23/11/2026.
+> données, les paiements ou un service tiers. Dernière revue : Inc-6 (paiements), 23/11/2026.
 
 ## 1. Ce qui est protégé
 
@@ -14,7 +14,8 @@
 | Soldes et journal des crédits | `credit_wallets`, `credit_ledger` | Argent : crédits payés |
 | Réponses aux questions et CV | `public.cvs`, brouillon dans le navigateur | Données personnelles (parcours, coordonnées) |
 | Clé de l'API Anthropic | Variables d'environnement du serveur | Facturation à l'usage |
-| À venir : abonnements, achats | Inc-6 | Argent |
+| Abonnements, achats, événements Stripe | `subscriptions`, `purchases`, `stripe_events` | Argent |
+| Clés Stripe (secrète, webhooks) | Variables d'environnement du serveur | Paiements, remboursements |
 
 ## 2. Menaces et parades en place (Inc-2)
 
@@ -46,6 +47,12 @@
 | Téléchargement du CV d'un autre compte | Route d'export : session exigée (401), CV lu par le client soumis à la RLS (404) | `tests/e2e/exports.spec.ts` |
 | Export sans filigrane ou DOCX sans droit | Droit vérifié côté serveur, filigrane posé par le serveur, DOCX refusé (403) | `tests/e2e/exports.spec.ts`, `tests/unit/export.test.ts` |
 | CV exporté gardé en cache (navigateur partagé, proxy) | `Cache-Control: private, no-store` | Revue de code |
+| Faux événement Stripe (crédits ou formule offerts) | Signature du webhook vérifiée sur le corps brut ; abonnement relu chez Stripe | `tests/unit/billing.test.ts` |
+| Achat livré deux fois (Stripe réessaie) | Session de paiement unique dans `purchases`, événement noté, traitements idempotents | `tests/db/billing.test.ts` |
+| Prix ou produit falsifié par le navigateur | Le serveur choisit le prix (clé du catalogue) ; montant et produit relus dans la session Stripe | Revue de code |
+| Second abonnement, second essai, CV Pro déjà débloqué | Contrôles avant paiement (`CONFLICT`) ; essai consommé en base | `tests/e2e/paiements.spec.ts` |
+| Crédits ou formule modifiés par l'utilisateur | Aucune écriture permise ; fonctions réservées au serveur | `tests/db/billing.test.ts` |
+| Abonnement qui continue après la suppression du compte | Client Stripe supprimé avant le compte ; suppression refusée si Stripe échoue | Revue de code |
 | Clickjacking, détection de type, fuite de référent | En-têtes : `frame-ancestors 'none'`, HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy` | `next.config.ts` |
 
 ## 3. Points résiduels
@@ -57,5 +64,6 @@
 | Les limites locales de Supabase Auth sont relevées pour les tests | Faible | Valeurs par défaut conservées en production (tâche 2) |
 | SMTP par défaut de Supabase inadapté à la production | Moyen | Fournisseur dédié (tâche 6, R15) |
 | 4 vulnérabilités modérées dans la CLI shadcn (outil de développement) | Faible | Hors production ; la CI audite les dépendances de production |
-| Opération restée « en cours » si le serveur s'arrête pendant la génération (crédit non rendu) | Faible | Remboursement par la maintenance quotidienne (Inc-6) |
 | Plafond de CV gratuits par IP inactif sans `IP_HASH_SALT` | Faible | Sel obligatoire en production (le démarrage échoue sinon) |
+| Deux souscriptions lancées en même temps sur un compte : deux abonnements chez Stripe | Faible | Contrôle avant paiement ; résiliation par le portail (ADR-029) |
+| Paiements non encore vérifiés avec Stripe réel (clés de test absentes) | Moyen | Vérification complète dès la tâche 4 |

@@ -37,10 +37,14 @@ function close() {
 
 /**
  * Encart des fonctions avancées (US-15), non bloquant et refermable : uniquement sur l'aperçu,
- * donc après une génération réussie (aucune offre pendant la saisie). Les abonnés ne verront
- * que les formules supérieures à la leur dès que les abonnements existeront (Inc-6).
+ * donc après une génération réussie (aucune offre pendant la saisie). Pour un abonné, seulement
+ * la formule supérieure à la sienne (`upgrade`), et rien pour Premium (c.3).
  */
-export function UpsellCard() {
+export function UpsellCard({
+  upgrade,
+}: {
+  upgrade?: { title: string; text: string };
+}) {
   const t = useTranslations("upsell");
   // Masqué dans le HTML du serveur, qui ne sait pas si l'encart a été fermé.
   const hidden = useSyncExternalStore(subscribe, isClosed, () => true);
@@ -65,20 +69,22 @@ export function UpsellCard() {
         className="flex items-center gap-2 pe-10 text-lg font-bold"
       >
         <SparklesIcon aria-hidden="true" className="size-5 text-primary" />
-        {t("title")}
+        {upgrade?.title ?? t("title")}
       </h2>
-      <p>{t("intro")}</p>
-      <ul className="grid gap-2">
-        {FEATURES.map((feature) => (
-          <li key={feature} className="flex gap-2">
-            <CheckIcon
-              aria-hidden="true"
-              className="mt-0.5 size-5 shrink-0 text-primary"
-            />
-            {t(`features.${feature}`)}
-          </li>
-        ))}
-      </ul>
+      <p>{upgrade?.text ?? t("intro")}</p>
+      {upgrade ? null : (
+        <ul className="grid gap-2">
+          {FEATURES.map((feature) => (
+            <li key={feature} className="flex gap-2">
+              <CheckIcon
+                aria-hidden="true"
+                className="mt-0.5 size-5 shrink-0 text-primary"
+              />
+              {t(`features.${feature}`)}
+            </li>
+          ))}
+        </ul>
+      )}
       <Link
         href="/tarifs"
         className={buttonVariants({ className: "justify-self-start" })}

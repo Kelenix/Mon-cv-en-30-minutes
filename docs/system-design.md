@@ -94,7 +94,7 @@ Toutes les actions qui génèrent du texte acceptent `language?` (défaut : lang
 
 | Action | Entrée | Sortie | Erreurs |
 |--------|--------|--------|---------|
-| `createCheckoutSession` | `product` (lookup key), `cvId?` (obligatoire pour `cv_pro`), `withTrial?` | `{ url }` | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `CONFLICT` (déjà abonné, essai déjà utilisé, pubs déjà retirées, CV déjà Pro), `FORBIDDEN` (retrait des pubs désactivé), `PAYMENT_ERROR` |
+| `createCheckoutSession` | `locale`, `item` (pack `credits_*`, `cvPro` + `cvId`, ou formule `tier` + `interval` + `trial?`), `returnTo?` (`credits` ou `generation`) | `{ url }` | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `NOT_FOUND` (CV), `CONFLICT` avec `reason` (`subscribed`, `trialUsed`, `cvUnlocked`), `PAYMENT_ERROR` ; retrait des pubs : Inc-11 |
 | `openBillingPortal` | — | `{ url }` | `UNAUTHENTICATED`, `NOT_FOUND` (aucun client Stripe), `PAYMENT_ERROR` |
 
 ### Publicités (Inc-11)
@@ -146,7 +146,7 @@ réponses (R05). La langue du contenu est stockée à côté (`cvs.language`) ; 
 | `/auth/callback` | GET | `code`, `next?` (retour de Google) | redirection | redirection vers `/connexion?erreur=google` |
 | `/auth/confirm` | GET | `token_hash`, `next?` (lien de l'e-mail) | redirection | redirection vers `/connexion?erreur=lien` |
 | `/api/cv/[id]/export` | GET | `format` = `pdf` \| `docx` | fichier en pièce jointe (`CV-Prénom-Nom.pdf`) | 400 format, 401, 403 (`docx` sans droit), 404 |
-| `/api/me/wallet` | GET | — | `{ included, purchased, plan, nextGrantAt, renewsAt }` | 401 |
+| `/api/me/wallet` | GET | `session_id?` | `{ included, purchased, plan, nextGrantAt, renewsAt, purchaseConfirmed }` | 401 |
 | `/api/stripe/webhook` | POST | corps brut + en-tête de signature | 200 | 400 signature invalide ; 500 → Stripe réessaie |
 | `/api/cron/retention` | GET | `Authorization: Bearer CRON_SECRET` | `{ warned, deleted }` | 401 |
 
@@ -201,8 +201,9 @@ sequenceDiagram
   U->>S: Paie et accepte les conditions
   S-->>U: Retour /compte/credits?paiement=ok
   S->>N: Webhook checkout.session.completed (signé)
-  N->>DB: Insère l'événement (si déjà présent → 200 sans rien faire)
-  N->>DB: purchases (session unique) + grant_credits(acheté, 15)
+  N->>DB: Événement déjà traité ? → 200 sans rien faire
+  N->>DB: fulfill_purchase : purchases (session unique) + crédits achetés
+  N->>DB: Note l'événement (après traitement : un échec laisse Stripe réessayer)
   U->>N: Interroge /api/me/wallet toutes les 1,5 s (10 s max)
   N-->>U: Nouveau solde affiché
 ```

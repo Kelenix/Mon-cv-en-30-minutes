@@ -40,7 +40,7 @@ test("le solde s'affiche dans l'en-tête et dans l'espace compte", async ({
   await expectNoAccessibilityViolations(page);
 
   await details.getByRole("link", { name: fr.credits.topUp }).click();
-  await expect(page).toHaveURL(/\/fr\/tarifs$/);
+  await expect(page).toHaveURL(/\/fr\/compte\/credits$/);
 });
 
 test("l'en-tête d'un compte connecté tient sur la largeur, même en allemand", async ({

@@ -263,7 +263,7 @@
     "plan": "Plan",
     "noPlan": "No subscription",
     "totalCredits": "Total balance",
-    "seeOffers": "See plans and top up"
+    "manageCredits": "Credits, plan and purchases"
   },
   "errors": {
     "UNAUTHENTICATED": "Your session has expired. Sign in again to continue.",
@@ -285,7 +285,9 @@
     "CV_LIMIT_REACHED": "Your plan keeps a limited number of CVs: choose the one to replace.",
     "FREE_LIMIT_REACHED": "The daily limit of free CVs has been reached from this connection. Try again tomorrow or see our plans.",
     "AI_UNAVAILABLE": "The generation didn't go through. Your credits have been returned: try again.",
-    "AI_INVALID_OUTPUT": "The generation didn't go through. Your credits have been returned: try again."
+    "AI_INVALID_OUTPUT": "The generation didn't go through. Your credits have been returned: try again.",
+    "CONFLICT": "This action is no longer possible.",
+    "PAYMENT_ERROR": "Payment is temporarily unavailable. Try again in a moment."
   },
   "legal": {
     "updatedAt": "Last updated: {date}",
@@ -364,7 +366,6 @@
     "credits": {
       "title": "You're missing {missing, plural, one {# credit} other {# credits}}",
       "description": "Generating a CV costs {cost, plural, one {# credit} other {# credits}}. Your balance: {balance, plural, one {# credit} other {# credits}}.",
-      "topUp": "Top up my credits",
       "upgrade": "Upgrade to Pro"
     },
     "replace": {
@@ -460,7 +461,9 @@
       "interview": "Practice for your interview"
     },
     "cta": "See plans",
-    "close": "Close"
+    "close": "Close",
+    "upgradeTitle": "Upgrade to {plan}",
+    "upgradeText": "{count} credits included every month instead of {current}."
   },
   "cvDocument": {
     "watermark": "Created with {brand}"
@@ -473,5 +476,68 @@
     "lockedTitle": "Watermark-free PDF and DOCX",
     "lockedText": "Your free PDF has a discreet mention of our site in the footer. The watermark-free PDF and the DOCX format are included in every subscription, or with CV Pro ({price}) for this CV.",
     "seeOffers": "See plans"
+  },
+  "billing": {
+    "metaTitle": "Credits and plan",
+    "title": "Credits and plan",
+    "plan": {
+      "title": "Your plan",
+      "none": "No subscription",
+      "noneHint": "Without a subscription, you pay for AI features with purchased credits.",
+      "seePlans": "See plans",
+      "intervals": {
+        "month": "monthly",
+        "year": "yearly"
+      },
+      "renews": "Renews on {date}.",
+      "ends": "Ends on {date}.",
+      "trialEnds": "Free trial until {date}.",
+      "pastDue": "Payment pending: update your payment method to keep your plan.",
+      "manage": "Manage my subscription"
+    },
+    "credits": {
+      "title": "Your credits",
+      "total": "Total balance",
+      "included": "Included credits",
+      "includedReset": "Reset to {count} on {date}",
+      "purchased": "Purchased credits",
+      "purchasedHint": "They never expire."
+    },
+    "topUp": {
+      "title": "Top up",
+      "pack": "{count} credits — {price}",
+      "buy": "Buy {count} credits"
+    },
+    "purchases": {
+      "title": "Your purchases",
+      "pack": "Pack of {count} credits",
+      "cvPro": "CV Pro — {title}",
+      "cvDeleted": "deleted CV",
+      "adsRemoval": "Ad removal"
+    },
+    "return": {
+      "pending": "Payment received, updating your account…",
+      "done": "Payment confirmed: your account is up to date.",
+      "slow": "Your payment has been received; your account will update in a few moments.",
+      "refresh": "Refresh",
+      "cancelled": "Payment cancelled: nothing was charged."
+    },
+    "checkout": {
+      "subscribe": "Choose {plan}",
+      "trial": "Try Pro free for {days} days",
+      "trialTerms": "{days} free days with {credits} credits, then a Pro subscription that renews automatically. Your card is required but nothing is charged during the trial; you can cancel at any time.",
+      "terms": "I accept the [terms of sale]({url}) and request immediate access to the service: I waive my right of withdrawal."
+    },
+    "conflict": {
+      "subscribed": "You already have a subscription: change plans from “Manage my subscription” in Credits and plan.",
+      "trialUsed": "The free trial has already been used on this account.",
+      "cvUnlocked": "This CV is already unlocked."
+    },
+    "cvPro": {
+      "title": "CV Pro — {price}",
+      "text": "Watermark-free PDF and DOCX for this CV, forever, with no subscription.",
+      "unlock": "Unlock this CV"
+    },
+    "pricingCvPro": "Unlock it from your CV preview."
   }
 }

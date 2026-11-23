@@ -4,6 +4,19 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-6 : paiements
+
+- Abonnements Essential, Pro et Premium (mensuels ou annuels) et essai gratuit de Pro 3 jours
+  avec 10 crédits, payés sur Stripe ; gestion de l'abonnement dans le portail Stripe.
+- Packs de 5, 15 et 40 crédits et CV Pro (4,99 € pour un CV), avec acceptation des CGV et
+  renonciation au droit de rétractation.
+- Crédits inclus remis chaque mois, quota de la nouvelle formule dès une montée, crédits inclus
+  perdus à la fin de l'abonnement (crédits achetés conservés).
+- Page « Crédits et formule » : formule et échéance, soldes, recharge, coûts, achats ; solde mis
+  à jour au retour du paiement.
+- Recharge directement depuis la fenêtre « Solde insuffisant » ; la génération reprend ensuite.
+- Résiliation immédiate de l'abonnement à la suppression du compte.
+
 ### Ajouté — Inc-5 : exports
 
 - Téléchargement du CV en PDF, gratuit, nommé « CV-Prénom-Nom.pdf » : même contenu que

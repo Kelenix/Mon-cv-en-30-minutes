@@ -263,7 +263,7 @@
     "plan": "Abo",
     "noPlan": "Kein Abo",
     "totalCredits": "Gesamtguthaben",
-    "seeOffers": "Angebote ansehen und aufladen"
+    "manageCredits": "Credits, Abo und Käufe"
   },
   "errors": {
     "UNAUTHENTICATED": "Deine Sitzung ist abgelaufen. Melde dich erneut an, um fortzufahren.",
@@ -285,7 +285,9 @@
     "CV_LIMIT_REACHED": "Dein Tarif speichert nur eine begrenzte Zahl an Lebensläufen: Wähle den aus, der ersetzt werden soll.",
     "FREE_LIMIT_REACHED": "Das Tageslimit für kostenlose Lebensläufe ist für diese Verbindung erreicht. Versuche es morgen erneut oder entdecke unsere Angebote.",
     "AI_UNAVAILABLE": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet: Versuche es erneut.",
-    "AI_INVALID_OUTPUT": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet: Versuche es erneut."
+    "AI_INVALID_OUTPUT": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet: Versuche es erneut.",
+    "CONFLICT": "Diese Aktion ist nicht mehr möglich.",
+    "PAYMENT_ERROR": "Die Zahlung ist vorübergehend nicht verfügbar. Versuche es gleich noch einmal."
   },
   "legal": {
     "updatedAt": "Zuletzt aktualisiert: {date}",
@@ -364,7 +366,6 @@
     "credits": {
       "title": "Dir {missing, plural, one {fehlt # Credit} other {fehlen # Credits}}",
       "description": "Ein Lebenslauf kostet {cost, plural, one {# Credit} other {# Credits}}. Dein Guthaben: {balance, plural, one {# Credit} other {# Credits}}.",
-      "topUp": "Credits aufladen",
       "upgrade": "Zu Pro wechseln"
     },
     "replace": {
@@ -460,7 +461,9 @@
       "interview": "Für das Vorstellungsgespräch üben"
     },
     "cta": "Angebote ansehen",
-    "close": "Schließen"
+    "close": "Schließen",
+    "upgradeTitle": "Wechsle zu {plan}",
+    "upgradeText": "{count} inklusive Credits pro Monat statt {current}."
   },
   "cvDocument": {
     "watermark": "Erstellt mit {brand}"
@@ -473,5 +476,68 @@
     "lockedTitle": "PDF ohne Wasserzeichen und DOCX",
     "lockedText": "Dein kostenloses PDF enthält in der Fußzeile einen dezenten Hinweis auf unsere Website. Das PDF ohne Wasserzeichen und das DOCX-Format sind in allen Abos enthalten oder mit CV Pro ({price}) für diesen Lebenslauf.",
     "seeOffers": "Angebote ansehen"
+  },
+  "billing": {
+    "metaTitle": "Credits und Abo",
+    "title": "Credits und Abo",
+    "plan": {
+      "title": "Dein Abo",
+      "none": "Kein Abo",
+      "noneHint": "Ohne Abo bezahlst du die KI-Funktionen mit gekauften Credits.",
+      "seePlans": "Abos ansehen",
+      "intervals": {
+        "month": "monatlich",
+        "year": "jährlich"
+      },
+      "renews": "Verlängert sich am {date}.",
+      "ends": "Endet am {date}.",
+      "trialEnds": "Kostenloser Test bis {date}.",
+      "pastDue": "Zahlung ausstehend: Aktualisiere deine Zahlungsmethode, um dein Abo zu behalten.",
+      "manage": "Abo verwalten"
+    },
+    "credits": {
+      "title": "Deine Credits",
+      "total": "Gesamtguthaben",
+      "included": "Inklusive Credits",
+      "includedReset": "Am {date} wieder auf {count}",
+      "purchased": "Gekaufte Credits",
+      "purchasedHint": "Sie verfallen nie."
+    },
+    "topUp": {
+      "title": "Aufladen",
+      "pack": "{count} Credits — {price}",
+      "buy": "{count} Credits kaufen"
+    },
+    "purchases": {
+      "title": "Deine Käufe",
+      "pack": "Paket mit {count} Credits",
+      "cvPro": "CV Pro — {title}",
+      "cvDeleted": "gelöschter Lebenslauf",
+      "adsRemoval": "Werbefreiheit"
+    },
+    "return": {
+      "pending": "Zahlung erhalten, dein Konto wird aktualisiert…",
+      "done": "Zahlung bestätigt: Dein Konto ist auf dem neuesten Stand.",
+      "slow": "Deine Zahlung ist eingegangen; dein Konto wird in wenigen Augenblicken aktualisiert.",
+      "refresh": "Aktualisieren",
+      "cancelled": "Zahlung abgebrochen: Es wurde nichts abgebucht."
+    },
+    "checkout": {
+      "subscribe": "{plan} wählen",
+      "trial": "Pro {days} Tage kostenlos testen",
+      "trialTerms": "{days} kostenlose Tage mit {credits} Credits, danach ein Pro-Abo mit automatischer Verlängerung. Deine Karte wird benötigt, während des Tests wird aber nichts abgebucht; du kannst jederzeit kündigen.",
+      "terms": "Ich akzeptiere die [Allgemeinen Geschäftsbedingungen]({url}) und verlange die sofortige Bereitstellung des Dienstes: Ich verzichte auf mein Widerrufsrecht."
+    },
+    "conflict": {
+      "subscribed": "Du hast bereits ein Abo: Wechsle das Abo über „Abo verwalten“ unter Credits und Abo.",
+      "trialUsed": "Der kostenlose Test wurde für dieses Konto bereits genutzt.",
+      "cvUnlocked": "Dieser Lebenslauf ist bereits freigeschaltet."
+    },
+    "cvPro": {
+      "title": "CV Pro — {price}",
+      "text": "PDF ohne Wasserzeichen und DOCX für diesen Lebenslauf, für immer, ohne Abo.",
+      "unlock": "Diesen Lebenslauf freischalten"
+    },
+    "pricingCvPro": "Freischaltung in der Vorschau deines Lebenslaufs."
   }
 }

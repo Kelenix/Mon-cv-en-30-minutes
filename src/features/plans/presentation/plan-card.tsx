@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   annualSavingsPercent,
@@ -12,7 +13,14 @@ import { FeatureMark, useFeatureDetail } from "./feature-mark";
 import { useFormatPrice } from "./use-format-price";
 
 // Carte d'une formule (US-03) ; le prix affiché suit la bascule Mensuel / Annuel parente.
-export function PlanCard({ tier }: { tier: PlanTier }) {
+// `children` : actions de souscription, fournies par la page.
+export function PlanCard({
+  tier,
+  children,
+}: {
+  tier: PlanTier;
+  children?: ReactNode;
+}) {
   const t = useTranslations();
   const formatPrice = useFormatPrice();
   const featureDetail = useFeatureDetail();
@@ -77,6 +85,9 @@ export function PlanCard({ tier }: { tier: PlanTier }) {
           );
         })}
       </ul>
+      {children ? (
+        <div className="mt-auto grid gap-2 pt-8">{children}</div>
+      ) : null}
     </article>
   );
 }

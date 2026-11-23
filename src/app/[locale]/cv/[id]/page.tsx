@@ -4,10 +4,13 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
+import { CvProOffer } from "@/features/billing/presentation/offers";
+import { PaymentReturn } from "@/features/billing/presentation/payment-return";
+import { getActivePlan } from "@/features/billing/subscription";
 import { CvWorkspace } from "@/features/cv/presentation/cv-workspace";
 import { UpsellCard } from "@/features/cv/presentation/upsell-card";
-import { getActivePlan } from "@/features/credits/wallet";
 import { getOwnCv } from "@/features/cv/repository";
+import { PLANS, type PlanTier } from "@/features/plans/catalog";
 import { canExportWithoutWatermark } from "@/features/plans/entitlements";
 import { pickClientMessages } from "@/i18n/client-messages";
 import { Link } from "@/i18n/navigation";
@@ -19,20 +22,31 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // Aperçu, éditeur et exports d'un CV (US-12 à US-17, docs/design/flows.md §3.6). Aucune
 // publicité.
-export default function CvPage({ params }: PageProps<"/[locale]/cv/[id]">) {
+export default function CvPage({
+  params,
+  searchParams,
+}: PageProps<"/[locale]/cv/[id]">) {
   return (
     <div className="container-page py-6 md:py-10">
       <Suspense fallback={<SheetSkeleton />}>
-        <CvLoader params={params} />
+        <CvLoader params={params} searchParams={searchParams} />
       </Suspense>
     </div>
   );
 }
 
+/** Formule supérieure proposée à un abonné (US-15 c.3) ; aucune au-delà de Premium. */
+const NEXT_PLAN: Record<PlanTier, PlanTier | null> = {
+  essential: "pro",
+  pro: "premium",
+  premium: null,
+};
+
 async function CvLoader({
   params,
-}: Pick<PageProps<"/[locale]/cv/[id]">, "params">) {
-  const { id } = await params;
+  searchParams,
+}: Omit<PageProps<"/[locale]/cv/[id]">, "children">) {
+  const [{ id }, query] = await Promise.all([params, searchParams]);
   const locale = await getLocale();
   await requireUser(locale, "/cv");
   const cv = await getOwnCv(id);
@@ -62,18 +76,35 @@ async function CvLoader({
   });
   const [plan, messages] = await Promise.all([
     getActivePlan(),
-    pickClientMessages(["cvEditor", "cvExport", "upsell"]),
+    pickClientMessages(["cvEditor", "cvExport", "upsell", "billing", "errors"]),
   ]);
+  const exportUnlocked = canExportWithoutWatermark(plan, cv.proUnlocked);
+  const nextPlan = plan ? NEXT_PLAN[plan] : null;
+  const tPlans = await getTranslations("plans");
+  const tUpsell = await getTranslations("upsell");
 
   return (
     <NextIntlClientProvider messages={messages}>
+      {query.paiement === "ok" || query.paiement === "annule" ? (
+        <div className="mx-auto mb-6 max-w-[52rem]">
+          <PaymentReturn
+            outcome={query.paiement}
+            sessionId={
+              typeof query.session_id === "string"
+                ? query.session_id
+                : undefined
+            }
+            subscription={false}
+          />
+        </div>
+      ) : null}
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] xl:items-start">
         <CvWorkspace
           cvId={cv.id}
           title={cv.title}
           language={cv.language}
           initialContent={cv.content}
-          exportUnlocked={canExportWithoutWatermark(plan, cv.proUnlocked)}
+          exportUnlocked={exportUnlocked}
           sectionTitles={{
             summary: sections("summary"),
             experiences: sections("experiences"),
@@ -82,8 +113,22 @@ async function CvLoader({
             languages: sections("languages"),
           }}
         />
-        <div className="xl:sticky xl:top-6">
-          <UpsellCard />
+        <div className="grid gap-6 xl:sticky xl:top-6">
+          {exportUnlocked ? null : <CvProOffer cvId={cv.id} />}
+          {plan === null ? <UpsellCard /> : null}
+          {plan && nextPlan ? (
+            <UpsellCard
+              upgrade={{
+                title: tUpsell("upgradeTitle", {
+                  plan: tPlans(`names.${nextPlan}`),
+                }),
+                text: tUpsell("upgradeText", {
+                  count: PLANS[nextPlan].monthlyCredits,
+                  current: PLANS[plan].monthlyCredits,
+                }),
+              }}
+            />
+          ) : null}
         </div>
       </div>
     </NextIntlClientProvider>

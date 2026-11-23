@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@/features/auth/session";
-import { getActivePlan } from "@/features/credits/wallet";
+import { getActivePlan } from "@/features/billing/subscription";
 import { getOwnCv } from "@/features/cv/repository";
 import { renderCvDocx } from "@/features/export/cv-docx";
 import { renderCvPdf } from "@/features/export/cv-pdf";

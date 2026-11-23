@@ -13,12 +13,15 @@ const optionalText = z.preprocess(
 
 /**
  * Exigées en production : informations du vendeur (US-38, le numéro de TVA reste facultatif),
- * clé de l'IA (sans elle, l'IA est simulée : développement et tests) et sel de hachage des
- * adresses IP (plafond de CV gratuits, H27).
+ * clé de l'IA (sans elle, l'IA est simulée : développement et tests), sel de hachage des
+ * adresses IP (plafond de CV gratuits, H27) et clés Stripe (sans elles, le paiement est
+ * indisponible : message « Le paiement est momentanément indisponible »).
  */
 const REQUIRED_IN_PRODUCTION = [
   "ANTHROPIC_API_KEY",
   "IP_HASH_SALT",
+  "STRIPE_SECRET_KEY",
+  "STRIPE_WEBHOOK_SECRET",
   "LEGAL_COMPANY_NAME",
   "LEGAL_FORM",
   "LEGAL_REGISTRATION",
@@ -40,6 +43,8 @@ const envSchema = z
     ADS_REMOVAL_ENABLED: z.stringbool().default(false),
     ANTHROPIC_API_KEY: optionalText,
     ANTHROPIC_MODEL: z.string().min(1).default("claude-opus-5-5"),
+    STRIPE_SECRET_KEY: optionalText,
+    STRIPE_WEBHOOK_SECRET: optionalText,
     IP_HASH_SALT: optionalText.refine((value) => !value || value.length >= 32, {
       error: "32 caractères minimum",
     }),

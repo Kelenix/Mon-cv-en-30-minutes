@@ -45,6 +45,17 @@ telles quelles (pratique pour développer et tester sans frais). Avec une clé (
 les CV sont rédigés par Claude. Écrire `[simulation:echec]` dans le métier visé fait échouer une
 génération simulée (pour voir l'écran d'erreur et le remboursement).
 
+## Paiements en local (Stripe, mode test)
+
+1. Mettre la clé de test `sk_test_…` dans `.env.local` (`STRIPE_SECRET_KEY`), puis
+   `npm run stripe:seed` (produits, prix, portail ; le script refuse une clé réelle).
+2. `docker compose --env-file .env.local run --rm stripe listen --print-secret` : copier le
+   secret affiché dans `STRIPE_WEBHOOK_SECRET`, puis redémarrer `npm run dev`.
+3. Pendant les essais : `docker compose --env-file .env.local up stripe` relaie les webhooks.
+   Carte de test : `4242 4242 4242 4242`, date future, n'importe quel code.
+
+Sans clé, les boutons d'achat affichent « Le paiement est momentanément indisponible ».
+
 ## Donner des crédits à un compte local
 
 Les achats arrivent à l'Inc-6. En attendant, pour tester avec des crédits, dans Supabase Studio

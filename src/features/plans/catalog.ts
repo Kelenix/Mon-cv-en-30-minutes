@@ -68,6 +68,46 @@ export const CREDIT_PACKS = [
 export const CV_PRO_PRICE_CENTS = 499;
 export const ADS_REMOVAL_PRICE_CENTS = 299;
 
+/** Produits vendus à l'unité ; leur identifiant est aussi la clé du prix Stripe (lookup key). */
+export const PURCHASE_PRODUCTS = [
+  "credits_5",
+  "credits_15",
+  "credits_40",
+  "cv_pro",
+  "ads_removal",
+] as const;
+export type PurchaseProduct = (typeof PURCHASE_PRODUCTS)[number];
+export type CreditPackId = (typeof CREDIT_PACKS)[number]["id"];
+
+export function purchasePriceCents(product: PurchaseProduct): number {
+  if (product === "cv_pro") return CV_PRO_PRICE_CENTS;
+  if (product === "ads_removal") return ADS_REMOVAL_PRICE_CENTS;
+  return CREDIT_PACKS.find((pack) => pack.id === product)!.priceCents;
+}
+
+/** Crédits ajoutés par un produit (0 pour CV Pro et la suppression des publicités). */
+export function productCredits(product: PurchaseProduct): number {
+  return CREDIT_PACKS.find((pack) => pack.id === product)?.credits ?? 0;
+}
+
+/** Clé du prix Stripe d'une formule (« pro_month », « premium_year »…). */
+export function subscriptionLookupKey(
+  tier: PlanTier,
+  interval: BillingInterval,
+) {
+  return `${tier}_${interval}`;
+}
+
+export function parseSubscriptionLookupKey(
+  key: string | null | undefined,
+): { tier: PlanTier; interval: BillingInterval } | null {
+  const [tier, interval] = (key ?? "").split("_");
+  return PLAN_TIERS.includes(tier as PlanTier) &&
+    BILLING_INTERVALS.includes(interval as BillingInterval)
+    ? { tier: tier as PlanTier, interval: interval as BillingInterval }
+    : null;
+}
+
 /** Coût en crédits de chaque opération IA (§11.1). */
 export const OPERATION_COSTS = {
   generateCv: 1,

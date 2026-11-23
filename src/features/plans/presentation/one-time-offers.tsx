@@ -1,15 +1,23 @@
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { env } from "@/core/env";
 import {
   ADS_REMOVAL_PRICE_CENTS,
   CREDIT_PACKS,
+  type CreditPackId,
   CV_PRO_PRICE_CENTS,
 } from "../catalog";
 import { useFormatPrice } from "./use-format-price";
 
 // Offres sans abonnement (US-03 critère 5) : packs, CV Pro et, si l'option est activée,
-// suppression des publicités (H9).
-export function OneTimeOffers() {
+// suppression des publicités (H9). Les actions d'achat sont fournies par la page.
+export function OneTimeOffers({
+  packAction,
+  cvProNote,
+}: {
+  packAction?: (pack: CreditPackId) => ReactNode;
+  cvProNote?: ReactNode;
+}) {
   const t = useTranslations("pricing.withoutSubscription");
   const formatPrice = useFormatPrice();
 
@@ -56,6 +64,9 @@ export function OneTimeOffers() {
               {formatPrice(pack.priceCents)}
             </p>
             <p className="mt-1 text-sm text-muted-foreground">{t("oneTime")}</p>
+            {packAction ? (
+              <div className="mt-4">{packAction(pack.id)}</div>
+            ) : null}
           </li>
         ))}
       </ul>
@@ -71,6 +82,9 @@ export function OneTimeOffers() {
               {formatPrice(offer.priceCents)}
             </p>
             <p className="mt-2 text-muted-foreground">{offer.description}</p>
+            {offer.key === "cvPro" && cvProNote ? (
+              <p className="mt-2 font-medium">{cvProNote}</p>
+            ) : null}
           </li>
         ))}
       </ul>

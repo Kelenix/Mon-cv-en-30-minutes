@@ -57,12 +57,27 @@
 - **Étapes** :
   1. Créer un compte sur https://stripe.com.
   2. Compléter l'activation : identité, entreprise, compte bancaire de versement.
-  3. Rester en **mode test** pendant le développement. Les produits et les prix seront créés par un
-     script fourni à l'Inc-6. En local, les webhooks sont relayés par la CLI Stripe lancée dans
-     Docker : rien à installer.
+  3. Rester en **mode test** pendant le développement :
+     - **Développeurs → Clés API** : copier la clé secrète de test (`sk_test_…`) dans
+       `.env.local` (`STRIPE_SECRET_KEY`), puis lancer `npm run stripe:seed` (produits, prix et
+       portail client).
+     - **Paramètres → Informations publiques** : renseigner l'adresse des CGV
+       (`https://<domaine>/fr/cgv`) ; Stripe l'exige pour faire accepter les conditions au
+       paiement.
+     - **Paramètres → Facturation → Abonnements** : en cas d'échec de paiement après les
+       relances, **annuler l'abonnement**.
+     - Webhooks en local : `docker compose --env-file .env.local run --rm stripe listen
+       --print-secret` affiche le secret à copier dans `STRIPE_WEBHOOK_SECRET`, puis
+       `docker compose --env-file .env.local up stripe` pendant les tests (Docker suffit).
+  4. Avant la mise en production (Inc-13) : refaire ces réglages en mode réel, et créer le point
+     de terminaison `https://<domaine>/api/stripe/webhook` avec les événements
+     `checkout.session.completed`, `checkout.session.async_payment_succeeded` et
+     `customer.subscription.*` ; son secret va dans les variables de Vercel.
 - **Coût** : commission par transaction (environ 1,5 % + 0,25 € par carte UE ; vérifier la grille
   en vigueur).
-- **Vérification** : le tableau de bord Stripe affiche « Compte activé ».
+- **Vérification** : un achat de pack avec la carte de test `4242 4242 4242 4242` crédite le
+  compte en local ; le tableau de bord Stripe affiche « Compte activé » avant la mise en
+  production.
 
 ## Tâche 5 : Créer les identifiants Google OAuth
 - **Pourquoi** : bouton « Continuer avec Google ».

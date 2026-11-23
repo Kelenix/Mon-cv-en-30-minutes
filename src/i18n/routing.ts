@@ -53,6 +53,13 @@ export const routing = defineRouting({
       es: "/cuenta",
       de: "/konto",
     },
+    "/compte/credits": {
+      fr: "/compte/credits",
+      en: "/account/credits",
+      it: "/account/crediti",
+      es: "/cuenta/creditos",
+      de: "/konto/guthaben",
+    },
     "/mentions-legales": {
       fr: "/mentions-legales",
       en: "/legal-notice",

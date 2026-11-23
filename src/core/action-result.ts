@@ -14,11 +14,14 @@ export type ErrorCode =
   | "FREE_LIMIT_REACHED"
   | "AI_UNAVAILABLE"
   | "AI_INVALID_OUTPUT"
+  | "CONFLICT"
+  | "PAYMENT_ERROR"
   | "INTERNAL";
 
 /**
  * Champ en erreur → clé de traduction de `errors.fields` (ex. `required`, `tooLong`) ; pour
- * `INSUFFICIENT_CREDITS`, coût de l'opération et crédits manquants.
+ * `INSUFFICIENT_CREDITS`, coût de l'opération et crédits manquants ; pour `CONFLICT`, la raison
+ * (`reason`).
  */
 export type FieldErrors = Record<string, string>;
 

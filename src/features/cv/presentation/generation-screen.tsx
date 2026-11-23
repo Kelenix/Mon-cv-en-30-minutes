@@ -2,7 +2,7 @@
 
 import { RotateCcwIcon } from "lucide-react";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { FormAlert } from "@/components/form/form-alert";
 import {
   AlertDialog,
@@ -36,9 +36,12 @@ type State =
 export function GenerationScreen({
   cvs,
   cvLimit,
+  topUp,
 }: {
   cvs: CvSummary[];
   cvLimit: number | null;
+  /** Achat de crédits proposé dans la fenêtre « Solde insuffisant » (fourni par la page). */
+  topUp?: ReactNode;
 }) {
   const t = useTranslations("generation");
   const tErrors = useTranslations("errors");
@@ -230,6 +233,7 @@ export function GenerationScreen({
               {t("credits.description", { cost, balance: cost - missing })}
             </AlertDialogDescription>
           </AlertDialogHeader>
+          {topUp}
           <AlertDialogFooter className="sm:flex-wrap">
             <Button variant="ghost" onClick={() => setCreditsDialogOpen(false)}>
               {t("cancel")}
@@ -239,12 +243,6 @@ export function GenerationScreen({
               className={buttonVariants({ variant: "outline" })}
             >
               {t("credits.upgrade")}
-            </Link>
-            <Link
-              href={{ pathname: "/tarifs", hash: "sans-abonnement" }}
-              className={buttonVariants()}
-            >
-              {t("credits.topUp")}
             </Link>
           </AlertDialogFooter>
         </AlertDialogContent>

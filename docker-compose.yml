@@ -1,0 +1,16 @@
+# Relais des webhooks Stripe (mode test) vers le serveur local (docs/architecture.md §8).
+#   Secret à copier dans STRIPE_WEBHOOK_SECRET :
+#     docker compose --env-file .env.local run --rm stripe listen --print-secret
+#   Relais pendant le développement :
+#     docker compose --env-file .env.local up stripe
+services:
+  stripe:
+    image: stripe/stripe-cli:v1.55.8
+    environment:
+      STRIPE_API_KEY: ${STRIPE_SECRET_KEY}
+    command:
+      - listen
+      - --forward-to
+      - http://host.docker.internal:3000/api/stripe/webhook
+      - --events
+      - checkout.session.completed,checkout.session.async_payment_succeeded,customer.subscription.created,customer.subscription.updated,customer.subscription.deleted,customer.subscription.paused,customer.subscription.resumed

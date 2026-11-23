@@ -6,6 +6,55 @@
 
 ---
 
+## ADR-029 — Choix de réalisation des paiements (Inc-6)
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : backend-engineer, database-architect, security-engineer,
+  frontend-engineer)
+- **Contexte** : US-18 à US-23, US-06 c.2 ; aucune clé Stripe de test n'est encore configurée
+  (tâche 4).
+- **Décision** :
+  - **SDK** `stripe` **23.1.0** (version fixée, publiée depuis plus de trois semaines ; API
+    `2026-10-28.endive`, où la fin de période est portée par la ligne d'abonnement). CLI Stripe
+    `v1.55.8` dans Docker pour relayer les webhooks en local.
+  - **Toute la logique d'argent en base**, dans des fonctions réservées au serveur :
+    `fulfill_purchase` (une fois par session de paiement, puis crédits, CV Pro ou retrait des
+    publicités), `sync_subscription` (essai : 10 crédits et essai consommé ; début ou fin d'essai :
+    quota de la formule ; montée : quota immédiat H25 ; descente : quota à la prochaine remise ;
+    fin : crédits inclus à zéro H24 ; un événement tardif d'un ancien abonnement est ignoré),
+    `run_monthly_grants` et `run_daily_maintenance` (planifiées par pg_cron). La maintenance
+    rembourse aussi les opérations IA restées « en cours » plus de 15 minutes (report de
+    l'ADR-027).
+  - **Webhook** : signature vérifiée, abonnement relu chez Stripe (ordre indifférent), événement
+    noté **après** traitement (un échec laisse Stripe réessayer ; traitements idempotents) ;
+    événement d'un compte supprimé ignoré. Droits pendant les relances (`past_due`).
+  - **Session Checkout** : client Stripe créé au premier achat (clé d'idempotence par compte),
+    prix désigné par sa clé (`pro_month`…), langue de l'interface, **acceptation obligatoire des
+    CGV avec renonciation au droit de rétractation** (texte traduit), facture pour les achats
+    uniques. Contrôles avant paiement : déjà abonné, essai déjà utilisé, CV déjà débloqué.
+  - **Retour de paiement** : `/api/me/wallet` interrogé toutes les 1,5 s pendant 10 s ; un achat
+    est confirmé par sa session, un abonnement par la formule active.
+  - **Recharge depuis « Solde insuffisant »** : le paiement revient sur la génération, qui reprend
+    une fois l'achat confirmé.
+  - **Suppression du compte** : le client Stripe est supprimé d'abord (abonnement résilié
+    aussitôt) ; en cas d'échec, le compte n'est pas supprimé (`PAYMENT_ERROR`).
+  - **Écarts au modèle** : pas de contrainte « CV obligatoire » sur `purchases` (le CV peut être
+    remplacé ou supprimé ensuite) ; vérifiée à l'achat. Les composants d'achat sont passés aux
+    pages des autres fonctionnalités par emplacements (`topUp`, actions des cartes de formule).
+  - **Sans clé Stripe**, le paiement affiche « Le paiement est momentanément indisponible » ;
+    clés obligatoires en production.
+- **Reporté** : vérification réelle avec Stripe en mode test (dès la tâche 4 : script, Checkout,
+  portail, webhooks) ; retrait des publicités (Inc-11) ; comptes de démonstration
+  (`seed.sql`, Inc-13 : les comptes se créent par connexion, les formules par
+  `sync_subscription`).
+- **Risque résiduel** : deux paiements d'abonnement lancés en même temps sur le même compte
+  donneraient deux abonnements chez Stripe (le second remplace le premier en base) ; contrôle
+  avant paiement, cas rare, résiliation possible par le portail.
+- **Impact** : financier / sécurité (fort)
+
+---
+
 ## ADR-028 — Choix de réalisation des exports PDF et DOCX (Inc-5)
 
 - **Date** : 23/11/2026

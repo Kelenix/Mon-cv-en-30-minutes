@@ -263,7 +263,7 @@
     "plan": "Plan",
     "noPlan": "Sin suscripción",
     "totalCredits": "Saldo total",
-    "seeOffers": "Ver planes y recargar"
+    "manageCredits": "Créditos, plan y compras"
   },
   "errors": {
     "UNAUTHENTICATED": "Tu sesión ha caducado. Vuelve a iniciar sesión para continuar.",
@@ -285,7 +285,9 @@
     "CV_LIMIT_REACHED": "Tu plan conserva un número limitado de CV: elige cuál sustituir.",
     "FREE_LIMIT_REACHED": "Se ha alcanzado el límite diario de CV gratuitos desde esta conexión. Vuelve a intentarlo mañana o descubre nuestros planes.",
     "AI_UNAVAILABLE": "La generación no se ha completado. Te hemos devuelto los créditos: vuelve a intentarlo.",
-    "AI_INVALID_OUTPUT": "La generación no se ha completado. Te hemos devuelto los créditos: vuelve a intentarlo."
+    "AI_INVALID_OUTPUT": "La generación no se ha completado. Te hemos devuelto los créditos: vuelve a intentarlo.",
+    "CONFLICT": "Esta acción ya no es posible.",
+    "PAYMENT_ERROR": "El pago no está disponible en este momento. Vuelve a intentarlo en un instante."
   },
   "legal": {
     "updatedAt": "Última actualización: {date}",
@@ -364,7 +366,6 @@
     "credits": {
       "title": "Te {missing, plural, one {falta # crédito} other {faltan # créditos}}",
       "description": "Generar un CV cuesta {cost, plural, one {# crédito} other {# créditos}}. Tu saldo: {balance, plural, one {# crédito} other {# créditos}}.",
-      "topUp": "Recargar mis créditos",
       "upgrade": "Pasarme a Pro"
     },
     "replace": {
@@ -460,7 +461,9 @@
       "interview": "Prepararte para la entrevista"
     },
     "cta": "Ver los planes",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "upgradeTitle": "Pásate a {plan}",
+    "upgradeText": "{count} créditos incluidos cada mes en lugar de {current}."
   },
   "cvDocument": {
     "watermark": "Creado con {brand}"
@@ -473,5 +476,68 @@
     "lockedTitle": "PDF sin marca de agua y DOCX",
     "lockedText": "Tu PDF gratuito lleva una discreta mención de nuestro sitio a pie de página. El PDF sin marca de agua y el formato DOCX están incluidos en todas las suscripciones, o con CV Pro ({price}) para este CV.",
     "seeOffers": "Ver los planes"
+  },
+  "billing": {
+    "metaTitle": "Créditos y plan",
+    "title": "Créditos y plan",
+    "plan": {
+      "title": "Tu plan",
+      "none": "Sin suscripción",
+      "noneHint": "Sin suscripción, pagas las funciones de IA con créditos comprados.",
+      "seePlans": "Ver los planes",
+      "intervals": {
+        "month": "mensual",
+        "year": "anual"
+      },
+      "renews": "Se renueva el {date}.",
+      "ends": "Termina el {date}.",
+      "trialEnds": "Prueba gratuita hasta el {date}.",
+      "pastDue": "Pago pendiente: actualiza tu método de pago para conservar tu plan.",
+      "manage": "Gestionar mi suscripción"
+    },
+    "credits": {
+      "title": "Tus créditos",
+      "total": "Saldo total",
+      "included": "Créditos incluidos",
+      "includedReset": "Se restablecen a {count} el {date}",
+      "purchased": "Créditos comprados",
+      "purchasedHint": "No caducan nunca."
+    },
+    "topUp": {
+      "title": "Recargar",
+      "pack": "{count} créditos — {price}",
+      "buy": "Comprar {count} créditos"
+    },
+    "purchases": {
+      "title": "Tus compras",
+      "pack": "Paquete de {count} créditos",
+      "cvPro": "CV Pro — {title}",
+      "cvDeleted": "CV eliminado",
+      "adsRemoval": "Eliminación de anuncios"
+    },
+    "return": {
+      "pending": "Pago recibido, actualizando tu cuenta…",
+      "done": "Pago confirmado: tu cuenta está al día.",
+      "slow": "Hemos recibido tu pago; tu cuenta se actualizará en unos instantes.",
+      "refresh": "Actualizar",
+      "cancelled": "Pago cancelado: no se ha cobrado nada."
+    },
+    "checkout": {
+      "subscribe": "Elegir {plan}",
+      "trial": "Probar Pro gratis {days} días",
+      "trialTerms": "{days} días gratis con {credits} créditos y, después, una suscripción Pro que se renueva automáticamente. Se pide la tarjeta, pero no se cobra nada durante la prueba; puedes cancelar en cualquier momento.",
+      "terms": "Acepto las [condiciones generales de venta]({url}) y solicito el acceso inmediato al servicio: renuncio a mi derecho de desistimiento."
+    },
+    "conflict": {
+      "subscribed": "Ya tienes una suscripción: cambia de plan desde «Gestionar mi suscripción», en Créditos y plan.",
+      "trialUsed": "La prueba gratuita ya se ha utilizado en esta cuenta.",
+      "cvUnlocked": "Este CV ya está desbloqueado."
+    },
+    "cvPro": {
+      "title": "CV Pro — {price}",
+      "text": "PDF sin marca de agua y DOCX para este CV, para siempre, sin suscripción.",
+      "unlock": "Desbloquear este CV"
+    },
+    "pricingCvPro": "Se desbloquea desde la vista previa de tu CV."
   }
 }

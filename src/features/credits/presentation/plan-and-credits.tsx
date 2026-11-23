@@ -1,13 +1,20 @@
 import { useTranslations } from "next-intl";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import type { PlanTier } from "@/features/plans/catalog";
 import type { Wallet } from "../wallet";
 
 /**
- * Formule et crédits dans l'espace compte (US-05 c.1, US-07 c.3). Les abonnements arrivent à
- * l'Inc-6 : d'ici là, aucun compte n'a de formule, d'où « Aucun abonnement ».
+ * Formule et crédits dans l'espace compte (US-05 c.1, US-07 c.3), avec le lien vers le détail :
+ * recharge, abonnement, achats.
  */
-export function PlanAndCredits({ wallet }: { wallet: Wallet }) {
+export function PlanAndCredits({
+  wallet,
+  plan,
+}: {
+  wallet: Wallet;
+  plan: PlanTier | null;
+}) {
   const t = useTranslations();
 
   return (
@@ -21,7 +28,9 @@ export function PlanAndCredits({ wallet }: { wallet: Wallet }) {
       <dl className="mt-6 grid gap-4 sm:grid-cols-2">
         <div>
           <dt className="font-medium">{t("account.plan")}</dt>
-          <dd className="mt-1">{t("account.noPlan")}</dd>
+          <dd className="mt-1">
+            {plan ? t(`plans.names.${plan}`) : t("account.noPlan")}
+          </dd>
         </div>
         <div>
           <dt className="font-medium">{t("account.totalCredits")}</dt>
@@ -39,10 +48,10 @@ export function PlanAndCredits({ wallet }: { wallet: Wallet }) {
         </div>
       </dl>
       <Link
-        href="/tarifs"
+        href="/compte/credits"
         className={`${buttonVariants({ variant: "outline" })} mt-6`}
       >
-        {t("account.seeOffers")}
+        {t("account.manageCredits")}
       </Link>
     </section>
   );

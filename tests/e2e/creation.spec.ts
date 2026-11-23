@@ -191,8 +191,9 @@ test("sans crédit, il faut remplacer le CV puis recharger ; le crédit est déb
   await expect(
     credits.getByText("Générer un CV coûte 1 crédit. Ton solde : 0 crédit."),
   ).toBeVisible();
+  // Recharge proposée sur place (US-18), retour sur la génération après paiement.
   await expect(
-    credits.getByRole("link", { name: fr.generation.credits.topUp }),
+    credits.getByRole("button", { name: /^15 crédits — 6,99/ }),
   ).toBeVisible();
   await credits.getByRole("button", { name: fr.generation.cancel }).click();
   await expect(page.getByRole("main").getByRole("alert")).toHaveText(

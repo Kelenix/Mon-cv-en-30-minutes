@@ -22,6 +22,7 @@
     "db:reset": "supabase db reset",
     "db:status": "supabase status",
     "db:types": "supabase gen types typescript --local --schema public > src/lib/supabase/database.types.ts && prettier --write src/lib/supabase/database.types.ts",
+    "stripe:seed": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/stripe-seed.mts",
     "verify": "npm run lint && npm run typecheck && npm run format:check && npm run test && npm run build",
     "prepare": "simple-git-hooks"
   },
@@ -53,6 +54,7 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "server-only": "0.0.1",
+    "stripe": "23.1.0",
     "zod": "4.6.7"
   },
   "devDependencies": {

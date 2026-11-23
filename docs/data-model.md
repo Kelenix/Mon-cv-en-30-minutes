@@ -113,7 +113,7 @@ solde du portefeuille. Toute mise à jour d'une ligne est bloquée par un décle
 | `id` | uuid | PK |
 | `user_id` | uuid | FK `profiles` `on delete cascade` |
 | `product` | `purchase_product` | not null |
-| `cv_id` | uuid | null, FK `cvs` `on delete set null` ; obligatoire si `product = cv_pro` (check) |
+| `cv_id` | uuid | null, FK `cvs` `on delete set null` ; obligatoire à l'achat d'un `cv_pro` (vérifié par `fulfill_purchase` : le CV peut être remplacé ensuite, ADR-029) |
 | `stripe_checkout_session_id` | text | not null, **unique** (idempotence) |
 | `amount_cents` | int | not null, `>= 0` |
 | `currency` | text | not null, défaut `eur` |
@@ -227,8 +227,10 @@ Fonctions `SECURITY DEFINER` avec `search_path` vide ; `execute` retiré à `pub
 | `begin_ai_operation(user_id, request_id, kind, cost, allow_included, try_free, rate_limit, free_ip_limit, ip_hash)` | Sous verrou du portefeuille : rejeu d'une même demande, limite par minute (`RATE_LIMITED`), gratuité de la première génération (une à la fois, plafond par IP `FREE_LIMIT_REACHED`), sinon débit | Inc-4 |
 | `complete_cv_generation(operation_id, title, language, answers, content, model, tokens…, replace_cv_id, cv_limit)` | Crée le CV (en supprimant le CV remplacé, `CV_LIMIT_REACHED` au-delà du plafond), consomme la gratuité, marque l'opération réussie avec ses coûts | Inc-4 |
 | `fail_ai_operation(operation_id, error_code, model, tokens…)` | Rembourse une seule fois et marque l'opération échouée | Inc-4 |
+| `fulfill_purchase(user_id, product, session_id, amount_cents, currency, terms_accepted_at, credits, cv_id)` | Enregistre l'achat une seule fois par session de paiement, puis ajoute les crédits, débloque le CV Pro ou retire les publicités | Inc-6 |
+| `sync_subscription(user_id, subscription_id, plan, interval, status, monthly_credits, trial_credits, period_end, cancel_at_period_end, trial_ends_at)` | État relu chez Stripe : essai (crédits d'essai, essai consommé), début ou fin d'essai (quota), montée (quota immédiat), fin (inclus à zéro), date de prochaine remise | Inc-6 |
 | `run_monthly_grants()` | Pour chaque abonnement `active` ou `past_due` dont `next_credit_grant_at <= now()` : remise au quota, prochaine date + 1 mois | Inc-6 |
-| `run_daily_maintenance()` | Efface les IP hachées de plus de 30 jours, les événements Stripe de plus de 90 jours, les jetons expirés | Inc-6 |
+| `run_daily_maintenance()` | Efface les IP hachées de plus de 30 jours et les événements Stripe de plus de 90 jours ; rembourse les opérations IA restées « en cours » plus de 15 minutes (les jetons expirés s'ajoutent à l'Inc-11) | Inc-6 |
 
 Planification `pg_cron` : `run_monthly_grants()` toutes les heures, `run_daily_maintenance()`
 chaque jour à 3 h (heure UTC).
@@ -262,7 +264,7 @@ Les contraintes `unique` (`stripe_checkout_session_id`, `provider_subscription_i
 | Inc-2 | `profiles` | Table, RLS, privilèges par colonne, `set_updated_at`, `handle_new_user`, `touch_last_seen` |
 | Inc-3 | `credits` | Énumérations, `credit_wallets`, `credit_ledger`, `ai_operations`, fonctions de crédits, `handle_new_user` complété |
 | Inc-4 | `cvs` | Table `cvs`, RLS, index, fonctions de génération |
-| Inc-6 | `billing` | `subscriptions`, `purchases`, `stripe_events`, `pg_cron`, `run_monthly_grants`, `run_daily_maintenance` |
+| Inc-6 | `billing` | `subscriptions`, `purchases`, `stripe_events`, `fulfill_purchase`, `sync_subscription`, `pg_cron`, `run_monthly_grants`, `run_daily_maintenance` |
 | Inc-7 | `generations` | Table `generations`, RLS |
 | Inc-11 | `ads` | `reward_tokens` |
 

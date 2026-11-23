@@ -9,6 +9,7 @@ import { signOut } from "@/features/auth/actions";
 import { requireUser } from "@/features/auth/session";
 import { PlanAndCredits } from "@/features/credits/presentation/plan-and-credits";
 import { getCurrentWallet } from "@/features/credits/wallet";
+import { getActivePlan } from "@/features/billing/subscription";
 import { getOwnProfile } from "@/features/profile/data/profile-repository";
 import { DeleteAccountDialog } from "@/features/profile/presentation/delete-account-dialog";
 import { ProfileForm } from "@/features/profile/presentation/profile-form";
@@ -44,7 +45,10 @@ async function AccountContent() {
   const t = await getTranslations("account");
   const user = await requireUser(locale, "/compte");
   const profile = await getOwnProfile(await createClient(), user.id);
-  const wallet = await getCurrentWallet();
+  const [wallet, plan] = await Promise.all([
+    getCurrentWallet(),
+    getActivePlan(),
+  ]);
   const messages = await pickClientMessages(["profile", "account", "errors"]);
 
   return (
@@ -73,7 +77,7 @@ async function AccountContent() {
         </div>
       </section>
 
-      {wallet ? <PlanAndCredits wallet={wallet} /> : null}
+      {wallet ? <PlanAndCredits wallet={wallet} plan={plan} /> : null}
 
       <form action={signOut} className="mt-10 border-t border-border pt-8">
         <input type="hidden" name="locale" value={locale} />

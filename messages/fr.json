@@ -263,7 +263,7 @@
     "plan": "Formule",
     "noPlan": "Aucun abonnement",
     "totalCredits": "Solde total",
-    "seeOffers": "Voir les offres et recharger"
+    "manageCredits": "Crédits, formule et achats"
   },
   "errors": {
     "UNAUTHENTICATED": "Ta session a expiré. Reconnecte-toi pour continuer.",
@@ -285,7 +285,9 @@
     "CV_LIMIT_REACHED": "Ta formule conserve un nombre limité de CV : choisis celui à remplacer.",
     "FREE_LIMIT_REACHED": "Limite de CV gratuits atteinte pour aujourd'hui depuis cette connexion. Réessaie demain ou découvre nos offres.",
     "AI_UNAVAILABLE": "La génération n'a pas abouti. Tes crédits ont été rendus : réessaie.",
-    "AI_INVALID_OUTPUT": "La génération n'a pas abouti. Tes crédits ont été rendus : réessaie."
+    "AI_INVALID_OUTPUT": "La génération n'a pas abouti. Tes crédits ont été rendus : réessaie.",
+    "CONFLICT": "Cette action n'est plus possible.",
+    "PAYMENT_ERROR": "Le paiement est momentanément indisponible. Réessaie dans un instant."
   },
   "legal": {
     "updatedAt": "Dernière mise à jour : {date}",
@@ -364,7 +366,6 @@
     "credits": {
       "title": "Il te manque {missing, plural, one {# crédit} other {# crédits}}",
       "description": "Générer un CV coûte {cost, plural, one {# crédit} other {# crédits}}. Ton solde : {balance, plural, one {# crédit} other {# crédits}}.",
-      "topUp": "Recharger mes crédits",
       "upgrade": "Passer en Pro"
     },
     "replace": {
@@ -460,7 +461,9 @@
       "interview": "T'entraîner pour l'entretien"
     },
     "cta": "Voir les offres",
-    "close": "Fermer l'encart"
+    "close": "Fermer l'encart",
+    "upgradeTitle": "Passe à {plan}",
+    "upgradeText": "{count} crédits inclus chaque mois au lieu de {current}."
   },
   "cvDocument": {
     "watermark": "Créé avec {brand}"
@@ -473,5 +476,68 @@
     "lockedTitle": "PDF sans filigrane et DOCX",
     "lockedText": "Ton PDF gratuit porte une discrète mention de notre site en pied de page. Le PDF sans filigrane et le format DOCX sont inclus dans tous les abonnements, ou avec CV Pro ({price}) pour ce CV.",
     "seeOffers": "Voir les offres"
+  },
+  "billing": {
+    "metaTitle": "Crédits et formule",
+    "title": "Crédits et formule",
+    "plan": {
+      "title": "Ta formule",
+      "none": "Aucun abonnement",
+      "noneHint": "Sans abonnement, tu paies les fonctions IA avec des crédits achetés.",
+      "seePlans": "Voir les formules",
+      "intervals": {
+        "month": "mensuelle",
+        "year": "annuelle"
+      },
+      "renews": "Renouvelée le {date}.",
+      "ends": "Se termine le {date}.",
+      "trialEnds": "Essai gratuit jusqu'au {date}.",
+      "pastDue": "Paiement en attente : mets à jour ton moyen de paiement pour garder ta formule.",
+      "manage": "Gérer mon abonnement"
+    },
+    "credits": {
+      "title": "Tes crédits",
+      "total": "Solde total",
+      "included": "Crédits inclus",
+      "includedReset": "Remis à {count} le {date}",
+      "purchased": "Crédits achetés",
+      "purchasedHint": "Sans date d'expiration."
+    },
+    "topUp": {
+      "title": "Recharger",
+      "pack": "{count} crédits — {price}",
+      "buy": "Acheter {count} crédits"
+    },
+    "purchases": {
+      "title": "Tes achats",
+      "pack": "Pack de {count} crédits",
+      "cvPro": "CV Pro — {title}",
+      "cvDeleted": "CV supprimé",
+      "adsRemoval": "Suppression des publicités"
+    },
+    "return": {
+      "pending": "Paiement reçu, mise à jour de ton compte…",
+      "done": "Paiement confirmé : ton compte est à jour.",
+      "slow": "Ton paiement est bien reçu ; ton compte s'actualisera dans quelques instants.",
+      "refresh": "Actualiser",
+      "cancelled": "Paiement annulé : rien n'a été débité."
+    },
+    "checkout": {
+      "subscribe": "Choisir {plan}",
+      "trial": "Essayer Pro gratuitement {days} jours",
+      "trialTerms": "{days} jours gratuits avec {credits} crédits, puis abonnement Pro renouvelé automatiquement. Ta carte est demandée mais rien n'est débité pendant l'essai ; tu peux résilier à tout moment.",
+      "terms": "J'accepte les [conditions générales de vente]({url}) et je demande la fourniture immédiate du service : je renonce à mon droit de rétractation."
+    },
+    "conflict": {
+      "subscribed": "Tu as déjà un abonnement : change de formule depuis « Gérer mon abonnement », dans Crédits et formule.",
+      "trialUsed": "L'essai gratuit a déjà été utilisé sur ce compte.",
+      "cvUnlocked": "Ce CV est déjà débloqué."
+    },
+    "cvPro": {
+      "title": "CV Pro — {price}",
+      "text": "PDF sans filigrane et DOCX pour ce CV, pour toujours, sans abonnement.",
+      "unlock": "Débloquer ce CV"
+    },
+    "pricingCvPro": "À débloquer depuis l'aperçu de ton CV."
   }
 }

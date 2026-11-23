@@ -58,7 +58,10 @@ export function CreditsBadge({ wallet, labels }: CreditsBadgeProps) {
             </div>
           ))}
         </dl>
-        <Link href="/tarifs" className={buttonVariants({ variant: "outline" })}>
+        <Link
+          href="/compte/credits"
+          className={buttonVariants({ variant: "outline" })}
+        >
           {labels.topUp}
         </Link>
       </PopoverContent>

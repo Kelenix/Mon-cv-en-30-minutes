@@ -3,7 +3,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { requireUser } from "@/features/auth/session";
-import { getActivePlan } from "@/features/credits/wallet";
+import { CreditPackButtons } from "@/features/billing/presentation/offers";
+import { PaymentReturn } from "@/features/billing/presentation/payment-return";
+import { getActivePlan } from "@/features/billing/subscription";
 import { GenerationScreen } from "@/features/cv/presentation/generation-screen";
 import { GenerationSteps } from "@/features/cv/presentation/generation-steps";
 import { listOwnCvs } from "@/features/cv/repository";
@@ -20,7 +22,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // Génération du CV (US-11, docs/design/flows.md §3.5) : les étapes s'affichent immédiatement,
 // puis l'écran lance la génération avec le brouillon du navigateur.
-export default async function GenerationPage() {
+export default async function GenerationPage({
+  searchParams,
+}: PageProps<"/[locale]/creer/generation">) {
   const t = await getTranslations("generation");
 
   return (
@@ -30,25 +34,52 @@ export default async function GenerationPage() {
           {t("title")}
         </h1>
         <Suspense fallback={<GenerationSteps current={0} />}>
-          <Generation />
+          <Generation searchParams={searchParams} />
         </Suspense>
       </div>
     </div>
   );
 }
 
-async function Generation() {
+async function Generation({
+  searchParams,
+}: Pick<PageProps<"/[locale]/creer/generation">, "searchParams">) {
   const locale = await getLocale();
   await requireUser(locale, "/creer/generation");
-  const [cvs, plan, messages] = await Promise.all([
+  const [query, cvs, plan, messages] = await Promise.all([
+    searchParams,
     listOwnCvs(),
     getActivePlan(),
-    pickClientMessages(["generation", "errors"]),
+    pickClientMessages(["generation", "errors", "billing"]),
   ]);
+  const screen = (
+    <GenerationScreen
+      cvs={cvs}
+      cvLimit={planEntitlements(plan).cvLimit}
+      topUp={<CreditPackButtons returnTo="generation" stacked />}
+    />
+  );
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <GenerationScreen cvs={cvs} cvLimit={planEntitlements(plan).cvLimit} />
+      {/* Retour d'un achat de crédits : la génération reprend une fois l'achat confirmé. */}
+      {query.paiement === "ok" || query.paiement === "annule" ? (
+        <div className="grid gap-6">
+          <PaymentReturn
+            outcome={query.paiement}
+            sessionId={
+              typeof query.session_id === "string"
+                ? query.session_id
+                : undefined
+            }
+            subscription={false}
+          >
+            {screen}
+          </PaymentReturn>
+        </div>
+      ) : (
+        screen
+      )}
     </NextIntlClientProvider>
   );
 }

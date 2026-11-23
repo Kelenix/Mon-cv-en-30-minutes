@@ -41,7 +41,7 @@ Versions relevées sur le registre npm le 23/11/2026, épinglées dans `package.
 | État serveur côté client | TanStack Query (usage limité, voir §4) | 5.108.x |
 | Base, Auth | Supabase (`@supabase/supabase-js`, `@supabase/ssr`), CLI en dépendance du projet | 2.119.x, 0.12.x, CLI 3.2.x |
 | IA | `@anthropic-ai/sdk` | 1.6.0 (ADR-027) |
-| Paiement | `stripe` (serveur uniquement) | 23.2.x |
+| Paiement | `stripe` (serveur uniquement), CLI Stripe dans Docker | 23.1.0, CLI v1.55.8 (ADR-029) |
 | Exports | `@react-pdf/renderer`, `docx`, police Arimo | 4.9.0, 9.15.3 (ADR-028) |
 | Notifications | `sonner` | 2.0.x |
 | Tests | Vitest, Playwright | 5.1.x, 1.65.x |
@@ -103,7 +103,7 @@ supabase/
 ├── seed.sql             # comptes et données de développement
 └── templates/           # e-mail de connexion (code + lien), un bloc par langue
 messages/                # fr.json (référence), en.json, it.json, es.json, de.json
-scripts/stripe-seed.ts   # crée produits, prix (lookup keys) et configuration du portail en mode test
+scripts/stripe-seed.mts  # crée produits, prix (lookup keys) et configuration du portail en mode test
 tests/unit/              # Vitest, logique pure
 tests/db/                # Vitest contre Supabase local : RLS et fonctions SQL
 tests/e2e/               # Playwright (ordinateur et mobile)
@@ -212,13 +212,13 @@ Flux détaillés : `docs/system-design.md` §3.
   mode abonnement : formules, essai de 3 jours) et **portail client Stripe** pour changer de
   formule, de moyen de paiement ou résilier.
 - Prix identifiés par **lookup keys** (`credits_5`, `pro_month`…), TTC ; créés en mode test par
-  `scripts/stripe-seed.ts`, qui configure aussi le portail (montée immédiate au prorata,
+  `scripts/stripe-seed.mts` (`npm run stripe:seed`), qui configure aussi le portail (montée immédiate au prorata,
   descente et résiliation en fin de période).
 - Renonciation au droit de rétractation recueillie par Stripe Checkout (acceptation des
   conditions obligatoire, avec un texte dédié), puis copiée dans la table `purchases`.
 - **Webhook** `/api/stripe/webhook` : signature vérifiée, idempotence par identifiant
   d'événement, état d'abonnement relu depuis Stripe à chaque événement (ordre indifférent).
-- En local, la CLI Stripe tourne dans Docker (`docker compose up stripe`) et relaie les
+- En local, la CLI Stripe tourne dans Docker (`docker compose --env-file .env.local up stripe`) et relaie les
   événements vers `http://host.docker.internal:3000/api/stripe/webhook`.
 
 ---
@@ -286,7 +286,7 @@ de Google. Vidéo récompensée : jeton à usage unique émis par le serveur, pl
 |---------|----------|
 | Supabase local (Docker) | `npm run db:start` / `npm run db:stop` / `npm run db:reset` |
 | Application | `npm run dev` (Node.js 24, hors conteneur — ADR-007) |
-| Webhooks Stripe locaux | `docker compose up stripe` |
+| Webhooks Stripe locaux | `docker compose --env-file .env.local up stripe` |
 | Qualité | `npm run lint`, `npm run typecheck`, `npm run test`, `npm run test:e2e` |
 
 **GitHub Actions** sur chaque push et pull request : installation, lint, vérification des types,

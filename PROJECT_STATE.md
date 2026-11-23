@@ -5,12 +5,12 @@
 
 ## Snapshot
 
-- **Phase courante** : 4 — Implémentation (Inc-5 terminé ; jalon M2 atteint)
+- **Phase courante** : 4 — Implémentation (Inc-6 réalisé ; vérification Stripe réelle en attente des clés)
 - **Dernière mise à jour** : 23/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : Inc-6 (paiements Stripe en mode test : packs, CV Pro, formules,
-  essai, portail, remise mensuelle ; clés de test de la tâche 4). L'IA reste simulée tant que la
-  clé Anthropic n'est pas fournie (tâche 3). Noms de marque traduits utilisés tels que
+- **Prochaine action** : tâche 4 (clés Stripe de test) pour vérifier les paiements de bout en
+  bout avec Stripe, puis Inc-7 (amélioration par l'IA). L'IA reste simulée tant que la clé
+  Anthropic n'est pas fournie (tâche 3). Noms de marque traduits utilisés tels que
   proposés tant que la tâche 12 n'est pas faite.
 - **Git** : Inc-0 sur `feat/inc-0-socle` (7e76fa6), Inc-1 sur `feat/inc-1-vitrine` (0d56467),
   Inc-2 commité sur `main` (5643827 ; la branche `feat/inc-2-comptes` a été renommée `main`).
@@ -25,7 +25,7 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-5 ✅ (jalon M2) |
+| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-6 ✅ (jalon M2 ; M3 en attente des clés Stripe) |
 | 5 — Qualité                 | ⬜ à faire | |
 | 6 — Mise en production      | ⬜ à faire | |
 | 7 — Documentation           | ⬜ à faire | |
@@ -46,7 +46,7 @@ Taille relative : S / M / L / XL.
 | Inc-3 | Crédits & droits | US-07, 08, 09 | Inc-2 | L | M2 | ✅ (US-07 c.2 → Inc-6 ; US-08 c.1, c.3, c.4 → Inc-4 ; US-09 c.2, c.4 → Inc-7) |
 | Inc-4 | Création de CV par IA | US-10 à 15, US-42 | Inc-3, clé Anthropic | L | M2 | ✅ (IA simulée tant que la tâche 3 n'est pas faite ; US-11 c.4 et c.5 à mesurer avec la clé ; US-15 c.3 → Inc-6) |
 | Inc-5 | Exports PDF / DOCX | US-16, 17 | Inc-4 | M | M2 | ✅ (US-17 c.1 vérifié avec un CV Pro posé en test ; achat et abonnements à l'Inc-6) |
-| Inc-6 | Paiements | US-18 à 23, US-38 (CGV) | Inc-3, Inc-5, clés Stripe test | XL | M3 | ⬜ |
+| Inc-6 | Paiements | US-18 à 23, US-38 (CGV) | Inc-3, Inc-5, clés Stripe test | XL | M3 | ✅ code et tests ; vérification avec Stripe réel dès la tâche 4 (US-38 c.3 : CGV déjà rédigées à l'Inc-1) |
 | Inc-7 | Amélioration IA | US-25, 26, 27 | Inc-6 | L | M4 | ⬜ |
 | Inc-8 | LinkedIn + lettre de motivation | US-28, 29 | Inc-6 | M | M4 | ⬜ |
 | Inc-9 | Simulation d'entretien | US-30 | Inc-6 | M | M4 | ⬜ |
@@ -106,6 +106,14 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 23/11/2026 — **Inc-6 réalisé** : abonnements, achats et événements Stripe en base, fonctions
+  serveur (achat livré une fois, synchronisation d'abonnement : essai, paiement, montée, descente,
+  fin ; remise mensuelle et maintenance planifiées par pg_cron), webhook signé, Checkout
+  (CGV et renonciation obligatoires), portail client, page « Crédits et formule », achats depuis
+  Tarifs, l'aperçu (CV Pro) et « Solde insuffisant », résiliation à la suppression du compte ;
+  5 langues. Vérifié sans Stripe réel (clés absentes) : lint, types, tests unitaires, base, build,
+  bout en bout. ADR-029.
 
 - 23/11/2026 — **Inc-5 terminé (jalon M2)** : PDF du CV (une colonne, police Arimo intégrée,
   aucune césure, filigrane dans la langue du CV sur chaque page sans droit) et DOCX (titres Word,
