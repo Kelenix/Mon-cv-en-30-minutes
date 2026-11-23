@@ -12,7 +12,9 @@
   débit atomique, matrice des droits). Noms de marque traduits utilisés tels que proposés tant que
   la tâche 12 n'est pas faite.
 - **Git** : Inc-0 sur `feat/inc-0-socle` (7e76fa6), Inc-1 sur `feat/inc-1-vitrine` (0d56467),
-  Inc-2 commité sur `feat/inc-2-comptes` (créée depuis Inc-1). Aucun dépôt distant (tâche 11).
+  Inc-2 commité sur `main` (5643827 ; la branche `feat/inc-2-comptes` a été renommée `main`).
+  Dépôt GitHub relié (`origin`, tâche 11) : `origin/main` contient l'Inc-1, l'Inc-2 n'est pas
+  encore poussé.
 
 ## Avancement par phase
 

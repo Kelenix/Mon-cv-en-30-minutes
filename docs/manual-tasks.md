@@ -130,7 +130,7 @@
   commercial ; domaine environ 10 à 15 €/an.
 - **Vérification** : le site répond sur le domaine en HTTPS.
 
-## Tâche 11 : Créer le dépôt GitHub
+## Tâche 11 ✅ : Créer le dépôt GitHub (dépôt relié le 23/11/2026 ; CI à vérifier au prochain envoi)
 - **Pourquoi** : héberger le code et faire tourner l'intégration continue (GitHub Actions) ; Vercel
   déploiera depuis ce dépôt.
 - **Quand** : pendant l'Inc-0, pour voir la CI au vert. En attendant, les mêmes vérifications
