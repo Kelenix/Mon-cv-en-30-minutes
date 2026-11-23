@@ -224,6 +224,16 @@
     "city": "Ort",
     "optional": "optional"
   },
+  "credits": {
+    "count": "{count, plural, one {# Credit} other {# Credits}}",
+    "balanceLabel": "{count, plural, one {Credit} other {Credits}}, Details anzeigen",
+    "title": "Dein Credit-Guthaben",
+    "included": "Inklusive Credits",
+    "includedHint": "Werden jeden Monat mit deinem Abo erneuert.",
+    "purchased": "Gekaufte Credits",
+    "purchasedHint": "Sie verfallen nicht.",
+    "topUp": "Aufladen"
+  },
   "account": {
     "metaTitle": "Mein Konto",
     "title": "Mein Konto",
@@ -246,7 +256,12 @@
       "cancel": "Abbrechen",
       "confirm": "Endgültig löschen"
     },
-    "deletedNotice": "Dein Konto wurde gelöscht."
+    "deletedNotice": "Dein Konto wurde gelöscht.",
+    "planTitle": "Abo und Credits",
+    "plan": "Abo",
+    "noPlan": "Kein Abo",
+    "totalCredits": "Gesamtguthaben",
+    "seeOffers": "Angebote ansehen und aufladen"
   },
   "errors": {
     "UNAUTHENTICATED": "Deine Sitzung ist abgelaufen. Melde dich erneut an, um fortzufahren.",

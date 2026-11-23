@@ -224,6 +224,16 @@
     "city": "Ciudad",
     "optional": "opcional"
   },
+  "credits": {
+    "count": "{count, plural, one {# crédito} other {# créditos}}",
+    "balanceLabel": "{count, plural, one {crédito} other {créditos}}, ver el detalle",
+    "title": "Tu saldo de créditos",
+    "included": "Créditos incluidos",
+    "includedHint": "Se renuevan cada mes con tu suscripción.",
+    "purchased": "Créditos comprados",
+    "purchasedHint": "No caducan.",
+    "topUp": "Recargar"
+  },
   "account": {
     "metaTitle": "Mi cuenta",
     "title": "Mi cuenta",
@@ -246,7 +256,12 @@
       "cancel": "Cancelar",
       "confirm": "Eliminar definitivamente"
     },
-    "deletedNotice": "Tu cuenta se ha eliminado."
+    "deletedNotice": "Tu cuenta se ha eliminado.",
+    "planTitle": "Plan y créditos",
+    "plan": "Plan",
+    "noPlan": "Sin suscripción",
+    "totalCredits": "Saldo total",
+    "seeOffers": "Ver planes y recargar"
   },
   "errors": {
     "UNAUTHENTICATED": "Tu sesión ha caducado. Vuelve a iniciar sesión para continuar.",

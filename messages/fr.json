@@ -224,6 +224,16 @@
     "city": "Ville",
     "optional": "facultatif"
   },
+  "credits": {
+    "count": "{count, plural, one {# crédit} other {# crédits}}",
+    "balanceLabel": "{count, plural, one {crédit} other {crédits}}, voir le détail",
+    "title": "Ton solde de crédits",
+    "included": "Crédits inclus",
+    "includedHint": "Remis chaque mois avec ton abonnement.",
+    "purchased": "Crédits achetés",
+    "purchasedHint": "Sans date d'expiration.",
+    "topUp": "Recharger"
+  },
   "account": {
     "metaTitle": "Mon compte",
     "title": "Mon compte",
@@ -246,7 +256,12 @@
       "cancel": "Annuler",
       "confirm": "Supprimer définitivement"
     },
-    "deletedNotice": "Ton compte a été supprimé."
+    "deletedNotice": "Ton compte a été supprimé.",
+    "planTitle": "Formule et crédits",
+    "plan": "Formule",
+    "noPlan": "Aucun abonnement",
+    "totalCredits": "Solde total",
+    "seeOffers": "Voir les offres et recharger"
   },
   "errors": {
     "UNAUTHENTICATED": "Ta session a expiré. Reconnecte-toi pour continuer.",

@@ -224,6 +224,16 @@
     "city": "City",
     "optional": "optional"
   },
+  "credits": {
+    "count": "{count, plural, one {# credit} other {# credits}}",
+    "balanceLabel": "{count, plural, one {credit} other {credits}}, see details",
+    "title": "Your credit balance",
+    "included": "Included credits",
+    "includedHint": "Renewed every month with your subscription.",
+    "purchased": "Purchased credits",
+    "purchasedHint": "They never expire.",
+    "topUp": "Top up"
+  },
   "account": {
     "metaTitle": "My account",
     "title": "My account",
@@ -246,7 +256,12 @@
       "cancel": "Cancel",
       "confirm": "Delete permanently"
     },
-    "deletedNotice": "Your account has been deleted."
+    "deletedNotice": "Your account has been deleted.",
+    "planTitle": "Plan and credits",
+    "plan": "Plan",
+    "noPlan": "No subscription",
+    "totalCredits": "Total balance",
+    "seeOffers": "See plans and top up"
   },
   "errors": {
     "UNAUTHENTICATED": "Your session has expired. Sign in again to continue.",

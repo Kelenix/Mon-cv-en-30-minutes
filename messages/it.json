@@ -224,6 +224,16 @@
     "city": "Città",
     "optional": "facoltativo"
   },
+  "credits": {
+    "count": "{count, plural, one {# credito} other {# crediti}}",
+    "balanceLabel": "{count, plural, one {credito} other {crediti}}, vedi il dettaglio",
+    "title": "Il tuo saldo crediti",
+    "included": "Crediti inclusi",
+    "includedHint": "Rinnovati ogni mese con il tuo abbonamento.",
+    "purchased": "Crediti acquistati",
+    "purchasedHint": "Senza scadenza.",
+    "topUp": "Ricarica"
+  },
   "account": {
     "metaTitle": "Il mio account",
     "title": "Il mio account",
@@ -246,7 +256,12 @@
       "cancel": "Annulla",
       "confirm": "Elimina definitivamente"
     },
-    "deletedNotice": "Il tuo account è stato eliminato."
+    "deletedNotice": "Il tuo account è stato eliminato.",
+    "planTitle": "Piano e crediti",
+    "plan": "Piano",
+    "noPlan": "Nessun abbonamento",
+    "totalCredits": "Saldo totale",
+    "seeOffers": "Vedi le offerte e ricarica"
   },
   "errors": {
     "UNAUTHENTICATED": "La tua sessione è scaduta. Accedi di nuovo per continuare.",

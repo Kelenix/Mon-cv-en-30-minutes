@@ -7,6 +7,8 @@ import { FormSkeleton } from "@/components/form/form-skeleton";
 import { SubmitButton } from "@/components/form/submit-button";
 import { signOut } from "@/features/auth/actions";
 import { requireUser } from "@/features/auth/session";
+import { PlanAndCredits } from "@/features/credits/presentation/plan-and-credits";
+import { getCurrentWallet } from "@/features/credits/wallet";
 import { getOwnProfile } from "@/features/profile/data/profile-repository";
 import { DeleteAccountDialog } from "@/features/profile/presentation/delete-account-dialog";
 import { ProfileForm } from "@/features/profile/presentation/profile-form";
@@ -18,8 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("metaTitle"), robots: { index: false } };
 }
 
-// Espace compte (US-05, US-06, docs/design/flows.md §3.10). La formule et le solde de crédits
-// s'ajoutent avec l'Inc-3 (crédits) et l'Inc-6 (abonnements).
+// Espace compte (US-05, US-06, US-07, docs/design/flows.md §3.10) : informations, formule et
+// crédits, déconnexion, suppression.
 export default async function AccountPage() {
   const t = await getTranslations("account");
 
@@ -42,6 +44,7 @@ async function AccountContent() {
   const t = await getTranslations("account");
   const user = await requireUser(locale, "/compte");
   const profile = await getOwnProfile(await createClient(), user.id);
+  const wallet = await getCurrentWallet();
   const messages = await pickClientMessages(["profile", "account", "errors"]);
 
   return (
@@ -69,6 +72,8 @@ async function AccountContent() {
           />
         </div>
       </section>
+
+      {wallet ? <PlanAndCredits wallet={wallet} /> : null}
 
       <form action={signOut} className="mt-10 border-t border-border pt-8">
         <input type="hidden" name="locale" value={locale} />

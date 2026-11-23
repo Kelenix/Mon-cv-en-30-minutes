@@ -38,6 +38,16 @@ Outils locaux une fois Supabase démarré :
 | Supabase Studio (base de données) | http://localhost:54323 |
 | Mailpit (e-mails de connexion) | http://localhost:54324 |
 
+## Donner des crédits à un compte local
+
+Les achats arrivent à l'Inc-6. En attendant, pour tester avec des crédits, dans Supabase Studio
+(http://localhost:54323, éditeur SQL) :
+
+```sql
+select public.grant_credits(id, 'purchased', 10, 'pack_purchase')
+from auth.users where email = 'moi@exemple.test';
+```
+
 ## Scripts
 
 | Commande | Rôle |

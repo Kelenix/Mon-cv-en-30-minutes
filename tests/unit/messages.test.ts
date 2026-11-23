@@ -8,7 +8,10 @@ import it_ from "../../messages/it.json";
 
 // Parité des traductions (US-41, NFR-09) : le français est la référence.
 const CATALOGS: Record<string, unknown> = { fr, en, it: it_, es, de };
-const PLACEHOLDER = /\{(\w+)\}/g;
+// Variable ICU : « {nom} » ou « {nom, plural, …} », mais pas le texte d'une forme plurielle
+// (« one {credit} », « other {…} »), qui varie selon la langue.
+const PLACEHOLDER =
+  /(?<!(?:zero|one|two|few|many|other|=\d+)\s*)\{(\w+)\s*[,}]/g;
 
 function flatten(value: unknown, prefix = ""): Map<string, string> {
   const entries = new Map<string, string>();

@@ -1,12 +1,9 @@
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  AuthNavLink,
-  AuthNavLinkFallback,
-} from "@/features/auth/presentation/auth-nav-link";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { AccountNav, AccountNavFallback } from "./account-nav";
 import { LanguageSwitcher } from "./language-switcher";
 import { Logo } from "./logo";
 
@@ -32,8 +29,8 @@ export function SiteHeader() {
             {t("pricing")}
           </Link>
           <LanguageSwitcher />
-          <Suspense fallback={<AuthNavLinkFallback />}>
-            <AuthNavLink />
+          <Suspense fallback={<AccountNavFallback />}>
+            <AccountNav />
           </Suspense>
           {/* Appel à l'action toujours visible sur ordinateur (§4.4). */}
           <Link

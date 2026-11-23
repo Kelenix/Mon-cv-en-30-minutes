@@ -86,7 +86,7 @@ L'e-mail n'est pas dupliqué : il reste dans `auth.users`.
 | `delta` | int | not null, `<> 0` |
 | `reason` | `ledger_reason` | not null |
 | `operation_id` | uuid | null, FK `ai_operations` `on delete set null` |
-| `purchase_id` | uuid | null, FK `purchases` `on delete set null` |
+| `purchase_id` | uuid | null, FK `purchases` `on delete set null` (contrainte ajoutée à l'Inc-6 avec la table) |
 
 Invariant testé (NFR-08) : pour chaque compte et chaque solde, la somme des `delta` est égale au
 solde du portefeuille. Toute mise à jour d'une ligne est bloquée par un déclencheur.
@@ -264,7 +264,8 @@ Les contraintes `unique` (`stripe_checkout_session_id`, `provider_subscription_i
 
 Chaque migration est rejouable depuis zéro (`npm run db:reset`) et vérifiée en CI.
 
-**Données de développement** (`supabase/seed.sql`, créé à l'Inc-3 avec les soldes) : quatre comptes de test (sans abonnement,
+**Données de développement** (`supabase/seed.sql`, reporté à l'Inc-6 avec les formules ; d'ici
+là, voir le README pour ajouter des crédits à un compte local) : quatre comptes de test (sans abonnement,
 Essential, Pro, Premium) avec des e-mails en `@exemple.test`, des soldes et un CV d'exemple. La
 connexion se fait par code, lu dans Mailpit (`http://localhost:54324`).
 

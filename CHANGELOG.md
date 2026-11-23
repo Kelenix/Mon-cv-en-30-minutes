@@ -4,6 +4,17 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-3 : crédits et droits
+
+- Crédits inclus et crédits achetés pour chaque compte, avec un journal de tous les mouvements
+  qui ne peut pas être modifié.
+- Débit des opérations IA côté base de données : crédits inclus d'abord quand la formule le
+  permet, jamais de solde négatif ni de double débit, remboursement unique en cas d'échec.
+- Moteur de droits : coût de chaque opération, crédits utilisables selon la formule (Essential
+  paie l'adaptation, la lettre et l'entretien en crédits achetés), première génération gratuite.
+- Solde de crédits dans l'en-tête, avec le détail inclus / achetés et un lien « Recharger » ;
+  section « Formule et crédits » dans l'espace compte.
+
 ### Modifié
 
 - Accueil : nouveaux textes orientés vers la création de CV et la compatibilité avec les

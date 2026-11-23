@@ -6,6 +6,43 @@
 
 ---
 
+## ADR-026 — Choix de réalisation des crédits et droits (Inc-3)
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : database-architect, backend-engineer, security-engineer)
+- **Contexte** : US-07 à US-09 ; aucune opération IA (Inc-4) ni aucun abonnement (Inc-6)
+  n'existe encore.
+- **Décision** :
+  - **Fonctions SQL** `SECURITY DEFINER`, exécutables par le seul rôle serveur :
+    `spend_credits` (verrou sur l'opération puis sur le portefeuille ; inclus d'abord si la
+    matrice le permet ; une opération déjà débitée ne l'est pas une seconde fois),
+    `refund_operation` (une seule fois, dans les soldes d'origine), `grant_credits`,
+    `set_included_credits` (le reste expire, sans report). Erreurs explicites
+    (`INSUFFICIENT_CREDITS`, `OPERATION_NOT_FOUND`…). Elles renvoient les nouveaux soldes.
+  - **Journal non modifiable** (déclencheur sur `update`) ; la suppression reste possible pour
+    la cascade de suppression du compte. La clé vers `purchases` sera ajoutée à l'Inc-6, avec la
+    table.
+  - **Moteur de droits** en code pur (`src/features/plans/entitlements.ts`) : coût d'une
+    opération, crédits utilisables selon la formule, gratuité de la première génération, droits
+    hors IA ; testé sur toute la matrice.
+  - **Formule affichée** : « Aucun abonnement » pour tous jusqu'à l'Inc-6 (aucun abonnement ne
+    peut exister avant les paiements).
+  - **En-tête** : la partie « compte » (solde + Mon compte) passe dans `components/layout`, seule
+    couche autorisée à assembler deux fonctionnalités.
+  - Test de parité des traductions corrigé : les formes plurielles ICU (`one {credit}`) ne sont
+    plus prises pour des variables.
+- **Reporté** (avec la première fonctionnalité qui en a besoin) : orchestration serveur d'une
+  opération IA (création, débit, remboursement) et coût affiché sur les boutons IA, fenêtre
+  « Solde insuffisant » (Inc-4) ; cadenas sur les fonctions non incluses (Inc-7 à 9) ; formule,
+  date de remise et renouvellement (Inc-6) ; comptes de démonstration (`seed.sql`) avec formules
+  (Inc-6).
+- **Alternatives écartées** : débit côté application (risque de double débit) ; un seul solde
+  (contraire au §12) ; fonctions appelables par l'utilisateur (crédits falsifiables).
+- **Impact** : sécurité / financier (fort)
+
+---
+
 ## ADR-025 — Accueil orienté conversion, illustration officielle, compatibilité ATS
 
 - **Date** : 23/11/2026

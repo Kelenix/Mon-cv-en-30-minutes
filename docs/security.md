@@ -1,7 +1,7 @@
 # Sécurité — Mon CV en 30 Secondes (version Web)
 
 > Rôle : security-engineer. Mis à jour à chaque incrément qui touche l'authentification, les
-> données, les paiements ou un service tiers. Dernière revue : Inc-2 (comptes), 23/11/2026.
+> données, les paiements ou un service tiers. Dernière revue : Inc-3 (crédits), 23/11/2026.
 
 ## 1. Ce qui est protégé
 
@@ -11,7 +11,8 @@
 | Profil (nom, téléphone, ville) | `public.profiles` | Données personnelles (RGPD) |
 | E-mail du compte | `auth.users` | Donnée personnelle, identifiant de connexion |
 | Clé secrète Supabase | Variables d'environnement du serveur | Contourne la RLS : accès à toute la base |
-| À venir : CV, crédits, abonnements, achats | Inc-3 à Inc-6 | Données personnelles, argent |
+| Soldes et journal des crédits | `credit_wallets`, `credit_ledger` | Argent : crédits payés |
+| À venir : CV, abonnements, achats | Inc-4 à Inc-6 | Données personnelles, argent |
 
 ## 2. Menaces et parades en place (Inc-2)
 
@@ -30,6 +31,9 @@
 | Suppression de compte par erreur ou par un tiers | Session exigée, mot de confirmation revalidé côté serveur | `tests/e2e/comptes.spec.ts` |
 | Données personnelles dans les journaux | Les erreurs journalisent un code, jamais l'e-mail ni le contenu | Revue de code |
 | Mise en cache d'une page personnelle | `connection()` avant tout accès à la session : jamais pré-rendue ni partagée ; pages privées en `noindex` | Build (rendu partiel) |
+| Crédits ajoutés ou modifiés par l'utilisateur | Aucun privilège d'écriture sur les soldes et le journal ; fonctions de crédit exécutables par le seul rôle serveur | `tests/db/credits.test.ts` |
+| Double débit, solde négatif (opérations simultanées, double clic) | Verrou de ligne sur l'opération et le portefeuille ; une opération n'est débitée qu'une fois ; contrainte `>= 0` | `tests/db/credits.test.ts` (20 débits simultanés) |
+| Journal falsifié après coup | Déclencheur qui refuse toute modification ; somme du journal = solde (NFR-08) | `tests/db/credits.test.ts` |
 | Clickjacking, détection de type, fuite de référent | En-têtes : `frame-ancestors 'none'`, HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy` | `next.config.ts` |
 
 ## 3. Points résiduels

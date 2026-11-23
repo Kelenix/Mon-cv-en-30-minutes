@@ -5,12 +5,12 @@
 
 ## Snapshot
 
-- **Phase courante** : 4 — Implémentation (Inc-2 terminé ; jalon M2 en cours)
+- **Phase courante** : 4 — Implémentation (Inc-3 terminé ; jalon M2 en cours)
 - **Dernière mise à jour** : 23/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : Inc-3 (crédits et droits : portefeuille, journal des mouvements,
-  débit atomique, matrice des droits). Noms de marque traduits utilisés tels que proposés tant que
-  la tâche 12 n'est pas faite.
+- **Prochaine action** : Inc-4 (création du CV par l'IA : 5 questions, génération, aperçu ;
+  IA simulée tant que la clé Anthropic n'est pas fournie, tâche 3). Noms de marque traduits
+  utilisés tels que proposés tant que la tâche 12 n'est pas faite.
 - **Git** : Inc-0 sur `feat/inc-0-socle` (7e76fa6), Inc-1 sur `feat/inc-1-vitrine` (0d56467),
   Inc-2 commité sur `main` (5643827 ; la branche `feat/inc-2-comptes` a été renommée `main`).
   Dépôt GitHub relié (`origin`, tâche 11) : `origin/main` contient l'Inc-1, l'Inc-2 n'est pas
@@ -24,7 +24,7 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅, Inc-1 ✅, Inc-2 ✅ |
+| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅, Inc-1 ✅, Inc-2 ✅, Inc-3 ✅ |
 | 5 — Qualité                 | ⬜ à faire | |
 | 6 — Mise en production      | ⬜ à faire | |
 | 7 — Documentation           | ⬜ à faire | |
@@ -42,7 +42,7 @@ Taille relative : S / M / L / XL.
 | Inc-0 | Socle technique (squelette qui tourne, 5 langues) | US-36, US-37 (bases), US-41 (fondations) | — | L | M0 | ✅ |
 | Inc-1 | Accueil + Tarifs + pages légales | US-01, 02, 03, 38 | Inc-0 | M | M1 | ✅ (US-01 c.3 → Inc-4, US-03 c.2 → Inc-6) |
 | Inc-2 | Comptes | US-04, 05, 06 | Inc-0 | M | M2 | ✅ (US-04 c.3 → Inc-4 ; US-05 c.1 et c.3, US-06 c.2 Stripe → Inc-3 et Inc-6) |
-| Inc-3 | Crédits & droits | US-07, 08, 09 | Inc-2 | L | M2 | ⬜ |
+| Inc-3 | Crédits & droits | US-07, 08, 09 | Inc-2 | L | M2 | ✅ (US-07 c.2 → Inc-6 ; US-08 c.1, c.3, c.4 → Inc-4 ; US-09 c.2, c.4 → Inc-7) |
 | Inc-4 | Création de CV par IA | US-10 à 15, US-42 | Inc-3, clé Anthropic | L | M2 | ⬜ |
 | Inc-5 | Exports PDF / DOCX | US-16, 17 | Inc-4 | M | M2 | ⬜ |
 | Inc-6 | Paiements | US-18 à 23, US-38 (CGV) | Inc-3, Inc-5, clés Stripe test | XL | M3 | ⬜ |
@@ -105,6 +105,16 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 23/11/2026 — **Inc-3 terminé** : portefeuille (crédits inclus et achetés) et journal non
+  modifiable, opérations IA journalisées, fonctions SQL de débit (verrou, inclus d'abord, pas de
+  double débit), remboursement unique, ajout et remise des crédits inclus, toutes réservées au
+  serveur ; moteur de droits testé sur toute la matrice ; solde dans l'en-tête (avec détail) et
+  section « Formule et crédits » dans le compte, en 5 langues. Vérifié : lint, types, 104 tests
+  unitaires, 32 tests de la base (dont 20 débits simultanés sur un solde de 5), build, 100 tests
+  de bout en bout. ADR-026. Reste pour plus tard : coût sur les boutons IA, fenêtre « Solde
+  insuffisant » et remboursement en cas d'échec (Inc-4), formule et dates (Inc-6), cadenas
+  (Inc-7).
 
 - 23/11/2026 — **Accueil refait** (critiques de l'utilisateur) : texte à gauche, illustration
   officielle du kit à droite (disposition choisie par l'utilisateur), textes orientés
