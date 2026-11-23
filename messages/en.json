@@ -449,7 +449,28 @@
     "create": "Create a CV",
     "empty": "You don't have a CV yet. Answer 5 questions to create your first one.",
     "updated": "Edited on {date}",
-    "open": "Open"
+    "open": "Open",
+    "emptyTitle": "Create your first CV",
+    "loadMore": "Show more CVs ({shown} of {total})",
+    "history": {
+      "title": "Your history",
+      "count": "{count, plural, one {# CV kept} other {# CVs kept}}",
+      "unlimited": "Your plan keeps all your CVs, with no limit.",
+      "limited": "Your plan keeps {limit} CV: to create a new one, you choose which one to replace.",
+      "kept": "You keep all your CVs. To create a new one, you choose which one to replace.",
+      "upgrade": "With Pro or Premium, keep all your CVs with no limit.",
+      "seeOffers": "See plans",
+      "contents": "Cover letters, LinkedIn versions, tailored versions and mock interviews stay with each CV."
+    },
+    "delete": {
+      "short": "Delete",
+      "button": "Delete “{title}”",
+      "title": "Delete “{title}”?",
+      "description": "The CV and its content (cover letters, LinkedIn versions, tailored versions, mock interviews) will be permanently deleted.",
+      "proLost": "The CV Pro unlock for this CV will be lost; the purchase remains visible in “Credits and plan”.",
+      "cancel": "Cancel",
+      "confirm": "Delete permanently"
+    }
   },
   "upsell": {
     "title": "Take your CV further",

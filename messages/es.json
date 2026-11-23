@@ -449,7 +449,28 @@
     "create": "Crear un CV",
     "empty": "Aún no tienes ningún CV. Responde a 5 preguntas para crear el primero.",
     "updated": "Modificado el {date}",
-    "open": "Abrir"
+    "open": "Abrir",
+    "emptyTitle": "Crea tu primer CV",
+    "loadMore": "Mostrar más CV ({shown} de {total})",
+    "history": {
+      "title": "Tu historial",
+      "count": "{count, plural, one {# CV guardado} other {# CV guardados}}",
+      "unlimited": "Tu plan guarda todos tus CV, sin límite.",
+      "limited": "Tu plan guarda {limit} CV: para crear uno nuevo, eliges cuál sustituir.",
+      "kept": "Conservas todos tus CV. Para crear uno nuevo, eliges cuál sustituir.",
+      "upgrade": "Con Pro o Premium, guarda todos tus CV sin límite.",
+      "seeOffers": "Ver los planes",
+      "contents": "Las cartas, versiones de LinkedIn, adaptaciones y simulaciones de entrevista se quedan con cada CV."
+    },
+    "delete": {
+      "short": "Eliminar",
+      "button": "Eliminar «{title}»",
+      "title": "¿Eliminar «{title}»?",
+      "description": "El CV y su contenido (cartas, versiones de LinkedIn, adaptaciones, simulaciones de entrevista) se eliminarán definitivamente.",
+      "proLost": "Se perderá el desbloqueo CV Pro de este CV; la compra sigue visible en «Créditos y plan».",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar definitivamente"
+    }
   },
   "upsell": {
     "title": "Lleva tu CV más lejos",

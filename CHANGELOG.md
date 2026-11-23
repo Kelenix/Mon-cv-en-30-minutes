@@ -4,6 +4,16 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-10 : historique des CV
+
+- « Mes CV » : cartes avec Ouvrir et Supprimer (après confirmation, contenus générés compris),
+  panneau « Ton historique » (nombre de CV et règle de ta formule), affichage par 12, page vide
+  illustrée.
+
+### Corrigé
+
+- Un ancien abonné Pro qui a gardé plusieurs CV peut de nouveau créer un CV en en remplaçant un.
+
 ### Modifié
 
 - Tous les écrans en pleine largeur : assistant de création (exemple et récapitulatif des

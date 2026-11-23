@@ -354,6 +354,33 @@ describe("génération de CV", () => {
     expect(cvs?.map((cv) => cv.id)).toEqual([newCv]);
   });
 
+  it("après une descente de formule, tous les CV restent et un remplacement reste possible (US-31 c.4)", async () => {
+    const user = await createSignedInUser(testEmail("cv-downgrade"));
+    const firstCv = await generate(user.id);
+    await grant(user.id, 3);
+    // Deux CV conservés sous une formule illimitée (Pro).
+    const { data: second } = await begin(user.id);
+    expect((await complete(second!.operation_id)).error).toBeNull();
+
+    // Retour à 1 CV : remplacer en garde 2, en créer un de plus est refusé.
+    const { data: replacing } = await begin(user.id);
+    const { error } = await complete(replacing!.operation_id, {
+      cvLimit: 1,
+      replaceCvId: firstCv,
+    });
+    expect(error).toBeNull();
+    const { data: blocked } = await begin(user.id);
+    const { error: limit } = await complete(blocked!.operation_id, {
+      cvLimit: 1,
+    });
+    expect(limit?.message).toBe("CV_LIMIT_REACHED");
+    const { count } = await admin
+      .from("cvs")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id);
+    expect(count).toBe(2);
+  });
+
   it("on ne remplace pas le CV d'un autre compte", async () => {
     const owner = await createSignedInUser(testEmail("cv-owner"));
     const intruder = await createSignedInUser(testEmail("cv-intruder"));

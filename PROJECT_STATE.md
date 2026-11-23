@@ -5,10 +5,10 @@
 
 ## Snapshot
 
-- **Phase courante** : 4 — Implémentation (Inc-9 terminé ; vérification Stripe réelle en attente des clés)
+- **Phase courante** : 4 — Implémentation (Inc-10 terminé, jalon M4 ; vérification Stripe réelle en attente des clés)
 - **Dernière mise à jour** : 23/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : Inc-10 (historique des CV). En attente côté utilisateur :
+- **Prochaine action** : Inc-11 (publicités et retrait des publicités). En attente côté utilisateur :
   tâche 4 (clés Stripe de test) pour vérifier les paiements avec Stripe, tâche 3 (clé Anthropic)
   pour mesurer la qualité réelle de l'IA (jeu de référence, NFR-02). Noms de marque traduits utilisés tels que
   proposés tant que la tâche 12 n'est pas faite.
@@ -25,7 +25,7 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-9 ✅ (jalon M2 ; M3 en attente des clés Stripe) |
+| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-10 ✅ (jalons M2 et M4 ; M3 en attente des clés Stripe) |
 | 5 — Qualité                 | ⬜ à faire | |
 | 6 — Mise en production      | ⬜ à faire | |
 | 7 — Documentation           | ⬜ à faire | |
@@ -50,7 +50,7 @@ Taille relative : S / M / L / XL.
 | Inc-7 | Amélioration IA | US-25, 26, 27 | Inc-6 | L | M4 | ✅ (IA simulée ; US-25 c.3, US-27 c.5 et NFR-02 à mesurer avec la clé) |
 | Inc-8 | LinkedIn + lettre de motivation | US-28, 29 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-9 | Simulation d'entretien | US-30 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
-| Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ⬜ |
+| Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ✅ (bannière et publicité native de la liste à l'Inc-11) |
 | Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ⬜ |
 | Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ⬜ |
 | Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 2, 4, 6, 7, 9 | M | M6 | ⬜ |
@@ -106,6 +106,12 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 24/11/2026 — **Inc-10 terminé (jalon M4)** : « Mes CV » en deux colonnes (cartes, panneau
+  « Ton historique » avec la règle de la formule), affichage par 12, suppression d'un CV après
+  confirmation (contenus compris), état vide ; correction : un ancien abonné Pro peut de
+  nouveau créer un CV en en remplaçant un ; 5 langues. Vérifié : lint, types, tests unitaires,
+  base, build, bout en bout (sur le build de production). ADR-034.
 
 - 24/11/2026 — **Tous les écrans en pleine largeur** (demande de l'utilisateur) : assistant de
   création, connexion, bienvenue, génération, compte, crédits, pages légales et pages d'erreur ;

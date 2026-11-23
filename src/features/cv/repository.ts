@@ -16,23 +16,48 @@ export type CvSummary = {
   proUnlocked: boolean;
 };
 
-/** CV conservés, du plus récemment modifié au plus ancien. */
-export const listOwnCvs = cache(async (): Promise<CvSummary[]> => {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("cvs")
-    .select("id, title, language, updated_at, pro_unlocked_at")
-    .order("updated_at", { ascending: false })
-    .order("id", { ascending: false });
-  if (error) throw error;
-  return data.map((cv) => ({
+const SUMMARY_COLUMNS = "id, title, language, updated_at, pro_unlocked_at";
+
+function toSummary(cv: {
+  id: string;
+  title: string;
+  language: AppLocale;
+  updated_at: string;
+  pro_unlocked_at: string | null;
+}): CvSummary {
+  return {
     id: cv.id,
     title: cv.title,
     language: cv.language,
     updatedAt: cv.updated_at,
     proUnlocked: cv.pro_unlocked_at !== null,
-  }));
+  };
+}
+
+/** CV conservés, du plus récemment modifié au plus ancien. */
+export const listOwnCvs = cache(async (): Promise<CvSummary[]> => {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("cvs")
+    .select(SUMMARY_COLUMNS)
+    .order("updated_at", { ascending: false })
+    .order("id", { ascending: false });
+  if (error) throw error;
+  return data.map(toSummary);
 });
+
+/** Historique « Mes CV » (US-31) : les `limit` CV les plus récents et le nombre total. */
+export async function listOwnCvsPage(limit: number) {
+  const supabase = await createClient();
+  const { data, count, error } = await supabase
+    .from("cvs")
+    .select(SUMMARY_COLUMNS, { count: "exact" })
+    .order("updated_at", { ascending: false })
+    .order("id", { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return { cvs: data.map(toSummary), total: count ?? data.length };
+}
 
 export type Cv = {
   id: string;

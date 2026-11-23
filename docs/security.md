@@ -1,7 +1,7 @@
 # Sécurité — Mon CV en 30 Secondes (version Web)
 
 > Rôle : security-engineer. Mis à jour à chaque incrément qui touche l'authentification, les
-> données, les paiements ou un service tiers. Dernière revue : Inc-9 (entretien), 24/11/2026.
+> données, les paiements ou un service tiers. Dernière revue : Inc-10 (historique), 24/11/2026.
 
 ## 1. Ce qui est protégé
 
@@ -44,6 +44,7 @@
 | Coûts de l'IA (rafales, textes énormes) | Limite par minute selon la formule, réponses limitées à 2 000 caractères, 16 000 tokens de sortie, délai de 60 s par tentative | `tests/db/cvs.test.ts`, `tests/unit/cv-content.test.ts` |
 | Fuite de la clé Anthropic | Lue seulement côté serveur (`server-only`), jamais préfixée `NEXT_PUBLIC_`, obligatoire en production | Revue de code |
 | Contenu des CV dans les journaux | Les erreurs journalisent un code et une cause technique, jamais les réponses ni le CV ; `ai_operations` ne contient aucun contenu | Revue de code |
+| Suppression du CV d'un autre compte | `deleteCv` passe par le client soumis à la RLS : un CV d'un autre compte est introuvable (`NOT_FOUND`) | `tests/db/cvs.test.ts` |
 | Téléchargement du CV d'un autre compte | Route d'export : session exigée (401), CV lu par le client soumis à la RLS (404) | `tests/e2e/exports.spec.ts` |
 | Export sans filigrane ou DOCX sans droit | Droit vérifié côté serveur, filigrane posé par le serveur, DOCX refusé (403) | `tests/e2e/exports.spec.ts`, `tests/unit/export.test.ts` |
 | CV exporté gardé en cache (navigateur partagé, proxy) | `Cache-Control: private, no-store` | Revue de code |

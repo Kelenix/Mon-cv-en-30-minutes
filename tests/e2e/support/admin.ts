@@ -73,3 +73,28 @@ export async function grantPurchasedCredits(email: string, amount: number) {
   });
   if (error) throw error;
 }
+
+/** CV posés directement en base (sans génération), du plus ancien au plus récent. */
+export async function createCvs(email: string, titles: string[]) {
+  const userId = await userIdByEmail(email);
+  const { error } = await admin.from("cvs").insert(
+    titles.map((title, index) => ({
+      user_id: userId,
+      title,
+      language: "fr",
+      answers: {},
+      content: {
+        header: { fullName: "Awa Diallo", title },
+        summary: "",
+        experiences: [],
+        skills: [],
+        education: [],
+        languages: [],
+      },
+      updated_at: new Date(
+        Date.now() - (titles.length - index) * 60_000,
+      ).toISOString(),
+    })),
+  );
+  if (error) throw error;
+}

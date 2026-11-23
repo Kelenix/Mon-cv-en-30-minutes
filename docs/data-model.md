@@ -225,7 +225,7 @@ Fonctions `SECURITY DEFINER` avec `search_path` vide ; `execute` retiré à `pub
 | `set_included_credits(user_id, amount, reason)` | Porte le solde inclus à `amount` (journal : expiration du reste, puis remise) | Inc-3 |
 | `prevent_ledger_update()` | Déclencheur qui refuse toute mise à jour du journal | Inc-3 |
 | `begin_ai_operation(user_id, request_id, kind, cost, allow_included, try_free, rate_limit, free_ip_limit, ip_hash)` | Sous verrou du portefeuille : rejeu d'une même demande, limite par minute (`RATE_LIMITED`), gratuité de la première génération (une à la fois, plafond par IP `FREE_LIMIT_REACHED`), sinon débit (aucun pour un coût nul, Inc-9) | Inc-4 |
-| `complete_cv_generation(operation_id, title, language, answers, content, model, tokens…, replace_cv_id, cv_limit)` | Crée le CV (en supprimant le CV remplacé, `CV_LIMIT_REACHED` au-delà du plafond), consomme la gratuité, marque l'opération réussie avec ses coûts | Inc-4 |
+| `complete_cv_generation(operation_id, title, language, answers, content, model, tokens…, replace_cv_id, cv_limit)` | Crée le CV en supprimant le CV remplacé (toujours permis : le nombre de CV ne change pas, Inc-10), sinon `CV_LIMIT_REACHED` au-delà du plafond ; consomme la gratuité, marque l'opération réussie avec ses coûts | Inc-4 |
 | `fail_ai_operation(operation_id, error_code, model, tokens…)` | Rembourse une seule fois et marque l'opération échouée | Inc-4 |
 | `fulfill_purchase(user_id, product, session_id, amount_cents, currency, terms_accepted_at, credits, cv_id)` | Enregistre l'achat une seule fois par session de paiement, puis ajoute les crédits, débloque le CV Pro ou retire les publicités | Inc-6 |
 | `sync_subscription(user_id, subscription_id, plan, interval, status, monthly_credits, trial_credits, period_end, cancel_at_period_end, trial_ends_at)` | État relu chez Stripe : essai (crédits d'essai, essai consommé), début ou fin d'essai (quota), montée (quota immédiat), fin (inclus à zéro), date de prochaine remise | Inc-6 |
@@ -268,6 +268,7 @@ Les contraintes `unique` (`stripe_checkout_session_id`, `provider_subscription_i
 | Inc-4 | `cvs` | Table `cvs`, RLS, index, fonctions de génération |
 | Inc-6 | `billing` | `subscriptions`, `purchases`, `stripe_events`, `fulfill_purchase`, `sync_subscription`, `pg_cron`, `run_monthly_grants`, `run_daily_maintenance` |
 | Inc-7 | `generations` | Table `generations`, RLS, `complete_ai_operation` |
+| Inc-10 | `cv_history` | Remplacement d'un CV permis au-delà du plafond (ancien abonné Pro) |
 | Inc-9 | `interview` | Coût nul accepté par `begin_ai_operation`, `complete_interview_feedback`, correction directe limitée à LinkedIn et lettre |
 | Inc-11 | `ads` | `reward_tokens` |
 

@@ -6,6 +6,33 @@
 
 ---
 
+## ADR-034 — Historique des CV (Inc-10)
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : backend-engineer, frontend-engineer, ui-designer)
+- **Contexte** : US-31, H12, H22 ; la liste « Mes CV » et le remplacement d'un CV existaient
+  depuis l'Inc-4.
+- **Décision** :
+  - **« Mes CV » en deux colonnes** : cartes à gauche (titre sur deux lignes au plus, date de
+    modification, langue, Ouvrir, Supprimer), panneau « Ton historique » à droite : nombre de CV,
+    règle de la formule (illimité ; 1 CV et choix du CV remplacé ; ou « tu gardes tous tes CV »
+    après une descente de formule), lien vers les offres. Vide : « Crée ton premier CV » et la
+    colonne de la marque.
+  - **Affichage par 12**, « Afficher plus de CV (n sur total) » par un lien `?page=` (sans
+    JavaScript, 50 pages au plus).
+  - **Suppression après confirmation** (`deleteCv`, sous la RLS) : le CV et ses contenus
+    générés partent (cascade) ; un achat CV Pro reste dans l'historique des achats, la fenêtre
+    prévient que le déblocage sera perdu.
+  - **Corrigé** : un ancien abonné Pro qui garde plus de CV que sa nouvelle formule ne pouvait
+    plus en créer (le remplacement restait au-dessus du plafond, la fenêtre « Remplacer un CV »
+    revenait sans fin). Un remplacement ne fait jamais grossir l'historique : il passe désormais
+    quel que soit le plafond (`complete_cv_generation`, migration `cv_history`).
+  - Bannière et publicité native de la liste : à l'Inc-11.
+- **Impact** : fonctionnel (moyen)
+
+---
+
 ## ADR-033 — Tous les écrans en pleine largeur
 
 - **Date** : 24/11/2026

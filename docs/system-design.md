@@ -70,7 +70,7 @@ IA idempotentes (un double clic ou un rejeu ne débite qu'une fois).
 |--------|--------|--------|---------|
 | `generateCv` | `requestId`, `answers` (voir §4), `language` (langue du CV, défaut : langue de l'interface), `replaceCvId?` | `{ cvId }` | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `CV_LIMIT_REACHED` (avec la liste des CV), `INSUFFICIENT_CREDITS`, `RATE_LIMITED`, `FREE_LIMIT_REACHED`, `AI_UNAVAILABLE`, `AI_INVALID_OUTPUT` |
 | `updateCv` | `cvId`, `content` (schéma `CvContent`) | `{ updatedAt }` | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `NOT_FOUND` |
-| `deleteCv` | `cvId` | `{ deleted: true }` | `UNAUTHENTICATED`, `NOT_FOUND` |
+| `deleteCv` | `cvId` | `{ deleted: true }` (CV et contenus générés supprimés ; achat CV Pro conservé) | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `NOT_FOUND` |
 
 ### Outils IA (Inc-7 à Inc-9)
 

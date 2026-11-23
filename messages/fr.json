@@ -449,7 +449,28 @@
     "create": "Créer un CV",
     "empty": "Tu n'as pas encore de CV. Réponds à 5 questions pour créer le premier.",
     "updated": "Modifié le {date}",
-    "open": "Ouvrir"
+    "open": "Ouvrir",
+    "emptyTitle": "Crée ton premier CV",
+    "loadMore": "Afficher plus de CV ({shown} sur {total})",
+    "history": {
+      "title": "Ton historique",
+      "count": "{count, plural, one {# CV conservé} other {# CV conservés}}",
+      "unlimited": "Ta formule conserve tous tes CV, sans limite.",
+      "limited": "Ta formule conserve {limit} CV : pour en créer un nouveau, tu choisis celui à remplacer.",
+      "kept": "Tu gardes tous tes CV. Pour en créer un nouveau, tu choisis celui à remplacer.",
+      "upgrade": "Avec Pro ou Premium, garde tous tes CV sans limite.",
+      "seeOffers": "Voir les offres",
+      "contents": "Les lettres, versions LinkedIn, adaptations et simulations d'entretien restent rangées avec chaque CV."
+    },
+    "delete": {
+      "short": "Supprimer",
+      "button": "Supprimer « {title} »",
+      "title": "Supprimer « {title} » ?",
+      "description": "Le CV et ses contenus (lettres, versions LinkedIn, adaptations, simulations d'entretien) seront supprimés définitivement.",
+      "proLost": "Le déblocage CV Pro de ce CV sera perdu ; l'achat reste visible dans « Crédits et formule ».",
+      "cancel": "Annuler",
+      "confirm": "Supprimer définitivement"
+    }
   },
   "upsell": {
     "title": "Va plus loin avec ton CV",

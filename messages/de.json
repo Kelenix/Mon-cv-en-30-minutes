@@ -449,7 +449,28 @@
     "create": "Lebenslauf erstellen",
     "empty": "Du hast noch keinen Lebenslauf. Beantworte 5 Fragen, um deinen ersten zu erstellen.",
     "updated": "Geändert am {date}",
-    "open": "Öffnen"
+    "open": "Öffnen",
+    "emptyTitle": "Erstelle deinen ersten Lebenslauf",
+    "loadMore": "Weitere Lebensläufe anzeigen ({shown} von {total})",
+    "history": {
+      "title": "Dein Verlauf",
+      "count": "{count, plural, one {# gespeicherter Lebenslauf} other {# gespeicherte Lebensläufe}}",
+      "unlimited": "Dein Tarif speichert alle deine Lebensläufe, ohne Begrenzung.",
+      "limited": "Dein Tarif speichert {limit} Lebenslauf: Für einen neuen wählst du, welcher ersetzt wird.",
+      "kept": "Du behältst alle deine Lebensläufe. Für einen neuen wählst du, welcher ersetzt wird.",
+      "upgrade": "Mit Pro oder Premium behältst du alle deine Lebensläufe ohne Begrenzung.",
+      "seeOffers": "Tarife ansehen",
+      "contents": "Anschreiben, LinkedIn-Versionen, Anpassungen und Gesprächssimulationen bleiben bei jedem Lebenslauf."
+    },
+    "delete": {
+      "short": "Löschen",
+      "button": "„{title}“ löschen",
+      "title": "„{title}“ löschen?",
+      "description": "Der Lebenslauf und seine Inhalte (Anschreiben, LinkedIn-Versionen, Anpassungen, Gesprächssimulationen) werden endgültig gelöscht.",
+      "proLost": "Die CV-Pro-Freischaltung dieses Lebenslaufs geht verloren; der Kauf bleibt unter „Credits und Abo“ sichtbar.",
+      "cancel": "Abbrechen",
+      "confirm": "Endgültig löschen"
+    }
   },
   "upsell": {
     "title": "Mehr aus deinem Lebenslauf machen",

@@ -298,7 +298,7 @@ Texte structuré, sommaire ancré, date de mise à jour. Statiques.
 
 | Écran | Points clés |
 |-------|-------------|
-| Historique `/cv` (Inc-10) | Liste de cartes (titre, date) ; vide : illustration + « Crée ton premier CV » ; pagination « Charger plus » ; bannière et publicité native pour les ayants droit |
+| Historique `/cv` (Inc-10) | Cartes à gauche (titre, date, langue, [Ouvrir], [Supprimer] avec confirmation) ; panneau « Ton historique » à droite (nombre de CV, règle de la formule, offres) ; vide : « Crée ton premier CV » + colonne de la marque ; « Afficher plus de CV » par 12 ; bannière et publicité native pour les ayants droit (Inc-11) |
 | Améliorer une expérience (Inc-7) | Bouton par expérience ; comparaison avant / après ; [Remplacer] [Garder l'original] |
 | Accroche (Inc-7) | Liste de 3 ou 5 variantes à choisir |
 | Adapter à une offre (Inc-7) | Champ annonce ; résultat côte à côte ; mots-clés manquants en badges ; [Appliquer] [Enregistrer comme nouveau CV] |
