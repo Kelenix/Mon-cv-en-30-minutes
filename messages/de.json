@@ -461,5 +461,17 @@
     },
     "cta": "Angebote ansehen",
     "close": "Schließen"
+  },
+  "cvDocument": {
+    "watermark": "Erstellt mit {brand}"
+  },
+  "cvExport": {
+    "pdf": "PDF herunterladen",
+    "docx": "DOCX herunterladen",
+    "docxLocked": "DOCX",
+    "docxLockedLabel": "DOCX-Format: So schaltest du es frei",
+    "lockedTitle": "PDF ohne Wasserzeichen und DOCX",
+    "lockedText": "Dein kostenloses PDF enthält in der Fußzeile einen dezenten Hinweis auf unsere Website. Das PDF ohne Wasserzeichen und das DOCX-Format sind in allen Abos enthalten oder mit CV Pro ({price}) für diesen Lebenslauf.",
+    "seeOffers": "Angebote ansehen"
   }
 }

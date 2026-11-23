@@ -29,6 +29,7 @@ import {
   HeaderView,
   LanguagesView,
 } from "./cv-views";
+import { ExportButtons } from "./export-buttons";
 
 type SaveStatus = "idle" | "saving" | "saved" | "error" | "invalid";
 type SectionKey = "header" | keyof CvSectionTitles;
@@ -229,8 +230,9 @@ function Section({
 }
 
 /**
- * Aperçu et éditeur du CV (US-12 à US-14) : feuille sur une colonne dans la langue du CV, chaque
- * rubrique modifiable sur place, enregistrement automatique gratuit, copie du texte.
+ * Aperçu et éditeur du CV (US-12 à US-14, US-16, US-17) : feuille sur une colonne dans la langue
+ * du CV, chaque rubrique modifiable sur place, enregistrement automatique gratuit, copie du
+ * texte, exports PDF et DOCX.
  */
 export function CvWorkspace({
   cvId,
@@ -238,12 +240,15 @@ export function CvWorkspace({
   language,
   initialContent,
   sectionTitles,
+  exportUnlocked,
 }: {
   cvId: string;
   title: string;
   language: AppLocale;
   initialContent: CvContent;
   sectionTitles: CvSectionTitles;
+  /** PDF sans filigrane et DOCX autorisés (abonnement ou CV Pro). */
+  exportUnlocked: boolean;
 }) {
   const t = useTranslations("cvEditor");
   const uiLocale = useLocale();
@@ -268,9 +273,14 @@ export function CvWorkspace({
   return (
     <div className="mx-auto grid w-full max-w-[52rem] min-w-0 gap-4">
       <div className="sticky top-0 z-10 -mx-4 flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border bg-background/95 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-xl sm:border">
-        <h1 className="me-auto min-w-0 truncate text-lg font-bold md:text-xl">
+        <h1 className="w-full min-w-0 truncate text-lg font-bold sm:me-auto sm:w-auto md:text-xl">
           {title}
         </h1>
+        <ExportButtons
+          cvId={cvId}
+          unlocked={exportUnlocked}
+          ready={status === "idle" || status === "saved"}
+        />
         <CopyButton getText={() => cvToPlainText(content, sectionTitles)} />
         <SaveIndicator status={status} onRetry={() => save(content, 0)} />
       </div>

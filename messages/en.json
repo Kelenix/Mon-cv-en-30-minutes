@@ -461,5 +461,17 @@
     },
     "cta": "See plans",
     "close": "Close"
+  },
+  "cvDocument": {
+    "watermark": "Created with {brand}"
+  },
+  "cvExport": {
+    "pdf": "Download PDF",
+    "docx": "Download DOCX",
+    "docxLocked": "DOCX",
+    "docxLockedLabel": "DOCX format: how to unlock it",
+    "lockedTitle": "Watermark-free PDF and DOCX",
+    "lockedText": "Your free PDF has a discreet mention of our site in the footer. The watermark-free PDF and the DOCX format are included in every subscription, or with CV Pro ({price}) for this CV.",
+    "seeOffers": "See plans"
   }
 }

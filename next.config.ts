@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
+  // Polices du PDF, lues à l'exécution par la route d'export (docs/architecture.md §10).
+  outputFileTracingIncludes: {
+    "/api/cv/[id]/export": [
+      "./node_modules/@expo-google-fonts/arimo/{400Regular,700Bold}/*.ttf",
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {

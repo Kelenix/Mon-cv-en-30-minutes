@@ -4,6 +4,14 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-5 : exports
+
+- Téléchargement du CV en PDF, gratuit, nommé « CV-Prénom-Nom.pdf » : même contenu que
+  l'aperçu, texte lisible par les logiciels de recrutement, mention « Créé avec … » en pied de
+  page dans la langue du CV.
+- PDF sans mention et DOCX (titres Word, listes) pour les abonnés ou avec CV Pro ; sinon, le
+  bouton DOCX explique comment le débloquer.
+
 ### Ajouté — Inc-4 : création du CV par l'IA
 
 - Assistant des 5 questions : une question par écran, exemple, compteur, barre de progression,

@@ -42,7 +42,7 @@ Versions relevées sur le registre npm le 23/11/2026, épinglées dans `package.
 | Base, Auth | Supabase (`@supabase/supabase-js`, `@supabase/ssr`), CLI en dépendance du projet | 2.119.x, 0.12.x, CLI 3.2.x |
 | IA | `@anthropic-ai/sdk` | 1.6.0 (ADR-027) |
 | Paiement | `stripe` (serveur uniquement) | 23.2.x |
-| Exports | `@react-pdf/renderer`, `docx` | 4.9.x, 9.16.x |
+| Exports | `@react-pdf/renderer`, `docx`, police Arimo | 4.9.0, 9.15.3 (ADR-028) |
 | Notifications | `sonner` | 2.0.x |
 | Tests | Vitest, Playwright | 5.1.x, 1.65.x |
 | Qualité | ESLint (configuration Next.js), Prettier, simple-git-hooks + lint-staged, @axe-core/playwright | 9.39.5 (ADR-020), 3.10.1 |
@@ -239,7 +239,8 @@ d'administration de Supabase. En local, elle se lance avec `npm run cron:retenti
 
 - Route Handler `GET /api/cv/[id]/export?format=pdf|docx` : vérifie la session, la propriété du
   CV (client soumis à la RLS) et les droits ; applique le filigrane côté serveur.
-- PDF : `@react-pdf/renderer`, police Poppins embarquée (licence libre OFL), texte sélectionnable.
+- PDF : `@react-pdf/renderer`, police Arimo intégrée (licence libre OFL, mêmes dimensions
+  qu'Arial, ADR-028), texte sélectionnable, aucune césure automatique.
 - DOCX : `docx`.
 - L'aperçu HTML et le PDF partagent le même schéma de CV et les mêmes constantes de mise en
   page (R09).

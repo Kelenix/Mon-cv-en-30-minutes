@@ -7,47 +7,17 @@ import {
   uniqueEmail,
 } from "./support/accounts";
 import { grantPurchasedCredits } from "./support/admin";
+import { ANSWERS, CV_URL, generate, saveDraft } from "./support/cv";
 
 // Création du CV (Inc-4) : US-10 à US-15 et US-42, avec l'IA simulée (aucune clé d'API en test).
 // Supabase local doit tourner (Docker).
 
 const { fr } = MESSAGES;
 const t = fr.wizard.questions;
-const CV_URL = /\/fr\/cv\/[0-9a-f-]{36}$/;
-const ANSWERS = {
-  job: "Comptable",
-  experiences: "Comptable chez Fidal\nAssistante comptable chez KPMG",
-  skills: "Excel, SAP, Sage",
-  education: "BTS Comptabilité et gestion, 2018",
-  goal: "Devenir responsable comptable dans une PME.",
-};
-
 function fill(template: string, values: Record<string, string | number>) {
   return template.replace(/\{(\w+)\}/g, (_, key: string) =>
     String(values[key]),
   );
-}
-
-/** Brouillon prêt à générer, comme laissé par l'assistant (page déjà ouverte sur le site). */
-async function saveDraft(
-  page: Page,
-  answers: Partial<typeof ANSWERS> = {},
-  language?: string,
-) {
-  const draft = JSON.stringify({
-    answers: { ...ANSWERS, ...answers },
-    step: 4,
-    language,
-  });
-  await page.evaluate(
-    (value) => localStorage.setItem("mon-cv-30s:brouillon", value),
-    draft,
-  );
-}
-
-async function generate(page: Page) {
-  await page.goto("/fr/creer/generation");
-  await expect(page).toHaveURL(CV_URL, { timeout: 20_000 });
 }
 
 function balance(page: Page, count: number) {

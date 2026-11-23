@@ -6,6 +6,46 @@
 
 ---
 
+## ADR-028 — Choix de réalisation des exports PDF et DOCX (Inc-5)
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : backend-engineer, frontend-engineer, security-engineer)
+- **Contexte** : US-16 et US-17 ; aucun abonnement ni achat n'existe encore (Inc-6).
+- **Décision** :
+  - **Bibliothèques** (versions fixées, publiées depuis plus de deux semaines) :
+    `@react-pdf/renderer` 4.9.0 et `docx` 9.15.3 (la 9.16 a 4 jours). Outils de test :
+    `unpdf` et `mammoth` (extraction du texte, comme un logiciel de recrutement).
+  - **Police du PDF : Arimo** (licence libre OFL, mêmes dimensions qu'Arial), fournie par
+    `@expo-google-fonts/arimo` et intégrée au PDF, au lieu de Poppins prévue à l'architecture :
+    la règle ATS H34 demande une police standard, et l'aperçu utilise déjà Arial. Arimo couvre
+    tous les caractères des noms européens (Ł, č, ş, œ…), ce que les polices de base du PDF ne
+    font pas. Le DOCX utilise Arial, présente dans Word.
+  - **Aucune césure automatique** dans le PDF : un mot-clé coupé ne serait plus reconnu.
+  - **PDF** : même contenu et même ordre que l'aperçu (rubriques vides omises), intitulés en
+    capitales, un intitulé n'est jamais laissé seul en bas de page ; filigrane « Créé avec … »
+    dans la langue du CV et avec le nom de marque de cette langue, sur chaque page, en ligne de
+    texte séparée du contenu.
+  - **DOCX** : styles Word standard (« Titre » pour le nom, « Titre 1 » pour les rubriques),
+    vraies listes à puces, coordonnées dans le corps du document.
+  - **Route** `GET /api/cv/[id]/export?format=pdf|docx` : 400 (format), 401 (session), 404 (CV
+    absent ou d'un autre compte, lu par le client soumis à la RLS), 403 (DOCX sans droit) ;
+    `Cache-Control: private, no-store`. Nom « CV-Prénom-Nom », accents compris, avec une
+    variante sans accent.
+  - **Droit** `canExportWithoutWatermark(formule, CV Pro)` dans le moteur de droits, partagé par
+    la route et l'interface. D'ici l'Inc-6, tout le monde a le PDF avec filigrane et le DOCX
+    verrouillé, avec une explication et un lien vers les offres.
+  - Boutons d'export **inactifs tant qu'une modification n'est pas enregistrée** : le fichier
+    reflète toujours l'aperçu.
+  - Couleurs et police du CV partagées par l'aperçu, le PDF et le DOCX
+    (`features/cv/document-style.ts`, R09).
+- **Alternatives écartées** : navigateur sans interface (Chromium) pour le PDF, lourd sur
+  Vercel ; polices de base du PDF (caractères manquants) ; Poppins (police décorative, moins
+  sûre pour les logiciels de recrutement).
+- **Impact** : fonctionnel (moyen)
+
+---
+
 ## ADR-027 — Choix de réalisation de la création du CV par l'IA (Inc-4)
 
 - **Date** : 23/11/2026

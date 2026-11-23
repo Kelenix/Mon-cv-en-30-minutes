@@ -461,5 +461,17 @@
     },
     "cta": "Ver los planes",
     "close": "Cerrar"
+  },
+  "cvDocument": {
+    "watermark": "Creado con {brand}"
+  },
+  "cvExport": {
+    "pdf": "Descargar el PDF",
+    "docx": "Descargar el DOCX",
+    "docxLocked": "DOCX",
+    "docxLockedLabel": "Formato DOCX: cómo desbloquearlo",
+    "lockedTitle": "PDF sin marca de agua y DOCX",
+    "lockedText": "Tu PDF gratuito lleva una discreta mención de nuestro sitio a pie de página. El PDF sin marca de agua y el formato DOCX están incluidos en todas las suscripciones, o con CV Pro ({price}) para este CV.",
+    "seeOffers": "Ver los planes"
   }
 }

@@ -92,6 +92,14 @@ export type Entitlements = {
   aiOperationsPerMinute: number;
 };
 
+/** PDF sans filigrane et DOCX (US-17) : abonnés (essai compris) ou CV débloqué en CV Pro. */
+export function canExportWithoutWatermark(
+  plan: ActivePlan,
+  cvProUnlocked: boolean,
+) {
+  return planEntitlements(plan).exportsWithoutWatermark || cvProUnlocked;
+}
+
 /** Droits hors opérations IA, selon la formule (matrice §3). */
 export function planEntitlements(plan: ActivePlan): Entitlements {
   if (plan === null) {

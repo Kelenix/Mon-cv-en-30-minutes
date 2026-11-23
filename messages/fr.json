@@ -461,5 +461,17 @@
     },
     "cta": "Voir les offres",
     "close": "Fermer l'encart"
+  },
+  "cvDocument": {
+    "watermark": "Créé avec {brand}"
+  },
+  "cvExport": {
+    "pdf": "Télécharger le PDF",
+    "docx": "Télécharger le DOCX",
+    "docxLocked": "DOCX",
+    "docxLockedLabel": "Format DOCX : comment le débloquer",
+    "lockedTitle": "PDF sans filigrane et DOCX",
+    "lockedText": "Ton PDF gratuit porte une discrète mention de notre site en pied de page. Le PDF sans filigrane et le format DOCX sont inclus dans tous les abonnements, ou avec CV Pro ({price}) pour ce CV.",
+    "seeOffers": "Voir les offres"
   }
 }

@@ -6,7 +6,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
 import { CvWorkspace } from "@/features/cv/presentation/cv-workspace";
 import { UpsellCard } from "@/features/cv/presentation/upsell-card";
+import { getActivePlan } from "@/features/credits/wallet";
 import { getOwnCv } from "@/features/cv/repository";
+import { canExportWithoutWatermark } from "@/features/plans/entitlements";
 import { pickClientMessages } from "@/i18n/client-messages";
 import { Link } from "@/i18n/navigation";
 
@@ -15,7 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("metaTitle"), robots: { index: false } };
 }
 
-// Aperçu et éditeur d'un CV (US-12 à US-15, docs/design/flows.md §3.6). Aucune publicité.
+// Aperçu, éditeur et exports d'un CV (US-12 à US-17, docs/design/flows.md §3.6). Aucune
+// publicité.
 export default function CvPage({ params }: PageProps<"/[locale]/cv/[id]">) {
   return (
     <div className="container-page py-6 md:py-10">
@@ -57,7 +60,10 @@ async function CvLoader({
     locale: cv.language,
     namespace: "cvSections",
   });
-  const messages = await pickClientMessages(["cvEditor", "upsell"]);
+  const [plan, messages] = await Promise.all([
+    getActivePlan(),
+    pickClientMessages(["cvEditor", "cvExport", "upsell"]),
+  ]);
 
   return (
     <NextIntlClientProvider messages={messages}>
@@ -67,6 +73,7 @@ async function CvLoader({
           title={cv.title}
           language={cv.language}
           initialContent={cv.content}
+          exportUnlocked={canExportWithoutWatermark(plan, cv.proUnlocked)}
           sectionTitles={{
             summary: sections("summary"),
             experiences: sections("experiences"),

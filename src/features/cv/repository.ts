@@ -39,6 +39,8 @@ export type Cv = {
   /** Langue du contenu, des intitulés et du filigrane (US-42). */
   language: AppLocale;
   content: CvContent;
+  /** CV Pro acheté pour ce CV : exports sans filigrane et DOCX (US-17). */
+  proUnlocked: boolean;
 };
 
 export async function getOwnCv(id: string): Promise<Cv | null> {
@@ -46,10 +48,16 @@ export async function getOwnCv(id: string): Promise<Cv | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cvs")
-    .select("id, title, language, content")
+    .select("id, title, language, content, pro_unlocked_at")
     .eq("id", id)
     .maybeSingle();
   if (error) throw error;
   if (!data) return null;
-  return { ...data, content: cvContentSchema.parse(data.content) };
+  return {
+    id: data.id,
+    title: data.title,
+    language: data.language,
+    content: cvContentSchema.parse(data.content),
+    proUnlocked: data.pro_unlocked_at !== null,
+  };
 }
