@@ -34,9 +34,22 @@
 - **Alternatives écartées** : texte centré et image dessous (proposée, non retenue) ; maquette
   de CV dessinée en HTML (l'INTAKE demande l'illustration officielle) ; score ATS affiché
   (fonction inexistante, promesse trompeuse).
-- **Conséquences** : l'illustration source fait 649 px de large ; elle est limitée à 896 px
-  d'affichage pour rester nette ; un fichier source en haute résolution (tâche 8) permettrait de
-  l'agrandir. Les tests vérifient le plein écran et comparent le titre sans ses balises.
+- **Image agrandie** (demande de l'utilisateur, « elle peut passer derrière le texte ») : à
+    partir de 1 280 px, l'illustration occupe 64 % de la largeur de l'écran, centrée à droite,
+    et passe sous le texte ; son premier cinquième (le fond bleu) s'efface en fondu et le texte
+    occupe 46 % de la largeur, de sorte que le personnage commence après le titre (mesuré de
+    1 280 à 2 560 px, en français et en allemand). En dessous de 1 280 px, texte centré puis
+    image. Source agrandie deux fois (Lanczos sur alpha prémultipliée, légère netteté) : 1 298 px.
+  - **Zoom du navigateur** (constat de l'utilisateur : à 25 %, l'image restait fixe) : aucune
+    taille ne dépend plus seulement de la largeur de l'écran. Image bornée à 80 rem et ancrée au
+    conteneur (débordement dans la marge limité à 12 rem) ; conteneur borné entre 90 et 120 rem ;
+    formes réparties dans une zone centrée de 136 rem ; titre et sous-titre en unités `cqi`
+    (proportionnels au conteneur). Vérifié à 25, 50, 100 et 200 % de zoom : même composition,
+    titre sur 4 lignes, personnage toujours après le titre ; à 200 %, disposition tablette.
+- **Conséquences** : l'illustration provient d'une planche de 1 536 px ; même agrandie avec
+  soin, elle reste un peu douce sur les très grands écrans ; un fichier source en haute
+  résolution (tâche 8) donnerait un rendu parfaitement net. Les tests vérifient le plein écran
+  et comparent le titre sans ses balises.
 - **Impact** : métier (fort : conversion) / technique (faible)
 
 ---

@@ -110,7 +110,9 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
   officielle du kit à droite (disposition choisie par l'utilisateur), textes orientés
   conversion et ATS dans les 5 langues, en-tête aligné et agrandi avec bouton « Créer mon CV »,
   conteneur élargi. Règle H34 « compatibilité ATS » ajoutée aux stories US-11 et US-17.
-  ADR-025.
+  Puis image agrandie (64 % de l'écran, passe derrière le texte avec un fondu, version 2x de
+  l'illustration), et tailles bornées en rem pour suivre le zoom du navigateur (vérifié de 25 à
+  200 %). ADR-025.
 
 - 23/11/2026 — **Micro-interactions et accueil** (demandes de l'utilisateur) : liste de
   bibliothèques triée, seul le nécessaire appliqué (boutons de chargement, apparitions en

@@ -6,7 +6,7 @@ export function HeroDecorations() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 -z-10"
+      className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-full max-w-[136rem] -translate-x-1/2"
     >
       {/* Grille de « + », marge gauche en haut. */}
       <svg

@@ -7,8 +7,9 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 ### Modifié
 
 - Accueil : nouveaux textes orientés vers la création de CV et la compatibilité avec les
-  logiciels de recrutement (ATS), illustration officielle de la marque à droite du texte,
-  section en plein premier écran dont les tailles s'adaptent à l'écran.
+  logiciels de recrutement (ATS), illustration officielle de la marque en grand à droite, qui
+  passe derrière le texte sur ordinateur, section en plein premier écran dont les tailles
+  s'adaptent à l'écran.
 - En-tête : aligné sur la largeur de la page, texte plus grand et bouton « Créer mon CV » sur
   ordinateur.
 - Boutons d'envoi : indicateur de chargement et double envoi impossible ; messages qui
