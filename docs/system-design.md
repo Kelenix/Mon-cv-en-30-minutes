@@ -54,10 +54,12 @@ IA idempotentes (un double clic ou un rejeu ne débite qu'une fois).
 | Action | Entrée | Sortie | Erreurs |
 |--------|--------|--------|---------|
 | `requestEmailCode` | `email`, `next?` (chemin interne) | `{ sent: true }` | `VALIDATION_ERROR`, `RATE_LIMITED` |
-| `verifyEmailCode` | `email`, `code` (6 chiffres), `next?` | redirection vers `next` ou `/compte` | `VALIDATION_ERROR` (« Code invalide ou expiré ») |
+| `verifyEmailCode` | `email`, `code` (6 chiffres), `next?` | redirection vers `next` ou `/compte` (vers `/bienvenue?next=…` tant que le nom manque) | `VALIDATION_ERROR` (« Code invalide ou expiré ») |
 | `signInWithGoogle` | `next?` | redirection vers Google | `INTERNAL` |
 | `signOut` | — | redirection vers `/` | — |
+| `completeProfile` | `firstName`, `lastName` (1 à 60), `locale`, `next?` | redirection vers `next` ou `/compte` | `UNAUTHENTICATED`, `VALIDATION_ERROR` |
 | `updateProfile` | `firstName`, `lastName` (1 à 60), `phone?` (≤ 30), `city?` (≤ 80) | profil | `UNAUTHENTICATED`, `VALIDATION_ERROR` |
+| `saveLocalePreference` | `locale` | — (sans effet pour un visiteur) | — |
 | `deleteAccount` | `confirmation` = « SUPPRIMER » | redirection vers `/?compte=supprime` | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `PAYMENT_ERROR` |
 
 `next` n'accepte que des chemins internes commençant par `/` (pas de redirection ouverte).
@@ -141,7 +143,8 @@ réponses (R05). La langue du contenu est stockée à côté (`cvs.language`) ; 
 
 | Route | Méthode | Entrée | Réponse | Erreurs |
 |-------|---------|--------|---------|---------|
-| `/auth/callback` | GET | `code`, `next?` | redirection | redirection vers `/connexion?erreur=…` |
+| `/auth/callback` | GET | `code`, `next?` (retour de Google) | redirection | redirection vers `/connexion?erreur=google` |
+| `/auth/confirm` | GET | `token_hash`, `next?` (lien de l'e-mail) | redirection | redirection vers `/connexion?erreur=lien` |
 | `/api/cv/[id]/export` | GET | `format` = `pdf` \| `docx` | fichier en pièce jointe (`CV-Prénom-Nom.pdf`) | 400 format, 401, 403 (`docx` sans droit), 404 |
 | `/api/me/wallet` | GET | — | `{ included, purchased, plan, nextGrantAt, renewsAt }` | 401 |
 | `/api/stripe/webhook` | POST | corps brut + en-tête de signature | 200 | 400 signature invalide ; 500 → Stripe réessaie |

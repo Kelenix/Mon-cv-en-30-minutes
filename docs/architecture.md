@@ -68,7 +68,8 @@ src/
 │   │   ├── creer/                        # assistant 5 questions + génération
 │   │   ├── (app)/cv/                     # historique, [id] aperçu/éditeur et outils IA
 │   │   └── (app)/compte/                 # profil, crédits et formule
-│   ├── auth/callback/route.ts            # retour OAuth / lien e-mail
+│   ├── auth/callback/route.ts            # retour de Google (OAuth)
+│   ├── auth/confirm/route.ts             # lien de secours de l'e-mail de connexion
 │   ├── api/stripe/webhook/route.ts
 │   ├── api/cv/[id]/export/route.ts       # PDF / DOCX
 │   ├── api/cron/retention/route.ts
@@ -90,7 +91,7 @@ src/
 │   └── layout/          # en-tête, pied de page, navigation
 ├── i18n/                # langues, chemins traduits, chargement des messages, navigation
 ├── lib/
-│   ├── supabase/        # server.ts, browser.ts, admin.ts
+│   ├── supabase/        # server.ts, admin.ts, cookie-options.ts, database.types.ts
 │   └── utils.ts
 └── core/
     ├── env.ts           # lecture et validation Zod des variables d'environnement
@@ -100,9 +101,11 @@ supabase/
 ├── config.toml          # services inutiles désactivés (ADR-007)
 ├── migrations/          # une ou plusieurs migrations par incrément
 ├── seed.sql             # comptes et données de développement
-└── tests/               # tests RLS et fonctions SQL (lancés par Vitest)
+└── templates/           # e-mail de connexion (code + lien), un bloc par langue
 messages/                # fr.json (référence), en.json, it.json, es.json, de.json
 scripts/stripe-seed.ts   # crée produits, prix (lookup keys) et configuration du portail en mode test
+tests/unit/              # Vitest, logique pure
+tests/db/                # Vitest contre Supabase local : RLS et fonctions SQL
 tests/e2e/               # Playwright (ordinateur et mobile)
 docker-compose.yml       # CLI Stripe pour relayer les webhooks en local
 ```
@@ -142,6 +145,7 @@ Composants serveur par défaut ; composants client seulement pour l'interactivit
 | `NEXT_PUBLIC_SITE_URL` | Client + serveur | URLs absolues (retours Stripe, OAuth, e-mails) |
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Client + serveur | Clé publique soumise à la RLS |
 | `SUPABASE_SECRET_KEY` | **Serveur uniquement** (`lib/supabase/admin.ts`) | Écritures privilégiées via fonctions SQL ; jamais importée côté client |
+| `GOOGLE_AUTH_ENABLED` | Serveur | Affiche le bouton Google une fois le fournisseur activé (tâche 5) |
 | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` (défaut `claude-opus-5-5`) | Serveur | Génération IA |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Serveur | Paiements, vérification des webhooks |
 | `CRON_SECRET` | Serveur | Protection de `/api/cron/*` |
@@ -153,8 +157,9 @@ Composants serveur par défaut ; composants client seulement pour l'interactivit
 Les noms exacts des clés Supabase sont confirmés par `supabase status` à l'Inc-0. `core/env.ts`
 valide toutes les variables au démarrage et refuse de démarrer si une variable requise manque.
 
-**Trois clients Supabase :**
-1. **Navigateur** (`browser.ts`) : clé publique, session de l'utilisateur, soumis à la RLS.
+**Clients Supabase :**
+1. **Navigateur** : aucun (ADR-022). Toutes les opérations passent par le serveur, ce qui permet
+   des cookies de session `HttpOnly`.
 2. **Serveur utilisateur** (`server.ts`) : cookies de session, soumis à la RLS ; utilisé pour
    toute lecture et toute modification autorisée à l'utilisateur.
 3. **Admin** (`admin.ts`, serveur uniquement) : clé secrète ; utilisé seulement par les cas

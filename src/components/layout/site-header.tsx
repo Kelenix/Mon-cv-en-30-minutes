@@ -1,5 +1,10 @@
 import { useTranslations } from "next-intl";
+import { Suspense } from "react";
 import { buttonVariants } from "@/components/ui/button";
+import {
+  AuthNavLink,
+  AuthNavLinkFallback,
+} from "@/features/auth/presentation/auth-nav-link";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./language-switcher";
@@ -24,6 +29,9 @@ export function SiteHeader() {
             {t("pricing")}
           </Link>
           <LanguageSwitcher />
+          <Suspense fallback={<AuthNavLinkFallback />}>
+            <AuthNavLink />
+          </Suspense>
         </nav>
       </div>
     </header>

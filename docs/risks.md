@@ -1,6 +1,6 @@
 # Registre des risques
 
-> Phase 2 — Planification (rôle : Project Manager). Mis à jour le 23/11/2026.
+> Phase 2 — Planification (rôle : Project Manager). Mis à jour le 23/11/2026 (Inc-2).
 > Niveau = probabilité × impact : 🔴 critique · 🟠 élevé · 🟡 modéré · 🟢 faible.
 > Un risque 🔴 sans parade remonte à l'utilisateur. Revue à la fin de chaque incrément.
 
@@ -27,6 +27,7 @@
 | R19 | Traductions maladroites ou inexactes (interface, pages légales, prompts) | Produit | Moyenne | Moyen | 🟡 | Français comme référence, glossaire unique par langue, test de parité des clés, relecture par des locuteurs natifs (tâche 12) | Chaque incrément | Ouvert |
 | R20 | Droit de la consommation propre à chaque pays de vente (Italie, Espagne, Allemagne…) en plus du droit français | Légal | Moyenne | Fort | 🟠 | Relecture juridique des CGV et de la confidentialité pour chaque langue et pays visé (tâche 7) avant le lancement. Points relevés par les traducteurs (Inc-1) : en allemand, le droit de rétractation s'éteint (« erlischt », § 356 al. 5 BGB) plutôt qu'on n'y renonce, et l'abonnement relève du « Wertersatz » ; la clause de responsabilité pourrait être jugée trop large (§ 309 n° 7 BGB) ; en italien, vérifier la désignation du « mediatore dei consumatori » | Inc-13 | Ouvert |
 | R21 | Référencement multilingue mal configuré (contenu dupliqué, mauvaise langue indexée) | Technique | Faible | Moyen | 🟢 | Préfixes de langue, chemins traduits, `hreflang` et `x-default`, sitemap par langue, vérifiés en Inc-12 | Inc-12 | Ouvert |
+| R22 | Un scanner de liens de messagerie ouvre le lien de connexion avant l'utilisateur et l'invalide | Technique | Moyenne | Faible | 🟢 | Le code à 6 chiffres reste la voie principale ; message « lien expiré, demande un nouveau code » ; détail dans `docs/security.md` | Inc-2 | Accepté |
 
 **Aucun risque 🔴 à ce jour.** R02 est le seul qui pourrait déclencher une question (vitesse
 contre coût), après mesure réelle en Inc-4.

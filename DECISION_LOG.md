@@ -6,6 +6,58 @@
 
 ---
 
+## ADR-022 — Choix de réalisation des comptes (Inc-2)
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : backend-engineer, security-engineer, database-architect)
+- **Contexte** : connexion sans mot de passe (ADR-011), profil, suppression du compte, RLS, avec
+  Cache Components de Next.js 16 et 5 langues.
+- **Décision** :
+  - **E-mail de connexion unique** pour l'inscription et les connexions suivantes
+    (`supabase/templates/sign-in-code.html`) : code à 6 chiffres, aussi dans l'objet, et lien de
+    secours vers `/auth/confirm` (vérification par `token_hash`, fonctionne dans un autre
+    navigateur). Un bloc par langue, choisi par la langue enregistrée dans les métadonnées du
+    compte ; le sélecteur de langue met à jour ces métadonnées et `profiles.locale`.
+  - **Prénom et nom non recopiés par le déclencheur** (écart avec `docs/data-model.md` §5, mis à
+    jour) : l'étape « Comment t'appelles-tu ? » s'affiche tant que le nom manque, pré-remplie avec
+    Google ; c'est ce que demande US-04 c.2. Langue par défaut d'un profil : anglais, comme le site.
+  - **Aucun client Supabase dans le navigateur** : toutes les opérations passent par des Server
+    Actions et des Route Handlers. Les cookies de session sont donc `HttpOnly` (illisibles par un
+    script injecté), `SameSite=Lax`, `Secure` en HTTPS.
+  - **Proxy** : rafraîchit la session, renvoie un visiteur des pages privées vers la connexion
+    (avec `next`) et une personne connectée hors de la connexion ; chaque page et action privée
+    revérifie la session. `next` n'accepte que des adresses internes.
+  - **Données de session jamais pré-rendues** : `connection()` avant chaque client Supabase
+    serveur (le client lit l'heure courante, interdit pendant le préchargement de Next.js 16) ;
+    le lien « Se connecter / Mon compte » de l'en-tête est la seule partie rendue à la requête des
+    pages publiques, qui restent pré-rendues.
+  - **Suppression** : `auth.admin.deleteUser` (clé secrète, côté serveur) supprime le compte et,
+    en cascade, toutes ses données ; mot de confirmation dans la langue de l'interface
+    (SUPPRIMER, DELETE, ELIMINA, ELIMINAR, LÖSCHEN), sans tenir compte de la casse. La
+    résiliation Stripe s'ajoutera à l'Inc-6.
+  - **Bouton Google** affiché seulement si `GOOGLE_AUTH_ENABLED=true` : sans identifiants OAuth
+    (tâche 5), un bouton actif mènerait à une erreur.
+  - **Tests de la base dans `tests/db/`** (et non `supabase/tests/`, exclu du lint), lancés par
+    `npm run test:db` contre Supabase local, en CI comme en local.
+  - Limites de Supabase Auth relevées **en local uniquement** (200 connexions et vérifications par
+    5 minutes et par IP) pour les tests de bout en bout ; la production garde les valeurs par
+    défaut.
+  - `@supabase/supabase-js` 2.119.0 (et non 2.119.2, publiée 4 jours plus tôt) : version publiée
+    depuis plus de deux semaines, par prudence sur la chaîne d'approvisionnement.
+- **Alternatives écartées** : client Supabase navigateur (cookies lisibles par JavaScript) ; lien
+  de connexion PKCE (ne fonctionne que dans le navigateur d'origine) ; recopier le nom Google sans
+  confirmation (contraire à US-04 c.2) ; mot « SUPPRIMER » dans toutes les langues (incompréhensible
+  hors français).
+- **Conséquences** : en production, les adresses de retour (`https://<domaine>/auth/**`) et le
+  modèle d'e-mail doivent être reportés dans Supabase (tâche 2, Inc-13). Restent pour plus tard :
+  formule, crédits et achats sur la page compte (Inc-3, Inc-6), lien « Gérer mon abonnement » et
+  résiliation à la suppression (Inc-6), retour aux réponses des 5 questions après connexion (Inc-4,
+  le mécanisme `next` est en place).
+- **Impact** : sécurité (fort) / technique (moyen)
+
+---
+
 ## ADR-021 — Choix de réalisation de la vitrine (Inc-1)
 
 - **Date** : 23/11/2026

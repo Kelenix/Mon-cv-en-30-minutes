@@ -5,14 +5,14 @@
 
 ## Snapshot
 
-- **Phase courante** : 4 — Implémentation (Inc-1 terminé, jalon M1 atteint)
+- **Phase courante** : 4 — Implémentation (Inc-2 terminé ; jalon M2 en cours)
 - **Dernière mise à jour** : 23/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : Inc-2 (comptes : connexion par code e-mail et Google, profil,
-  suppression). Noms de marque traduits utilisés tels que proposés tant que la tâche 12 n'est pas
-  faite.
-- **Git** : Inc-0 commité sur `feat/inc-0-socle` (7e76fa6) ; Inc-1 commité sur
-  `feat/inc-1-vitrine` (branche créée depuis Inc-0). Aucun dépôt distant (tâche 11).
+- **Prochaine action** : Inc-3 (crédits et droits : portefeuille, journal des mouvements,
+  débit atomique, matrice des droits). Noms de marque traduits utilisés tels que proposés tant que
+  la tâche 12 n'est pas faite.
+- **Git** : Inc-0 sur `feat/inc-0-socle` (7e76fa6), Inc-1 sur `feat/inc-1-vitrine` (0d56467),
+  Inc-2 commité sur `feat/inc-2-comptes` (créée depuis Inc-1). Aucun dépôt distant (tâche 11).
 
 ## Avancement par phase
 
@@ -22,7 +22,7 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅, Inc-1 ✅ |
+| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅, Inc-1 ✅, Inc-2 ✅ |
 | 5 — Qualité                 | ⬜ à faire | |
 | 6 — Mise en production      | ⬜ à faire | |
 | 7 — Documentation           | ⬜ à faire | |
@@ -39,7 +39,7 @@ Taille relative : S / M / L / XL.
 |----|-----------|---------|-----------|--------|-------|------|
 | Inc-0 | Socle technique (squelette qui tourne, 5 langues) | US-36, US-37 (bases), US-41 (fondations) | — | L | M0 | ✅ |
 | Inc-1 | Accueil + Tarifs + pages légales | US-01, 02, 03, 38 | Inc-0 | M | M1 | ✅ (US-01 c.3 → Inc-4, US-03 c.2 → Inc-6) |
-| Inc-2 | Comptes | US-04, 05, 06 | Inc-0 | M | M2 | ⬜ |
+| Inc-2 | Comptes | US-04, 05, 06 | Inc-0 | M | M2 | ✅ (US-04 c.3 → Inc-4 ; US-05 c.1 et c.3, US-06 c.2 Stripe → Inc-3 et Inc-6) |
 | Inc-3 | Crédits & droits | US-07, 08, 09 | Inc-2 | L | M2 | ⬜ |
 | Inc-4 | Création de CV par IA | US-10 à 15, US-42 | Inc-3, clé Anthropic | L | M2 | ⬜ |
 | Inc-5 | Exports PDF / DOCX | US-16, 17 | Inc-4 | M | M2 | ⬜ |
@@ -103,6 +103,18 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 23/11/2026 — **Inc-2 terminé** : connexion sans mot de passe (code à 6 chiffres par e-mail,
+  lien de secours, Google derrière `GOOGLE_AUTH_ENABLED`), étape « Comment t'appelles-tu ? »,
+  espace compte (profil, déconnexion, suppression avec mot de confirmation par langue), langue
+  enregistrée dans le compte, e-mail de connexion dans les 5 langues ; migration `profiles` avec
+  RLS, privilèges par colonne et déclencheurs ; proxy (session, pages privées). Vérifié : lint,
+  types, format, 75 tests unitaires, 17 tests RLS sur Supabase local, build, 92 tests de bout en
+  bout sur le build de production (ordinateur + mobile, audit axe sans violation). ADR-022,
+  `docs/security.md`. Reste pour plus tard : formule, crédits et achats sur la page compte
+  (Inc-3, Inc-6), résiliation Stripe à la suppression (Inc-6), retour aux réponses après
+  connexion (Inc-4).
+- 23/11/2026 — Inc-1 commité (0d56467, branche `feat/inc-1-vitrine`).
 
 - 23/11/2026 — **Inc-1 terminé (M1)** : accueil, Tarifs (bascule mensuel/annuel, économies
   calculées), pages légales en 5 langues (traductions EN/IT/ES/DE faites en parallèle et

@@ -24,8 +24,12 @@ cp .env.example .env.local   # sous PowerShell : Copy-Item .env.example .env.loc
 
 ```bash
 npm run db:start   # démarre Supabase dans Docker (le premier démarrage télécharge les images)
+npm run db:status  # affiche API_URL, PUBLISHABLE_KEY et SECRET_KEY à reporter dans .env.local
 npm run dev        # http://localhost:3000 → redirige vers la langue du navigateur
 ```
+
+Connexion en local : saisir n'importe quelle adresse (ex. `moi@exemple.test`) sur la page de
+connexion ; le code à 6 chiffres arrive dans Mailpit.
 
 Outils locaux une fois Supabase démarré :
 
@@ -44,9 +48,11 @@ Outils locaux une fois Supabase démarré :
 | `npm run typecheck` | Génération des types de routes + TypeScript |
 | `npm run format` / `npm run format:check` | Prettier |
 | `npm run test` | Tests unitaires (Vitest) |
+| `npm run test:db` | Règles d'accès (RLS) et fonctions SQL, contre Supabase local |
 | `npm run test:e2e` | Tests de bout en bout (Playwright, ordinateur et mobile, audit d'accessibilité) — la première fois : `npx playwright install chromium` |
 | `npm run verify` | Lint + types + format + tests unitaires + build |
 | `npm run db:start` / `db:stop` / `db:reset` / `db:status` | Supabase local |
+| `npm run db:types` | Régénère les types TypeScript de la base après une migration |
 
 Un hook Git `pre-commit` formate et vérifie les fichiers modifiés, puis contrôle les types.
 
@@ -56,11 +62,13 @@ Un hook Git `pre-commit` formate et vérifie les fichiers modifiés, puis contr�
 src/app/[locale]/   pages (une version par langue, chemins traduits)
 src/components/     composants d'interface (ui/ = shadcn/ui) et mise en page
 src/i18n/           langues, routage, chargement des traductions
-src/core/           configuration (variables d'environnement validées)
-src/proxy.ts        détection de la langue et préfixe d'adresse
+src/features/       fonctionnalités (auth, profile, plans, legal, marketing…)
+src/lib/supabase/   clients Supabase (utilisateur, admin) et types de la base
+src/core/           configuration (variables d'environnement validées), format des réponses
+src/proxy.ts        langue, préfixe d'adresse, session et pages privées
 messages/           textes de l'interface : fr.json (référence), en, it, es, de
-supabase/           configuration et migrations de la base locale
-tests/              tests unitaires (unit/) et de bout en bout (e2e/)
+supabase/           configuration, migrations et modèle d'e-mail de connexion
+tests/              tests unitaires (unit/), de la base (db/) et de bout en bout (e2e/)
 docs/               produit, architecture, données, design, risques, tâches manuelles
 ```
 

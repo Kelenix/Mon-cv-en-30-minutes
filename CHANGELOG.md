@@ -4,6 +4,21 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-2 : comptes
+
+- Connexion et inscription sans mot de passe : code à 6 chiffres reçu par e-mail (lien de secours
+  dans le même e-mail), bouton Google activable par configuration ; la page demandée est rouverte
+  après connexion.
+- Première connexion : « Comment t'appelles-tu ? », pré-rempli avec Google.
+- Espace « Mon compte » : prénom, nom, téléphone et ville modifiables, e-mail affiché,
+  déconnexion, suppression définitive du compte et de ses données après saisie d'un mot de
+  confirmation.
+- Lien « Se connecter » ou « Mon compte » dans l'en-tête ; pages privées protégées.
+- E-mail de connexion et nouveaux écrans dans les 5 langues ; la langue choisie est enregistrée
+  dans le compte.
+- Base de données : table des profils avec règles d'accès (RLS) testées, colonnes modifiables
+  limitées, création automatique du profil, suivi de l'activité pour la rétention.
+
 ### Ajouté — Inc-1 : vitrine (jalon M1)
 
 - Accueil complet dans les 5 langues : promesse, appel à l'action, illustration de la marque, six

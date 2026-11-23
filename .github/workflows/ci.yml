@@ -32,10 +32,16 @@ jobs:
       - run: npm run test
       - name: Audit des dépendances de production
         run: npm audit --omit=dev --audit-level=high
-      - run: npm run build
+      - name: Build
+        run: npm run build
+        env:
+          # Le build ne contacte pas Supabase : des valeurs factices suffisent ici.
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ci-build
+          SUPABASE_SECRET_KEY: ci-build
 
   e2e:
-    name: Tests de bout en bout
+    name: Base de données (RLS) et tests de bout en bout
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -44,6 +50,18 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Supabase local (migrations appliquées au démarrage)
+        run: npx supabase start -x studio
+      - name: Variables de Supabase local
+        # Clés de démonstration de Supabase local, sans valeur hors de ce conteneur.
+        run: |
+          eval "$(npx supabase status -o env)"
+          {
+            echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL"
+            echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$PUBLISHABLE_KEY"
+            echo "SUPABASE_SECRET_KEY=$SECRET_KEY"
+          } >> "$GITHUB_ENV"
+      - run: npm run test:db
       - run: npx playwright install --with-deps chromium
       - run: npm run build
       - run: npm run test:e2e

@@ -1,0 +1,52 @@
+<!-- Code de connexion (US-04) : un bloc par langue, choisi par la langue du compte (US-41). -->
+{{ if eq .Data.locale "fr" }}
+<div style="font-family: Arial, sans-serif; color: #0B1F3A; max-width: 480px; margin: 0 auto; padding: 24px;">
+  <h1 style="font-size: 22px; margin: 0 0 16px;">Ton code de connexion</h1>
+  <p style="margin: 0 0 16px;">Saisis ce code sur la page de connexion de Mon CV en 30 Secondes :</p>
+  <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #0A58BD; margin: 0 0 16px;">{{ .Token }}</p>
+  <p style="margin: 0 0 24px;">Il expire dans 1 heure.</p>
+  <p style="margin: 0 0 12px;">Tu peux aussi te connecter avec ce lien :</p>
+  <p style="margin: 0 0 24px;"><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email" style="display: inline-block; background: #0F6FE6; color: #FFFFFF; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-weight: bold;">Me connecter</a></p>
+  <p style="font-size: 13px; color: #4A5B73; margin: 0;">Si tu n'as rien demandé, ignore cet e-mail.</p>
+</div>
+{{ else if eq .Data.locale "it" }}
+<div style="font-family: Arial, sans-serif; color: #0B1F3A; max-width: 480px; margin: 0 auto; padding: 24px;">
+  <h1 style="font-size: 22px; margin: 0 0 16px;">Il tuo codice di accesso</h1>
+  <p style="margin: 0 0 16px;">Inserisci questo codice nella pagina di accesso di Curriculum in 30 Secondi:</p>
+  <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #0A58BD; margin: 0 0 16px;">{{ .Token }}</p>
+  <p style="margin: 0 0 24px;">Scade tra 1 ora.</p>
+  <p style="margin: 0 0 12px;">Puoi anche accedere con questo link:</p>
+  <p style="margin: 0 0 24px;"><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email" style="display: inline-block; background: #0F6FE6; color: #FFFFFF; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-weight: bold;">Accedi</a></p>
+  <p style="font-size: 13px; color: #4A5B73; margin: 0;">Se non hai richiesto nulla, ignora questa email.</p>
+</div>
+{{ else if eq .Data.locale "es" }}
+<div style="font-family: Arial, sans-serif; color: #0B1F3A; max-width: 480px; margin: 0 auto; padding: 24px;">
+  <h1 style="font-size: 22px; margin: 0 0 16px;">Tu código de acceso</h1>
+  <p style="margin: 0 0 16px;">Introduce este código en la página de acceso de Mi CV en 30 Segundos:</p>
+  <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #0A58BD; margin: 0 0 16px;">{{ .Token }}</p>
+  <p style="margin: 0 0 24px;">Caduca en 1 hora.</p>
+  <p style="margin: 0 0 12px;">También puedes iniciar sesión con este enlace:</p>
+  <p style="margin: 0 0 24px;"><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email" style="display: inline-block; background: #0F6FE6; color: #FFFFFF; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-weight: bold;">Iniciar sesión</a></p>
+  <p style="font-size: 13px; color: #4A5B73; margin: 0;">Si no has solicitado nada, ignora este correo.</p>
+</div>
+{{ else if eq .Data.locale "de" }}
+<div style="font-family: Arial, sans-serif; color: #0B1F3A; max-width: 480px; margin: 0 auto; padding: 24px;">
+  <h1 style="font-size: 22px; margin: 0 0 16px;">Dein Anmeldecode</h1>
+  <p style="margin: 0 0 16px;">Gib diesen Code auf der Anmeldeseite von Mein Lebenslauf in 30 Sekunden ein:</p>
+  <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #0A58BD; margin: 0 0 16px;">{{ .Token }}</p>
+  <p style="margin: 0 0 24px;">Er läuft in 1 Stunde ab.</p>
+  <p style="margin: 0 0 12px;">Du kannst dich auch über diesen Link anmelden:</p>
+  <p style="margin: 0 0 24px;"><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email" style="display: inline-block; background: #0F6FE6; color: #FFFFFF; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-weight: bold;">Jetzt anmelden</a></p>
+  <p style="font-size: 13px; color: #4A5B73; margin: 0;">Wenn du nichts angefordert hast, ignoriere diese E-Mail.</p>
+</div>
+{{ else }}
+<div style="font-family: Arial, sans-serif; color: #0B1F3A; max-width: 480px; margin: 0 auto; padding: 24px;">
+  <h1 style="font-size: 22px; margin: 0 0 16px;">Your sign-in code</h1>
+  <p style="margin: 0 0 16px;">Enter this code on the My CV in 30 Seconds sign-in page:</p>
+  <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #0A58BD; margin: 0 0 16px;">{{ .Token }}</p>
+  <p style="margin: 0 0 24px;">It expires in 1 hour.</p>
+  <p style="margin: 0 0 12px;">You can also sign in with this link:</p>
+  <p style="margin: 0 0 24px;"><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email" style="display: inline-block; background: #0F6FE6; color: #FFFFFF; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-weight: bold;">Sign me in</a></p>
+  <p style="font-size: 13px; color: #4A5B73; margin: 0;">If you didn't request this, you can ignore this email.</p>
+</div>
+{{ end }}

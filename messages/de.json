@@ -30,7 +30,9 @@
     "legalNotice": "Impressum",
     "terms": "AGB",
     "privacy": "Datenschutz",
-    "cookies": "Cookies"
+    "cookies": "Cookies",
+    "signIn": "Anmelden",
+    "account": "Mein Konto"
   },
   "home": {
     "title": "Erstelle deinen professionellen Lebenslauf in Sekunden mit KI.",
@@ -185,6 +187,78 @@
         "linkedin": "LinkedIn-Version erstellen",
         "interview": "Vorstellungsgespräch üben"
       }
+    }
+  },
+  "auth": {
+    "metaTitle": "Anmelden",
+    "title": "Melde dich an, um deinen Lebenslauf zu speichern",
+    "subtitle": "Kein Passwort nötig: Du bekommst einen 6-stelligen Code per E-Mail.",
+    "google": "Weiter mit Google",
+    "or": "oder",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "name@beispiel.de",
+    "sendCode": "Code anfordern",
+    "codeSent": "Code an {email} gesendet.",
+    "codeLabel": "6-stelliger Code",
+    "verify": "Bestätigen",
+    "resend": "Code erneut senden",
+    "resendIn": "Code erneut senden ({seconds} s)",
+    "changeEmail": "Andere E-Mail-Adresse verwenden",
+    "answersKept": "Deine Antworten bleiben gespeichert.",
+    "linkInvalid": "Dieser Anmeldelink ist nicht mehr gültig. Fordere einen neuen Code an.",
+    "googleFailed": "Die Anmeldung mit Google hat nicht geklappt. Versuche es noch einmal oder nutze deine E-Mail-Adresse."
+  },
+  "welcome": {
+    "metaTitle": "Willkommen",
+    "title": "Wie heißt du?",
+    "subtitle": "Dein Name erscheint oben in deinem Lebenslauf. Du kannst ihn jederzeit ändern.",
+    "continue": "Weiter"
+  },
+  "profile": {
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "phone": "Telefon",
+    "city": "Ort",
+    "optional": "optional"
+  },
+  "account": {
+    "metaTitle": "Mein Konto",
+    "title": "Mein Konto",
+    "infoTitle": "Meine Angaben",
+    "infoHint": "Sie erscheinen im Kopf deiner neuen Lebensläufe.",
+    "email": "E-Mail",
+    "emailHint": "Die Anmeldeadresse kann nicht geändert werden.",
+    "save": "Speichern",
+    "saved": "Angaben gespeichert.",
+    "signOut": "Abmelden",
+    "dangerTitle": "Gefahrenbereich",
+    "delete": {
+      "button": "Mein Konto löschen",
+      "title": "Dein Konto löschen?",
+      "description": "Das lässt sich nicht rückgängig machen. Du verlierst:",
+      "lossCvs": "deine Lebensläufe und ihre generierten Inhalte",
+      "lossCredits": "deine restlichen Credits",
+      "lossSubscription": "dein Abo, sofort gekündigt ohne Erstattung",
+      "confirmLabel": "Gib zur Bestätigung {word} ein",
+      "cancel": "Abbrechen",
+      "confirm": "Endgültig löschen"
+    },
+    "deletedNotice": "Dein Konto wurde gelöscht."
+  },
+  "errors": {
+    "UNAUTHENTICATED": "Deine Sitzung ist abgelaufen. Melde dich erneut an, um fortzufahren.",
+    "FORBIDDEN": "Du hast keinen Zugriff auf diesen Inhalt.",
+    "VALIDATION_ERROR": "Prüfe die markierten Felder.",
+    "NOT_FOUND": "Dieser Inhalt wurde nicht gefunden.",
+    "RATE_LIMITED": "Zu viele Anfragen kurz hintereinander. Warte einen Moment, bevor du es erneut versuchst.",
+    "INTERNAL": "Ein Fehler ist aufgetreten. Versuche es gleich noch einmal.",
+    "fields": {
+      "required": "Dieses Feld ist erforderlich.",
+      "tooLong": "Dieser Text ist zu lang.",
+      "invalidEmail": "Gib eine gültige E-Mail-Adresse ein.",
+      "invalidCode": "Ungültiger oder abgelaufener Code.",
+      "invalidPhone": "Gib eine gültige Telefonnummer ein.",
+      "invalidConfirmation": "Das eingegebene Wort stimmt nicht überein."
     }
   },
   "legal": {

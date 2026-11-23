@@ -30,7 +30,9 @@
     "legalNotice": "Note legali",
     "terms": "Termini e condizioni",
     "privacy": "Privacy",
-    "cookies": "Cookie"
+    "cookies": "Cookie",
+    "signIn": "Accedi",
+    "account": "Il mio account"
   },
   "home": {
     "title": "Crea il tuo CV professionale in pochi secondi grazie all'IA.",
@@ -185,6 +187,78 @@
         "linkedin": "Creare una versione LinkedIn",
         "interview": "Simulare un colloquio"
       }
+    }
+  },
+  "auth": {
+    "metaTitle": "Accedi",
+    "title": "Accedi per salvare il tuo CV",
+    "subtitle": "Nessuna password: ricevi un codice di 6 cifre via email.",
+    "google": "Continua con Google",
+    "or": "oppure",
+    "emailLabel": "Indirizzo email",
+    "emailPlaceholder": "nome@esempio.it",
+    "sendCode": "Ricevi un codice",
+    "codeSent": "Codice inviato a {email}.",
+    "codeLabel": "Codice di 6 cifre",
+    "verify": "Conferma",
+    "resend": "Invia di nuovo il codice",
+    "resendIn": "Invia di nuovo il codice ({seconds} s)",
+    "changeEmail": "Usa un'altra email",
+    "answersKept": "Le tue risposte sono salvate.",
+    "linkInvalid": "Questo link di accesso non è più valido. Richiedi un nuovo codice.",
+    "googleFailed": "L'accesso con Google non è riuscito. Riprova o usa la tua email."
+  },
+  "welcome": {
+    "metaTitle": "Ti diamo il benvenuto",
+    "title": "Come ti chiami?",
+    "subtitle": "Il tuo nome apparirà in cima al tuo CV. Potrai modificarlo in qualsiasi momento.",
+    "continue": "Continua"
+  },
+  "profile": {
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "phone": "Telefono",
+    "city": "Città",
+    "optional": "facoltativo"
+  },
+  "account": {
+    "metaTitle": "Il mio account",
+    "title": "Il mio account",
+    "infoTitle": "I miei dati",
+    "infoHint": "Vengono ripresi nell'intestazione dei tuoi nuovi CV.",
+    "email": "Email",
+    "emailHint": "L'indirizzo di accesso non può essere modificato.",
+    "save": "Salva",
+    "saved": "Dati salvati.",
+    "signOut": "Esci",
+    "dangerTitle": "Zona sensibile",
+    "delete": {
+      "button": "Elimina il mio account",
+      "title": "Eliminare il tuo account?",
+      "description": "L'operazione è definitiva. Perderai:",
+      "lossCvs": "i tuoi CV e i contenuti generati",
+      "lossCredits": "i crediti rimanenti",
+      "lossSubscription": "il tuo abbonamento, disdetto subito senza rimborso",
+      "confirmLabel": "Per confermare, scrivi {word}",
+      "cancel": "Annulla",
+      "confirm": "Elimina definitivamente"
+    },
+    "deletedNotice": "Il tuo account è stato eliminato."
+  },
+  "errors": {
+    "UNAUTHENTICATED": "La tua sessione è scaduta. Accedi di nuovo per continuare.",
+    "FORBIDDEN": "Non hai accesso a questo contenuto.",
+    "VALIDATION_ERROR": "Controlla i campi segnalati.",
+    "NOT_FOUND": "Contenuto non trovato.",
+    "RATE_LIMITED": "Troppe richieste ravvicinate. Attendi un momento prima di riprovare.",
+    "INTERNAL": "Si è verificato un errore. Riprova tra un attimo.",
+    "fields": {
+      "required": "Questo campo è obbligatorio.",
+      "tooLong": "Questo testo è troppo lungo.",
+      "invalidEmail": "Inserisci un indirizzo email valido.",
+      "invalidCode": "Codice non valido o scaduto.",
+      "invalidPhone": "Inserisci un numero di telefono valido.",
+      "invalidConfirmation": "La parola inserita non corrisponde."
     }
   },
   "legal": {

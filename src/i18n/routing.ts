@@ -23,6 +23,27 @@ export const routing = defineRouting({
       es: "/crear",
       de: "/erstellen",
     },
+    "/connexion": {
+      fr: "/connexion",
+      en: "/sign-in",
+      it: "/accedi",
+      es: "/iniciar-sesion",
+      de: "/anmelden",
+    },
+    "/bienvenue": {
+      fr: "/bienvenue",
+      en: "/welcome",
+      it: "/benvenuto",
+      es: "/bienvenida",
+      de: "/willkommen",
+    },
+    "/compte": {
+      fr: "/compte",
+      en: "/account",
+      it: "/account",
+      es: "/cuenta",
+      de: "/konto",
+    },
     "/mentions-legales": {
       fr: "/mentions-legales",
       en: "/legal-notice",

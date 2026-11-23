@@ -25,7 +25,11 @@
   1. Créer un compte sur https://supabase.com puis **New project**.
   2. Choisir une **région européenne** (ex. Paris ou Francfort).
   3. Noter le mot de passe de la base dans votre gestionnaire de mots de passe.
-  4. Un pas-à-pas fourni à l'Inc-13 expliquera où reporter les clés (variables Vercel).
+  4. Un pas-à-pas fourni à l'Inc-13 expliquera où reporter les clés (variables Vercel) et la
+     configuration de l'authentification, à reprendre de `supabase/config.toml` : adresses de
+     retour `https://<domaine>/auth/**`, modèle d'e-mail `supabase/templates/sign-in-code.html`
+     (« Confirm signup » et « Magic Link ») et son objet, code à 6 chiffres. La commande
+     `npx supabase config push` peut envoyer cette configuration au projet en ligne.
 - **Coût** : plan Pro (environ 25 $/mois) au lancement, car le plan Free se met en pause après
   7 jours d'inactivité.
 - **Vérification** : le site en ligne se connecte à la base (Inc-13).
@@ -59,8 +63,21 @@
 - **Pourquoi** : bouton « Continuer avec Google ».
 - **Quand** : avant l'Inc-2 pour tester ce bouton en local, sinon avant la mise en production.
   La connexion par e-mail fonctionne en local sans ce compte.
-- **Étapes** : un pas-à-pas précis sera fourni à l'Inc-2 (Google Cloud Console → identifiants
-  OAuth → URL de redirection Supabase).
+- **Étapes** :
+  1. Sur https://console.cloud.google.com, créer un projet (ex. « Mon CV en 30 Secondes »).
+  2. **APIs et services → Écran de consentement OAuth** : type **Externe**, nom de l'application,
+     e-mail d'assistance, logo facultatif ; champs d'application `openid`, `email` et `profile`
+     uniquement.
+  3. **Identifiants → Créer des identifiants → ID client OAuth**, type **Application Web** :
+     - Origines JavaScript autorisées : `http://localhost:3000` (puis le domaine du site à
+       l'Inc-13).
+     - URI de redirection autorisés : `http://127.0.0.1:54321/auth/v1/callback` (Supabase local)
+       et, plus tard, `https://<référence-du-projet>.supabase.co/auth/v1/callback` (tâche 2).
+  4. Copier l'ID client et le code secret dans un fichier `supabase/.env` (jamais versionné) :
+     `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID=…` et `SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET=…`.
+  5. Dans `supabase/config.toml`, section `[auth.external.google]`, passer `enabled = true`, puis
+     `npm run db:stop` et `npm run db:start`.
+  6. Dans `.env.local`, mettre `GOOGLE_AUTH_ENABLED=true` et relancer `npm run dev`.
 - **Coût** : gratuit.
 - **Vérification** : connexion Google réussie en local.
 

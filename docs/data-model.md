@@ -59,7 +59,7 @@ aussi `updated_at`, mis à jour par le déclencheur `set_updated_at`.
 | `first_name`, `last_name` | text | null, 1 à 60 caractères | En-tête du CV (H18) |
 | `phone` | text | null, ≤ 30 | Coordonnée par défaut |
 | `city` | text | null, ≤ 80 | Coordonnée par défaut |
-| `locale` | `app_locale` | not null, défaut `fr` | Langue de l'interface (e-mails, langue du CV par défaut) |
+| `locale` | `app_locale` | not null, défaut `en` | Langue de l'interface (e-mails, langue du CV par défaut) |
 | `stripe_customer_id` | text | unique, null | Client Stripe |
 | `free_generation_used_at` | timestamptz | null | Génération gratuite consommée (H3) |
 | `trial_used_at` | timestamptz | null | Essai déjà utilisé (US-21) |
@@ -202,7 +202,7 @@ des policies. Raisons clés : un utilisateur ne doit pas pouvoir créer un CV sa
 l'historique Pro serait contourné), ni modifier ses crédits, sa formule, son déblocage CV Pro ou
 ses indicateurs (gratuité, essai, pubs).
 
-**Tests RLS (Inc-2 et suivants)**, pour chaque table : un visiteur anonyme ne lit rien ; un
+**Tests RLS (Inc-2 et suivants, `tests/db/`, `npm run test:db`)**, pour chaque table : un visiteur anonyme ne lit rien ; un
 utilisateur A ne lit ni ne modifie les lignes de B ; A ne peut modifier que les colonnes
 autorisées ; les insertions et suppressions interdites échouent.
 
@@ -216,7 +216,7 @@ Fonctions `SECURITY DEFINER` avec `search_path` vide ; `execute` retiré à `pub
 | Fonction | Rôle | Incrément |
 |----------|------|-----------|
 | `set_updated_at()` | Déclencheur `updated_at` | Inc-2 |
-| `handle_new_user()` | Déclencheur sur `auth.users` : crée `profiles` (prénom et nom repris de Google s'ils existent, langue reprise des métadonnées d'inscription) et `credit_wallets` | Inc-2, complété en Inc-3 |
+| `handle_new_user()` | Déclencheur sur `auth.users` : crée `profiles` (langue reprise des métadonnées d'inscription ; prénom et nom laissés vides, confirmés à la première connexion et pré-remplis avec Google, ADR-022) et `credit_wallets` | Inc-2, complété en Inc-3 |
 | `touch_last_seen()` | Met à jour `last_seen_at` du compte appelant si la dernière valeur date de plus d'un jour ; **exécutable par `authenticated`** | Inc-2 |
 | `spend_credits(user_id, operation_id, cost, allow_included)` | Verrouille le portefeuille (`for update`), débite inclus puis achetés (ou achetés seulement), écrit le journal ; erreur `INSUFFICIENT_CREDITS` sinon | Inc-3 |
 | `refund_operation(operation_id)` | Annule les débits d'une opération une seule fois | Inc-3 |
@@ -264,7 +264,7 @@ Les contraintes `unique` (`stripe_checkout_session_id`, `provider_subscription_i
 
 Chaque migration est rejouable depuis zéro (`npm run db:reset`) et vérifiée en CI.
 
-**Données de développement** (`supabase/seed.sql`) : quatre comptes de test (sans abonnement,
+**Données de développement** (`supabase/seed.sql`, créé à l'Inc-3 avec les soldes) : quatre comptes de test (sans abonnement,
 Essential, Pro, Premium) avec des e-mails en `@exemple.test`, des soldes et un CV d'exemple. La
 connexion se fait par code, lu dans Mailpit (`http://localhost:54324`).
 

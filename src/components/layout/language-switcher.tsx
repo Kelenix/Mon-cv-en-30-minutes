@@ -12,12 +12,13 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { saveLocalePreference } from "@/features/profile/actions";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 // Sélecteur de langue (US-41) : conserve la page en cours ; next-intl mémorise le choix dans
-// un cookie de préférence.
+// un cookie de préférence, et le profil le garde pour un compte connecté.
 export function LanguageSwitcher() {
   const t = useTranslations();
   const locale = useLocale();
@@ -28,7 +29,8 @@ export function LanguageSwitcher() {
 
   function changeLocale(value: unknown) {
     if (typeof value !== "string" || !hasLocale(routing.locales, value)) return;
-    startTransition(() => {
+    startTransition(async () => {
+      await saveLocalePreference(value);
       router.replace(
         // @ts-expect-error -- motif documenté par next-intl : `pathname` et `params` viennent de
         // la page en cours, ils correspondent toujours ; le typage par chemin ne peut pas le savoir.

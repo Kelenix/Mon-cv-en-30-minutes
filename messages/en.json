@@ -30,7 +30,9 @@
     "legalNotice": "Legal notice",
     "terms": "Terms",
     "privacy": "Privacy",
-    "cookies": "Cookies"
+    "cookies": "Cookies",
+    "signIn": "Sign in",
+    "account": "My account"
   },
   "home": {
     "title": "Create your professional CV in seconds with AI.",
@@ -185,6 +187,78 @@
         "linkedin": "Create a LinkedIn version",
         "interview": "Practise an interview"
       }
+    }
+  },
+  "auth": {
+    "metaTitle": "Sign in",
+    "title": "Sign in to save your CV",
+    "subtitle": "No password needed: we'll email you a 6-digit code.",
+    "google": "Continue with Google",
+    "or": "or",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "name@example.com",
+    "sendCode": "Get a code",
+    "codeSent": "Code sent to {email}.",
+    "codeLabel": "6-digit code",
+    "verify": "Confirm",
+    "resend": "Resend the code",
+    "resendIn": "Resend the code ({seconds}s)",
+    "changeEmail": "Use a different email",
+    "answersKept": "Your answers are saved.",
+    "linkInvalid": "This sign-in link is no longer valid. Request a new code.",
+    "googleFailed": "Signing in with Google didn't work. Try again or use your email."
+  },
+  "welcome": {
+    "metaTitle": "Welcome",
+    "title": "What's your name?",
+    "subtitle": "Your name will appear at the top of your CV. You can change it at any time.",
+    "continue": "Continue"
+  },
+  "profile": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phone": "Phone",
+    "city": "City",
+    "optional": "optional"
+  },
+  "account": {
+    "metaTitle": "My account",
+    "title": "My account",
+    "infoTitle": "My details",
+    "infoHint": "They're used in the header of your new CVs.",
+    "email": "Email",
+    "emailHint": "Your sign-in address can't be changed.",
+    "save": "Save",
+    "saved": "Details saved.",
+    "signOut": "Sign out",
+    "dangerTitle": "Danger zone",
+    "delete": {
+      "button": "Delete my account",
+      "title": "Delete your account?",
+      "description": "This can't be undone. You will lose:",
+      "lossCvs": "your CVs and their generated content",
+      "lossCredits": "your remaining credits",
+      "lossSubscription": "your subscription, cancelled immediately with no refund",
+      "confirmLabel": "To confirm, type {word}",
+      "cancel": "Cancel",
+      "confirm": "Delete permanently"
+    },
+    "deletedNotice": "Your account has been deleted."
+  },
+  "errors": {
+    "UNAUTHENTICATED": "Your session has expired. Sign in again to continue.",
+    "FORBIDDEN": "You don't have access to this content.",
+    "VALIDATION_ERROR": "Check the highlighted fields.",
+    "NOT_FOUND": "This content couldn't be found.",
+    "RATE_LIMITED": "Too many requests in a row. Wait a moment before trying again.",
+    "INTERNAL": "Something went wrong. Try again in a moment.",
+    "fields": {
+      "required": "This field is required.",
+      "tooLong": "This text is too long.",
+      "invalidEmail": "Enter a valid email address.",
+      "invalidCode": "Invalid or expired code.",
+      "invalidPhone": "Enter a valid phone number.",
+      "invalidConfirmation": "The word you typed doesn't match."
     }
   },
   "legal": {

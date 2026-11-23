@@ -21,7 +21,7 @@
   },
   "languageSwitcher": {
     "label": "Langue",
-    "change": "Changer de langue (langue actuelle : {language})"
+    "change": "Changer de langue (langue actuelle : {language})"
   },
   "nav": {
     "main": "Navigation principale",
@@ -30,7 +30,9 @@
     "legalNotice": "Mentions légales",
     "terms": "CGU / CGV",
     "privacy": "Confidentialité",
-    "cookies": "Cookies"
+    "cookies": "Cookies",
+    "signIn": "Se connecter",
+    "account": "Mon compte"
   },
   "home": {
     "title": "Crée ton CV professionnel en quelques secondes grâce à l'IA.",
@@ -49,7 +51,7 @@
       "items": {
         "creation": {
           "title": "Création de CV avec l'IA",
-          "description": "Réponds à 5 questions : l'IA organise et rédige ton CV."
+          "description": "Réponds à 5 questions : l'IA organise et rédige ton CV."
         },
         "experiences": {
           "title": "Amélioration des expériences",
@@ -57,7 +59,7 @@
         },
         "adaptation": {
           "title": "Adaptation à une offre",
-          "description": "Colle une annonce : ton CV s'y adapte et tu vois les mots-clés manquants."
+          "description": "Colle une annonce : ton CV s'y adapte et tu vois les mots-clés manquants."
         },
         "coverLetter": {
           "title": "Lettres de motivation",
@@ -113,7 +115,7 @@
     "creditsPerMonth": "{count} crédits IA par mois",
     "included": "Inclus",
     "notIncluded": "Non inclus",
-    "featureWithValue": "{feature} : {value}",
+    "featureWithValue": "{feature} : {value}",
     "features": {
       "cvCreation": "Création et amélioration de CV",
       "exportsWithoutWatermark": "Export PDF et DOCX sans filigrane",
@@ -156,11 +158,11 @@
       "oneTime": "Paiement unique",
       "cvPro": {
         "title": "CV Pro",
-        "description": "Débloque un CV : export PDF et DOCX sans filigrane, définitivement."
+        "description": "Débloque un CV : export PDF et DOCX sans filigrane, définitivement."
       },
       "adsRemoval": {
         "title": "Suppression des publicités",
-        "description": "Achat unique : plus aucune publicité sur ton compte."
+        "description": "Achat unique : plus aucune publicité sur ton compte."
       }
     },
     "comparison": {
@@ -187,8 +189,80 @@
       }
     }
   },
+  "auth": {
+    "metaTitle": "Connexion",
+    "title": "Connecte-toi pour enregistrer ton CV",
+    "subtitle": "Pas de mot de passe : tu reçois un code à 6 chiffres par e-mail.",
+    "google": "Continuer avec Google",
+    "or": "ou",
+    "emailLabel": "Adresse e-mail",
+    "emailPlaceholder": "prenom@exemple.fr",
+    "sendCode": "Recevoir un code",
+    "codeSent": "Code envoyé à {email}.",
+    "codeLabel": "Code à 6 chiffres",
+    "verify": "Valider",
+    "resend": "Renvoyer le code",
+    "resendIn": "Renvoyer le code ({seconds} s)",
+    "changeEmail": "Changer d'adresse e-mail",
+    "answersKept": "Tes réponses sont conservées.",
+    "linkInvalid": "Ce lien de connexion n'est plus valable. Demande un nouveau code.",
+    "googleFailed": "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail."
+  },
+  "welcome": {
+    "metaTitle": "Bienvenue",
+    "title": "Comment t'appelles-tu ?",
+    "subtitle": "Ton nom apparaîtra en haut de ton CV. Tu pourras le modifier à tout moment.",
+    "continue": "Continuer"
+  },
+  "profile": {
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "phone": "Téléphone",
+    "city": "Ville",
+    "optional": "facultatif"
+  },
+  "account": {
+    "metaTitle": "Mon compte",
+    "title": "Mon compte",
+    "infoTitle": "Mes informations",
+    "infoHint": "Elles sont reprises dans l'en-tête de tes nouveaux CV.",
+    "email": "E-mail",
+    "emailHint": "L'adresse de connexion ne peut pas être modifiée.",
+    "save": "Enregistrer",
+    "saved": "Informations enregistrées.",
+    "signOut": "Se déconnecter",
+    "dangerTitle": "Zone sensible",
+    "delete": {
+      "button": "Supprimer mon compte",
+      "title": "Supprimer ton compte ?",
+      "description": "Cette action est définitive. Tu perdras :",
+      "lossCvs": "tes CV et leurs contenus générés",
+      "lossCredits": "tes crédits restants",
+      "lossSubscription": "ton abonnement, résilié immédiatement sans remboursement",
+      "confirmLabel": "Pour confirmer, saisis {word}",
+      "cancel": "Annuler",
+      "confirm": "Supprimer définitivement"
+    },
+    "deletedNotice": "Ton compte a été supprimé."
+  },
+  "errors": {
+    "UNAUTHENTICATED": "Ta session a expiré. Reconnecte-toi pour continuer.",
+    "FORBIDDEN": "Tu n'as pas accès à ce contenu.",
+    "VALIDATION_ERROR": "Vérifie les champs signalés.",
+    "NOT_FOUND": "Ce contenu est introuvable.",
+    "RATE_LIMITED": "Trop de demandes rapprochées. Patiente un instant avant de réessayer.",
+    "INTERNAL": "Une erreur est survenue. Réessaie dans un instant.",
+    "fields": {
+      "required": "Ce champ est obligatoire.",
+      "tooLong": "Ce texte est trop long.",
+      "invalidEmail": "Saisis une adresse e-mail valide.",
+      "invalidCode": "Code invalide ou expiré.",
+      "invalidPhone": "Saisis un numéro de téléphone valide.",
+      "invalidConfirmation": "Le mot saisi ne correspond pas."
+    }
+  },
   "legal": {
-    "updatedAt": "Dernière mise à jour : {date}",
+    "updatedAt": "Dernière mise à jour : {date}",
     "missing": "information à fournir",
     "tableOfContents": "Sommaire"
   },

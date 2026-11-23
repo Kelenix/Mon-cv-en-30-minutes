@@ -27,6 +27,10 @@ const envSchema = z
   .object({
     NEXT_PUBLIC_SITE_URL: z.url(),
     VERCEL_ENV: z.enum(["production", "preview", "development"]).optional(),
+    NEXT_PUBLIC_SUPABASE_URL: z.url(),
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.string().min(1),
+    SUPABASE_SECRET_KEY: z.string().min(1),
+    GOOGLE_AUTH_ENABLED: z.stringbool().default(false),
     ADS_REMOVAL_ENABLED: z.stringbool().default(false),
     LEGAL_COMPANY_NAME: optionalText,
     LEGAL_FORM: optionalText,
