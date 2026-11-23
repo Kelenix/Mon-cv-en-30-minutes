@@ -6,6 +6,33 @@
 
 ---
 
+## ADR-023 — Logo : celui du kit fourni, à l'identique
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : l'utilisateur (« le logo doit être exactement ce que je t'ai fourni » ; choix pour
+  les autres langues posé par Claude), Claude pour la réalisation (rôle : ui-ux-designer)
+- **Contexte** : l'en-tête affichait un logotype typographique en attendant des fichiers séparés
+  (tâche 8). Le seul logo fourni est sur la planche du kit web, en français, sur un damier
+  « transparent » peint dans l'image.
+- **Décision** :
+  - Logo **détouré du kit** (`Kit UI Mon CV en 30 Secondes_web.png`, zone 15,20 – 850,282) :
+    fond en damier retiré, halo bleu recomposé (moyenne du damier, transparence estimée d'après
+    la saturation), îlots de bruit supprimés. Fichiers : `src/assets/brand/logo-fr.png` et
+    l'icône seule `logo-icone.png`, redimensionnés par `next/image`.
+  - **Français** : le logo à l'identique (texte alternatif « Mon CV en 30 Secondes »).
+  - **Anglais, italien, espagnol, allemand** : l'icône du logo suivie du nom traduit, sur deux
+    lignes comme le logo fourni (choix de l'utilisateur, qui maintient le nom traduit de
+    l'ADR-018).
+- **Alternatives écartées** : logo français dans toutes les langues ; attendre des fichiers
+  séparés (l'utilisateur veut son logo tout de suite) ; nom traduit sur une seule ligne (déborde
+  sur mobile en allemand).
+- **Conséquences** : le logo est une image (pas de texte vectoriel) ; un fichier source fourni
+  plus tard remplacera simplement les deux images.
+- **Impact** : métier (faible)
+
+---
+
 ## ADR-022 — Choix de réalisation des comptes (Inc-2)
 
 - **Date** : 23/11/2026

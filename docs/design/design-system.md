@@ -97,11 +97,12 @@ automatique sur iOS).
 - **Icônes d'interface** : Lucide (trait 2 px), 20 px dans les boutons, 24 px dans les listes,
   toujours accompagnées d'un texte ou d'un `aria-label`.
 - **Illustrations 3D du kit** (personnages, chronomètre 30s, CV, trophée, cible…) : réservées
-  aux sections marketing et aux états vides. Fichiers séparés à fournir (tâche manuelle 8) ; en
-  attendant, logotype typographique « Mon CV en 30 Secondes » avec la pastille « 30 Secondes »
-  sur fond `primary`.
-- **Logo par langue** (H31) : même construction (nom + pastille), texte traduit ; le composant
-  `Logo` choisit la variante selon la langue affichée.
+  aux sections marketing et aux états vides. Fichiers séparés à fournir (tâche manuelle 8).
+- **Logo** (ADR-023) : en français, le logo du kit web à l'identique, détouré
+  (`src/assets/brand/logo-fr.png`) ; dans les autres langues, son icône
+  (`src/assets/brand/logo-icone.png`) suivie du nom traduit sur deux lignes, comme le logo :
+  nom en gras bleu nuit, puis connecteur et pastille `primary` en italique blanc (H31). Hauteur
+  44 px sur mobile, 56 px à partir de 640 px.
 
 ---
 

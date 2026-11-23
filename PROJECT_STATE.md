@@ -106,6 +106,11 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 23/11/2026 — **Logo** (demande de l'utilisateur) : logo du kit détouré et affiché à l'identique
+  en français ; icône + nom traduit sur deux lignes dans les autres langues (choix de
+  l'utilisateur, ADR-023). Vérifié : lint, types, 75 tests unitaires, build, 94 tests de bout en
+  bout, contrôle visuel sur ordinateur et mobile (aucun débordement en allemand).
+
 - 23/11/2026 — **Inc-2 terminé** : connexion sans mot de passe (code à 6 chiffres par e-mail,
   lien de secours, Google derrière `GOOGLE_AUTH_ENABLED`), étape « Comment t'appelles-tu ? »,
   espace compte (profil, déconnexion, suppression avec mot de confirmation par langue), langue

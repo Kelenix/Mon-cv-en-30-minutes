@@ -122,6 +122,23 @@ test.describe("Accueil (US-01, US-02, US-03)", () => {
     });
   }
 
+  test("affiche le logo fourni en français, son icône et le nom traduit ailleurs", async ({
+    page,
+  }) => {
+    await page.goto("/fr");
+    const header = page.getByRole("banner");
+    await expect(
+      header.getByRole("link").getByRole("img", { name: fr.brand.name }),
+    ).toBeVisible();
+
+    await page.goto("/it");
+    const logoLink = page.getByRole("banner").getByRole("link").first();
+    await expect(logoLink).toHaveAccessibleName(
+      `${it_.brand.lead} ${it_.brand.connector} ${it_.brand.pill}`,
+    );
+    await expect(logoLink.locator("img")).toBeVisible();
+  });
+
   test("le lien « Voir tous les tarifs » ouvre la page Tarifs", async ({
     page,
   }) => {

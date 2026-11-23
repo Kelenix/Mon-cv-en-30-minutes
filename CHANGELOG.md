@@ -4,6 +4,11 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Modifié
+
+- En-tête : logo du kit fourni à l'identique en français ; dans les autres langues, son icône
+  suivie du nom traduit, sur deux lignes.
+
 ### Ajouté — Inc-2 : comptes
 
 - Connexion et inscription sans mot de passe : code à 6 chiffres reçu par e-mail (lien de secours

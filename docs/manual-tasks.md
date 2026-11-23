@@ -111,11 +111,12 @@
 - **Coût** : selon le juriste et l'expert-comptable.
 - **Vérification** : les pages légales n'affichent plus aucun champ manquant.
 
-## Tâche 8 : Fournir le logo et les illustrations en fichiers séparés
+## Tâche 8 : Fournir le logo et les illustrations en fichiers séparés (facultatif)
 - **Pourquoi** : les kits fournis sont des planches composites dont le fond en damier est incrusté
-  dans l'image ; ils ne peuvent pas être découpés proprement.
-- **Quand** : avant l'Inc-1 si possible. À défaut, un logotype typographique conforme au kit sera
-  utilisé en attendant.
+  dans l'image. Le logo a été détouré du kit web (ADR-023) et s'affiche proprement sur fond
+  blanc ; un fichier source (SVG ou PNG transparent) donnerait un contour encore plus net,
+  notamment sur les écrans haute définition.
+- **Quand** : quand tu le souhaites ; rien n'est bloqué.
 - **Étapes** : exporter depuis l'outil de création le logo (SVG de préférence) **dans chacune des
   5 langues** (nom de marque traduit, tâche 12), l'icône 30s et les illustrations (PNG
   transparents, au moins 1 200 px de large) dans un dossier `assets-source/`.
