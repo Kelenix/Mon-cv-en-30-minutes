@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 3000;
+// Port modifiable (`E2E_PORT`) pour tester le build de production à côté d'un serveur de dev.
+const PORT = Number(process.env.E2E_PORT ?? 3000);
 const isCi = Boolean(process.env.CI);
 
 export default defineConfig({
@@ -25,7 +26,7 @@ export default defineConfig({
   ],
   webServer: {
     // En CI, le build de production est testé ; en local, le serveur de développement suffit.
-    command: isCi ? "npm run start" : "npm run dev",
+    command: isCi ? `npm run start -- -p ${PORT}` : `npm run dev -- -p ${PORT}`,
     url: `http://localhost:${PORT}/fr`,
     reuseExistingServer: !isCi,
     timeout: 120_000,

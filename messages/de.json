@@ -23,9 +23,174 @@
     "label": "Sprache",
     "change": "Sprache ändern (aktuelle Sprache: {language})"
   },
+  "nav": {
+    "main": "Hauptnavigation",
+    "legal": "Rechtliches",
+    "pricing": "Preise",
+    "legalNotice": "Impressum",
+    "terms": "AGB",
+    "privacy": "Datenschutz",
+    "cookies": "Cookies"
+  },
   "home": {
     "title": "Erstelle deinen professionellen Lebenslauf in Sekunden mit KI.",
-    "subtitle": "Beantworte 5 Fragen, die KI schreibt deinen Lebenslauf."
+    "subtitle": "Beantworte 5 Fragen, die KI schreibt deinen Lebenslauf.",
+    "cta": "Lebenslauf kostenlos erstellen",
+    "highlights": {
+      "freeFirstCv": "Erster Lebenslauf gratis",
+      "fiveQuestions": "5 Fragen",
+      "noCard": "Ohne Kreditkarte"
+    },
+    "features": {
+      "title": "Alles für deinen nächsten Job",
+      "subtitle": "Erst dein Lebenslauf, dann Tools für jede Bewerbung.",
+      "freeNote": "Erster Lebenslauf gratis",
+      "paidNote": "Mit Credits oder Abo",
+      "items": {
+        "creation": {
+          "title": "Lebenslauf mit KI",
+          "description": "Beantworte 5 Fragen: Die KI ordnet und schreibt deinen Lebenslauf."
+        },
+        "experiences": {
+          "title": "Stärkere Berufserfahrung",
+          "description": "Die KI formuliert deine Erfahrungen und dein Profil überzeugender."
+        },
+        "adaptation": {
+          "title": "Passend zur Stellenanzeige",
+          "description": "Füge eine Anzeige ein: Dein Lebenslauf passt sich an und du siehst fehlende Schlüsselwörter."
+        },
+        "coverLetter": {
+          "title": "Anschreiben",
+          "description": "Ein individuelles Anschreiben auf Basis deines Lebenslaufs und der Wunschstelle."
+        },
+        "linkedin": {
+          "title": "LinkedIn-Version",
+          "description": "Eine Headline, ein Info-Abschnitt und deine Erfahrungen, bereit zum Kopieren."
+        },
+        "interview": {
+          "title": "Vorstellungsgespräch üben",
+          "description": "Übe häufige Fragen und erhalte Tipps."
+        }
+      }
+    },
+    "offers": {
+      "title": "Einfache Angebote",
+      "subtitle": "Starte kostenlos und wähle dann, was du brauchst.",
+      "seeAll": "Alle Preise ansehen",
+      "priceFrom": "Ab {price}",
+      "free": {
+        "name": "Kostenlos",
+        "description": "Dein erster vollständiger Lebenslauf und sein PDF mit Wasserzeichen."
+      },
+      "credits": {
+        "name": "KI-Credits",
+        "description": "Pakete nach Bedarf, ohne Abo."
+      },
+      "cvPro": {
+        "name": "CV Pro",
+        "description": "Ein Lebenslauf als PDF und DOCX ohne Wasserzeichen, Einmalzahlung."
+      }
+    },
+    "finalCta": {
+      "title": "Dein Lebenslauf ist in Sekunden fertig",
+      "subtitle": "Kostenlos, ohne Kreditkarte."
+    }
+  },
+  "plans": {
+    "names": {
+      "essential": "Essential",
+      "pro": "Pro",
+      "premium": "Premium"
+    },
+    "descriptions": {
+      "essential": "Das Wichtigste, um deine Lebensläufe zu erstellen und zu verbessern.",
+      "pro": "Das Komplettpaket für jede Bewerbung.",
+      "premium": "Alle Tools für jeden Tag, mit höchster Priorität."
+    },
+    "recommended": "Empfohlen",
+    "perMonth": "/ Monat",
+    "perYear": "/ Jahr",
+    "creditsPerMonth": "{count} KI-Credits pro Monat",
+    "included": "Enthalten",
+    "notIncluded": "Nicht enthalten",
+    "featureWithValue": "{feature}: {value}",
+    "features": {
+      "cvCreation": "Lebenslauf erstellen und verbessern",
+      "exportsWithoutWatermark": "PDF- und DOCX-Export ohne Wasserzeichen",
+      "linkedin": "LinkedIn-Version",
+      "summaryVariants": "Profil-Varianten",
+      "jobAdaptation": "Lebenslauf passend zur Stellenanzeige",
+      "missingKeywords": "Analyse fehlender Schlüsselwörter",
+      "coverLetter": "Anschreiben",
+      "interview": "Vorstellungsgespräch üben",
+      "unlimitedHistory": "Unbegrenzter Lebenslauf-Verlauf",
+      "aiPriority": "Priorität bei KI-Generierungen",
+      "noAds": "Werbefrei"
+    },
+    "priority": {
+      "standard": "Standard",
+      "priority": "Bevorzugt",
+      "max": "Höchste"
+    }
+  },
+  "pricing": {
+    "metaTitle": "Preise",
+    "metaDescription": "Essential-, Pro- und Premium-Abos, KI-Credit-Pakete und CV Pro. Preise inkl. MwSt., 3 Tage Pro kostenlos testen.",
+    "title": "Wähle das passende Abo",
+    "subtitle": "Dein erster Lebenslauf ist kostenlos. Abos und Credits schalten die erweiterten Tools frei.",
+    "startFree": "Lebenslauf kostenlos erstellen",
+    "billing": {
+      "label": "Zahlungsweise",
+      "monthly": "Monatlich",
+      "yearly": "Jährlich",
+      "yearlyHint": "bis zu −{percent} %"
+    },
+    "savings": "Du sparst {percent} % gegenüber monatlich",
+    "conditions": "{days} Tage Pro kostenlos testen, mit {credits} Credits. Automatische Verlängerung. Jederzeit kündbar.",
+    "pricesNote": "Preise in Euro inkl. MwSt.",
+    "withoutSubscription": {
+      "title": "Ohne Abo",
+      "subtitle": "Zahle nur, was du nutzt.",
+      "packs": "KI-Credit-Pakete",
+      "packCredits": "{count} Credits",
+      "oneTime": "Einmalzahlung",
+      "cvPro": {
+        "title": "CV Pro",
+        "description": "Schalte einen Lebenslauf frei: PDF- und DOCX-Export ohne Wasserzeichen, dauerhaft."
+      },
+      "adsRemoval": {
+        "title": "Werbung entfernen",
+        "description": "Einmalkauf: keine Werbung mehr in deinem Konto."
+      }
+    },
+    "comparison": {
+      "title": "Abos vergleichen",
+      "feature": "Funktion",
+      "monthlyPrice": "Monatspreis",
+      "yearlyPrice": "Jahrespreis",
+      "monthlyCredits": "KI-Credits pro Monat"
+    },
+    "costs": {
+      "title": "Kosten der KI-Aktionen",
+      "subtitle": "Dein erster Lebenslauf wird kostenlos erstellt. Schlägt eine Aktion fehl, bekommst du deine Credits zurück.",
+      "operation": "Aktion",
+      "cost": "Kosten",
+      "credits": "{count, plural, one {# Credit} other {# Credits}}",
+      "items": {
+        "generateCv": "Lebenslauf erstellen",
+        "improveExperience": "Berufserfahrung verbessern",
+        "improveSummary": "Profil verbessern",
+        "adaptToJob": "Lebenslauf an eine Stellenanzeige anpassen (mit Schlüsselwort-Analyse)",
+        "coverLetter": "Anschreiben erstellen",
+        "linkedin": "LinkedIn-Version erstellen",
+        "interview": "Vorstellungsgespräch üben"
+      }
+    }
+  },
+  "legal": {
+    "updatedAt": "Zuletzt aktualisiert: {date}",
+    "missing": "Angabe folgt",
+    "tableOfContents": "Inhalt"
   },
   "notFound": {
     "title": "Seite nicht gefunden",

@@ -3,12 +3,16 @@ import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { locale as getRootLocale } from "next/root-params";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { env } from "@/core/env";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
+
+// Seules ces parties des traductions sont envoyées au navigateur (composants client) ; le reste
+// est rendu côté serveur, ce qui allège chaque page.
+const CLIENT_NAMESPACES = ["locales", "languageSwitcher", "error"] as const;
 
 // Poppins servie par le site (aucune requête vers Google à l'exécution), caractères des 5 langues.
 const poppins = Poppins({
@@ -42,11 +46,15 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   const t = await getTranslations("a11y");
+  const messages = await getMessages();
+  const clientMessages = Object.fromEntries(
+    CLIENT_NAMESPACES.map((namespace) => [namespace, messages[namespace]]),
+  );
 
   return (
     <html lang={locale} className={poppins.variable}>
       <body className="flex min-h-dvh flex-col antialiased">
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={clientMessages}>
           <a
             href="#contenu"
             className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"

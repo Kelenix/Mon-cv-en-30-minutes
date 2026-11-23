@@ -80,10 +80,15 @@
 - **Quand** : avant l'Inc-6.
 - **Étapes** :
   1. Réunir : raison sociale ou nom, statut juridique, SIRET, adresse, e-mail de contact, numéro de
-     TVA s'il y a lieu, directeur de la publication.
+     TVA s'il y a lieu, directeur de la publication, hébergeur (nom, adresse, téléphone) et
+     **médiateur de la consommation** (adhésion obligatoire pour vendre à des particuliers en
+     France). Ces valeurs vont dans les variables `LEGAL_*` décrites dans `.env.example` ; en
+     production, le site refuse de se construire si l'une d'elles manque.
   2. Faire relire les CGV et la politique de confidentialité par un juriste avant le lancement,
      **dans chacune des 5 langues** et pour chaque pays où vous vendez (Italie, Espagne,
-     Allemagne… ont leurs propres règles de protection du consommateur).
+     Allemagne… ont leurs propres règles de protection du consommateur). Les textes sont dans
+     `src/features/legal/content/` ; points déjà signalés par les traducteurs : voir
+     `docs/risks.md` (R20).
   3. Vérifier vos obligations de TVA avec un expert-comptable (dont le guichet unique OSS pour les
      clients d'autres pays de l'UE) et décider d'activer ou non Stripe Tax pour le calcul.
 - **Coût** : selon le juriste et l'expert-comptable.

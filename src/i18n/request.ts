@@ -14,6 +14,8 @@ export default getRequestConfig(async ({ locale: explicitLocale }) => {
 
   return {
     locale,
+    // Fuseau de référence pour les dates affichées (le service est exploité depuis la France).
+    timeZone: "Europe/Paris",
     messages: (await import(`../../messages/${locale}.json`)).default,
   };
 });

@@ -23,9 +23,174 @@
     "label": "Langue",
     "change": "Changer de langue (langue actuelle : {language})"
   },
+  "nav": {
+    "main": "Navigation principale",
+    "legal": "Informations légales",
+    "pricing": "Tarifs",
+    "legalNotice": "Mentions légales",
+    "terms": "CGU / CGV",
+    "privacy": "Confidentialité",
+    "cookies": "Cookies"
+  },
   "home": {
     "title": "Crée ton CV professionnel en quelques secondes grâce à l'IA.",
-    "subtitle": "Réponds à 5 questions, l'IA rédige ton CV."
+    "subtitle": "Réponds à 5 questions, l'IA rédige ton CV.",
+    "cta": "Créer mon CV gratuitement",
+    "highlights": {
+      "freeFirstCv": "1er CV gratuit",
+      "fiveQuestions": "5 questions",
+      "noCard": "Sans carte bancaire"
+    },
+    "features": {
+      "title": "Tout pour décrocher ton prochain poste",
+      "subtitle": "Ton CV d'abord, puis des outils pour chaque candidature.",
+      "freeNote": "Premier CV gratuit",
+      "paidNote": "Avec crédits ou abonnement",
+      "items": {
+        "creation": {
+          "title": "Création de CV avec l'IA",
+          "description": "Réponds à 5 questions : l'IA organise et rédige ton CV."
+        },
+        "experiences": {
+          "title": "Amélioration des expériences",
+          "description": "L'IA reformule tes expériences et ton accroche pour les mettre en valeur."
+        },
+        "adaptation": {
+          "title": "Adaptation à une offre",
+          "description": "Colle une annonce : ton CV s'y adapte et tu vois les mots-clés manquants."
+        },
+        "coverLetter": {
+          "title": "Lettres de motivation",
+          "description": "Une lettre sur mesure, à partir de ton CV et du poste visé."
+        },
+        "linkedin": {
+          "title": "Version LinkedIn",
+          "description": "Un titre, une section Infos et tes expériences, prêts à copier."
+        },
+        "interview": {
+          "title": "Simulation d'entretien",
+          "description": "Entraîne-toi sur les questions fréquentes et reçois des conseils."
+        }
+      }
+    },
+    "offers": {
+      "title": "Des offres simples",
+      "subtitle": "Commence gratuitement, puis choisis ce dont tu as besoin.",
+      "seeAll": "Voir tous les tarifs",
+      "priceFrom": "À partir de {price}",
+      "free": {
+        "name": "Gratuit",
+        "description": "Ton premier CV complet et son export PDF avec filigrane."
+      },
+      "credits": {
+        "name": "Crédits IA",
+        "description": "Des packs à l'unité, sans abonnement."
+      },
+      "cvPro": {
+        "name": "CV Pro",
+        "description": "Un CV en PDF et DOCX sans filigrane, paiement unique."
+      }
+    },
+    "finalCta": {
+      "title": "Ton CV est prêt en quelques secondes",
+      "subtitle": "Gratuit, sans carte bancaire."
+    }
+  },
+  "plans": {
+    "names": {
+      "essential": "Essential",
+      "pro": "Pro",
+      "premium": "Premium"
+    },
+    "descriptions": {
+      "essential": "Les fonctions essentielles pour créer et améliorer tes CV.",
+      "pro": "La formule complète pour chaque candidature.",
+      "premium": "Tous les outils au quotidien, avec la priorité maximale."
+    },
+    "recommended": "Recommandé",
+    "perMonth": "/ mois",
+    "perYear": "/ an",
+    "creditsPerMonth": "{count} crédits IA par mois",
+    "included": "Inclus",
+    "notIncluded": "Non inclus",
+    "featureWithValue": "{feature} : {value}",
+    "features": {
+      "cvCreation": "Création et amélioration de CV",
+      "exportsWithoutWatermark": "Export PDF et DOCX sans filigrane",
+      "linkedin": "Version LinkedIn",
+      "summaryVariants": "Variantes d'accroche",
+      "jobAdaptation": "Adaptation du CV à une offre d'emploi",
+      "missingKeywords": "Analyse des mots-clés manquants",
+      "coverLetter": "Lettres de motivation",
+      "interview": "Simulation d'entretien",
+      "unlimitedHistory": "Historique illimité des CV",
+      "aiPriority": "Priorité des générations IA",
+      "noAds": "Sans publicité"
+    },
+    "priority": {
+      "standard": "Standard",
+      "priority": "Prioritaire",
+      "max": "Maximale"
+    }
+  },
+  "pricing": {
+    "metaTitle": "Tarifs",
+    "metaDescription": "Formules Essential, Pro et Premium, packs de crédits IA et CV Pro. Prix TTC, essai gratuit de 3 jours sur Pro.",
+    "title": "Choisis la formule qui te ressemble",
+    "subtitle": "Ton premier CV est gratuit. Les formules et les crédits débloquent les outils avancés.",
+    "startFree": "Créer mon CV gratuitement",
+    "billing": {
+      "label": "Périodicité de paiement",
+      "monthly": "Mensuel",
+      "yearly": "Annuel",
+      "yearlyHint": "jusqu'à −{percent} %"
+    },
+    "savings": "Économise {percent} % par rapport au mensuel",
+    "conditions": "Essai gratuit de {days} jours sur Pro, avec {credits} crédits. Renouvellement automatique. Annulable à tout moment.",
+    "pricesNote": "Prix TTC en euros.",
+    "withoutSubscription": {
+      "title": "Sans abonnement",
+      "subtitle": "Paie uniquement ce que tu utilises.",
+      "packs": "Packs de crédits IA",
+      "packCredits": "{count} crédits",
+      "oneTime": "Paiement unique",
+      "cvPro": {
+        "title": "CV Pro",
+        "description": "Débloque un CV : export PDF et DOCX sans filigrane, définitivement."
+      },
+      "adsRemoval": {
+        "title": "Suppression des publicités",
+        "description": "Achat unique : plus aucune publicité sur ton compte."
+      }
+    },
+    "comparison": {
+      "title": "Comparer les formules",
+      "feature": "Fonctionnalité",
+      "monthlyPrice": "Prix mensuel",
+      "yearlyPrice": "Prix annuel",
+      "monthlyCredits": "Crédits IA par mois"
+    },
+    "costs": {
+      "title": "Coût des opérations IA",
+      "subtitle": "Ton premier CV est généré gratuitement. Si une opération échoue, tes crédits te sont rendus.",
+      "operation": "Opération",
+      "cost": "Coût",
+      "credits": "{count, plural, one {# crédit} other {# crédits}}",
+      "items": {
+        "generateCv": "Générer un CV",
+        "improveExperience": "Améliorer une expérience professionnelle",
+        "improveSummary": "Améliorer une accroche",
+        "adaptToJob": "Adapter un CV à une offre d'emploi (avec analyse des mots-clés)",
+        "coverLetter": "Générer une lettre de motivation",
+        "linkedin": "Créer une version LinkedIn",
+        "interview": "Simuler un entretien"
+      }
+    }
+  },
+  "legal": {
+    "updatedAt": "Dernière mise à jour : {date}",
+    "missing": "information à fournir",
+    "tableOfContents": "Sommaire"
   },
   "notFound": {
     "title": "Page introuvable",

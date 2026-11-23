@@ -6,6 +6,47 @@
 
 ---
 
+## ADR-021 — Choix de réalisation de la vitrine (Inc-1)
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : frontend-engineer, ui-ux-designer, seo-engineer)
+- **Contexte** : accueil, tarifs et pages légales dans les 5 langues, avant l'existence des comptes,
+  de la création de CV et des paiements.
+- **Décision** :
+  - **Catalogue unique** `src/features/plans/catalog.ts` : prix, crédits, packs, coûts des
+    opérations et matrice des droits ; l'accueil, les tarifs et (plus tard) le moteur de droits et
+    Stripe en dépendent. Les économies annuelles sont calculées (ADR-002).
+  - **Tarifs sans bouton de souscription** jusqu'à l'Inc-6 : la page informe (prix, crédits,
+    fonctions, conditions) et propose « Créer mon CV gratuitement », conformément au §14 (première
+    proposition payante après la première génération). Les boutons arrivent avec Stripe.
+  - Le bouton « Créer mon CV gratuitement » mène déjà à l'adresse traduite de l'assistant
+    (`/fr/creer`, `/en/create`…), construit à l'Inc-4 ; d'ici là, cette adresse affiche la page 404.
+  - **Bascule Mensuel / Annuel sans texte côté client** : les deux prix sont rendus sur le serveur,
+    la bascule change seulement un attribut ; seules 3 parties des traductions sont envoyées au
+    navigateur (langues, sélecteur, erreurs).
+  - **Illustration de l'accueil en SVG** reprenant les motifs du kit (CV, validation, chronomètre
+    30s), en attendant les fichiers officiels (tâche 8).
+  - **Textes légaux en modules TypeScript typés** par langue (`src/features/legal/content/`), et non
+    dans les fichiers de messages : volume important, structure vérifiée par test (mêmes sections,
+    mêmes variables) ; informations du vendeur insérées depuis les variables `LEGAL_*`, exigées en
+    production (`VERCEL_ENV=production`). Traductions anglaise, italienne, espagnole et allemande
+    réalisées en parallèle puis vérifiées (structure, variables, types).
+  - Fuseau horaire de référence `Europe/Paris` pour les dates affichées.
+  - Métadonnées par page : titre, description, adresse canonique et `hreflang` pour les 5 langues ;
+    sitemap, robots.txt et données structurées restent à l'Inc-12 (US-39).
+  - Ordre des cartes de formules identique sur mobile et ordinateur (Essential, Pro, Premium) :
+    l'ordre de lecture reste cohérent ; Pro est signalée par son badge (écart mineur avec
+    `docs/design/flows.md` §3.2).
+- **Alternatives écartées** : boutons de souscription inactifs (trompeurs) ; textes légaux dans les
+  messages (envoyés inutilement et difficiles à relire) ; recadrer les planches du kit (fond en
+  damier incrusté).
+- **Conséquences** : US-01 (critère 3) et US-03 (critère 2, sélection d'une formule) seront
+  complètement vérifiés aux Inc-4 et Inc-6.
+- **Impact** : métier / technique (faible)
+
+---
+
 ## ADR-020 — Outillage du socle (Inc-0)
 
 - **Date** : 23/11/2026

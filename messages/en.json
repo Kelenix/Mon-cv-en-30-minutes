@@ -23,9 +23,174 @@
     "label": "Language",
     "change": "Change language (current language: {language})"
   },
+  "nav": {
+    "main": "Main navigation",
+    "legal": "Legal information",
+    "pricing": "Pricing",
+    "legalNotice": "Legal notice",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "cookies": "Cookies"
+  },
   "home": {
     "title": "Create your professional CV in seconds with AI.",
-    "subtitle": "Answer 5 questions and AI writes your CV."
+    "subtitle": "Answer 5 questions and AI writes your CV.",
+    "cta": "Create my CV for free",
+    "highlights": {
+      "freeFirstCv": "First CV free",
+      "fiveQuestions": "5 questions",
+      "noCard": "No credit card"
+    },
+    "features": {
+      "title": "Everything you need to land your next job",
+      "subtitle": "Your CV first, then tools for every application.",
+      "freeNote": "First CV free",
+      "paidNote": "With credits or a subscription",
+      "items": {
+        "creation": {
+          "title": "AI CV builder",
+          "description": "Answer 5 questions: AI organises and writes your CV."
+        },
+        "experiences": {
+          "title": "Better experience descriptions",
+          "description": "AI rewrites your experience and summary to make them stand out."
+        },
+        "adaptation": {
+          "title": "Tailored to each job ad",
+          "description": "Paste a job ad: your CV adapts to it and you see the missing keywords."
+        },
+        "coverLetter": {
+          "title": "Cover letters",
+          "description": "A tailored letter, based on your CV and the job you want."
+        },
+        "linkedin": {
+          "title": "LinkedIn version",
+          "description": "A headline, an About section and your experience, ready to copy."
+        },
+        "interview": {
+          "title": "Interview practice",
+          "description": "Practise common interview questions and get feedback."
+        }
+      }
+    },
+    "offers": {
+      "title": "Simple plans",
+      "subtitle": "Start for free, then choose what you need.",
+      "seeAll": "See all pricing",
+      "priceFrom": "From {price}",
+      "free": {
+        "name": "Free",
+        "description": "Your first complete CV and its PDF export with a watermark."
+      },
+      "credits": {
+        "name": "AI credits",
+        "description": "Pay-as-you-go packs, no subscription."
+      },
+      "cvPro": {
+        "name": "CV Pro",
+        "description": "One CV in PDF and DOCX without a watermark, one-time payment."
+      }
+    },
+    "finalCta": {
+      "title": "Your CV is ready in seconds",
+      "subtitle": "Free, no credit card."
+    }
+  },
+  "plans": {
+    "names": {
+      "essential": "Essential",
+      "pro": "Pro",
+      "premium": "Premium"
+    },
+    "descriptions": {
+      "essential": "The essentials to create and improve your CVs.",
+      "pro": "The complete plan for every application.",
+      "premium": "Every tool, every day, with top priority."
+    },
+    "recommended": "Recommended",
+    "perMonth": "/ month",
+    "perYear": "/ year",
+    "creditsPerMonth": "{count} AI credits per month",
+    "included": "Included",
+    "notIncluded": "Not included",
+    "featureWithValue": "{feature}: {value}",
+    "features": {
+      "cvCreation": "CV creation and improvement",
+      "exportsWithoutWatermark": "PDF and DOCX export without watermark",
+      "linkedin": "LinkedIn version",
+      "summaryVariants": "Summary variations",
+      "jobAdaptation": "CV tailored to a job ad",
+      "missingKeywords": "Missing keyword analysis",
+      "coverLetter": "Cover letters",
+      "interview": "Interview practice",
+      "unlimitedHistory": "Unlimited CV history",
+      "aiPriority": "AI generation priority",
+      "noAds": "No ads"
+    },
+    "priority": {
+      "standard": "Standard",
+      "priority": "Priority",
+      "max": "Highest"
+    }
+  },
+  "pricing": {
+    "metaTitle": "Pricing",
+    "metaDescription": "Essential, Pro and Premium plans, AI credit packs and CV Pro. Prices include VAT, 3-day free trial of Pro.",
+    "title": "Choose the plan that suits you",
+    "subtitle": "Your first CV is free. Plans and credits unlock the advanced tools.",
+    "startFree": "Create my CV for free",
+    "billing": {
+      "label": "Billing period",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "yearlyHint": "up to −{percent}%"
+    },
+    "savings": "Save {percent}% compared with monthly",
+    "conditions": "{days}-day free trial of Pro, with {credits} credits. Renews automatically. Cancel anytime.",
+    "pricesNote": "Prices in euros, VAT included.",
+    "withoutSubscription": {
+      "title": "No subscription",
+      "subtitle": "Only pay for what you use.",
+      "packs": "AI credit packs",
+      "packCredits": "{count} credits",
+      "oneTime": "One-time payment",
+      "cvPro": {
+        "title": "CV Pro",
+        "description": "Unlock one CV: PDF and DOCX export without watermark, for good."
+      },
+      "adsRemoval": {
+        "title": "Ad removal",
+        "description": "One-time purchase: no more ads on your account."
+      }
+    },
+    "comparison": {
+      "title": "Compare plans",
+      "feature": "Feature",
+      "monthlyPrice": "Monthly price",
+      "yearlyPrice": "Yearly price",
+      "monthlyCredits": "AI credits per month"
+    },
+    "costs": {
+      "title": "Cost of AI operations",
+      "subtitle": "Your first CV is generated for free. If an operation fails, your credits are refunded.",
+      "operation": "Operation",
+      "cost": "Cost",
+      "credits": "{count, plural, one {# credit} other {# credits}}",
+      "items": {
+        "generateCv": "Generate a CV",
+        "improveExperience": "Improve a work experience",
+        "improveSummary": "Improve a summary",
+        "adaptToJob": "Tailor a CV to a job ad (with keyword analysis)",
+        "coverLetter": "Generate a cover letter",
+        "linkedin": "Create a LinkedIn version",
+        "interview": "Practise an interview"
+      }
+    }
+  },
+  "legal": {
+    "updatedAt": "Last updated: {date}",
+    "missing": "information to be provided",
+    "tableOfContents": "Contents"
   },
   "notFound": {
     "title": "Page not found",

@@ -5,12 +5,14 @@
 
 ## Snapshot
 
-- **Phase courante** : 4 — Implémentation (Inc-0 terminé, jalon M0 atteint)
+- **Phase courante** : 4 — Implémentation (Inc-1 terminé, jalon M1 atteint)
 - **Dernière mise à jour** : 23/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : premier commit (sur accord de l'utilisateur), puis Inc-1 (accueil,
-  tarifs, pages légales). Noms de marque traduits utilisés tels que proposés tant que la tâche 12
-  n'est pas faite.
+- **Prochaine action** : Inc-2 (comptes : connexion par code e-mail et Google, profil,
+  suppression). Noms de marque traduits utilisés tels que proposés tant que la tâche 12 n'est pas
+  faite.
+- **Git** : Inc-0 commité sur `feat/inc-0-socle` (7e76fa6) ; Inc-1 commité sur
+  `feat/inc-1-vitrine` (branche créée depuis Inc-0). Aucun dépôt distant (tâche 11).
 
 ## Avancement par phase
 
@@ -20,7 +22,7 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ |
+| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅, Inc-1 ✅ |
 | 5 — Qualité                 | ⬜ à faire | |
 | 6 — Mise en production      | ⬜ à faire | |
 | 7 — Documentation           | ⬜ à faire | |
@@ -36,7 +38,7 @@ Taille relative : S / M / L / XL.
 | ID | Incrément | Stories | Dépend de | Taille | Jalon | État |
 |----|-----------|---------|-----------|--------|-------|------|
 | Inc-0 | Socle technique (squelette qui tourne, 5 langues) | US-36, US-37 (bases), US-41 (fondations) | — | L | M0 | ✅ |
-| Inc-1 | Accueil + Tarifs + pages légales | US-01, 02, 03, 38 | Inc-0 | M | M1 | ⬜ |
+| Inc-1 | Accueil + Tarifs + pages légales | US-01, 02, 03, 38 | Inc-0 | M | M1 | ✅ (US-01 c.3 → Inc-4, US-03 c.2 → Inc-6) |
 | Inc-2 | Comptes | US-04, 05, 06 | Inc-0 | M | M2 | ⬜ |
 | Inc-3 | Crédits & droits | US-07, 08, 09 | Inc-2 | L | M2 | ⬜ |
 | Inc-4 | Création de CV par IA | US-10 à 15, US-42 | Inc-3, clé Anthropic | L | M2 | ⬜ |
@@ -102,6 +104,14 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 23/11/2026 — **Inc-1 terminé (M1)** : accueil, Tarifs (bascule mensuel/annuel, économies
+  calculées), pages légales en 5 langues (traductions EN/IT/ES/DE faites en parallèle et
+  vérifiées), adresses traduites, métadonnées + hreflang, catalogue unique des offres. Vérifié :
+  lint, types, format, 51 tests unitaires, build (45 pages statiques), 70 tests de bout en bout sur
+  le build de production (ordinateur + mobile, audit axe sans violation après correction de
+  l'accès clavier aux tableaux défilants). ADR-021. Restent pour plus tard : bouton « Créer mon CV »
+  fonctionnel (Inc-4), boutons de souscription (Inc-6).
+- 23/11/2026 — Inc-0 commité (7e76fa6, branche `feat/inc-0-socle`).
 - 23/11/2026 — **Inc-0 terminé (M0)** : Next.js 16.4.6 (Cache Components), TypeScript 6.0.3,
   Tailwind 4.3.5 + shadcn/ui (Base UI) aux couleurs de la charte, Poppins ; 5 langues avec
   next-intl 4.15.3 (`next/root-params`, proxy, sélecteur, 404 et erreurs traduites) ; Supabase
