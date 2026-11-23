@@ -6,8 +6,12 @@ import { Appear } from "@/components/layout/appear";
 import { SplitSkeleton } from "@/components/form/form-skeleton";
 import { buttonVariants } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
-import { PlanCheckoutButton } from "@/features/billing/presentation/checkout-button";
-import { CreditPackButtons } from "@/features/billing/presentation/offers";
+import { TopUpOptions } from "@/app/[locale]/_ui/top-up-options";
+import { env } from "@/core/env";
+import {
+  CheckoutButton,
+  PlanCheckoutButton,
+} from "@/features/billing/presentation/checkout-button";
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
 import { PortalButton } from "@/features/billing/presentation/portal-button";
 import {
@@ -15,7 +19,12 @@ import {
   type Subscription,
 } from "@/features/billing/subscription";
 import { getCurrentWallet } from "@/features/credits/wallet";
-import { centsToEuros, productCredits, TRIAL } from "@/features/plans/catalog";
+import {
+  ADS_REMOVAL_PRICE_CENTS,
+  centsToEuros,
+  productCredits,
+  TRIAL,
+} from "@/features/plans/catalog";
 import { OperationCosts } from "@/features/plans/presentation/operation-costs";
 import { getOwnProfile } from "@/features/profile/data/profile-repository";
 import { pickClientMessages } from "@/i18n/client-messages";
@@ -74,7 +83,7 @@ async function Credits({
         .from("purchases")
         .select("id, product, amount_cents, currency, created_at, cvs(title)")
         .order("created_at", { ascending: false }),
-      pickClientMessages(["billing", "errors"]),
+      pickClientMessages(["ads", "billing", "errors"]),
     ]);
   const t = await getTranslations("billing");
   const tPlans = await getTranslations("plans");
@@ -185,9 +194,32 @@ async function Credits({
           {t("topUp.title")}
         </h2>
         <div className="mt-6">
-          <CreditPackButtons />
+          <TopUpOptions />
         </div>
       </section>
+
+      {env.ADS_MODE !== "off" && env.ADS_REMOVAL_ENABLED ? (
+        <section aria-labelledby="publicites" className={sectionClass}>
+          <h2 id="publicites" className={headingClass}>
+            {t("ads.title")}
+          </h2>
+          {profile.ads_removed_at ? (
+            <p className="mt-4">{t("ads.removed")}</p>
+          ) : (
+            <div className="mt-4 grid justify-items-start gap-3">
+              <p className="text-muted-foreground">{t("ads.hint")}</p>
+              <CheckoutButton item={{ kind: "adsRemoval" }} variant="outline">
+                {t("ads.remove", {
+                  price: format.number(centsToEuros(ADS_REMOVAL_PRICE_CENTS), {
+                    style: "currency",
+                    currency: "EUR",
+                  }),
+                })}
+              </CheckoutButton>
+            </div>
+          )}
+        </section>
+      ) : null}
 
       <OperationCosts />
 

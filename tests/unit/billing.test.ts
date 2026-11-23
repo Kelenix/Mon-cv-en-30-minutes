@@ -74,6 +74,15 @@ describe("session de paiement", () => {
     });
   });
 
+  it("retrait des publicités : paiement unique livré par le webhook (US-24)", () => {
+    const item = { kind: "adsRemoval" as const };
+    expect(checkoutLookupKey(item)).toBe("ads_removal");
+    expect(checkoutParams({ ...BASE, item })).toMatchObject({
+      mode: "payment",
+      metadata: { user_id: "user-1", product: "ads_removal" },
+    });
+  });
+
   it("formule : abonnement, avec 3 jours d'essai seulement si demandé (US-20, US-21)", () => {
     const item = {
       kind: "subscription" as const,

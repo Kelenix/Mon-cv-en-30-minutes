@@ -4,10 +4,10 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { Appear } from "@/components/layout/appear";
 import { requireUser } from "@/features/auth/session";
-import {
-  CreditPackButtons,
-  CvProOffer,
-} from "@/features/billing/presentation/offers";
+import { TopUpOptions } from "@/app/[locale]/_ui/top-up-options";
+import { getAdsAudience } from "@/features/ads/audience";
+import { InterstitialOnLeave } from "@/features/ads/presentation/interstitial";
+import { CvProOffer } from "@/features/billing/presentation/offers";
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
 import { getActivePlan } from "@/features/billing/subscription";
 import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
@@ -61,10 +61,12 @@ async function CvLoader({
     locale: cv.language,
     namespace: "cvSections",
   });
-  const [plan, summaries, messages] = await Promise.all([
+  const [plan, summaries, audience, messages] = await Promise.all([
     getActivePlan(),
     listGenerations(cv.id, "summary_variants"),
+    getAdsAudience(),
     pickClientMessages([
+      "ads",
       "cvEditor",
       "cvExport",
       "cvTools",
@@ -83,6 +85,10 @@ async function CvLoader({
 
   return (
     <NextIntlClientProvider messages={messages}>
+      {/* Interstitiel unique en quittant l'aperçu (US-34), jamais affiché sur l'aperçu. */}
+      {audience.config && audience.interstitial ? (
+        <InterstitialOnLeave config={audience.config} cvId={cv.id} />
+      ) : null}
       {query.paiement === "ok" || query.paiement === "annule" ? (
         <div className="mb-6">
           <PaymentReturn
@@ -114,7 +120,7 @@ async function CvLoader({
               (generation) =>
                 (generation.output as { variants?: string[] }).variants ?? [],
             )}
-            topUp={<CreditPackButtons returnTo={{ cvId: cv.id }} stacked />}
+            topUp={<TopUpOptions returnTo={{ cvId: cv.id }} stacked />}
             sectionTitles={{
               summary: sections("summary"),
               experiences: sections("experiences"),

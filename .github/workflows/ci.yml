@@ -43,6 +43,10 @@ jobs:
   e2e:
     name: Base de données (RLS) et tests de bout en bout
     runs-on: ubuntu-latest
+    env:
+      # Publicités de test, sans script externe, vérifiées de bout en bout (Inc-11).
+      ADS_MODE: simulation
+      ADS_REMOVAL_ENABLED: "true"
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

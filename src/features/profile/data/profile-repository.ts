@@ -15,7 +15,7 @@ export async function getOwnProfile(supabase: Client, userId: string) {
   const { data, error } = await supabase
     .from("profiles")
     .select(
-      "first_name, last_name, phone, city, locale, free_generation_used_at, trial_used_at, stripe_customer_id",
+      "first_name, last_name, phone, city, locale, free_generation_used_at, trial_used_at, stripe_customer_id, ads_removed_at, interstitial_shown_at",
     )
     .eq("id", userId)
     .single();

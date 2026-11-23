@@ -41,6 +41,15 @@ const envSchema = z
     SUPABASE_SECRET_KEY: z.string().min(1),
     GOOGLE_AUTH_ENABLED: z.stringbool().default(false),
     ADS_REMOVAL_ENABLED: z.stringbool().default(false),
+    ADS_MODE: z.enum(["off", "simulation", "google"]).default("off"),
+    ADS_PUBLISHER_ID: optionalText.refine(
+      (value) => !value || /^pub-\d{10,20}$/.test(value),
+      { error: "format pub-0000000000000000" },
+    ),
+    ADS_NETWORK_CODE: optionalText.refine(
+      (value) => !value || /^\d{4,12}$/.test(value),
+      { error: "code réseau Ad Manager (chiffres)" },
+    ),
     ANTHROPIC_API_KEY: optionalText,
     ANTHROPIC_MODEL: z.string().min(1).default("claude-opus-5-5"),
     STRIPE_SECRET_KEY: optionalText,
@@ -59,6 +68,18 @@ const envSchema = z
     LEGAL_MEDIATOR: optionalText,
   })
   .superRefine((values, context) => {
+    // Publicités Google : identifiants obligatoires (tâche manuelle 10).
+    if (values.ADS_MODE === "google") {
+      for (const key of ["ADS_PUBLISHER_ID", "ADS_NETWORK_CODE"] as const) {
+        if (!values[key]) {
+          context.addIssue({
+            code: "custom",
+            path: [key],
+            message: "obligatoire avec ADS_MODE=google",
+          });
+        }
+      }
+    }
     if (values.VERCEL_ENV !== "production") return;
     for (const key of REQUIRED_IN_PRODUCTION) {
       if (!values[key]) {

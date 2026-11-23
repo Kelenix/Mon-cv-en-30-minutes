@@ -48,6 +48,7 @@ const checkoutSchema = z.object({
       product: z.enum(CREDIT_PACKS.map((pack) => pack.id)),
     }),
     z.object({ kind: z.literal("cvPro"), cvId: z.uuid() }),
+    z.object({ kind: z.literal("adsRemoval") }),
     z.object({
       kind: z.literal("subscription"),
       tier: z.enum(PLAN_TIERS),
@@ -125,6 +126,15 @@ export async function createCheckoutSession(
     if (!cv) return fail("NOT_FOUND");
     if (cv.proUnlocked || subscription) {
       return fail("CONFLICT", { reason: "cvUnlocked" });
+    }
+  }
+  // Retrait des publicités (US-24) : seulement si l'option est activée, une fois par compte.
+  if (item.kind === "adsRemoval") {
+    if (env.ADS_MODE === "off" || !env.ADS_REMOVAL_ENABLED) {
+      return fail("FORBIDDEN");
+    }
+    if (profile.ads_removed_at) {
+      return fail("CONFLICT", { reason: "adsRemoved" });
     }
   }
 

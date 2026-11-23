@@ -4,6 +4,18 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-11 : publicités
+
+- Bandeau de consentement (Accepter / Refuser au même niveau) et lien « Gérer les cookies » dans
+  le pied de page.
+- Bannière en bas de l'accueil et de « Mes CV », annonce native signalée dans « Mes CV » ; aucune
+  annonce pour les abonnés, ni pendant la création, la génération, l'aperçu ou le paiement.
+- « Regarde une courte annonce pour obtenir 1 crédit IA » dans les crédits et la fenêtre
+  « Solde insuffisant » (3 crédits par jour au plus).
+- Interstitiel affiché une seule fois, en quittant l'aperçu du premier CV.
+- Achat du retrait définitif des publicités (2,99 €), si l'option est activée.
+- Mode simulation pour le développement et les tests ; fichier `ads.txt`.
+
 ### Modifié — transitions
 
 - Navigation fluide : fondu entre les pages, en-tête immobile, contenu qui apparaît en douceur ;

@@ -98,3 +98,17 @@ export async function createCvs(email: string, titles: string[]) {
   );
   if (error) throw error;
 }
+
+/** Retrait des publicités payé (US-24), tel que le livre le webhook Stripe. */
+export async function fulfillAdsRemoval(email: string) {
+  const { error } = await admin.rpc("fulfill_purchase", {
+    p_user_id: await userIdByEmail(email),
+    p_product: "ads_removal",
+    p_session_id: `cs_e2e_${crypto.randomUUID()}`,
+    p_amount_cents: 299,
+    p_currency: "eur",
+    p_terms_accepted_at: new Date().toISOString(),
+    p_credits: 0,
+  });
+  if (error) throw error;
+}

@@ -305,6 +305,6 @@ Texte structuré, sommaire ancré, date de mise à jour. Statiques.
 | LinkedIn (Inc-8) | Blocs titre / Infos / expériences, chacun avec [Copier] et compteur de caractères |
 | Lettre (Inc-8) | Poste, entreprise, annonce ; lettre modifiable ; [Copier] |
 | Entretien (Inc-9) | Poste et langue à gauche ; à droite, les 8 questions listées, chacune avec son champ de réponse ; [Obtenir mon retour — gratuit] ; puis, par question : réponse, points forts, à améliorer, exemple (ADR-032) |
-| Bandeau de consentement (Inc-11) | Plateforme certifiée Google ; Accepter / Refuser au même niveau ; dans la langue affichée |
+| Bandeau de consentement (Inc-11) | Plateforme certifiée Google ; Accepter / Refuser au même niveau ; dans la langue affichée ; « Gérer les cookies » dans le pied de page |
 | Langue des contenus (Inc-7 à 9) | Chaque outil affiche « Langue » réglée sur celle du CV, modifiable avant de générer |
-| Vidéo récompensée (Inc-11) | Bouton dans les crédits et la fenêtre §3.8 ; compteur « 2 sur 3 aujourd'hui » |
+| Vidéo récompensée (Inc-11) | « Regarde une courte annonce pour obtenir 1 crédit IA. » [Regarder l'annonce] dans les crédits (sous la recharge) et la fenêtre §3.8 ; états : chargement, en cours, crédit ajouté, interrompue, aucune annonce, plafond du jour atteint (ADR-036) |

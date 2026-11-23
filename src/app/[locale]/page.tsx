@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import { AdBanner } from "@/features/ads/presentation/ad-banner";
 import { FeatureGrid } from "@/features/marketing/presentation/feature-grid";
 import { FinalCta } from "@/features/marketing/presentation/final-cta";
 import { Hero } from "@/features/marketing/presentation/hero";
@@ -26,6 +27,9 @@ export default async function HomePage() {
       <FeatureGrid />
       <OffersOverview />
       <FinalCta />
+      <Suspense>
+        <AdBanner format="banner" className="container-page py-8" />
+      </Suspense>
     </>
   );
 }

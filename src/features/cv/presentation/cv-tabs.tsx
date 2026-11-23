@@ -59,6 +59,7 @@ export function CvTabs({
             <Link
               href={{ pathname, params: { id: cvId } }}
               aria-current={key === current ? "page" : undefined}
+              data-google-interstitial="false"
               className={cn(
                 "inline-flex min-h-11 items-center gap-2 border-b-2 px-4 font-semibold whitespace-nowrap transition-colors",
                 key === current

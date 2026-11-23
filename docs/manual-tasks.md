@@ -182,6 +182,24 @@
 ## Tâche 10 ⏱ : Comptes publicitaires (AdSense / Ad Manager)
 - **Pourquoi** : bannière, publicité native, interstitiel et vidéo récompensée.
 - **Quand** : une fois le site en ligne (l'approbation exige un site public).
-- **Étapes** : un pas-à-pas sera fourni à l'Inc-11.
+- **Étapes** :
+  1. Créer un compte **Google AdSense** avec l'adresse du site en ligne et attendre son
+     approbation ; noter l'**identifiant d'éditeur** (`pub-…`, menu Compte → Informations).
+  2. Ouvrir **Google Ad Manager** (offre gratuite, liée au compte AdSense) ; noter le **code
+     réseau** (Administration → Paramètres globaux).
+  3. Dans Ad Manager, **Inventaire → Blocs d'annonces**, créer exactement : `mon-cv-banniere`
+     (tailles 728 × 90 et 320 × 50), `mon-cv-native` (taille « fluide », format natif),
+     `mon-cv-interstitiel` (format hors page : interstitiel web) et
+     `mon-cv-video-recompensee` (format hors page : récompensé web, 1 récompense).
+  4. Dans AdSense ou Ad Manager, **Confidentialité et messages → Message RGPD** : bouton
+     « Refuser » activé (au même niveau qu'« Accepter »), langues FR, EN, IT, ES, DE, lien vers
+     la page Cookies du site, durée du choix de **6 mois** si l'option existe ; publier le message.
+  5. Dans Vercel (variables de production) : `ADS_MODE=google`,
+     `ADS_PUBLISHER_ID=pub-…`, `ADS_NETWORK_CODE=…` et, pour vendre le retrait des
+     publicités, `ADS_REMOVAL_ENABLED=true` ; redéployer.
+  6. Vérifier que `https://<domaine>/ads.txt` affiche la ligne `google.com, pub-…`.
 - **Coût** : gratuit (rémunération par Google).
-- **Vérification** : les emplacements affichent des annonces après consentement.
+- **Vérification** : bandeau de Google à la première visite (Accepter / Refuser), annonces en
+  bas de l'accueil et dans « Mes CV » sans abonnement, aucune annonce avec un abonnement,
+  vidéo récompensée qui crédite 1 crédit, interstitiel une seule fois en quittant l'aperçu du
+  premier CV, « Gérer les cookies » qui rouvre le choix.

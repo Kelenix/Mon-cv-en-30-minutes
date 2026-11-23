@@ -96,16 +96,18 @@ Toutes les actions qui génèrent du texte acceptent `language?` (défaut : lang
 
 | Action | Entrée | Sortie | Erreurs |
 |--------|--------|--------|---------|
-| `createCheckoutSession` | `locale`, `item` (pack `credits_*`, `cvPro` + `cvId`, ou formule `tier` + `interval` + `trial?`), `returnTo?` (`credits` ou `generation`) | `{ url }` | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `NOT_FOUND` (CV), `CONFLICT` avec `reason` (`subscribed`, `trialUsed`, `cvUnlocked`), `PAYMENT_ERROR` ; retrait des pubs : Inc-11 |
+| `createCheckoutSession` | `locale`, `item` (pack `credits_*`, `cvPro` + `cvId`, ou formule `tier` + `interval` + `trial?`, ou `adsRemoval`), `returnTo?` (`credits` ou `generation`) | `{ url }` | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `NOT_FOUND` (CV), `FORBIDDEN` (retrait des pubs désactivé), `CONFLICT` avec `reason` (`subscribed`, `trialUsed`, `cvUnlocked`, `adsRemoved`), `PAYMENT_ERROR` |
 | `openBillingPortal` | — | `{ url }` | `UNAUTHENTICATED`, `NOT_FOUND` (aucun client Stripe), `PAYMENT_ERROR` |
 
 ### Publicités (Inc-11)
 
 | Action | Entrée | Sortie | Erreurs |
 |--------|--------|--------|---------|
-| `issueRewardToken` | — | `{ token }` | `UNAUTHENTICATED`, `FORBIDDEN` (abonné), `RATE_LIMITED` (3 par jour) |
-| `redeemRewardToken` | `token` | `{ purchasedBalance }` | `UNAUTHENTICATED`, `CONFLICT` (déjà utilisé ou expiré) |
-| `markInterstitialShown` | — | `{ ok: true }` | `UNAUTHENTICATED` |
+| `issueRewardToken` | — | `{ token }` | `UNAUTHENTICATED`, `FORBIDDEN` (abonné ou publicités désactivées), `RATE_LIMITED` (3 crédits par 24 h, ou 30 jetons) |
+| `redeemRewardToken` | `token` | `{ purchasedBalance }` | `UNAUTHENTICATED`, `VALIDATION_ERROR`, `CONFLICT` (inconnu, déjà utilisé, expiré après 15 min ou demandé moins de 5 s après son émission), `RATE_LIMITED` |
+| `markInterstitialShown` | — | `{ shown: true }` | `UNAUTHENTICATED` |
+
+Route `GET /ads.txt` : ligne `google.com, pub-…, DIRECT, f08c47fec0942fa0` en mode `google`, vide sinon.
 
 ## 4. Schémas de données partagés
 

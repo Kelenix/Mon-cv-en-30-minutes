@@ -1,0 +1,13 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [{ "name": "mon-cv-30s:consentement", "value": "denied" }]
+    },
+    {
+      "origin": "http://localhost:3100",
+      "localStorage": [{ "name": "mon-cv-30s:consentement", "value": "denied" }]
+    }
+  ]
+}

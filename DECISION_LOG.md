@@ -6,6 +6,49 @@
 
 ---
 
+## ADR-036 — Publicités, consentement et vidéo récompensée (Inc-11)
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : architecte, backend, frontend, sécurité, juridique)
+- **Contexte** : US-24, US-32 à US-35, H15, H26 ; aucun compte Google possible avant la mise en
+  ligne (tâche manuelle 10).
+- **Décision** :
+  - **Google Ad Manager** (bibliothèque GPT) pour tous les formats : seul à proposer sur le web la
+    vidéo récompensée et l'interstitiel au format Google (AdSense seul ne le permet pas).
+  - **Consentement : « Confidentialité et messages » de Google**, gratuit et certifié (TCF),
+    chargé avant GPT ; « Refuser » au même niveau qu'« Accepter » ; refus : annonces non
+    personnalisées sans cookie. « Gérer les cookies » dans le pied de page rouvre le choix.
+  - **Trois modes** (`ADS_MODE`) : `off` (défaut), `simulation` (annonces, bandeau, vidéo et
+    interstitiel de test, sans aucun script externe : développement et tests de bout en bout),
+    `google`.
+  - **Audience décidée par le serveur** : bannières et natives sans abonnement ni retrait (aucun
+    script sinon) ; vidéo récompensée pour tout compte sans abonnement (H26) ; interstitiel une
+    seule fois par compte. Emplacements : bas de l'accueil, « Mes CV » (native sous les cartes et
+    bannière) ; jamais sur les questions, la génération, l'aperçu, l'export ni le paiement.
+    Hauteur réservée (aucun décalage).
+  - **Interstitiel** : format officiel d'Ad Manager, déclenché en quittant l'aperçu par un lien ;
+    les onglets du CV portent `data-google-interstitial="false"`. Noté comme vu dès qu'il est
+    chargé. En simulation, le premier lien qui quitte le CV ouvre l'annonce de test.
+  - **Vidéo récompensée** : jeton à usage unique émis par le serveur, échangé à la fin contre
+    1 crédit acheté ; refusé avant 5 secondes, après 15 minutes, au-delà de 3 par jour (24 h
+    glissantes) ; au plus 30 jetons demandés par jour. Google ne permet pas sur le web de
+    vérifier côté serveur qu'une annonce a été vue : le risque (3 crédits par jour et par compte)
+    est accepté.
+  - **Retrait des publicités** (2,99 €) : vendu seulement si les publicités et
+    `ADS_REMOVAL_ENABLED` sont actifs (Tarifs et Crédits), une fois par compte ; livré par le
+    webhook existant ; la vidéo récompensée reste proposée.
+  - `/ads.txt` servi à partir de l'identifiant d'éditeur.
+- **Alternatives écartées** : outil de consentement payant (Didomi, Axeptio, Cookiebot) : coût
+  sans nécessité ; bandeau maison : non certifié par Google ; interstitiel maison avec une
+  bannière : contraire aux règles de Google.
+- **À vérifier avec les vrais comptes** (tâche 10) : affichage de l'interstitiel lors d'une
+  navigation interne, durée de conservation du choix (6 mois annoncés), contenus du bandeau dans
+  les 5 langues.
+- **Impact** : financier / juridique (moyen)
+
+---
+
 ## ADR-035 — Transitions fluides entre les pages
 
 - **Date** : 24/11/2026

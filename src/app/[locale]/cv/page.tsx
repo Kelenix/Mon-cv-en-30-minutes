@@ -15,6 +15,7 @@ import {
   SPLIT_LAYOUT,
 } from "@/components/layout/brand-aside";
 import { buttonVariants } from "@/components/ui/button";
+import { AdBanner } from "@/features/ads/presentation/ad-banner";
 import { requireUser } from "@/features/auth/session";
 import { getActivePlan } from "@/features/billing/subscription";
 import { DeleteCvDialog } from "@/features/cv/presentation/delete-cv-dialog";
@@ -95,7 +96,7 @@ async function CvHistory({
       getTranslations("locales"),
       getTranslations("home"),
       getFormatter(),
-      pickClientMessages(["cvList", "errors"]),
+      pickClientMessages(["ads", "cvList", "errors"]),
     ]);
 
   if (total === 0) {
@@ -110,6 +111,7 @@ async function CvHistory({
           </Link>
         </div>
         <BrandAside points={BRAND_POINTS.map((key) => tHome(key))} />
+        <AdBanner format="banner" className="lg:col-span-2" />
       </div>
     );
   }
@@ -171,6 +173,8 @@ async function CvHistory({
               </li>
             ))}
           </ul>
+          {/* Publicité native signalée, sous les cartes (US-33 c.1). */}
+          <AdBanner format="native" />
           {cvs.length < total ? (
             <Link
               href={{ pathname: "/cv", query: { page: page + 1 } }}
@@ -220,6 +224,7 @@ async function CvHistory({
             {t("history.contents")}
           </p>
         </aside>
+        <AdBanner format="banner" className="lg:col-span-2" />
       </div>
     </NextIntlClientProvider>
   );

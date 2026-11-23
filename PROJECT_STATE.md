@@ -5,10 +5,10 @@
 
 ## Snapshot
 
-- **Phase courante** : 4 — Implémentation (Inc-10 terminé, jalon M4 ; vérification Stripe réelle en attente des clés)
+- **Phase courante** : 4 — Implémentation (Inc-11 terminé en simulation ; annonces réelles en attente de la tâche 10, Stripe réel de la tâche 4)
 - **Dernière mise à jour** : 23/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : Inc-11 (publicités et retrait des publicités). En attente côté utilisateur :
+- **Prochaine action** : Inc-12 (finitions UX, SEO, performance, accessibilité). En attente côté utilisateur :
   tâche 4 (clés Stripe de test) pour vérifier les paiements avec Stripe, tâche 3 (clé Anthropic)
   pour mesurer la qualité réelle de l'IA (jeu de référence, NFR-02). Noms de marque traduits utilisés tels que
   proposés tant que la tâche 12 n'est pas faite.
@@ -25,7 +25,7 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-10 ✅ (jalons M2 et M4 ; M3 en attente des clés Stripe) |
+| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-11 ✅ (jalons M2, M4, M5 en simulation ; M3 en attente des clés Stripe) |
 | 5 — Qualité                 | ⬜ à faire | |
 | 6 — Mise en production      | ⬜ à faire | |
 | 7 — Documentation           | ⬜ à faire | |
@@ -51,7 +51,7 @@ Taille relative : S / M / L / XL.
 | Inc-8 | LinkedIn + lettre de motivation | US-28, 29 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-9 | Simulation d'entretien | US-30 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ✅ (bannière et publicité native de la liste à l'Inc-11) |
-| Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ⬜ |
+| Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ✅ en simulation (annonces Google réelles : tâche 10, après la mise en ligne) |
 | Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ⬜ |
 | Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 2, 4, 6, 7, 9 | M | M6 | ⬜ |
 
@@ -106,6 +106,15 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 24/11/2026 — **Inc-11 terminé (en simulation)** : Google Ad Manager et bandeau de
+  consentement certifié de Google (mode `google`), annonces de test sans script externe (mode
+  `simulation`) ; bannière en bas de l'accueil et de « Mes CV », annonce native dans « Mes CV »,
+  rien pour les abonnés ni après le retrait ; vidéo récompensée (jeton à usage unique, 1 crédit,
+  3 par jour) dans les crédits et « Solde insuffisant » ; interstitiel unique en quittant
+  l'aperçu ; achat du retrait des publicités ; `/ads.txt` ; pas-à-pas de la tâche 10 ;
+  5 langues. Vérifié : lint, types, tests unitaires, base, build, bout en bout en simulation.
+  ADR-036.
 
 - 24/11/2026 — **Transitions fluides** (demande de l'utilisateur) : fondus natifs entre les
   pages et à l'arrivée du contenu, onglets du CV persistants, titres immédiats, squelettes à la

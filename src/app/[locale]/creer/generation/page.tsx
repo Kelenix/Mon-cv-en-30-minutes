@@ -8,7 +8,7 @@ import {
   SPLIT_LAYOUT,
 } from "@/components/layout/brand-aside";
 import { requireUser } from "@/features/auth/session";
-import { CreditPackButtons } from "@/features/billing/presentation/offers";
+import { TopUpOptions } from "@/app/[locale]/_ui/top-up-options";
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
 import { getActivePlan } from "@/features/billing/subscription";
 import { GenerationScreen } from "@/features/cv/presentation/generation-screen";
@@ -59,13 +59,19 @@ async function Generation({
     searchParams,
     listOwnCvs(),
     getActivePlan(),
-    pickClientMessages(["generation", "errors", "billing", "creditsDialog"]),
+    pickClientMessages([
+      "ads",
+      "generation",
+      "errors",
+      "billing",
+      "creditsDialog",
+    ]),
   ]);
   const screen = (
     <GenerationScreen
       cvs={cvs}
       cvLimit={planEntitlements(plan).cvLimit}
-      topUp={<CreditPackButtons returnTo="generation" stacked />}
+      topUp={<TopUpOptions returnTo="generation" stacked />}
     />
   );
 

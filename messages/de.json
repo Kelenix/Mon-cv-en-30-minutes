@@ -552,14 +552,21 @@
     "conflict": {
       "subscribed": "Du hast bereits ein Abo: Wechsle das Abo über „Abo verwalten“ unter Credits und Abo.",
       "trialUsed": "Der kostenlose Test wurde für dieses Konto bereits genutzt.",
-      "cvUnlocked": "Dieser Lebenslauf ist bereits freigeschaltet."
+      "cvUnlocked": "Dieser Lebenslauf ist bereits freigeschaltet.",
+      "adsRemoved": "Die Werbung ist in deinem Konto bereits entfernt."
     },
     "cvPro": {
       "title": "CV Pro — {price}",
       "text": "PDF ohne Wasserzeichen und DOCX für diesen Lebenslauf, für immer, ohne Abo.",
       "unlock": "Diesen Lebenslauf freischalten"
     },
-    "pricingCvPro": "Freischaltung in der Vorschau deines Lebenslaufs."
+    "pricingCvPro": "Freischaltung in der Vorschau deines Lebenslaufs.",
+    "ads": {
+      "title": "Werbung",
+      "hint": "Entferne die Werbung dauerhaft aus deinem Konto, auch nach dem Ende eines Abos.",
+      "remove": "Werbung entfernen — {price}",
+      "removed": "Die Werbung ist aus deinem Konto entfernt."
+    }
   },
   "creditsDialog": {
     "title": "Dir {missing, plural, one {fehlt # Credit} other {fehlen # Credits}}",
@@ -689,6 +696,40 @@
       "improvements": "Verbesserungspotenzial",
       "example": "Beispielantwort",
       "unanswered": "Keine Antwort auf diese Frage."
+    }
+  },
+  "ads": {
+    "label": "Werbung",
+    "consent": {
+      "title": "Werbe-Cookies",
+      "text": "Mit deiner Zustimmung verwendet unser Partner Google Cookies, um dir passende Anzeigen zu zeigen. Ohne Zustimmung bleiben die Anzeigen nicht personalisiert.",
+      "more": "Mehr erfahren",
+      "accept": "Akzeptieren",
+      "refuse": "Ablehnen",
+      "manage": "Cookies verwalten"
+    },
+    "simulation": {
+      "title": "Testanzeige",
+      "text": "Hier erscheint eine Google-Anzeige, sobald die Werbung aktiviert ist."
+    },
+    "rewarded": {
+      "offer": "Sieh dir eine kurze Anzeige an und erhalte 1 KI-Credit.",
+      "watch": "Anzeige ansehen",
+      "loading": "Anzeige wird geladen …",
+      "playing": "Anzeige läuft …",
+      "done": "1 Credit wurde deinem Guthaben hinzugefügt.",
+      "interrupted": "Anzeige abgebrochen: kein Credit hinzugefügt.",
+      "unavailable": "Gerade ist keine Anzeige verfügbar. Versuche es später erneut.",
+      "limit": "Du hast heute schon deine 3 Credits mit Anzeigen erhalten. Komm morgen wieder.",
+      "error": "Die Anzeige konnte nicht gestartet werden. Versuche es erneut.",
+      "dialogTitle": "Testanzeige",
+      "remaining": "Noch {seconds, plural, =0 {einen Moment} one {# Sekunde} other {# Sekunden}} bis zu deinem Credit.",
+      "close": "Schließen"
+    },
+    "interstitial": {
+      "title": "Werbung",
+      "text": "Testanzeige: Hier erscheint ein Google-Interstitial, sobald die Werbung aktiviert ist.",
+      "close": "Schließen und weiter"
     }
   }
 }

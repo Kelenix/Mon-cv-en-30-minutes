@@ -175,6 +175,26 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"reward_tokens": {
+                  Row: {
+                    "created_at": string,"expires_at": string,"id": string,"redeemed_at": string | null,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"expires_at"?: string,"id"?: string,"redeemed_at"?: string | null,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"expires_at"?: string,"id"?: string,"redeemed_at"?: string | null,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "reward_tokens_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"stripe_events": {
                   Row: {
                     "created_at": string,"id": string,"type": string
@@ -240,8 +260,17 @@ isOneToOne: true
               "included_balance": number,"purchased_balance": number
             }[]
                            },
+"issue_reward_token":
+{ Args: { "p_daily_limit": number,"p_user_id": string }; Returns: string
+                           },
+"redeem_reward_token":
+{ Args: { "p_daily_limit": number,"p_token": string,"p_user_id": string }; Returns: number
+                           },
 "refund_operation":
 { Args: { "p_operation_id": string }; Returns: number
+                           },
+"rewarded_credits_today":
+{ Args: { "p_user_id": string }; Returns: number
                            },
 "run_daily_maintenance":
 { Args: Record<PropertyKey, never>; Returns: undefined

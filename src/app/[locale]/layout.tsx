@@ -8,13 +8,23 @@ import { ViewTransition } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { env } from "@/core/env";
+import { adsConfig } from "@/features/ads/audience";
+import {
+  ManageCookiesButton,
+  SimulatedConsentBanner,
+} from "@/features/ads/presentation/consent";
 import { pickClientMessages } from "@/i18n/client-messages";
 import { NAV_TRANSITION } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
 // Traductions des composants client communs à toutes les pages (en-tête, page d'erreur).
-const CLIENT_NAMESPACES = ["locales", "languageSwitcher", "error"] as const;
+const CLIENT_NAMESPACES = [
+  "locales",
+  "languageSwitcher",
+  "error",
+  "ads",
+] as const;
 
 // Poppins servie par le site (aucune requête vers Google à l'exécution), caractères des 5 langues.
 const poppins = Poppins({
@@ -49,6 +59,7 @@ export default async function LocaleLayout({
 
   const t = await getTranslations("a11y");
   const clientMessages = await pickClientMessages(CLIENT_NAMESPACES);
+  const ads = adsConfig();
 
   return (
     <html lang={locale} className={poppins.variable}>
@@ -72,7 +83,10 @@ export default async function LocaleLayout({
               {children}
             </main>
           </ViewTransition>
-          <SiteFooter />
+          <SiteFooter
+            cookieChoices={ads ? <ManageCookiesButton config={ads} /> : null}
+          />
+          {ads?.mode === "simulation" ? <SimulatedConsentBanner /> : null}
         </NextIntlClientProvider>
       </body>
     </html>

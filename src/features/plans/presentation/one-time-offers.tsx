@@ -28,7 +28,7 @@ export function OneTimeOffers({
       description: t("cvPro.description"),
       priceCents: CV_PRO_PRICE_CENTS,
     },
-    ...(env.ADS_REMOVAL_ENABLED
+    ...(env.ADS_MODE !== "off" && env.ADS_REMOVAL_ENABLED
       ? [
           {
             key: "adsRemoval",

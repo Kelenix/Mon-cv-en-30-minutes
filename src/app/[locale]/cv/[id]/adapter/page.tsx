@@ -4,7 +4,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { Appear } from "@/components/layout/appear";
 import { requireUser } from "@/features/auth/session";
-import { CreditPackButtons } from "@/features/billing/presentation/offers";
+import { TopUpOptions } from "@/app/[locale]/_ui/top-up-options";
 import { getActivePlan } from "@/features/billing/subscription";
 import type { CvSectionTitles } from "@/features/cv/content";
 import {
@@ -77,6 +77,7 @@ async function AdaptLoader({
     listGenerations(cv.id, "job_adaptation"),
     allSectionTitles(),
     pickClientMessages([
+      "ads",
       "cvTools",
       "creditsDialog",
       "billing",
@@ -114,7 +115,7 @@ async function AdaptLoader({
             canSaveAsNew={planEntitlements(plan).cvLimit === null}
             sectionTitles={sectionTitles}
             previous={previous}
-            topUp={<CreditPackButtons returnTo={{ cvId: cv.id }} stacked />}
+            topUp={<TopUpOptions returnTo={{ cvId: cv.id }} stacked />}
           />
         </div>
       </div>

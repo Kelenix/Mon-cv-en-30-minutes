@@ -4,7 +4,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { Appear } from "@/components/layout/appear";
 import { requireUser } from "@/features/auth/session";
-import { CreditPackButtons } from "@/features/billing/presentation/offers";
+import { TopUpOptions } from "@/app/[locale]/_ui/top-up-options";
 import type { LinkedinOutput } from "@/features/cv/generated";
 import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
 import { ToolSkeleton } from "@/features/cv/presentation/tool-layout";
@@ -53,6 +53,7 @@ async function LinkedinLoader({
   const [generations, messages] = await Promise.all([
     listGenerations(cv.id, "linkedin"),
     pickClientMessages([
+      "ads",
       "cvTools",
       "cvEditor",
       "creditsDialog",
@@ -81,7 +82,7 @@ async function LinkedinLoader({
             cvId={cv.id}
             cvLanguage={cv.language}
             previous={previous}
-            topUp={<CreditPackButtons returnTo={{ cvId: cv.id }} stacked />}
+            topUp={<TopUpOptions returnTo={{ cvId: cv.id }} stacked />}
           />
         </div>
       </div>

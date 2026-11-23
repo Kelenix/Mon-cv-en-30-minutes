@@ -16,6 +16,7 @@ import type { AppLocale } from "@/i18n/routing";
 export type CheckoutItem =
   | { kind: "pack"; product: CreditPackId }
   | { kind: "cvPro"; cvId: string }
+  | { kind: "adsRemoval" }
   | {
       kind: "subscription";
       tier: PlanTier;
@@ -29,6 +30,7 @@ export type ReturnTo = "credits" | "generation" | { cvId: string };
 export function checkoutLookupKey(item: CheckoutItem) {
   if (item.kind === "pack") return item.product;
   if (item.kind === "cvPro") return "cv_pro";
+  if (item.kind === "adsRemoval") return "ads_removal";
   return subscriptionLookupKey(item.tier, item.interval);
 }
 

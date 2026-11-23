@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import { LanguageSwitcher } from "./language-switcher";
@@ -11,7 +12,8 @@ const FOOTER_LINKS = [
   { href: "/cookies", label: "cookies" },
 ] as const satisfies readonly { href: AppPathname; label: string }[];
 
-export function SiteFooter() {
+/** `cookieChoices` : lien « Gérer les cookies » quand des publicités sont possibles (US-32 c.3). */
+export function SiteFooter({ cookieChoices }: { cookieChoices?: ReactNode }) {
   const t = useTranslations();
 
   return (
@@ -30,6 +32,7 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
+              {cookieChoices ? <li>{cookieChoices}</li> : null}
             </ul>
           </nav>
           <p className="text-sm text-muted-foreground">© {t("brand.name")}</p>

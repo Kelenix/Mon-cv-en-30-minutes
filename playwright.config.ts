@@ -19,6 +19,9 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}`,
     trace: "retain-on-failure",
+    // Publicités de test (ADS_MODE=simulation) : bandeau de consentement déjà répondu, sauf dans
+    // les tests du consentement (tests/e2e/publicites.spec.ts).
+    storageState: "tests/e2e/support/consent.json",
   },
   projects: [
     {

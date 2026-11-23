@@ -552,14 +552,21 @@
     "conflict": {
       "subscribed": "Ya tienes una suscripción: cambia de plan desde «Gestionar mi suscripción», en Créditos y plan.",
       "trialUsed": "La prueba gratuita ya se ha utilizado en esta cuenta.",
-      "cvUnlocked": "Este CV ya está desbloqueado."
+      "cvUnlocked": "Este CV ya está desbloqueado.",
+      "adsRemoved": "La publicidad ya se ha retirado de tu cuenta."
     },
     "cvPro": {
       "title": "CV Pro — {price}",
       "text": "PDF sin marca de agua y DOCX para este CV, para siempre, sin suscripción.",
       "unlock": "Desbloquear este CV"
     },
-    "pricingCvPro": "Se desbloquea desde la vista previa de tu CV."
+    "pricingCvPro": "Se desbloquea desde la vista previa de tu CV.",
+    "ads": {
+      "title": "Publicidad",
+      "hint": "Retira para siempre la publicidad de tu cuenta, incluso cuando termine una suscripción.",
+      "remove": "Retirar la publicidad — {price}",
+      "removed": "La publicidad está retirada de tu cuenta."
+    }
   },
   "creditsDialog": {
     "title": "Te {missing, plural, one {falta # crédito} other {faltan # créditos}}",
@@ -689,6 +696,40 @@
       "improvements": "A mejorar",
       "example": "Ejemplo de respuesta",
       "unanswered": "Sin respuesta a esta pregunta."
+    }
+  },
+  "ads": {
+    "label": "Publicidad",
+    "consent": {
+      "title": "Cookies publicitarias",
+      "text": "Con tu consentimiento, nuestro socio Google usa cookies para mostrarte anuncios relevantes. Sin consentimiento, los anuncios no se personalizan.",
+      "more": "Más información",
+      "accept": "Aceptar",
+      "refuse": "Rechazar",
+      "manage": "Gestionar las cookies"
+    },
+    "simulation": {
+      "title": "Anuncio de prueba",
+      "text": "Aquí aparecerá un anuncio de Google cuando se active la publicidad."
+    },
+    "rewarded": {
+      "offer": "Mira un anuncio corto para obtener 1 crédito de IA.",
+      "watch": "Ver el anuncio",
+      "loading": "Cargando el anuncio…",
+      "playing": "Anuncio en curso…",
+      "done": "Se ha añadido 1 crédito a tu saldo.",
+      "interrupted": "Anuncio interrumpido: no se ha añadido ningún crédito.",
+      "unavailable": "No hay ningún anuncio disponible por ahora. Inténtalo más tarde.",
+      "limit": "Ya has obtenido tus 3 créditos de hoy con los anuncios. Vuelve mañana.",
+      "error": "No se ha podido iniciar el anuncio. Inténtalo de nuevo.",
+      "dialogTitle": "Anuncio de prueba",
+      "remaining": "{seconds, plural, =0 {Un momento} one {Falta # segundo} other {Faltan # segundos}} para tu crédito.",
+      "close": "Cerrar"
+    },
+    "interstitial": {
+      "title": "Publicidad",
+      "text": "Anuncio de prueba: aquí aparecerá un intersticial de Google cuando se active la publicidad.",
+      "close": "Cerrar y continuar"
     }
   }
 }

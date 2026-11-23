@@ -252,7 +252,10 @@ d'administration de Supabase. En local, elle se lance avec `npm run cron:retenti
 Scripts publicitaires chargés **uniquement** si : publicités activées, utilisateur sans
 abonnement ni retrait des pubs, consentement donné, page autorisée (jamais questions,
 génération, aperçu, export, paiement). Consentement via la plateforme de consentement certifiée
-de Google. Vidéo récompensée : jeton à usage unique émis par le serveur, plafond quotidien.
+de Google (« Confidentialité et messages »), chargée avant la bibliothèque Ad Manager (GPT).
+Vidéo récompensée : jeton à usage unique émis par le serveur, plafond quotidien. Modes
+`ADS_MODE` : `off`, `simulation` (aucun script externe), `google` (ADR-036). Code :
+`src/features/ads/` (audience côté serveur, actions, composants).
 
 ---
 

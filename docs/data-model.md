@@ -232,7 +232,9 @@ Fonctions `SECURITY DEFINER` avec `search_path` vide ; `execute` retiré à `pub
 | `complete_ai_operation(operation_id, model, tokens…, cv_id, kind, language, input, output)` | Fin réussie d'une opération IA (hors génération de CV) : coûts journalisés et, le cas échéant, contenu conservé avec le CV du même compte | Inc-7 |
 | `complete_interview_feedback(operation_id, model, tokens…, generation_id, answers, feedback)` | Fin réussie d'un retour d'entretien : réponses et retour ajoutés à la simulation du même compte, une seule fois (`CONFLICT`), coûts journalisés | Inc-9 |
 | `run_monthly_grants()` | Pour chaque abonnement `active` ou `past_due` dont `next_credit_grant_at <= now()` : remise au quota, prochaine date + 1 mois | Inc-6 |
-| `run_daily_maintenance()` | Efface les IP hachées de plus de 30 jours et les événements Stripe de plus de 90 jours ; rembourse les opérations IA restées « en cours » plus de 15 minutes (les jetons expirés s'ajoutent à l'Inc-11) | Inc-6 |
+| `run_daily_maintenance()` | Efface les IP hachées de plus de 30 jours et les événements Stripe de plus de 90 jours ; rembourse les opérations IA restées « en cours » plus de 15 minutes ; supprime les jetons de vidéo de plus de 30 jours (Inc-11) | Inc-6 |
+| `issue_reward_token(user_id, daily_limit)` | Jeton de vidéo récompensée ; `RATE_LIMITED` au-delà de `daily_limit` crédits gagnés ou de 10 × `daily_limit` jetons sur 24 h | Inc-11 |
+| `redeem_reward_token(user_id, token, daily_limit)` | 1 crédit acheté (`rewarded_ad`) contre un jeton du même compte, non utilisé, de 5 s à 15 min ; `CONFLICT` sinon ; renvoie le solde acheté | Inc-11 |
 
 Planification `pg_cron` : `run_monthly_grants()` toutes les heures, `run_daily_maintenance()`
 chaque jour à 3 h (heure UTC).
@@ -270,7 +272,7 @@ Les contraintes `unique` (`stripe_checkout_session_id`, `provider_subscription_i
 | Inc-7 | `generations` | Table `generations`, RLS, `complete_ai_operation` |
 | Inc-10 | `cv_history` | Remplacement d'un CV permis au-delà du plafond (ancien abonné Pro) |
 | Inc-9 | `interview` | Coût nul accepté par `begin_ai_operation`, `complete_interview_feedback`, correction directe limitée à LinkedIn et lettre |
-| Inc-11 | `ads` | `reward_tokens` |
+| Inc-11 | `ads` | `reward_tokens`, `rewarded_credits_today`, `issue_reward_token`, `redeem_reward_token`, purge dans `run_daily_maintenance` |
 
 Chaque migration est rejouable depuis zéro (`npm run db:reset`) et vérifiée en CI.
 

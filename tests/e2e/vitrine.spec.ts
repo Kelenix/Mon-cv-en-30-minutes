@@ -225,9 +225,15 @@ test.describe("Tarifs (US-03)", () => {
         .getByText(fr.pricing.withoutSubscription.cvPro.title, { exact: true })
         .first(),
     ).toBeVisible();
+    // Retrait des publicités : affiché seulement si l'option est activée (US-24 c.1, c.3).
     await expect(
       page.getByText(fr.pricing.withoutSubscription.adsRemoval.title),
-    ).toHaveCount(0);
+    ).toHaveCount(
+      process.env.ADS_MODE === "simulation" &&
+        process.env.ADS_REMOVAL_ENABLED === "true"
+        ? 1
+        : 0,
+    );
     await expect(
       page.getByText(
         fr.pricing.conditions.replace("{days}", "3").replace("{credits}", "10"),

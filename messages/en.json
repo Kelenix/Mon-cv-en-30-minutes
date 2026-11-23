@@ -552,14 +552,21 @@
     "conflict": {
       "subscribed": "You already have a subscription: change plans from “Manage my subscription” in Credits and plan.",
       "trialUsed": "The free trial has already been used on this account.",
-      "cvUnlocked": "This CV is already unlocked."
+      "cvUnlocked": "This CV is already unlocked.",
+      "adsRemoved": "Ads are already removed from your account."
     },
     "cvPro": {
       "title": "CV Pro — {price}",
       "text": "Watermark-free PDF and DOCX for this CV, forever, with no subscription.",
       "unlock": "Unlock this CV"
     },
-    "pricingCvPro": "Unlock it from your CV preview."
+    "pricingCvPro": "Unlock it from your CV preview.",
+    "ads": {
+      "title": "Ads",
+      "hint": "Remove ads from your account for good, even after a subscription ends.",
+      "remove": "Remove ads — {price}",
+      "removed": "Ads are removed from your account."
+    }
   },
   "creditsDialog": {
     "title": "You're missing {missing, plural, one {# credit} other {# credits}}",
@@ -689,6 +696,40 @@
       "improvements": "To improve",
       "example": "Sample answer",
       "unanswered": "No answer to this question."
+    }
+  },
+  "ads": {
+    "label": "Advertisement",
+    "consent": {
+      "title": "Advertising cookies",
+      "text": "With your consent, our partner Google uses cookies to show you relevant ads. Without consent, ads stay non-personalised.",
+      "more": "Learn more",
+      "accept": "Accept",
+      "refuse": "Decline",
+      "manage": "Manage cookies"
+    },
+    "simulation": {
+      "title": "Test ad",
+      "text": "A Google ad will appear here once ads are enabled."
+    },
+    "rewarded": {
+      "offer": "Watch a short ad to get 1 AI credit.",
+      "watch": "Watch the ad",
+      "loading": "Loading the ad…",
+      "playing": "Ad playing…",
+      "done": "1 credit has been added to your balance.",
+      "interrupted": "Ad interrupted: no credit added.",
+      "unavailable": "No ad is available right now. Try again later.",
+      "limit": "You have earned your 3 credits from ads today. Come back tomorrow.",
+      "error": "The ad could not start. Try again.",
+      "dialogTitle": "Test ad",
+      "remaining": "{seconds, plural, =0 {A moment} one {# second} other {# seconds}} left before your credit.",
+      "close": "Close"
+    },
+    "interstitial": {
+      "title": "Advertisement",
+      "text": "Test ad: a Google interstitial will appear here once ads are enabled.",
+      "close": "Close and continue"
     }
   }
 }
