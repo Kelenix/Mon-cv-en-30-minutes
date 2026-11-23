@@ -20,14 +20,16 @@ export function CvTabs({
 
   return (
     <nav aria-label={t("label")} className="mx-auto mb-4 w-full max-w-[52rem]">
-      <ul className="flex gap-1 overflow-x-auto border-b border-border">
+      {/* Trait de base dessiné à l'intérieur de la liste : l'onglet actif le recouvre sans
+          déborder (aucun ascenseur vertical). */}
+      <ul className="flex gap-1 overflow-x-auto shadow-[inset_0_-1px_0_var(--color-border)]">
         {TABS.map(({ key, pathname, Icon }) => (
           <li key={key}>
             <Link
               href={{ pathname, params: { id: cvId } }}
               aria-current={key === current ? "page" : undefined}
               className={cn(
-                "-mb-px inline-flex min-h-11 items-center gap-2 border-b-2 px-4 font-semibold whitespace-nowrap transition-colors",
+                "inline-flex min-h-11 items-center gap-2 border-b-2 px-4 font-semibold whitespace-nowrap transition-colors",
                 key === current
                   ? "border-primary text-primary-strong"
                   : "border-transparent text-muted-foreground hover:text-foreground",
