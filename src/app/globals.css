@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Thème clair uniquement (ADR-016) : `dark:` ne s'applique qu'avec une classe `.dark`, jamais posée. */
+@custom-variant dark (&:is(.dark *));
+
+/* Tokens de marque — docs/design/design-system.md §2 (contrastes WCAG AA vérifiés). */
+:root {
+  --background: #ffffff;
+  --foreground: #0b1f3a;
+  --surface: #e6f0ff;
+  --card: #ffffff;
+  --card-foreground: #0b1f3a;
+  --popover: #ffffff;
+  --popover-foreground: #0b1f3a;
+  --primary: #0f6fe6;
+  --primary-foreground: #ffffff;
+  --primary-strong: #0a58bd;
+  --premium: #ffc107;
+  --premium-foreground: #0b1f3a;
+  --brand-cyan: #00d4ff;
+  --secondary: #e6f0ff;
+  --secondary-foreground: #0b1f3a;
+  --muted: #f2f7ff;
+  --muted-foreground: #4a5b73;
+  --accent: #e6f0ff;
+  --accent-foreground: #0b1f3a;
+  --success: #1b7f3b;
+  --destructive: #c62828;
+  --border: #d6e2f5;
+  --input: #7a8ca8;
+  --ring: #0f6fe6;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-strong: var(--primary-strong);
+  --color-premium: var(--premium);
+  --color-premium-foreground: var(--premium-foreground);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: var(--radius);
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+
+  --shadow-card: 0 8px 24px rgb(15 111 230 / 0.08);
+  --shadow-card-hover: 0 12px 32px rgb(15 111 230 / 0.12);
+}
+
+/* Conteneur de page : 1 200 px maximum, marges 16 / 24 / 32 px (design system §4). */
+@utility container-page {
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 1.5rem;
+  }
+
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

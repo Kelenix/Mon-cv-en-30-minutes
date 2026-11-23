@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "Mein Lebenslauf in 30 Sekunden",
+    "lead": "Mein Lebenslauf",
+    "connector": "in",
+    "pill": "30 Sekunden"
+  },
+  "metadata": {
+    "title": "Mein Lebenslauf in 30 Sekunden — Erstelle deinen Lebenslauf mit KI",
+    "description": "Beantworte 5 Fragen und die KI schreibt in Sekunden einen professionellen Lebenslauf für dich. Kostenlos starten."
+  },
+  "a11y": {
+    "skipToContent": "Zum Inhalt springen"
+  },
+  "locales": {
+    "fr": "Français",
+    "en": "English",
+    "it": "Italiano",
+    "es": "Español",
+    "de": "Deutsch"
+  },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "change": "Sprache ändern (aktuelle Sprache: {language})"
+  },
+  "home": {
+    "title": "Erstelle deinen professionellen Lebenslauf in Sekunden mit KI.",
+    "subtitle": "Beantworte 5 Fragen, die KI schreibt deinen Lebenslauf."
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Diese Seite existiert nicht oder wurde verschoben.",
+    "backHome": "Zur Startseite"
+  },
+  "error": {
+    "title": "Ein Fehler ist aufgetreten",
+    "description": "Versuche es gleich noch einmal.",
+    "retry": "Erneut versuchen"
+  }
+}

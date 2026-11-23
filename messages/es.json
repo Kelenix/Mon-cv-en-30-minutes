@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "Mi CV en 30 Segundos",
+    "lead": "Mi CV",
+    "connector": "en",
+    "pill": "30 Segundos"
+  },
+  "metadata": {
+    "title": "Mi CV en 30 Segundos — Crea tu CV con IA",
+    "description": "Responde 5 preguntas y la IA redacta para ti un CV profesional en segundos. Empieza gratis."
+  },
+  "a11y": {
+    "skipToContent": "Ir al contenido"
+  },
+  "locales": {
+    "fr": "Français",
+    "en": "English",
+    "it": "Italiano",
+    "es": "Español",
+    "de": "Deutsch"
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "change": "Cambiar idioma (idioma actual: {language})"
+  },
+  "home": {
+    "title": "Crea tu CV profesional en segundos gracias a la IA.",
+    "subtitle": "Responde 5 preguntas y la IA redacta tu CV."
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "Esta página no existe o se ha movido.",
+    "backHome": "Volver al inicio"
+  },
+  "error": {
+    "title": "Se ha producido un error",
+    "description": "Inténtalo de nuevo en un momento.",
+    "retry": "Reintentar"
+  }
+}

@@ -1,0 +1,126 @@
+# État du projet — PROJECT_STATE
+
+> Mis à jour par Claude à la fin de chaque phase / incrément. Permet de **reprendre** le
+> travail à tout moment, même dans une nouvelle session. Toujours lire ce fichier avant d'agir.
+
+## Snapshot
+
+- **Phase courante** : 4 — Implémentation (Inc-0 terminé, jalon M0 atteint)
+- **Dernière mise à jour** : 23/11/2026
+- **Santé** : 🟢 OK
+- **Prochaine action** : premier commit (sur accord de l'utilisateur), puis Inc-1 (accueil,
+  tarifs, pages légales). Noms de marque traduits utilisés tels que proposés tant que la tâche 12
+  n'est pas faite.
+
+## Avancement par phase
+
+| Phase | État | Notes |
+|-------|------|-------|
+| 0 — Cadrage & intake        | ✅ fait | Plan validé, Q1–Q6 tranchées |
+| 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
+| 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
+| 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
+| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ |
+| 5 — Qualité                 | ⬜ à faire | |
+| 6 — Mise en production      | ⬜ à faire | |
+| 7 — Documentation           | ⬜ à faire | |
+| 8 — Maintenance             | ⬜ à faire | |
+
+> États : ⬜ à faire · 🔄 en cours · ✅ fait · ⏸️ en attente (raison)
+
+## Backlog incréments (incrément vertical = livrable)
+
+Ordre d'exécution = ordre du tableau. Détail des stories : `docs/product/user-stories.md`.
+Taille relative : S / M / L / XL.
+
+| ID | Incrément | Stories | Dépend de | Taille | Jalon | État |
+|----|-----------|---------|-----------|--------|-------|------|
+| Inc-0 | Socle technique (squelette qui tourne, 5 langues) | US-36, US-37 (bases), US-41 (fondations) | — | L | M0 | ✅ |
+| Inc-1 | Accueil + Tarifs + pages légales | US-01, 02, 03, 38 | Inc-0 | M | M1 | ⬜ |
+| Inc-2 | Comptes | US-04, 05, 06 | Inc-0 | M | M2 | ⬜ |
+| Inc-3 | Crédits & droits | US-07, 08, 09 | Inc-2 | L | M2 | ⬜ |
+| Inc-4 | Création de CV par IA | US-10 à 15, US-42 | Inc-3, clé Anthropic | L | M2 | ⬜ |
+| Inc-5 | Exports PDF / DOCX | US-16, 17 | Inc-4 | M | M2 | ⬜ |
+| Inc-6 | Paiements | US-18 à 23, US-38 (CGV) | Inc-3, Inc-5, clés Stripe test | XL | M3 | ⬜ |
+| Inc-7 | Amélioration IA | US-25, 26, 27 | Inc-6 | L | M4 | ⬜ |
+| Inc-8 | LinkedIn + lettre de motivation | US-28, 29 | Inc-6 | M | M4 | ⬜ |
+| Inc-9 | Simulation d'entretien | US-30 | Inc-6 | M | M4 | ⬜ |
+| Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ⬜ |
+| Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ⬜ |
+| Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ⬜ |
+| Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 2, 4, 6, 7, 9 | M | M6 | ⬜ |
+
+## Jalons (chacun démontrable et testable)
+
+| Jalon | Contenu | Démonstration |
+|-------|---------|---------------|
+| M0 — Squelette | Inc-0 | `npm run dev` affiche la page de base aux couleurs de la marque ; Supabase local tourne dans Docker ; CI verte (lint, types, tests, build) |
+| M1 — Vitrine | Inc-1 | Accueil, Tarifs et pages légales navigables, responsive, avec les vrais prix |
+| M2 — CV gratuit de bout en bout | Inc-2 à Inc-5 | Parcours §14 étapes 1 à 7 : questions → compte → génération → aperçu → copie / modification → PDF avec filigrane |
+| M3 — MVP monétisé | Inc-6 | Parcours §14 complet (étapes 1 à 9) en mode test Stripe : packs, CV Pro, formules, essai, portail, remise mensuelle |
+| M4 — Outils IA complets | Inc-7 à Inc-10 | Amélioration, adaptation + mots-clés, LinkedIn, lettre, entretien, historique |
+| M5 — Publicités | Inc-11 | Consentement, emplacements avec blocs de test Google, vidéo récompensée, retrait des pubs |
+| M6 — Prêt pour la production | Inc-12, Inc-13 | Site en ligne sur le domaine, CI/CD verte, revue de sécurité, documentation complète |
+
+## Chemin critique et blocages
+
+Chemin critique : **Inc-0 → Inc-2 → Inc-3 → Inc-4 → Inc-5 → Inc-6 → Inc-13.**
+Inc-1 peut avancer en parallèle d'Inc-2 ; Inc-7 à Inc-10 sont indépendants entre eux.
+
+| Tâche manuelle (`docs/manual-tasks.md`) | Bloque | Remarque |
+|-----------------------------------------|--------|----------|
+| 3 — Clé API Anthropic | Démonstration d'Inc-4 | Le code et les tests avancent avec une IA simulée |
+| 4 — Compte Stripe (clés de test) | Inc-6 | Clés de test disponibles dès l'inscription ; l'activation complète ne bloque qu'Inc-13 |
+| 5 — Google OAuth | Bouton Google en local (Inc-2) | Non bloquant : la connexion par e-mail fonctionne |
+| 8 — Logo et illustrations | Finition d'Inc-1 | Non bloquant : logotype typographique en attendant |
+| 2, 6, 7, 9 — Supabase en ligne, SMTP, infos légales, Vercel | Inc-13 | — |
+| 10 — Comptes publicitaires | Activation réelle des pubs | Après la mise en ligne |
+
+Risques : `docs/risks.md` (aucun 🔴).
+
+## Décisions ouvertes / questions à l'utilisateur
+
+Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
+
+- [x] Q1 — Prestataire de paiement : Stripe
+- [x] Q2 — Fonctions « Pro » sans formule Pro : via crédits achetés
+- [x] Q3 — Création du compte : juste avant la génération
+- [x] Q4 — Modèle d'IA : Claude Opus 5.5
+- [x] Q5 — Crédits pendant l'essai de 3 jours : 10 crédits
+- [x] Q6 — App mobile / backend existant : aucun
+- [x] Q7 à Q10 — Multilingue : FR, EN, IT, ES, DE dès le lancement ; langue du CV au choix ;
+  nom de marque traduit (ADR-018)
+- [ ] Noms de marque par langue à valider (tâche manuelle 12, avant l'Inc-1)
+
+## Blocages
+
+- (aucun)
+
+## Tâches manuelles utilisateur en attente
+
+- voir `docs/manual-tasks.md`
+
+## Journal de session (résumé court, le plus récent en haut)
+
+- 23/11/2026 — **Inc-0 terminé (M0)** : Next.js 16.4.6 (Cache Components), TypeScript 6.0.3,
+  Tailwind 4.3.5 + shadcn/ui (Base UI) aux couleurs de la charte, Poppins ; 5 langues avec
+  next-intl 4.15.3 (`next/root-params`, proxy, sélecteur, 404 et erreurs traduites) ; Supabase
+  local dans Docker (≈ 650 Mo de mémoire) ; CI GitHub Actions. Vérifié : lint, types, format,
+  16 tests unitaires, build, 22 tests de bout en bout (ordinateur + mobile, build de production,
+  audit axe sans violation). Dépôt Git initialisé, **rien n'est encore commité**. ADR-020.
+- 23/11/2026 — Multilingue ajouté à la demande de l'utilisateur : 5 langues dès le lancement,
+  langue du CV au choix, nom de marque traduit (ADR-018, ADR-019) ; US-41 et US-42 ajoutées
+  (42 stories) ; architecture, données, design et risques (R19–R21) mis à jour ; Inc-0 passe à L.
+- 23/11/2026 — Phase 3 terminée : architecture (Next.js 16.4, Supabase, Stripe, Claude Opus 5.5),
+  contrats d'actions et flux, modèle de données (10 tables, RLS, fonctions de crédits), design
+  system (contrastes AA vérifiés) et wireframes ; ADR-009 à 016. Rétention des comptes inactifs :
+  3 ans (choix de l'utilisateur, ADR-017, US-40 ajoutée → 40 stories).
+- 23/11/2026 — Phase 2 terminée : jalons M0–M6, chemin critique, registre des risques.
+- 23/11/2026 — Phase 1 terminée : 4 personas, 39 user stories (MVP : 26, V1 : 13), matrice des
+  droits, 8 exigences non fonctionnelles, traçabilité complète ; règles H18–H27 (ADR-008) ;
+  retrait des pubs déplacé en Inc-11.
+- 23/11/2026 — Développement local sur Docker Desktop (déjà démarré) : Supabase et CLI Stripe en
+  conteneurs, Next.js sur la machine avec Node.js 24 (ADR-007). Tâche manuelle 1 faite.
+- 23/11/2026 — Questions Q1 à Q6 posées et tranchées par l'utilisateur (ADR-006).
+- 23/11/2026 — Cadrage : lecture de l'INTAKE et des kits UI, plan de réalisation rédigé,
+  9 contradictions et 17 hypothèses consignées, 6 questions ouvertes.

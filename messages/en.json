@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "My CV in 30 Seconds",
+    "lead": "My CV",
+    "connector": "in",
+    "pill": "30 Seconds"
+  },
+  "metadata": {
+    "title": "My CV in 30 Seconds — Build your CV with AI",
+    "description": "Answer 5 questions and AI writes a professional CV for you in seconds. Start for free."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "locales": {
+    "fr": "Français",
+    "en": "English",
+    "it": "Italiano",
+    "es": "Español",
+    "de": "Deutsch"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "change": "Change language (current language: {language})"
+  },
+  "home": {
+    "title": "Create your professional CV in seconds with AI.",
+    "subtitle": "Answer 5 questions and AI writes your CV."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "This page doesn't exist or has been moved.",
+    "backHome": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "Please try again in a moment.",
+    "retry": "Try again"
+  }
+}

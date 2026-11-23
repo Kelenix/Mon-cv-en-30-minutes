@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "Curriculum in 30 Secondi",
+    "lead": "Curriculum",
+    "connector": "in",
+    "pill": "30 Secondi"
+  },
+  "metadata": {
+    "title": "Curriculum in 30 Secondi — Crea il tuo CV con l'IA",
+    "description": "Rispondi a 5 domande e l'IA scrive per te un CV professionale in pochi secondi. Inizia gratis."
+  },
+  "a11y": {
+    "skipToContent": "Vai al contenuto"
+  },
+  "locales": {
+    "fr": "Français",
+    "en": "English",
+    "it": "Italiano",
+    "es": "Español",
+    "de": "Deutsch"
+  },
+  "languageSwitcher": {
+    "label": "Lingua",
+    "change": "Cambia lingua (lingua attuale: {language})"
+  },
+  "home": {
+    "title": "Crea il tuo CV professionale in pochi secondi grazie all'IA.",
+    "subtitle": "Rispondi a 5 domande, l'IA scrive il tuo CV."
+  },
+  "notFound": {
+    "title": "Pagina non trovata",
+    "description": "Questa pagina non esiste o è stata spostata.",
+    "backHome": "Torna alla home"
+  },
+  "error": {
+    "title": "Si è verificato un errore",
+    "description": "Riprova tra un attimo.",
+    "retry": "Riprova"
+  }
+}

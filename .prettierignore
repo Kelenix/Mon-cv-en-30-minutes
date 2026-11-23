@@ -1,0 +1,13 @@
+# Documentation et skills : mise en forme manuelle (tableaux).
+*.md
+.claude/
+
+# Fichiers générés ou gérés par des outils
+.next/
+node_modules/
+package-lock.json
+next-env.d.ts
+supabase/
+playwright-report/
+test-results/
+coverage/
