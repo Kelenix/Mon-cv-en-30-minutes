@@ -1,10 +1,18 @@
 import "server-only";
 import { cache } from "react";
 import { getCurrentUser } from "@/features/auth/session";
-import type { Balances } from "@/features/plans/entitlements";
+import type { ActivePlan, Balances } from "@/features/plans/entitlements";
 import { createClient } from "@/lib/supabase/server";
 
 export type Wallet = Balances & { total: number };
+
+/**
+ * Formule du compte connecté. Les abonnements arrivent avec les paiements (Inc-6, ADR-026) :
+ * aucun compte n'en a d'ici là.
+ */
+export async function getActivePlan(): Promise<ActivePlan> {
+  return null;
+}
 
 /**
  * Solde du compte connecté (US-07), lu par le client de l'utilisateur, donc limité à son propre

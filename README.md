@@ -38,6 +38,13 @@ Outils locaux une fois Supabase démarré :
 | Supabase Studio (base de données) | http://localhost:54323 |
 | Mailpit (e-mails de connexion) | http://localhost:54324 |
 
+## IA en local
+
+Sans `ANTHROPIC_API_KEY` dans `.env.local`, l'IA est **simulée** : le CV reprend les réponses
+telles quelles (pratique pour développer et tester sans frais). Avec une clé (tâche manuelle 3),
+les CV sont rédigés par Claude. Écrire `[simulation:echec]` dans le métier visé fait échouer une
+génération simulée (pour voir l'écran d'erreur et le remboursement).
+
 ## Donner des crédits à un compte local
 
 Les achats arrivent à l'Inc-6. En attendant, pour tester avec des crédits, dans Supabase Studio

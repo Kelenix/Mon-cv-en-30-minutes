@@ -1,5 +1,6 @@
 import {
   type AiPriority,
+  FREE_AI_OPERATIONS_PER_MINUTE,
   FREE_SUMMARY_VARIANTS,
   OPERATION_COSTS,
   type OperationKey,
@@ -87,6 +88,8 @@ export type Entitlements = {
   /** Publicités affichées (sauf retrait acheté, Inc-11). */
   ads: boolean;
   aiPriority: AiPriority;
+  /** Limite de débit des opérations IA. */
+  aiOperationsPerMinute: number;
 };
 
 /** Droits hors opérations IA, selon la formule (matrice §3). */
@@ -98,6 +101,7 @@ export function planEntitlements(plan: ActivePlan): Entitlements {
       exportsWithoutWatermark: false,
       ads: true,
       aiPriority: "standard",
+      aiOperationsPerMinute: FREE_AI_OPERATIONS_PER_MINUTE,
     };
   }
   return {
@@ -106,5 +110,6 @@ export function planEntitlements(plan: ActivePlan): Entitlements {
     exportsWithoutWatermark: true,
     ads: false,
     aiPriority: PLANS[plan].aiPriority,
+    aiOperationsPerMinute: PLANS[plan].aiOperationsPerMinute,
   };
 }

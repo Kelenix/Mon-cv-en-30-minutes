@@ -6,6 +6,69 @@
 
 ---
 
+## ADR-027 — Choix de réalisation de la création du CV par l'IA (Inc-4)
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : ai-engineer, backend-engineer, frontend-engineer,
+  security-engineer)
+- **Contexte** : US-10 à US-15 et US-42 ; la clé Anthropic n'est pas encore fournie (tâche 3).
+- **Décision** :
+  - **SDK officiel** `@anthropic-ai/sdk` **1.6.0**, version fixée publiée depuis plus de deux
+    semaines (la 1.12 a 3 jours). Syntaxe vérifiée dans la documentation et les types du SDK.
+  - **Appel** : `claude.beta.messages.stream(...).finalMessage()` (flux côté serveur),
+    `claude-opus-5-5`, effort `low`, sortie structurée (schéma JSON produit depuis Zod), repli
+    côté serveur `fallbacks: "default"` (en-tête `server-side-fallback-2026-07-01`). Le motif
+    d'arrêt est contrôlé avant toute lecture : refus → `AI_UNAVAILABLE`, coupure →
+    `AI_INVALID_OUTPUT` ; puis le texte est validé par Zod. 60 s par tentative, une nouvelle
+    tentative (gérée par le SDK, erreurs transitoires seulement), 110 s au total ; page de
+    génération à `maxDuration = 150`.
+  - **Consigne** : faits tirés des seules réponses (aucune entreprise, date ou diplôme inventé),
+    rédaction dans la langue du CV, règles ATS (H34), réponses encadrées par des balises et
+    échappées, traitées comme des données (R06). Pas de cache de prompt : la consigne est sous le
+    minimum mesurable.
+  - **IA simulée** sans clé (développement, tests, CI) : le CV reprend les réponses. La clé est
+    **obligatoire en production** (le démarrage échoue sinon). Le mot-clé `[simulation:echec]`
+    ne fait échouer que l'IA simulée (test du remboursement).
+  - **Orchestration en trois fonctions SQL réservées au serveur** : `begin_ai_operation`
+    (verrou du portefeuille, rejeu d'une même demande, limite par minute, gratuité avec plafond
+    par IP, débit), `complete_cv_generation` (CV créé ou remplacé, plafond de CV conservés,
+    gratuité consommée, coûts), `fail_ai_operation` (remboursement unique, cause). Chacune est
+    tout ou rien.
+  - Colonne **`cvs.operation_id`** (unique) ajoutée au modèle : une demande rejouée retrouve son
+    CV au lieu d'en créer un second.
+  - **Une seule génération gratuite à la fois** : une seconde demande pendant qu'une gratuite est
+    en cours reçoit `RATE_LIMITED` plutôt qu'un débit.
+  - **Adresse IP** hachée en HMAC-SHA256 avec `IP_HASH_SALT` (`x-real-ip` fixé par Vercel). Sans
+    sel (local), le plafond n'est pas appliqué ; le sel est obligatoire en production.
+  - **Brouillon** dans le `localStorage` (copie en mémoire si le stockage est refusé), lu avec
+    `useSyncExternalStore` (aucun écart d'hydratation).
+  - **Éditeur** : modification sur place par rubrique, enregistrement 1 s après la dernière
+    frappe (envois ordonnés, « Enregistrement… » dès la frappe, avertissement si l'on quitte la
+    page avant l'enregistrement). **TanStack Query n'est pas ajouté** : une action serveur suffit
+    pour cette seule mutation. Le solde de l'en-tête est relu par `refresh()` (next/cache)
+    après un débit.
+  - **Feuille du CV** : une colonne, police standard (Arial), intitulés standard traduits dans la
+    langue du CV (`cvSections`), mots très longs coupés (adresses e-mail sur mobile).
+  - **En-tête mobile** (maquette §2) : « Mes CV » et « Mon compte » passent dans un menu, le
+    solde reste visible ; tient sur 360 px. Page « Mes CV » minimale (pagination : Inc-10). Le
+    sélecteur de langue arrive en flux (pages à paramètre, `/cv/[id]`).
+  - **Encart des offres** (US-15) uniquement sur l'aperçu, fermeture mémorisée dans le
+    navigateur. Les fenêtres « Solde insuffisant » et « Remplacer un CV » mènent à Tarifs (achat
+    à l'Inc-6).
+  - Sans brouillon, la page de génération affiche le message et un lien vers les questions (au
+    lieu d'une redirection).
+- **Reporté** : suppression d'un CV (`deleteCv`) avec l'historique (Inc-10) ; encart limité aux
+  formules supérieures (US-15 c.3) et encart CV Pro (Inc-6) ; remboursement des opérations
+  restées « en cours » après un arrêt brutal du serveur (maintenance quotidienne, Inc-6) ;
+  mesure sur 20 profils de référence (US-11 c.4 et c.5) dès que la clé est fournie (tâche 3).
+- **Alternatives écartées** : débit et création du CV en plusieurs requêtes sans transaction
+  (double débit, CV sans débit) ; lecture automatique de la sortie par le SDK (elle échoue avant
+  le contrôle du motif d'arrêt) ; IA appelée depuis le navigateur (clé exposée).
+- **Impact** : financier / sécurité (fort)
+
+---
+
 ## ADR-026 — Choix de réalisation des crédits et droits (Inc-3)
 
 - **Date** : 23/11/2026

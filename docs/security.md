@@ -1,7 +1,7 @@
 # Sécurité — Mon CV en 30 Secondes (version Web)
 
 > Rôle : security-engineer. Mis à jour à chaque incrément qui touche l'authentification, les
-> données, les paiements ou un service tiers. Dernière revue : Inc-3 (crédits), 23/11/2026.
+> données, les paiements ou un service tiers. Dernière revue : Inc-4 (CV et IA), 23/11/2026.
 
 ## 1. Ce qui est protégé
 
@@ -12,7 +12,9 @@
 | E-mail du compte | `auth.users` | Donnée personnelle, identifiant de connexion |
 | Clé secrète Supabase | Variables d'environnement du serveur | Contourne la RLS : accès à toute la base |
 | Soldes et journal des crédits | `credit_wallets`, `credit_ledger` | Argent : crédits payés |
-| À venir : CV, abonnements, achats | Inc-4 à Inc-6 | Données personnelles, argent |
+| Réponses aux questions et CV | `public.cvs`, brouillon dans le navigateur | Données personnelles (parcours, coordonnées) |
+| Clé de l'API Anthropic | Variables d'environnement du serveur | Facturation à l'usage |
+| À venir : abonnements, achats | Inc-6 | Argent |
 
 ## 2. Menaces et parades en place (Inc-2)
 
@@ -34,6 +36,13 @@
 | Crédits ajoutés ou modifiés par l'utilisateur | Aucun privilège d'écriture sur les soldes et le journal ; fonctions de crédit exécutables par le seul rôle serveur | `tests/db/credits.test.ts` |
 | Double débit, solde négatif (opérations simultanées, double clic) | Verrou de ligne sur l'opération et le portefeuille ; une opération n'est débitée qu'une fois ; contrainte `>= 0` | `tests/db/credits.test.ts` (20 débits simultanés) |
 | Journal falsifié après coup | Déclencheur qui refuse toute modification ; somme du journal = solde (NFR-08) | `tests/db/credits.test.ts` |
+| Lecture ou modification des CV d'un autre compte | RLS sur `cvs` (lecture, correction du titre et du contenu, suppression de ses seuls CV) ; un CV d'un autre compte est « introuvable » | `tests/db/cvs.test.ts`, `tests/e2e/creation.spec.ts` |
+| CV créé sans génération, gratuité ou crédits contournés | Aucun privilège `insert` ; création, débit et remboursement par trois fonctions SQL réservées au serveur, chacune tout ou rien | `tests/db/cvs.test.ts` |
+| Injection de consignes dans les réponses (R06) | Réponses encadrées par des balises et échappées, déclarées comme données ; sortie structurée validée par Zod et bornée avant l'enregistrement | Revue de code, `tests/unit/cv-content.test.ts` |
+| Abus de la gratuité (H27) | 3 générations gratuites par jour et par IP hachée (HMAC, sel secret) ; une seule génération gratuite à la fois | `tests/db/cvs.test.ts` |
+| Coûts de l'IA (rafales, textes énormes) | Limite par minute selon la formule, réponses limitées à 2 000 caractères, 16 000 tokens de sortie, délai de 60 s par tentative | `tests/db/cvs.test.ts`, `tests/unit/cv-content.test.ts` |
+| Fuite de la clé Anthropic | Lue seulement côté serveur (`server-only`), jamais préfixée `NEXT_PUBLIC_`, obligatoire en production | Revue de code |
+| Contenu des CV dans les journaux | Les erreurs journalisent un code et une cause technique, jamais les réponses ni le CV ; `ai_operations` ne contient aucun contenu | Revue de code |
 | Clickjacking, détection de type, fuite de référent | En-têtes : `frame-ancestors 'none'`, HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy` | `next.config.ts` |
 
 ## 3. Points résiduels
@@ -45,3 +54,5 @@
 | Les limites locales de Supabase Auth sont relevées pour les tests | Faible | Valeurs par défaut conservées en production (tâche 2) |
 | SMTP par défaut de Supabase inadapté à la production | Moyen | Fournisseur dédié (tâche 6, R15) |
 | 4 vulnérabilités modérées dans la CLI shadcn (outil de développement) | Faible | Hors production ; la CI audite les dépendances de production |
+| Opération restée « en cours » si le serveur s'arrête pendant la génération (crédit non rendu) | Faible | Remboursement par la maintenance quotidienne (Inc-6) |
+| Plafond de CV gratuits par IP inactif sans `IP_HASH_SALT` | Faible | Sel obligatoire en production (le démarrage échoue sinon) |

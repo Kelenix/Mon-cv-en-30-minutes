@@ -14,7 +14,9 @@ type ProfileUpdate = Pick<
 export async function getOwnProfile(supabase: Client, userId: string) {
   const { data, error } = await supabase
     .from("profiles")
-    .select("first_name, last_name, phone, city, locale")
+    .select(
+      "first_name, last_name, phone, city, locale, free_generation_used_at",
+    )
     .eq("id", userId)
     .single();
   if (error) throw error;

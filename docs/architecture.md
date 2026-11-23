@@ -40,7 +40,7 @@ Versions relevées sur le registre npm le 23/11/2026, épinglées dans `package.
 | Internationalisation | next-intl (routage par langue, chemins traduits, messages typés) | 4.15.x |
 | État serveur côté client | TanStack Query (usage limité, voir §4) | 5.108.x |
 | Base, Auth | Supabase (`@supabase/supabase-js`, `@supabase/ssr`), CLI en dépendance du projet | 2.119.x, 0.12.x, CLI 3.2.x |
-| IA | `@anthropic-ai/sdk` | 1.12.x |
+| IA | `@anthropic-ai/sdk` | 1.6.0 (ADR-027) |
 | Paiement | `stripe` (serveur uniquement) | 23.2.x |
 | Exports | `@react-pdf/renderer`, `docx` | 4.9.x, 9.16.x |
 | Notifications | `sonner` | 2.0.x |
@@ -50,7 +50,7 @@ Versions relevées sur le registre npm le 23/11/2026, épinglées dans `package.
 
 Écarts assumés par rapport à la stack par défaut (ADR-009) : pas de bibliothèque de formulaires
 (Server Actions + `useActionState` + Zod suffisent) ; TanStack Query limité aux besoins réels
-(attente de confirmation de paiement, enregistrement automatique de l'éditeur).
+(attente de confirmation de paiement ; l'éditeur s'en passe, ADR-027).
 
 ---
 
@@ -200,8 +200,9 @@ Flux détaillés : `docs/system-design.md` §3.
   jamais comme instructions (anti-injection, R06).
 - Chaque appel est journalisé dans `ai_operations` : opération, statut, crédits, tokens, coût
   estimé, durée (NFR-07).
-- La syntaxe exacte du SDK est vérifiée dans la documentation officielle à l'Inc-4, avant
-  d'écrire le code.
+- Syntaxe du SDK vérifiée dans la documentation officielle et ses types (Inc-4, ADR-027).
+- Sans clé d'API, l'IA est **simulée** (développement, tests, CI) ; la clé est obligatoire en
+  production.
 
 ---
 

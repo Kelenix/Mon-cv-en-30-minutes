@@ -33,7 +33,9 @@
     "cookies": "Cookie",
     "signIn": "Accedi",
     "account": "Il mio account",
-    "createCv": "Crea il mio CV"
+    "createCv": "Crea il mio CV",
+    "myCvs": "I miei CV",
+    "menu": "Menu"
   },
   "home": {
     "eyebrow": "Ottimizzato per i software di selezione (ATS)",
@@ -276,8 +278,14 @@
       "invalidEmail": "Inserisci un indirizzo email valido.",
       "invalidCode": "Codice non valido o scaduto.",
       "invalidPhone": "Inserisci un numero di telefono valido.",
-      "invalidConfirmation": "La parola inserita non corrisponde."
-    }
+      "invalidConfirmation": "La parola inserita non corrisponde.",
+      "tooMany": "Troppi elementi."
+    },
+    "INSUFFICIENT_CREDITS": "Non hai abbastanza crediti per questa azione.",
+    "CV_LIMIT_REACHED": "Il tuo piano conserva un numero limitato di CV: scegli quale sostituire.",
+    "FREE_LIMIT_REACHED": "Limite giornaliero di CV gratuiti raggiunto da questa connessione. Riprova domani o scopri le nostre offerte.",
+    "AI_UNAVAILABLE": "La generazione non è andata a buon fine. I tuoi crediti sono stati restituiti: riprova.",
+    "AI_INVALID_OUTPUT": "La generazione non è andata a buon fine. I tuoi crediti sono stati restituiti: riprova."
   },
   "legal": {
     "updatedAt": "Ultimo aggiornamento: {date}",
@@ -293,5 +301,164 @@
     "title": "Si è verificato un errore",
     "description": "Riprova tra un attimo.",
     "retry": "Riprova"
+  },
+  "wizard": {
+    "metaTitle": "Crea il mio CV",
+    "metaDescription": "Rispondi a 5 semplici domande: l'IA scrive il tuo CV, pronto per i software di selezione del personale.",
+    "title": "Crea il tuo CV in 5 domande",
+    "intro": "Rispondi in modo semplice, con parole tue. L'IA scrive e impagina il tuo CV.",
+    "progress": "Domanda {current} di {total}",
+    "example": "Vedi un esempio",
+    "counter": "{count, number} / {max, number}",
+    "jobRequired": "Indica il lavoro che cerchi per continuare.",
+    "shortAnswers": "Le tue risposte sono brevi: più dettagli dai (ruoli, mansioni, strumenti, titoli di studio), più preciso sarà il tuo CV.",
+    "languageLabel": "Lingua del CV",
+    "languageHint": "Puoi scrivere le risposte in qualsiasi lingua: il CV sarà redatto in questa.",
+    "previous": "Indietro",
+    "next": "Avanti",
+    "generate": "Genera il mio CV",
+    "freeHint": "La tua prima generazione è gratuita. Le tue risposte restano salvate su questo dispositivo.",
+    "questions": {
+      "job": {
+        "title": "Quale lavoro cerchi?",
+        "help": "Il ruolo o la professione che cerchi. È l'unica risposta obbligatoria.",
+        "example": "Sviluppatrice web front-end"
+      },
+      "experiences": {
+        "title": "Quali sono le tue esperienze professionali?",
+        "help": "Ruoli, aziende, date e mansioni principali. Scrivi liberamente: l'IA organizza tutto.",
+        "example": "Sviluppatrice web presso Studio Luce, Milano, dal 2021 a oggi: realizzazione di siti per negozi, integrazione di mockup, assistenza ai clienti.\nTirocinio di 6 mesi presso WebAgenzia nel 2020: manutenzione di siti WordPress."
+      },
+      "skills": {
+        "title": "Quali sono le tue competenze?",
+        "help": "Strumenti, software, lingue, capacità e qualità. Separale con virgole o andando a capo.",
+        "example": "HTML, CSS, JavaScript, React, Figma, lavoro di squadra, inglese fluente"
+      },
+      "education": {
+        "title": "Qual è la tua formazione?",
+        "help": "Titoli di studio, scuole, anni e certificazioni.",
+        "example": "Laurea triennale in Informatica, Università degli Studi di Milano, 2020\nDiploma di liceo scientifico, 2017"
+      },
+      "goal": {
+        "title": "Qual è il tuo obiettivo professionale?",
+        "help": "Cosa cerchi: tipo di ruolo, settore, contratto, crescita desiderata.",
+        "example": "Entrare in un team di prodotto per sviluppare applicazioni web accessibili, a tempo indeterminato a Milano o da remoto."
+      }
+    }
+  },
+  "generation": {
+    "metaTitle": "Generazione del tuo CV",
+    "title": "Stiamo preparando il tuo CV",
+    "steps": {
+      "analysis": "Analisi delle tue risposte",
+      "writing": "Stesura del tuo CV",
+      "formatting": "Impaginazione"
+    },
+    "wait": "Il tuo CV arriva tra pochi secondi.",
+    "noDraft": "Inizia rispondendo alle domande: non è stata trovata nessuna risposta su questo dispositivo.",
+    "answerQuestions": "Rispondi alle domande",
+    "retry": "Riprova",
+    "editAnswers": "Modifica le mie risposte",
+    "seeOffers": "Vedi le offerte",
+    "cancel": "Annulla",
+    "credits": {
+      "title": "Ti {missing, plural, one {manca # credito} other {mancano # crediti}}",
+      "description": "Generare un CV costa {cost, plural, one {# credito} other {# crediti}}. Il tuo saldo: {balance, plural, one {# credito} other {# crediti}}.",
+      "topUp": "Ricarica i crediti",
+      "upgrade": "Passa a Pro"
+    },
+    "replace": {
+      "title": "Sostituire un CV?",
+      "description": "Il tuo piano conserva {limit, plural, one {# CV} other {# CV}}. Il nuovo CV sostituirà:",
+      "legend": "CV da sostituire",
+      "updated": "Modificato il {date}",
+      "proWarning": "Sbloccato con CV Pro: questo sblocco andrà perso.",
+      "confirm": "Sostituisci e genera",
+      "upgrade": "Passa a Pro per tenere tutto"
+    }
+  },
+  "cvEditor": {
+    "metaTitle": "Il mio CV",
+    "sheetLabel": "Anteprima del CV",
+    "headerLabel": "Intestazione",
+    "edit": "Modifica: {section}",
+    "done": "Termina la modifica: {section}",
+    "copy": "Copia il testo",
+    "copied": "Copiato",
+    "copyFailed": "Copia non riuscita: seleziona il testo del CV per copiarlo.",
+    "counter": "{count, number} / {max, number}",
+    "status": {
+      "saving": "Salvataggio…",
+      "saved": "Salvato",
+      "error": "Modifica non salvata",
+      "invalid": "Correggi il campo segnalato per salvare",
+      "retry": "Riprova"
+    },
+    "moveUp": "Sposta su «{item}»",
+    "moveDown": "Sposta giù «{item}»",
+    "remove": "Elimina «{item}»",
+    "removeBullet": "Elimina il punto {number}",
+    "untitled": "elemento senza titolo",
+    "addExperience": "Aggiungi un'esperienza",
+    "addEducation": "Aggiungi una formazione",
+    "addLanguage": "Aggiungi una lingua",
+    "addBullet": "Aggiungi un punto",
+    "skillsHint": "Una competenza per riga.",
+    "skillsLimit": "Massimo {count} competenze, di {max} caratteri ciascuna.",
+    "fields": {
+      "fullName": "Nome e cognome",
+      "title": "Titolo del CV",
+      "email": "Email",
+      "phone": "Telefono",
+      "city": "Città",
+      "summary": "Profilo",
+      "role": "Ruolo",
+      "company": "Azienda",
+      "location": "Luogo",
+      "startDate": "Inizio",
+      "endDate": "Fine",
+      "bullet": "Punto {number}",
+      "skills": "Competenze",
+      "degree": "Titolo di studio o corso",
+      "school": "Scuola o ente",
+      "year": "Anno",
+      "details": "Dettagli",
+      "language": "Lingua",
+      "level": "Livello"
+    },
+    "empty": {
+      "summary": "Aggiungi un profilo.",
+      "experiences": "Aggiungi un'esperienza.",
+      "skills": "Aggiungi le tue competenze.",
+      "education": "Aggiungi una formazione.",
+      "languages": "Aggiungi le lingue che parli."
+    },
+    "notFound": "Questo CV non è stato trovato.",
+    "myCvs": "Vedi i miei CV"
+  },
+  "cvSections": {
+    "summary": "Profilo",
+    "experiences": "Esperienza professionale",
+    "skills": "Competenze",
+    "education": "Istruzione e formazione",
+    "languages": "Lingue"
+  },
+  "cvList": {
+    "title": "I miei CV",
+    "create": "Crea un CV",
+    "empty": "Non hai ancora un CV. Rispondi a 5 domande per creare il primo.",
+    "updated": "Modificato il {date}"
+  },
+  "upsell": {
+    "title": "Fai di più con il tuo CV",
+    "intro": "Il tuo CV è pronto. Le funzioni avanzate ti aiutano a ottenere più colloqui:",
+    "features": {
+      "adapt": "Adattare il CV a ogni offerta di lavoro",
+      "letter": "Scrivere la lettera di presentazione",
+      "linkedin": "Ottimizzare il profilo LinkedIn",
+      "interview": "Allenarti per il colloquio"
+    },
+    "cta": "Vedi le offerte",
+    "close": "Chiudi"
   }
 }

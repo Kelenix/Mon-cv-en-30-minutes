@@ -4,6 +4,23 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-4 : création du CV par l'IA
+
+- Assistant des 5 questions : une question par écran, exemple, compteur, barre de progression,
+  réponses gardées dans le navigateur (rechargement, connexion), langue du CV au choix.
+- Génération du CV par Claude Opus 5.5 : rédaction fidèle aux réponses, dans la langue choisie,
+  lisible par les logiciels de recrutement ; IA simulée tant que la clé n'est pas configurée.
+- Première génération gratuite (consommée seulement si elle réussit), puis 1 crédit ; crédits
+  rendus en cas d'échec ; 3 CV gratuits par jour et par adresse IP ; remplacement du CV quand la
+  formule n'en garde qu'un ; fenêtre « Solde insuffisant ».
+- Aperçu du CV sur une colonne, modification de chaque rubrique sur place avec enregistrement
+  automatique, copie du texte, encart des fonctions avancées après la génération.
+- Page « Mes CV » et, sur mobile, menu de l'en-tête.
+
+### Corrigé
+
+- En-tête d'un compte connecté qui débordait sur les écrans de 360 à 375 px.
+
 ### Ajouté — Inc-3 : crédits et droits
 
 - Crédits inclus et crédits achetés pour chaque compte, avec un journal de tous les mouvements

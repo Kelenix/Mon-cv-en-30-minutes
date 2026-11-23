@@ -33,7 +33,9 @@
     "cookies": "Cookies",
     "signIn": "Anmelden",
     "account": "Mein Konto",
-    "createCv": "Lebenslauf erstellen"
+    "createCv": "Lebenslauf erstellen",
+    "myCvs": "Lebensläufe",
+    "menu": "Menü"
   },
   "home": {
     "eyebrow": "Optimiert für Bewerbermanagementsysteme (ATS)",
@@ -276,8 +278,14 @@
       "invalidEmail": "Gib eine gültige E-Mail-Adresse ein.",
       "invalidCode": "Ungültiger oder abgelaufener Code.",
       "invalidPhone": "Gib eine gültige Telefonnummer ein.",
-      "invalidConfirmation": "Das eingegebene Wort stimmt nicht überein."
-    }
+      "invalidConfirmation": "Das eingegebene Wort stimmt nicht überein.",
+      "tooMany": "Zu viele Einträge."
+    },
+    "INSUFFICIENT_CREDITS": "Dir fehlen Credits für diese Aktion.",
+    "CV_LIMIT_REACHED": "Dein Tarif speichert nur eine begrenzte Zahl an Lebensläufen: Wähle den aus, der ersetzt werden soll.",
+    "FREE_LIMIT_REACHED": "Das Tageslimit für kostenlose Lebensläufe ist für diese Verbindung erreicht. Versuche es morgen erneut oder entdecke unsere Angebote.",
+    "AI_UNAVAILABLE": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet: Versuche es erneut.",
+    "AI_INVALID_OUTPUT": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet: Versuche es erneut."
   },
   "legal": {
     "updatedAt": "Zuletzt aktualisiert: {date}",
@@ -293,5 +301,164 @@
     "title": "Ein Fehler ist aufgetreten",
     "description": "Versuche es gleich noch einmal.",
     "retry": "Erneut versuchen"
+  },
+  "wizard": {
+    "metaTitle": "Lebenslauf erstellen",
+    "metaDescription": "Beantworte 5 einfache Fragen: Die KI schreibt deinen Lebenslauf, bereit für Bewerbermanagementsysteme.",
+    "title": "Dein Lebenslauf in 5 Fragen",
+    "intro": "Antworte einfach, in deinen eigenen Worten. Die KI schreibt und gestaltet deinen Lebenslauf.",
+    "progress": "Frage {current} von {total}",
+    "example": "Beispiel anzeigen",
+    "counter": "{count, number} / {max, number}",
+    "jobRequired": "Gib den angestrebten Beruf an, um fortzufahren.",
+    "shortAnswers": "Deine Antworten sind kurz: Je mehr Details du angibst (Stellen, Aufgaben, Tools, Abschlüsse), desto genauer wird dein Lebenslauf.",
+    "languageLabel": "Sprache des Lebenslaufs",
+    "languageHint": "Deine Antworten können in jeder Sprache geschrieben sein: Der Lebenslauf wird in dieser Sprache verfasst.",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "generate": "Lebenslauf erstellen",
+    "freeHint": "Deine erste Erstellung ist kostenlos. Deine Antworten bleiben auf diesem Gerät gespeichert.",
+    "questions": {
+      "job": {
+        "title": "Welchen Beruf strebst du an?",
+        "help": "Die Stelle oder den Beruf, den du suchst. Das ist die einzige Pflichtantwort.",
+        "example": "Frontend-Webentwicklerin"
+      },
+      "experiences": {
+        "title": "Welche Berufserfahrung hast du?",
+        "help": "Stellen, Unternehmen, Zeiträume und Hauptaufgaben. Schreib frei: Die KI ordnet alles.",
+        "example": "Webentwicklerin bei Studio Licht, Berlin, seit 2021: Erstellung von Websites für Geschäfte, Umsetzung von Entwürfen, Kundenbetreuung.\n6-monatiges Praktikum bei WebAgentur 2020: Pflege von WordPress-Websites."
+      },
+      "skills": {
+        "title": "Welche Kenntnisse hast du?",
+        "help": "Tools, Software, Sprachen, Fähigkeiten und Stärken. Trenne sie durch Kommas oder Zeilenumbrüche.",
+        "example": "HTML, CSS, JavaScript, React, Figma, Teamarbeit, fließendes Englisch"
+      },
+      "education": {
+        "title": "Welche Ausbildung hast du?",
+        "help": "Abschlüsse, Schulen, Jahre und Zertifikate.",
+        "example": "Bachelor Medieninformatik, Hochschule für Technik und Wirtschaft Berlin, 2020\nAbitur, 2017"
+      },
+      "goal": {
+        "title": "Was ist dein berufliches Ziel?",
+        "help": "Was du suchst: Art der Stelle, Branche, Vertrag, gewünschte Entwicklung.",
+        "example": "In einem Produktteam barrierefreie Webanwendungen entwickeln, unbefristet in Berlin oder remote."
+      }
+    }
+  },
+  "generation": {
+    "metaTitle": "Erstellung deines Lebenslaufs",
+    "title": "Dein Lebenslauf wird erstellt",
+    "steps": {
+      "analysis": "Analyse deiner Antworten",
+      "writing": "Verfassen deines Lebenslaufs",
+      "formatting": "Gestaltung"
+    },
+    "wait": "Dein Lebenslauf ist in wenigen Sekunden fertig.",
+    "noDraft": "Beantworte zuerst die Fragen: Auf diesem Gerät wurden keine Antworten gefunden.",
+    "answerQuestions": "Fragen beantworten",
+    "retry": "Erneut versuchen",
+    "editAnswers": "Antworten bearbeiten",
+    "seeOffers": "Angebote ansehen",
+    "cancel": "Abbrechen",
+    "credits": {
+      "title": "Dir {missing, plural, one {fehlt # Credit} other {fehlen # Credits}}",
+      "description": "Ein Lebenslauf kostet {cost, plural, one {# Credit} other {# Credits}}. Dein Guthaben: {balance, plural, one {# Credit} other {# Credits}}.",
+      "topUp": "Credits aufladen",
+      "upgrade": "Zu Pro wechseln"
+    },
+    "replace": {
+      "title": "Lebenslauf ersetzen?",
+      "description": "Dein Tarif speichert {limit, plural, one {# Lebenslauf} other {# Lebensläufe}}. Der neue Lebenslauf ersetzt:",
+      "legend": "Zu ersetzender Lebenslauf",
+      "updated": "Geändert am {date}",
+      "proWarning": "Mit CV Pro freigeschaltet: Diese Freischaltung geht verloren.",
+      "confirm": "Ersetzen und erstellen",
+      "upgrade": "Zu Pro wechseln und alles behalten"
+    }
+  },
+  "cvEditor": {
+    "metaTitle": "Mein Lebenslauf",
+    "sheetLabel": "Vorschau des Lebenslaufs",
+    "headerLabel": "Kopfbereich",
+    "edit": "Bearbeiten: {section}",
+    "done": "Bearbeitung beenden: {section}",
+    "copy": "Text kopieren",
+    "copied": "Kopiert",
+    "copyFailed": "Kopieren nicht möglich: Markiere den Text des Lebenslaufs, um ihn zu kopieren.",
+    "counter": "{count, number} / {max, number}",
+    "status": {
+      "saving": "Wird gespeichert…",
+      "saved": "Gespeichert",
+      "error": "Änderung nicht gespeichert",
+      "invalid": "Korrigiere das markierte Feld, um zu speichern",
+      "retry": "Erneut versuchen"
+    },
+    "moveUp": "„{item}“ nach oben verschieben",
+    "moveDown": "„{item}“ nach unten verschieben",
+    "remove": "„{item}“ löschen",
+    "removeBullet": "Punkt {number} löschen",
+    "untitled": "Eintrag ohne Titel",
+    "addExperience": "Erfahrung hinzufügen",
+    "addEducation": "Ausbildung hinzufügen",
+    "addLanguage": "Sprache hinzufügen",
+    "addBullet": "Punkt hinzufügen",
+    "skillsHint": "Eine Kenntnis pro Zeile.",
+    "skillsLimit": "Höchstens {count} Kenntnisse mit je {max} Zeichen.",
+    "fields": {
+      "fullName": "Vollständiger Name",
+      "title": "Titel des Lebenslaufs",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "city": "Wohnort",
+      "summary": "Profil",
+      "role": "Position",
+      "company": "Unternehmen",
+      "location": "Ort",
+      "startDate": "Beginn",
+      "endDate": "Ende",
+      "bullet": "Punkt {number}",
+      "skills": "Kenntnisse",
+      "degree": "Abschluss oder Ausbildung",
+      "school": "Schule oder Einrichtung",
+      "year": "Jahr",
+      "details": "Details",
+      "language": "Sprache",
+      "level": "Niveau"
+    },
+    "empty": {
+      "summary": "Füge ein Profil hinzu.",
+      "experiences": "Füge eine Erfahrung hinzu.",
+      "skills": "Füge deine Kenntnisse hinzu.",
+      "education": "Füge eine Ausbildung hinzu.",
+      "languages": "Füge die Sprachen hinzu, die du sprichst."
+    },
+    "notFound": "Dieser Lebenslauf wurde nicht gefunden.",
+    "myCvs": "Meine Lebensläufe ansehen"
+  },
+  "cvSections": {
+    "summary": "Profil",
+    "experiences": "Berufserfahrung",
+    "skills": "Kenntnisse",
+    "education": "Ausbildung",
+    "languages": "Sprachen"
+  },
+  "cvList": {
+    "title": "Meine Lebensläufe",
+    "create": "Lebenslauf erstellen",
+    "empty": "Du hast noch keinen Lebenslauf. Beantworte 5 Fragen, um deinen ersten zu erstellen.",
+    "updated": "Geändert am {date}"
+  },
+  "upsell": {
+    "title": "Mehr aus deinem Lebenslauf machen",
+    "intro": "Dein Lebenslauf ist fertig. Mit den erweiterten Funktionen bekommst du mehr Vorstellungsgespräche:",
+    "features": {
+      "adapt": "Lebenslauf an jede Stellenanzeige anpassen",
+      "letter": "Anschreiben verfassen",
+      "linkedin": "LinkedIn-Profil optimieren",
+      "interview": "Für das Vorstellungsgespräch üben"
+    },
+    "cta": "Angebote ansehen",
+    "close": "Schließen"
   }
 }

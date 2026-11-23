@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
-import { pageMetadata } from "@/i18n/metadata";
-import type { AppPathname } from "@/i18n/routing";
+import { pageMetadata, type StaticPathname } from "@/i18n/metadata";
 import { LEGAL_CONTENT } from "../content";
 import { fillParagraphs, fillPlaceholders } from "../interpolate";
 import { legalValues } from "../legal-values";
@@ -9,7 +8,7 @@ import type { LegalPage } from "../types";
 
 export async function legalPageMetadata(
   page: LegalPage,
-  pathname: AppPathname,
+  pathname: StaticPathname,
 ): Promise<Metadata> {
   const locale = await getLocale();
   const t = await getTranslations("brand");

@@ -15,6 +15,8 @@ type Plan = {
   monthlyCredits: number;
   summaryVariants: number;
   aiPriority: AiPriority;
+  /** Opérations IA par minute (docs/system-design.md §10). */
+  aiOperationsPerMinute: number;
 };
 
 export const PLANS: Record<PlanTier, Plan> = {
@@ -24,6 +26,7 @@ export const PLANS: Record<PlanTier, Plan> = {
     monthlyCredits: 20,
     summaryVariants: 3,
     aiPriority: "standard",
+    aiOperationsPerMinute: 5,
   },
   pro: {
     monthlyPriceCents: 699,
@@ -31,6 +34,7 @@ export const PLANS: Record<PlanTier, Plan> = {
     monthlyCredits: 60,
     summaryVariants: 5,
     aiPriority: "priority",
+    aiOperationsPerMinute: 10,
   },
   premium: {
     monthlyPriceCents: 999,
@@ -38,6 +42,7 @@ export const PLANS: Record<PlanTier, Plan> = {
     monthlyCredits: 150,
     summaryVariants: 5,
     aiPriority: "max",
+    aiOperationsPerMinute: 20,
   },
 };
 
@@ -45,6 +50,12 @@ export const RECOMMENDED_PLAN: PlanTier = "pro";
 
 /** Variantes d'accroche sans abonnement (C5). */
 export const FREE_SUMMARY_VARIANTS = 3;
+
+/** Opérations IA par minute sans abonnement (docs/system-design.md §10). */
+export const FREE_AI_OPERATIONS_PER_MINUTE = 3;
+
+/** Plafond de générations gratuites par adresse IP et par jour (H27). */
+export const FREE_GENERATIONS_PER_IP_PER_DAY = 3;
 
 export const TRIAL = { plan: "pro", days: 3, credits: 10 } as const;
 

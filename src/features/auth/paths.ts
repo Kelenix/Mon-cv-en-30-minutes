@@ -8,6 +8,8 @@ import { type AppLocale, type AppPathname, routing } from "@/i18n/routing";
 export const PRIVATE_PATHNAMES = [
   "/compte",
   "/bienvenue",
+  "/creer/generation",
+  "/cv",
 ] as const satisfies readonly AppPathname[];
 
 /** Adresse publique d'une page dans une langue (ex. `/en/account`). */

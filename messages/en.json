@@ -33,7 +33,9 @@
     "cookies": "Cookies",
     "signIn": "Sign in",
     "account": "My account",
-    "createCv": "Create my CV"
+    "createCv": "Create my CV",
+    "myCvs": "My CVs",
+    "menu": "Menu"
   },
   "home": {
     "eyebrow": "Built for applicant tracking systems (ATS)",
@@ -276,8 +278,14 @@
       "invalidEmail": "Enter a valid email address.",
       "invalidCode": "Invalid or expired code.",
       "invalidPhone": "Enter a valid phone number.",
-      "invalidConfirmation": "The word you typed doesn't match."
-    }
+      "invalidConfirmation": "The word you typed doesn't match.",
+      "tooMany": "Too many items."
+    },
+    "INSUFFICIENT_CREDITS": "You don't have enough credits for this action.",
+    "CV_LIMIT_REACHED": "Your plan keeps a limited number of CVs: choose the one to replace.",
+    "FREE_LIMIT_REACHED": "The daily limit of free CVs has been reached from this connection. Try again tomorrow or see our plans.",
+    "AI_UNAVAILABLE": "The generation didn't go through. Your credits have been returned: try again.",
+    "AI_INVALID_OUTPUT": "The generation didn't go through. Your credits have been returned: try again."
   },
   "legal": {
     "updatedAt": "Last updated: {date}",
@@ -293,5 +301,164 @@
     "title": "Something went wrong",
     "description": "Please try again in a moment.",
     "retry": "Try again"
+  },
+  "wizard": {
+    "metaTitle": "Create my CV",
+    "metaDescription": "Answer 5 simple questions: AI writes your CV, ready for applicant tracking systems.",
+    "title": "Create your CV in 5 questions",
+    "intro": "Answer simply, in your own words. AI writes and formats your CV.",
+    "progress": "Question {current} of {total}",
+    "example": "See an example",
+    "counter": "{count, number} / {max, number}",
+    "jobRequired": "Enter the job you're aiming for to continue.",
+    "shortAnswers": "Your answers are short: the more details you give (jobs, tasks, tools, degrees), the more accurate your CV will be.",
+    "languageLabel": "CV language",
+    "languageHint": "Your answers can be written in any language: the CV will be written in this one.",
+    "previous": "Previous",
+    "next": "Next",
+    "generate": "Generate my CV",
+    "freeHint": "Your first generation is free. Your answers stay saved on this device.",
+    "questions": {
+      "job": {
+        "title": "What job are you aiming for?",
+        "help": "The position or profession you're looking for. This is the only required answer.",
+        "example": "Front-end web developer"
+      },
+      "experiences": {
+        "title": "What is your work experience?",
+        "help": "Jobs, companies, dates and main tasks. Write freely: AI organizes everything.",
+        "example": "Web developer at Studio Lumière, Lyon, from 2021 to now: building websites for shops, integrating mockups, client follow-up.\n6-month internship at WebAgence in 2020: WordPress site maintenance."
+      },
+      "skills": {
+        "title": "What are your skills?",
+        "help": "Tools, software, languages, know-how and qualities. Separate them with commas or line breaks.",
+        "example": "HTML, CSS, JavaScript, React, Figma, teamwork, fluent French"
+      },
+      "education": {
+        "title": "What is your education?",
+        "help": "Degrees, schools, years and certifications.",
+        "example": "Bachelor's degree in Digital Media, University of Manchester, 2020\nA-levels, 2017"
+      },
+      "goal": {
+        "title": "What is your career goal?",
+        "help": "What you're looking for: type of job, sector, contract, desired career path.",
+        "example": "Join a product team to build accessible web applications, on a permanent contract in Manchester or remotely."
+      }
+    }
+  },
+  "generation": {
+    "metaTitle": "Generating your CV",
+    "title": "Your CV is being prepared",
+    "steps": {
+      "analysis": "Analyzing your answers",
+      "writing": "Writing your CV",
+      "formatting": "Formatting"
+    },
+    "wait": "Your CV will be ready in a few seconds.",
+    "noDraft": "Start by answering the questions: no answers were found on this device.",
+    "answerQuestions": "Answer the questions",
+    "retry": "Try again",
+    "editAnswers": "Edit my answers",
+    "seeOffers": "See plans",
+    "cancel": "Cancel",
+    "credits": {
+      "title": "You're missing {missing, plural, one {# credit} other {# credits}}",
+      "description": "Generating a CV costs {cost, plural, one {# credit} other {# credits}}. Your balance: {balance, plural, one {# credit} other {# credits}}.",
+      "topUp": "Top up my credits",
+      "upgrade": "Upgrade to Pro"
+    },
+    "replace": {
+      "title": "Replace a CV?",
+      "description": "Your plan keeps {limit, plural, one {# CV} other {# CVs}}. The new CV will replace:",
+      "legend": "CV to replace",
+      "updated": "Edited on {date}",
+      "proWarning": "Unlocked with CV Pro: this unlock will be lost.",
+      "confirm": "Replace and generate",
+      "upgrade": "Upgrade to Pro to keep everything"
+    }
+  },
+  "cvEditor": {
+    "metaTitle": "My CV",
+    "sheetLabel": "CV preview",
+    "headerLabel": "Header",
+    "edit": "Edit: {section}",
+    "done": "Finish editing: {section}",
+    "copy": "Copy text",
+    "copied": "Copied",
+    "copyFailed": "Couldn't copy: select the CV text to copy it.",
+    "counter": "{count, number} / {max, number}",
+    "status": {
+      "saving": "Saving…",
+      "saved": "Saved",
+      "error": "Change not saved",
+      "invalid": "Fix the highlighted field to save",
+      "retry": "Try again"
+    },
+    "moveUp": "Move up “{item}”",
+    "moveDown": "Move down “{item}”",
+    "remove": "Delete “{item}”",
+    "removeBullet": "Delete bullet point {number}",
+    "untitled": "untitled item",
+    "addExperience": "Add an experience",
+    "addEducation": "Add education",
+    "addLanguage": "Add a language",
+    "addBullet": "Add a bullet point",
+    "skillsHint": "One skill per line.",
+    "skillsLimit": "Up to {count} skills, {max} characters each.",
+    "fields": {
+      "fullName": "Full name",
+      "title": "CV title",
+      "email": "Email",
+      "phone": "Phone",
+      "city": "City",
+      "summary": "Summary",
+      "role": "Position",
+      "company": "Company",
+      "location": "Location",
+      "startDate": "Start",
+      "endDate": "End",
+      "bullet": "Bullet point {number}",
+      "skills": "Skills",
+      "degree": "Degree or training",
+      "school": "School or organization",
+      "year": "Year",
+      "details": "Details",
+      "language": "Language",
+      "level": "Level"
+    },
+    "empty": {
+      "summary": "Add a summary.",
+      "experiences": "Add an experience.",
+      "skills": "Add your skills.",
+      "education": "Add your education.",
+      "languages": "Add the languages you speak."
+    },
+    "notFound": "This CV couldn't be found.",
+    "myCvs": "See my CVs"
+  },
+  "cvSections": {
+    "summary": "Profile",
+    "experiences": "Professional Experience",
+    "skills": "Skills",
+    "education": "Education",
+    "languages": "Languages"
+  },
+  "cvList": {
+    "title": "My CVs",
+    "create": "Create a CV",
+    "empty": "You don't have a CV yet. Answer 5 questions to create your first one.",
+    "updated": "Edited on {date}"
+  },
+  "upsell": {
+    "title": "Take your CV further",
+    "intro": "Your CV is ready. Advanced features help you land more interviews:",
+    "features": {
+      "adapt": "Tailor your CV to each job offer",
+      "letter": "Write your cover letter",
+      "linkedin": "Optimize your LinkedIn profile",
+      "interview": "Practice for your interview"
+    },
+    "cta": "See plans",
+    "close": "Close"
   }
 }

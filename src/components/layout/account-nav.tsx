@@ -1,4 +1,4 @@
-import { LogInIcon, UserRoundIcon } from "lucide-react";
+import { FileTextIcon, LogInIcon, UserRoundIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/features/auth/session";
@@ -6,12 +6,16 @@ import { CreditsBadge } from "@/features/credits/presentation/credits-badge";
 import { getCurrentWallet } from "@/features/credits/wallet";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { AccountMenu } from "./account-menu";
 
 const linkClass = cn(buttonVariants({ variant: "ghost" }), "px-3");
+/** Liens remplacés par le menu sur mobile, faute de place. */
+const desktopLinkClass = cn(linkClass, "hidden sm:inline-flex");
 
 /**
- * Partie « compte » de l'en-tête, lue à la requête : « Se connecter » pour un visiteur ; solde de
- * crédits (US-07) et « Mon compte » pour une personne connectée.
+ * Partie « compte » de l'en-tête, lue à la requête : « Se connecter » pour un visiteur ; « Mes
+ * CV », solde de crédits (US-07) et « Mon compte » pour une personne connectée (sur mobile, le
+ * solde et un menu).
  */
 export async function AccountNav() {
   const t = await getTranslations();
@@ -29,6 +33,10 @@ export async function AccountNav() {
   const wallet = await getCurrentWallet();
   return (
     <>
+      <Link href="/cv" className={desktopLinkClass}>
+        <FileTextIcon aria-hidden="true" />
+        {t("nav.myCvs")}
+      </Link>
       {wallet ? (
         <CreditsBadge
           wallet={wallet}
@@ -43,10 +51,21 @@ export async function AccountNav() {
           }}
         />
       ) : null}
-      <Link href="/compte" className={linkClass}>
+      <Link href="/compte" className={desktopLinkClass}>
         <UserRoundIcon aria-hidden="true" />
-        <span className="sr-only sm:not-sr-only">{t("nav.account")}</span>
+        {t("nav.account")}
       </Link>
+      <div className="sm:hidden">
+        <AccountMenu
+          labels={{
+            menu: t("nav.menu"),
+            myCvs: t("nav.myCvs"),
+            account: t("nav.account"),
+            createCv: t("nav.createCv"),
+            pricing: t("nav.pricing"),
+          }}
+        />
+      </div>
     </>
   );
 }

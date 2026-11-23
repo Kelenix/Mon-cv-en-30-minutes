@@ -12,7 +12,7 @@ export function SiteHeader() {
 
   return (
     <header className="border-b border-border bg-background">
-      <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
+      <div className="container-page flex h-16 items-center justify-between gap-2 sm:gap-4 lg:h-20">
         <Logo />
         <nav
           aria-label={t("main")}

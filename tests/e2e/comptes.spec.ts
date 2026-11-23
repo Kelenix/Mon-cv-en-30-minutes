@@ -16,6 +16,7 @@ const { fr } = MESSAGES;
 test.describe("Connexion par code", () => {
   test("une page privée mène à la connexion, puis au prénom et nom, puis à la page demandée", async ({
     page,
+    isMobile,
   }) => {
     await page.goto("/fr/compte");
     await expect(page).toHaveURL(/\/fr\/connexion\?next=%2Ffr%2Fcompte$/);
@@ -42,7 +43,9 @@ test.describe("Connexion par code", () => {
       page.getByLabel(fr.profile.firstName, { exact: true }),
     ).toHaveValue("Awa");
     await expect(
-      page.getByRole("link", { name: fr.nav.account }),
+      page.getByRole("banner").getByRole(isMobile ? "button" : "link", {
+        name: isMobile ? fr.nav.menu : fr.nav.account,
+      }),
     ).toBeVisible();
   });
 

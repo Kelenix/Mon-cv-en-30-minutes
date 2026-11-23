@@ -124,6 +124,7 @@ solde du portefeuille. Toute mise à jour d'une ligne est bloquée par un décle
 |---------|------|-------------|
 | `id` | uuid | PK |
 | `user_id` | uuid | FK `profiles` `on delete cascade` |
+| `operation_id` | uuid | null, **unique**, FK `ai_operations` `on delete set null` (génération d'origine : un rejeu retrouve le CV, ADR-027) |
 | `title` | text | not null, 1 à 120 (métier par défaut) |
 | `language` | `app_locale` | not null (langue du contenu, des titres, du filigrane) |
 | `answers` | jsonb | not null, objet (`CvAnswers`) |
@@ -223,6 +224,9 @@ Fonctions `SECURITY DEFINER` avec `search_path` vide ; `execute` retiré à `pub
 | `grant_credits(user_id, bucket, amount, reason, purchase_id)` | Ajoute des crédits et écrit le journal | Inc-3 |
 | `set_included_credits(user_id, amount, reason)` | Porte le solde inclus à `amount` (journal : expiration du reste, puis remise) | Inc-3 |
 | `prevent_ledger_update()` | Déclencheur qui refuse toute mise à jour du journal | Inc-3 |
+| `begin_ai_operation(user_id, request_id, kind, cost, allow_included, try_free, rate_limit, free_ip_limit, ip_hash)` | Sous verrou du portefeuille : rejeu d'une même demande, limite par minute (`RATE_LIMITED`), gratuité de la première génération (une à la fois, plafond par IP `FREE_LIMIT_REACHED`), sinon débit | Inc-4 |
+| `complete_cv_generation(operation_id, title, language, answers, content, model, tokens…, replace_cv_id, cv_limit)` | Crée le CV (en supprimant le CV remplacé, `CV_LIMIT_REACHED` au-delà du plafond), consomme la gratuité, marque l'opération réussie avec ses coûts | Inc-4 |
+| `fail_ai_operation(operation_id, error_code, model, tokens…)` | Rembourse une seule fois et marque l'opération échouée | Inc-4 |
 | `run_monthly_grants()` | Pour chaque abonnement `active` ou `past_due` dont `next_credit_grant_at <= now()` : remise au quota, prochaine date + 1 mois | Inc-6 |
 | `run_daily_maintenance()` | Efface les IP hachées de plus de 30 jours, les événements Stripe de plus de 90 jours, les jetons expirés | Inc-6 |
 
@@ -257,7 +261,7 @@ Les contraintes `unique` (`stripe_checkout_session_id`, `provider_subscription_i
 | Inc-0 | — | `supabase init`, `config.toml` (services inutiles désactivés, limites d'e-mail, code à 6 chiffres) |
 | Inc-2 | `profiles` | Table, RLS, privilèges par colonne, `set_updated_at`, `handle_new_user`, `touch_last_seen` |
 | Inc-3 | `credits` | Énumérations, `credit_wallets`, `credit_ledger`, `ai_operations`, fonctions de crédits, `handle_new_user` complété |
-| Inc-4 | `cvs` | Table `cvs`, RLS, index |
+| Inc-4 | `cvs` | Table `cvs`, RLS, index, fonctions de génération |
 | Inc-6 | `billing` | `subscriptions`, `purchases`, `stripe_events`, `pg_cron`, `run_monthly_grants`, `run_daily_maintenance` |
 | Inc-7 | `generations` | Table `generations`, RLS |
 | Inc-11 | `ads` | `reward_tokens` |

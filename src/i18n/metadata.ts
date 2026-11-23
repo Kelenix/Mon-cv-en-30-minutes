@@ -3,8 +3,11 @@ import { getLocale } from "next-intl/server";
 import { getPathname } from "./navigation";
 import { type AppPathname, routing } from "./routing";
 
+/** Pages sans paramètre (les pages publiques référencées). */
+export type StaticPathname = Exclude<AppPathname, `${string}[${string}`>;
+
 type PageMetadataInput = {
-  pathname: AppPathname;
+  pathname: StaticPathname;
   /** Titre de la page ; absent pour l'accueil, qui garde le titre complet du site. */
   title?: string;
   description: string;

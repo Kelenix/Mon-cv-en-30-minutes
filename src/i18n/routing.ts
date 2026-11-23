@@ -23,6 +23,15 @@ export const routing = defineRouting({
       es: "/crear",
       de: "/erstellen",
     },
+    "/creer/generation": {
+      fr: "/creer/generation",
+      en: "/create/generating",
+      it: "/crea/generazione",
+      es: "/crear/generacion",
+      de: "/erstellen/generierung",
+    },
+    "/cv": "/cv",
+    "/cv/[id]": "/cv/[id]",
     "/connexion": {
       fr: "/connexion",
       en: "/sign-in",

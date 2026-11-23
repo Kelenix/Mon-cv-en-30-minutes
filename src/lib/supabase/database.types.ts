@@ -71,6 +71,32 @@ isOneToOne: true
       referencedColumns: ["id"]
     }
                   ]
+                },"cvs": {
+                  Row: {
+                    "answers": NonNullable<Json>,"content": NonNullable<Json>,"created_at": string,"id": string,"language": Database["public"]['Enums']["app_locale"],"operation_id": string | null,"pro_unlocked_at": string | null,"title": string,"updated_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "answers": NonNullable<Json>,"content": NonNullable<Json>,"created_at"?: string,"id"?: string,"language": Database["public"]['Enums']["app_locale"],"operation_id"?: string | null,"pro_unlocked_at"?: string | null,"title": string,"updated_at"?: string,"user_id": string
+                  }
+                  Update: {
+                    "answers"?: NonNullable<Json>,"content"?: NonNullable<Json>,"created_at"?: string,"id"?: string,"language"?: Database["public"]['Enums']["app_locale"],"operation_id"?: string | null,"pro_unlocked_at"?: string | null,"title"?: string,"updated_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "cvs_operation_id_fkey"
+      columns: ["operation_id"]
+isOneToOne: true
+      referencedRelation: "ai_operations"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "cvs_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"profiles": {
                   Row: {
                     "ads_removed_at": string | null,"city": string | null,"created_at": string,"first_name": string | null,"free_generation_used_at": string | null,"id": string,"interstitial_shown_at": string | null,"last_name": string | null,"last_seen_at": string,"locale": Database["public"]['Enums']["app_locale"],"phone": string | null,"retention_warning_sent_at": string | null,"stripe_customer_id": string | null,"trial_used_at": string | null,"updated_at": string
@@ -91,7 +117,18 @@ isOneToOne: true
             [_ in never]: never
           }
           Functions: {
-            "grant_credits":
+            "begin_ai_operation":
+{ Args: { "p_allow_included": boolean,"p_cost": number,"p_free_ip_limit": number,"p_ip_hash"?: string,"p_kind": Database["public"]['Enums']["ai_operation_kind"],"p_rate_limit": number,"p_request_id": string,"p_try_free": boolean,"p_user_id": string }; Returns: {
+              "created": boolean,"operation_id": string,"status": Database["public"]['Enums']["ai_operation_status"],"was_free": boolean
+            }[]
+                           },
+"complete_cv_generation":
+{ Args: { "p_answers": Json,"p_cache_read_tokens": number,"p_content": Json,"p_cost_usd_micros": number,"p_cv_limit"?: number,"p_duration_ms": number,"p_input_tokens": number,"p_language": Database["public"]['Enums']["app_locale"],"p_model": string,"p_operation_id": string,"p_output_tokens": number,"p_replace_cv_id"?: string,"p_title": string }; Returns: string
+                           },
+"fail_ai_operation":
+{ Args: { "p_cache_read_tokens"?: number,"p_cost_usd_micros"?: number,"p_duration_ms"?: number,"p_error_code": string,"p_input_tokens"?: number,"p_model"?: string,"p_operation_id": string,"p_output_tokens"?: number }; Returns: number
+                           },
+"grant_credits":
 { Args: { "p_amount": number,"p_bucket": Database["public"]['Enums']["credit_bucket"],"p_purchase_id"?: string,"p_reason": Database["public"]['Enums']["ledger_reason"],"p_user_id": string }; Returns: {
               "included_balance": number,"purchased_balance": number
             }[]

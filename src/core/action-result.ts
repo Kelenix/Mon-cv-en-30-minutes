@@ -8,10 +8,18 @@ export type ErrorCode =
   | "FORBIDDEN"
   | "VALIDATION_ERROR"
   | "NOT_FOUND"
+  | "INSUFFICIENT_CREDITS"
+  | "CV_LIMIT_REACHED"
   | "RATE_LIMITED"
+  | "FREE_LIMIT_REACHED"
+  | "AI_UNAVAILABLE"
+  | "AI_INVALID_OUTPUT"
   | "INTERNAL";
 
-/** Champ en erreur → clé de traduction de `errors.fields` (ex. `required`, `tooLong`). */
+/**
+ * Champ en erreur → clé de traduction de `errors.fields` (ex. `required`, `tooLong`) ; pour
+ * `INSUFFICIENT_CREDITS`, coût de l'opération et crédits manquants.
+ */
 export type FieldErrors = Record<string, string>;
 
 export type ActionResult<T> =

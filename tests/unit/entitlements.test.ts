@@ -110,6 +110,7 @@ describe("droits hors IA (matrice §3)", () => {
       exportsWithoutWatermark: false,
       ads: true,
       aiPriority: "standard",
+      aiOperationsPerMinute: 3,
     });
   });
 
@@ -119,6 +120,7 @@ describe("droits hors IA (matrice §3)", () => {
       cvLimit: 1,
       exportsWithoutWatermark: true,
       ads: false,
+      aiOperationsPerMinute: 5,
     });
   });
 
@@ -127,11 +129,13 @@ describe("droits hors IA (matrice §3)", () => {
       cvLimit: null,
       summaryVariants: 5,
       aiPriority: "priority",
+      aiOperationsPerMinute: 10,
     });
     expect(planEntitlements("premium")).toMatchObject({
       cvLimit: null,
       summaryVariants: 5,
       aiPriority: "max",
+      aiOperationsPerMinute: 20,
     });
   });
 });

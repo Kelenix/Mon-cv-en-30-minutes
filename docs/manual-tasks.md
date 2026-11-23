@@ -40,9 +40,14 @@
 - **Étapes** :
   1. Créer un compte sur https://console.anthropic.com et ajouter un moyen de paiement.
   2. **Fixer une limite de dépenses mensuelle** (Settings → Limits).
-  3. Créer une clé API et la placer dans `.env.local`.
+  3. Créer une clé API et la placer dans `.env.local` : `ANTHROPIC_API_KEY=...` (le modèle se
+     règle avec `ANTHROPIC_MODEL`, `claude-opus-5-5` par défaut). Redémarrer `npm run dev`.
+  4. En production, ajouter aussi `IP_HASH_SALT` (32 caractères minimum, ex.
+     `openssl rand -hex 32`) : sans ces deux variables, le site refuse de démarrer.
 - **Coût** : à l'usage (voir la question Q4 du plan).
-- **Vérification** : la génération d'un CV de test fonctionne en local (après l'Inc-4).
+- **Vérification** : un CV généré en local est reformulé (et non plus une simple copie des
+  réponses, comme le fait l'IA simulée) ; je mesurerai alors la durée et la fidélité sur 20
+  profils de référence (US-11 c.4 et c.5).
 
 ## Tâche 4 ⏱ : Ouvrir le compte Stripe
 - **Pourquoi** : vendre crédits, abonnements, CV Pro et retrait des publicités.

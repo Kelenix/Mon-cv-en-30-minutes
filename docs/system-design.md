@@ -288,9 +288,9 @@ sequenceDiagram
 | Accueil, tarifs, pages légales | Générées au build ; changent uniquement à un nouveau déploiement |
 | Données d'un utilisateur (CV, crédits, formule) | Rendu dynamique à chaque requête, jamais mises en cache partagé |
 | Après une mutation | `revalidatePath` de la page concernée, ou `router.refresh()` côté client |
-| Solde affiché après une opération IA | Renvoyé par l'action, injecté dans le cache TanStack Query `['wallet']` |
+| Solde affiché après une opération IA | L'action relit la page (`refresh()` de next/cache) quand des crédits ont été débités (ADR-027) |
 | Solde après un paiement | Requête `['wallet']` interrogée toutes les 1,5 s pendant 10 s au maximum |
-| Éditeur de CV | Enregistrement automatique 1 s après la dernière frappe (mutation TanStack Query), indicateur « Enregistrement… / Enregistré » |
+| Éditeur de CV | Enregistrement automatique 1 s après la dernière frappe (action `updateCv`, envois ordonnés), indicateur « Enregistrement… / Enregistré » |
 
 ## 8. Pagination et tri
 

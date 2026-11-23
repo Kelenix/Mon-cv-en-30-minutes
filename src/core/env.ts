@@ -11,8 +11,14 @@ const optionalText = z.preprocess(
   z.string().trim().optional(),
 );
 
-/** Informations du vendeur exigées en production (US-38) ; le numéro de TVA reste facultatif. */
-const LEGAL_REQUIRED_IN_PRODUCTION = [
+/**
+ * Exigées en production : informations du vendeur (US-38, le numéro de TVA reste facultatif),
+ * clé de l'IA (sans elle, l'IA est simulée : développement et tests) et sel de hachage des
+ * adresses IP (plafond de CV gratuits, H27).
+ */
+const REQUIRED_IN_PRODUCTION = [
+  "ANTHROPIC_API_KEY",
+  "IP_HASH_SALT",
   "LEGAL_COMPANY_NAME",
   "LEGAL_FORM",
   "LEGAL_REGISTRATION",
@@ -32,6 +38,11 @@ const envSchema = z
     SUPABASE_SECRET_KEY: z.string().min(1),
     GOOGLE_AUTH_ENABLED: z.stringbool().default(false),
     ADS_REMOVAL_ENABLED: z.stringbool().default(false),
+    ANTHROPIC_API_KEY: optionalText,
+    ANTHROPIC_MODEL: z.string().min(1).default("claude-opus-5-5"),
+    IP_HASH_SALT: optionalText.refine((value) => !value || value.length >= 32, {
+      error: "32 caractères minimum",
+    }),
     LEGAL_COMPANY_NAME: optionalText,
     LEGAL_FORM: optionalText,
     LEGAL_REGISTRATION: optionalText,
@@ -44,7 +55,7 @@ const envSchema = z
   })
   .superRefine((values, context) => {
     if (values.VERCEL_ENV !== "production") return;
-    for (const key of LEGAL_REQUIRED_IN_PRODUCTION) {
+    for (const key of REQUIRED_IN_PRODUCTION) {
       if (!values[key]) {
         context.addIssue({
           code: "custom",
