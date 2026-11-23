@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import { Appear } from "@/components/layout/appear";
 import { requireUser } from "@/features/auth/session";
 import {
   CreditPackButtons,
@@ -10,7 +11,6 @@ import {
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
 import { getActivePlan } from "@/features/billing/subscription";
 import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
-import { CvTabs } from "@/features/cv/presentation/cv-tabs";
 import { CvWorkspace } from "@/features/cv/presentation/cv-workspace";
 import { UpsellCard } from "@/features/cv/presentation/upsell-card";
 import { getOwnCv, listGenerations } from "@/features/cv/repository";
@@ -30,11 +30,11 @@ export default function CvPage({
   searchParams,
 }: PageProps<"/[locale]/cv/[id]">) {
   return (
-    <div className="container-page py-6 md:py-10">
-      <Suspense fallback={<SheetSkeleton />}>
+    <Suspense fallback={<SheetSkeleton />}>
+      <Appear>
         <CvLoader params={params} searchParams={searchParams} />
-      </Suspense>
-    </div>
+      </Appear>
+    </Suspense>
   );
 }
 
@@ -104,7 +104,6 @@ async function CvLoader({
         }
       >
         <div className="min-w-0">
-          <CvTabs cvId={cv.id} current="preview" />
           <CvWorkspace
             cvId={cv.id}
             title={cv.title}
@@ -151,7 +150,7 @@ async function CvLoader({
 
 function SheetSkeleton() {
   return (
-    <div aria-hidden="true" className="grid w-full gap-4">
+    <div aria-hidden="true" className="grid w-full skeleton-appear gap-4">
       <div className="h-16 rounded-xl bg-surface motion-safe:animate-pulse" />
       <div className="aspect-[210/297] rounded-sm bg-surface motion-safe:animate-pulse" />
     </div>

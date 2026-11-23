@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { FormSkeleton } from "@/components/form/form-skeleton";
+import { Appear } from "@/components/layout/appear";
 import { requireUser } from "@/features/auth/session";
 import { CreditPackButtons } from "@/features/billing/presentation/offers";
 import { interviewOutputSchema } from "@/features/cv/generated";
 import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
-import { CvTabs } from "@/features/cv/presentation/cv-tabs";
+import { ToolSkeleton } from "@/features/cv/presentation/tool-layout";
 import {
   type InterviewSession,
   InterviewTool,
@@ -21,15 +21,21 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // Simulation d'entretien à partir du CV (US-30, docs/design/flows.md §4).
-export default function InterviewPage({
+export default async function InterviewPage({
   params,
 }: PageProps<"/[locale]/cv/[id]/entretien">) {
+  const t = await getTranslations("cvTools.interview");
   return (
-    <div className="container-page py-6 md:py-10">
-      <Suspense fallback={<FormSkeleton fields={2} />}>
-        <InterviewLoader params={params} />
+    <>
+      <h1 className="text-[1.75rem] leading-tight font-bold md:text-3xl">
+        {t("title")}
+      </h1>
+      <Suspense fallback={<ToolSkeleton />}>
+        <Appear>
+          <InterviewLoader params={params} />
+        </Appear>
       </Suspense>
-    </div>
+    </>
   );
 }
 
@@ -42,7 +48,7 @@ async function InterviewLoader({
   const cv = await getOwnCv(id);
   const t = await getTranslations("cvTools.interview");
 
-  if (!cv) return <CvNotFound />;
+  if (!cv) return <CvNotFound heading="h2" />;
 
   const [generations, messages] = await Promise.all([
     listGenerations(cv.id, "interview"),
@@ -72,11 +78,7 @@ async function InterviewLoader({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <CvTabs cvId={cv.id} current="interview" />
-      <div className="grid gap-2">
-        <h1 className="text-[1.75rem] leading-tight font-bold md:text-3xl">
-          {t("title")}
-        </h1>
+      <div className="mt-2 grid gap-2">
         <p className="text-lg text-muted-foreground">
           {t("intro", { title: cv.title })}
         </p>

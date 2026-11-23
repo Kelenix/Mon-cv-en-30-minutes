@@ -107,6 +107,11 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 24/11/2026 — **Transitions fluides** (demande de l'utilisateur) : fondus natifs entre les
+  pages et à l'arrivée du contenu, onglets du CV persistants, titres immédiats, squelettes à la
+  forme des pages et différés. Vérifié image par image, puis lint, types, tests unitaires, base,
+  build, 152 tests de bout en bout. ADR-035.
+
 - 24/11/2026 — **Inc-10 terminé (jalon M4)** : « Mes CV » en deux colonnes (cartes, panneau
   « Ton historique » avec la règle de la formule), affichage par 12, suppression d'un CV après
   confirmation (contenus compris), état vide ; correction : un ancien abonné Pro peut de

@@ -94,6 +94,18 @@ automatique sur iOS).
   chargement, texte conservé, désactivé pendant l'action et tant que la page n'est pas
   interactive) ; messages de formulaire et étapes qui apparaissent en fondu (200 ms).
   Animations en CSS (tw-animate-css), sans bibliothèque d'animation.
+- **Transitions entre les pages** (ADR-035), par les transitions de vue natives
+  (`<ViewTransition>` de React) :
+  - l'en-tête reste immobile ; le contenu part en fondu (100 ms) et le suivant arrive en fondu
+    (180 ms), sans glisser ni se déformer ;
+  - seules les navigations par lien (type `nav`, posé par le `Link` de `@/i18n/navigation`)
+    s'animent : jamais les actions faites dans une page (formulaires, outils IA) ;
+  - le contenu chargé en flux apparaît en fondu (`Appear` dans chaque `Suspense`) ;
+  - le titre d'une page est hors du chargement : il s'affiche tout de suite ;
+  - les onglets d'un CV sont dans la mise en page commune `/cv/[id]` : ils ne disparaissent
+    jamais d'un onglet à l'autre ;
+  - les squelettes ont la forme de la page attendue et n'apparaissent qu'après 700 ms
+    (`skeleton-appear`) : un chargement normal n'affiche aucune barre grise.
 
 ---
 

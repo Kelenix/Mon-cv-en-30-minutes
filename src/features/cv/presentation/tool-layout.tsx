@@ -1,3 +1,4 @@
+import { SplitSkeleton } from "@/components/form/form-skeleton";
 import type { ReactNode } from "react";
 
 /**
@@ -24,6 +25,19 @@ export function ToolLayout({
           </p>
         )}
       </div>
+    </div>
+  );
+}
+
+/** Chargement d'un outil : introduction, puis formulaire et résultat sur la même grille. */
+export function ToolSkeleton() {
+  return (
+    <div aria-hidden="true" className="mt-2 grid skeleton-appear gap-8">
+      <div className="h-7 w-full max-w-2xl rounded bg-surface motion-safe:animate-pulse" />
+      <SplitSkeleton
+        fields={2}
+        className="lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+      />
     </div>
   );
 }

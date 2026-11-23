@@ -116,6 +116,62 @@
   }
 }
 
+/* Transitions entre les pages (docs/design/design-system.md §5) : l'en-tête ne bouge pas, le
+   contenu passe en fondu sans glisser ni se déformer (l'ancien part vite, le nouveau arrive en
+   douceur). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-group(.page) {
+  animation: none;
+}
+
+::view-transition-old(.page) {
+  animation: 100ms ease-in both page-fade reverse;
+}
+
+::view-transition-new(.page) {
+  animation: 180ms ease-out 40ms both page-fade;
+}
+
+@keyframes page-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Squelette de chargement : invisible les 700 premières millisecondes, puis en fondu ; un
+   chargement rapide n'affiche donc aucune barre grise. */
+@utility skeleton-appear {
+  animation: page-fade 200ms ease-out 700ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

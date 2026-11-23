@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import { Appear } from "@/components/layout/appear";
 import {
   BRAND_POINTS,
   BrandAside,
@@ -39,7 +40,9 @@ export default async function WelcomePage({
           <p className="mt-3 text-lg text-muted-foreground">{t("subtitle")}</p>
           <div className="mt-8">
             <Suspense fallback={<FormSkeleton fields={2} />}>
-              <Welcome searchParams={searchParams} />
+              <Appear>
+                <Welcome searchParams={searchParams} />
+              </Appear>
             </Suspense>
           </div>
         </div>

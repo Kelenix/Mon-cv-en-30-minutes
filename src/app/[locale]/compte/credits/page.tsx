@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { FormSkeleton } from "@/components/form/form-skeleton";
+import { Appear } from "@/components/layout/appear";
+import { SplitSkeleton } from "@/components/form/form-skeleton";
 import { buttonVariants } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
 import { PlanCheckoutButton } from "@/features/billing/presentation/checkout-button";
@@ -38,8 +39,17 @@ export default async function CreditsPage({
       <h1 className="text-[1.75rem] leading-tight font-bold md:text-4xl">
         {t("title")}
       </h1>
-      <Suspense fallback={<FormSkeleton fields={3} />}>
-        <Credits searchParams={searchParams} />
+      <Suspense
+        fallback={
+          <SplitSkeleton
+            fields={3}
+            className="mt-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+          />
+        }
+      >
+        <Appear>
+          <Credits searchParams={searchParams} />
+        </Appear>
       </Suspense>
     </div>
   );

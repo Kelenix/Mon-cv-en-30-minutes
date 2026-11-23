@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import { Appear } from "@/components/layout/appear";
 import {
   BRAND_POINTS,
   BrandAside,
@@ -53,11 +54,23 @@ export default async function CvListPage({
         fallback={
           <div
             aria-hidden="true"
-            className="mt-8 h-24 rounded-2xl bg-surface motion-safe:animate-pulse"
-          />
+            className="mt-8 grid skeleton-appear items-start gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]"
+          >
+            <div className="grid gap-4">
+              {[0, 1, 2].map((index) => (
+                <div
+                  key={index}
+                  className="h-24 rounded-2xl bg-surface motion-safe:animate-pulse"
+                />
+              ))}
+            </div>
+            <div className="hidden h-64 rounded-2xl bg-surface motion-safe:animate-pulse lg:block" />
+          </div>
         }
       >
-        <CvHistory searchParams={searchParams} />
+        <Appear>
+          <CvHistory searchParams={searchParams} />
+        </Appear>
       </Suspense>
     </div>
   );

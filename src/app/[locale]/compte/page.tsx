@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { FormSkeleton } from "@/components/form/form-skeleton";
+import { Appear } from "@/components/layout/appear";
+import { SplitSkeleton } from "@/components/form/form-skeleton";
 import { SubmitButton } from "@/components/form/submit-button";
 import { signOut } from "@/features/auth/actions";
 import { requireUser } from "@/features/auth/session";
@@ -31,8 +32,17 @@ export default async function AccountPage() {
       <h1 className="text-[1.75rem] leading-tight font-bold md:text-4xl">
         {t("title")}
       </h1>
-      <Suspense fallback={<FormSkeleton fields={4} />}>
-        <AccountContent />
+      <Suspense
+        fallback={
+          <SplitSkeleton
+            fields={4}
+            className="mt-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]"
+          />
+        }
+      >
+        <Appear>
+          <AccountContent />
+        </Appear>
       </Suspense>
     </div>
   );

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { FormSkeleton } from "@/components/form/form-skeleton";
+import { Appear } from "@/components/layout/appear";
 import { requireUser } from "@/features/auth/session";
 import { CreditPackButtons } from "@/features/billing/presentation/offers";
 import { getActivePlan } from "@/features/billing/subscription";
@@ -12,7 +12,7 @@ import {
   AdaptTool,
 } from "@/features/cv/presentation/adapt-tool";
 import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
-import { CvTabs } from "@/features/cv/presentation/cv-tabs";
+import { ToolSkeleton } from "@/features/cv/presentation/tool-layout";
 import { getOwnCv, listGenerations } from "@/features/cv/repository";
 import type { CvContent } from "@/features/cv/schemas";
 import { planEntitlements } from "@/features/plans/entitlements";
@@ -25,15 +25,21 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // Adapter un CV à une offre d'emploi (US-27, docs/design/flows.md §4).
-export default function AdaptPage({
+export default async function AdaptPage({
   params,
 }: PageProps<"/[locale]/cv/[id]/adapter">) {
+  const t = await getTranslations("cvTools.adapt");
   return (
-    <div className="container-page py-6 md:py-10">
-      <Suspense fallback={<FormSkeleton fields={2} />}>
-        <AdaptLoader params={params} />
+    <>
+      <h1 className="text-[1.75rem] leading-tight font-bold md:text-3xl">
+        {t("title")}
+      </h1>
+      <Suspense fallback={<ToolSkeleton />}>
+        <Appear>
+          <AdaptLoader params={params} />
+        </Appear>
       </Suspense>
-    </div>
+    </>
   );
 }
 
@@ -64,7 +70,7 @@ async function AdaptLoader({
   const cv = await getOwnCv(id);
   const t = await getTranslations();
 
-  if (!cv) return <CvNotFound />;
+  if (!cv) return <CvNotFound heading="h2" />;
 
   const [plan, generations, sectionTitles, messages] = await Promise.all([
     getActivePlan(),
@@ -97,11 +103,7 @@ async function AdaptLoader({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <CvTabs cvId={cv.id} current="adapt" />
-      <div className="grid gap-2">
-        <h1 className="text-[1.75rem] leading-tight font-bold md:text-3xl">
-          {t("cvTools.adapt.title")}
-        </h1>
+      <div className="mt-2 grid gap-2">
         <p className="text-lg text-muted-foreground">
           {t("cvTools.adapt.intro", { title: cv.title })}
         </p>

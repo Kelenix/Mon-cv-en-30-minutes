@@ -6,6 +6,32 @@
 
 ---
 
+## ADR-035 — Transitions fluides entre les pages
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : ui-designer, frontend-engineer), à la demande de l'utilisateur
+- **Contexte** : « trop de transitions brusques ». Images prises toutes les 50 ms : en changeant
+  d'onglet, toute la page (onglets compris) était remplacée pendant ~340 ms par des barres
+  grises sans rapport avec la page d'arrivée, puis le contenu s'affichait d'un coup ; même chose
+  sur le compte.
+- **Décision** :
+  - Transitions de vue natives de React 19.3 (`<ViewTransition>`, sans réglage de Next 16) :
+    fondu du contenu entre deux pages, en-tête immobile.
+  - **Limitées aux navigations par lien** (type `nav` posé par notre `Link`) : une première
+    version animait aussi chaque action de formulaire, ce qui retardait leurs mises à jour pendant
+    l'animation (tests instables) ; elle a été écartée.
+  - Arrivée du contenu chargé en fondu (`Appear`), titres hors chargement, onglets du CV dans
+    une mise en page commune (`/cv/[id]/layout.tsx`, onglet actif lu dans l'adresse).
+  - Squelettes à la forme de la page, visibles seulement après 700 ms (React garde un chargement
+    au moins 300 ms : un délai plus court les faisait clignoter juste avant le contenu).
+  - Mouvement réduit respecté (aucune animation).
+- **Alternatives écartées** : bibliothèque d'animation (poids, code en plus) ; squelettes
+  immédiats (clignotement) ; glissements latéraux (inutiles pour des onglets).
+- **Impact** : visuel (fort), fonctionnel (aucun)
+
+---
+
 ## ADR-034 — Historique des CV (Inc-10)
 
 - **Date** : 24/11/2026

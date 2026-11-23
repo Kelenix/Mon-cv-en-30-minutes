@@ -69,7 +69,8 @@ export type Cv = {
   proUnlocked: boolean;
 };
 
-export async function getOwnCv(id: string): Promise<Cv | null> {
+/** CV du compte connecté, lu une seule fois par requête (mise en page et page). */
+export const getOwnCv = cache(async (id: string): Promise<Cv | null> => {
   if (!/^[0-9a-f-]{36}$/i.test(id)) return null;
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -86,7 +87,7 @@ export async function getOwnCv(id: string): Promise<Cv | null> {
     content: cvContentSchema.parse(data.content),
     proUnlocked: data.pro_unlocked_at !== null,
   };
-}
+});
 
 /** Derniers contenus générés d'un type pour un CV (H20), du plus récent au plus ancien. */
 export async function listGenerations(

@@ -4,10 +4,12 @@ import { notFound } from "next/navigation";
 import { locale as getRootLocale } from "next/root-params";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { ViewTransition } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { env } from "@/core/env";
 import { pickClientMessages } from "@/i18n/client-messages";
+import { NAV_TRANSITION } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -59,9 +61,17 @@ export default async function LocaleLayout({
             {t("skipToContent")}
           </a>
           <SiteHeader />
-          <main id="contenu" className="flex-1">
-            {children}
-          </main>
+          {/* Fondu du contenu entre deux pages (navigations marquées « nav » seulement : les
+              actions dans une page ne s'animent pas) ; l'en-tête reste immobile
+              (docs/design/design-system.md §5). */}
+          <ViewTransition
+            update={{ [NAV_TRANSITION]: "page", default: "none" }}
+            default="none"
+          >
+            <main id="contenu" className="flex-1">
+              {children}
+            </main>
+          </ViewTransition>
           <SiteFooter />
         </NextIntlClientProvider>
       </body>

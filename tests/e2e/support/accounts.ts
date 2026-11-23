@@ -80,7 +80,8 @@ export async function expectNoAccessibilityViolations(page: Page) {
         .filter(
           (animation) => animation.effect?.getTiming().iterations !== Infinity,
         )
-        .map((animation) => animation.finished),
+        // Une transition de vue interrompue par le navigateur rejette `finished` : ignorée.
+        .map((animation) => animation.finished.catch(() => undefined)),
     ),
   );
   const results = await new AxeBuilder({ page })

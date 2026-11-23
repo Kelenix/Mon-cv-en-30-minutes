@@ -7,16 +7,23 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 
-/** CV absent ou d'un autre compte (la RLS le rend introuvable) : lien vers « Mes CV ». */
-export function CvNotFound() {
+/**
+ * CV absent ou d'un autre compte (la RLS le rend introuvable) : lien vers « Mes CV ». `heading`
+ * : niveau du titre, `h2` sous le titre déjà affiché d'une page d'outil.
+ */
+export function CvNotFound({
+  heading: Heading = "h1",
+}: {
+  heading?: "h1" | "h2";
+}) {
   const t = useTranslations("cvEditor");
   const tHome = useTranslations("home");
   return (
     <div className={SPLIT_LAYOUT}>
       <div className="grid gap-6 lg:py-16">
-        <h1 className="text-[1.75rem] leading-tight font-bold">
+        <Heading className="text-[1.75rem] leading-tight font-bold">
           {t("notFound")}
-        </h1>
+        </Heading>
         <Link
           href="/cv"
           className={buttonVariants({ className: "justify-self-start" })}

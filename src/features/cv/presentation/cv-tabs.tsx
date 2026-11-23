@@ -1,3 +1,5 @@
+"use client";
+
 import {
   EyeIcon,
   IdCardIcon,
@@ -5,7 +7,7 @@ import {
   MessagesSquareIcon,
   TargetIcon,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useSelectedLayoutSegment } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -21,18 +23,34 @@ const TABS = [
   },
 ] as const;
 
-/** Onglets d'un CV (docs/design/flows.md §3.6) : aperçu, puis outils IA (Inc-7 à Inc-9). */
+export type CvTabKey = (typeof TABS)[number]["key"];
+
+/** Onglet actif d'après le dossier de la page (noms internes, quelle que soit la langue). */
+const TAB_BY_SEGMENT: Record<string, CvTabKey> = {
+  adapter: "adapt",
+  linkedin: "linkedin",
+  lettre: "letter",
+  entretien: "interview",
+};
+
+/**
+ * Onglets d'un CV (docs/design/flows.md §3.6), dans la mise en page commune aux pages du CV : ils
+ * restent affichés d'un onglet à l'autre, seul l'onglet actif change.
+ */
 export function CvTabs({
   cvId,
-  current,
+  label,
+  labels,
 }: {
   cvId: string;
-  current: (typeof TABS)[number]["key"];
+  label: string;
+  labels: Record<CvTabKey, string>;
 }) {
-  const t = useTranslations("cvTools.tabs");
+  const segment = useSelectedLayoutSegment();
+  const current = (segment && TAB_BY_SEGMENT[segment]) || "preview";
 
   return (
-    <nav aria-label={t("label")} className="mb-4 w-full">
+    <nav aria-label={label} className="mb-4 w-full">
       {/* Trait de base dessiné à l'intérieur de la liste : l'onglet actif le recouvre sans
           déborder (aucun ascenseur vertical). */}
       <ul className="flex gap-1 overflow-x-auto shadow-[inset_0_-1px_0_var(--color-border)]">
@@ -49,7 +67,7 @@ export function CvTabs({
               )}
             >
               <Icon aria-hidden="true" className="size-5" />
-              {t(key)}
+              {labels[key]}
             </Link>
           </li>
         ))}

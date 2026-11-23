@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { FormSkeleton } from "@/components/form/form-skeleton";
+import { Appear } from "@/components/layout/appear";
 import { requireUser } from "@/features/auth/session";
 import { CreditPackButtons } from "@/features/billing/presentation/offers";
 import type { LetterOutput } from "@/features/cv/generated";
 import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
-import { CvTabs } from "@/features/cv/presentation/cv-tabs";
+import { ToolSkeleton } from "@/features/cv/presentation/tool-layout";
 import {
   type Generated,
   LetterTool,
@@ -21,15 +21,21 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // Lettre de motivation à partir du CV (US-29, docs/design/flows.md §4).
-export default function LetterPage({
+export default async function LetterPage({
   params,
 }: PageProps<"/[locale]/cv/[id]/lettre">) {
+  const t = await getTranslations("cvTools.letter");
   return (
-    <div className="container-page py-6 md:py-10">
-      <Suspense fallback={<FormSkeleton fields={3} />}>
-        <LetterLoader params={params} />
+    <>
+      <h1 className="text-[1.75rem] leading-tight font-bold md:text-3xl">
+        {t("title")}
+      </h1>
+      <Suspense fallback={<ToolSkeleton />}>
+        <Appear>
+          <LetterLoader params={params} />
+        </Appear>
       </Suspense>
-    </div>
+    </>
   );
 }
 
@@ -42,7 +48,7 @@ async function LetterLoader({
   const cv = await getOwnCv(id);
   const t = await getTranslations("cvTools.letter");
 
-  if (!cv) return <CvNotFound />;
+  if (!cv) return <CvNotFound heading="h2" />;
 
   const [generations, messages] = await Promise.all([
     listGenerations(cv.id, "cover_letter"),
@@ -68,11 +74,7 @@ async function LetterLoader({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <CvTabs cvId={cv.id} current="letter" />
-      <div className="grid gap-2">
-        <h1 className="text-[1.75rem] leading-tight font-bold md:text-3xl">
-          {t("title")}
-        </h1>
+      <div className="mt-2 grid gap-2">
         <p className="text-lg text-muted-foreground">
           {t("intro", { title: cv.title })}
         </p>

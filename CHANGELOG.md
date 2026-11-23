@@ -4,6 +4,12 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Modifié — transitions
+
+- Navigation fluide : fondu entre les pages, en-tête immobile, contenu qui apparaît en douceur ;
+  les onglets d'un CV restent affichés d'un onglet à l'autre ; plus de barres grises lors d'un
+  chargement rapide.
+
 ### Ajouté — Inc-10 : historique des CV
 
 - « Mes CV » : cartes avec Ouvrir et Supprimer (après confirmation, contenus générés compris),
