@@ -6,6 +6,50 @@
 
 ---
 
+## ADR-024 — Bibliothèques d'interface : seulement le nécessaire ; accueil centré
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : l'utilisateur (« applique uniquement ce qui est nécessaire » sur une liste de
+  bibliothèques ; structure de l'accueil fournie en image), Claude pour le tri (rôles :
+  ui-ux-designer, frontend-engineer)
+- **Contexte** : liste de bibliothèques d'interface, d'animation et d'effets proposée par
+  l'utilisateur ; puis une capture d'une section d'accueil centrée à reproduire en structure.
+- **Décision** :
+  - **Déjà en place, conservés** : shadcn/ui, Tailwind CSS, Lucide React.
+  - **Appliqué maintenant** : micro-interactions « bouton de chargement » (indicateur, double
+    envoi impossible, y compris Google et déconnexion, jusque-là sans protection) et
+    « apparition discrète » (fondu de 200 ms, supprimé si le système réduit les animations).
+    Le bouton reste inactif tant que la page n'est pas interactive (un clic serait perdu) ; le
+    champ e-mail n'est plus contrôlé, pour garder une saisie faite avant ce moment.
+  - **Prévu plus tard** : Sonner (notifications « Copié », « Enregistré ») à l'Inc-4, déjà
+    prévu par le design system ; TanStack Query (déjà prévu, ADR-009).
+  - **Écartés** : Motion, GSAP, React Spring, Anime.js, Lenis (le CSS suffit aux animations
+    courtes) ; React Three Fiber, Spline, Rive, Lottie, Aceternity, Magic UI, React Bits (poids
+    et performance des pages publiques, NFR-01) ; Mantine, HeroUI, MUI, Ant Design (pas deux
+    bibliothèques d'interface) ; React Hook Form (ADR-009) ; Recharts, Nivo, TanStack Table, dnd
+    kit, Embla, Tiptap, React Flow, MapLibre (aucun besoin dans le périmètre).
+  - **Accueil** : titre, sous-titre et bouton centrés, avancées clés dessous, formes
+    décoratives en SVG autour (couleurs de la charte, sans animation) ; l'illustration
+    « CV + chronomètre » est retirée de l'accueil.
+  - **Accueil plein écran** (demande de l'utilisateur, « tout est groupé au centre ») : la
+    section occupe toute la hauteur de l'écran sous l'en-tête (`100svh - 4rem`) ; titre et
+    sous-titre de taille fluide (`clamp`, proportionnels à la largeur et limités par la
+    hauteur), largeur du titre en `em` pour garder la même composition ; formes réparties sur
+    toute la largeur et agrandies sur les grands écrans. Le retour à la ligne « équilibré » du
+    navigateur, qui donnait des lignes inégales sur ce titre, n'est pas utilisé. Test de bout
+    en bout : section jusqu'au bas de l'écran, bouton visible.
+  - **Tests de bout en bout** : 3 navigateurs en parallèle en local, 2 en CI, et 10 s d'attente
+    par vérification (15 s pour l'arrivée du code) : à 7 navigateurs, l'unique serveur de test
+    saturait (envoi du code mesuré jusqu'à 4,7 s), d'où des échecs aléatoires.
+- **Alternatives écartées** : ajouter Motion ou des collections d'effets « au cas où » ;
+  notifications pour chaque enregistrement dès maintenant (les messages dans la page suffisent).
+- **Conséquences** : aucune nouvelle dépendance ; suite de bout en bout plus rapide (moins d'une
+  minute) et stable.
+- **Impact** : technique (faible) / métier (faible)
+
+---
+
 ## ADR-023 — Logo : celui du kit fourni, à l'identique
 
 - **Date** : 23/11/2026

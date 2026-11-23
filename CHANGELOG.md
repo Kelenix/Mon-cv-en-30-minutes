@@ -6,6 +6,11 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ### Modifié
 
+- Accueil : section principale centrée (titre, sous-titre, bouton), entourée de formes
+  décoratives ; elle remplit tout le premier écran et son texte s'adapte à la taille de
+  l'écran.
+- Boutons d'envoi : indicateur de chargement et double envoi impossible ; messages qui
+  apparaissent en fondu.
 - En-tête : logo du kit fourni à l'identique en français ; dans les autres langues, son icône
   suivie du nom traduit, sur deux lignes.
 

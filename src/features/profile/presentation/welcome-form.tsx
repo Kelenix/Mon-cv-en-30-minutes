@@ -3,9 +3,9 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useActionState } from "react";
 import { FormAlert } from "@/components/form/form-alert";
+import { SubmitButton } from "@/components/form/submit-button";
 import { TextField } from "@/components/form/text-field";
 import { useFormErrors } from "@/components/form/use-form-errors";
-import { Button } from "@/components/ui/button";
 import type { ActionResult } from "@/core/action-result";
 import { completeProfile } from "../actions";
 
@@ -24,7 +24,7 @@ export function WelcomeForm({
 }) {
   const t = useTranslations();
   const locale = useLocale();
-  const [state, action, pending] = useActionState(
+  const [state, action] = useActionState(
     async (
       _previous: WelcomeState,
       formData: FormData,
@@ -60,9 +60,7 @@ export function WelcomeForm({
         error={errors.field("lastName")}
       />
       <FormAlert message={errors.message} />
-      <Button type="submit" size="lg" disabled={pending} aria-busy={pending}>
-        {t("welcome.continue")}
-      </Button>
+      <SubmitButton size="lg">{t("welcome.continue")}</SubmitButton>
     </form>
   );
 }

@@ -139,6 +139,25 @@ test.describe("Accueil (US-01, US-02, US-03)", () => {
     await expect(logoLink.locator("img")).toBeVisible();
   });
 
+  test("la section principale remplit tout le premier écran, contenu visible", async ({
+    page,
+  }) => {
+    await page.goto("/fr");
+    const viewport = page.viewportSize();
+    if (!viewport) throw new Error("Taille d'écran inconnue");
+    const hero = page.locator("main section").first();
+    const heroBox = await hero.boundingBox();
+    const ctaBox = await page
+      .getByRole("link", { name: fr.home.cta })
+      .first()
+      .boundingBox();
+    // La section descend jusqu'au bas de l'écran ; le bouton y est entièrement visible.
+    expect(heroBox!.y + heroBox!.height).toBeGreaterThanOrEqual(
+      viewport.height,
+    );
+    expect(ctaBox!.y + ctaBox!.height).toBeLessThanOrEqual(viewport.height);
+  });
+
   test("le lien « Voir tous les tarifs » ouvre la page Tarifs", async ({
     page,
   }) => {

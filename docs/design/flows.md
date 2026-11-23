@@ -56,13 +56,24 @@ Le solde « ⚡ 12 » ouvre un détail : crédits inclus / crédits achetés, li
 ### 3.1 Accueil `/` (US-01, US-02, US-03)
 
 ```
-┌ HERO (fond blanc, touche de dégradé) ───────────────────────────────┐
-│ [Logo]                                          [Illustration :     │
-│ Crée ton CV professionnel en quelques           personnage + CV +   │
-│ secondes grâce à l'IA.                          chronomètre 30s]    │
-│ Réponds à 5 questions, l'IA rédige ton CV.                          │
-│ [ Créer mon CV gratuitement → ]   Gratuit · Rapide · Sécurisé       │
+┌ HERO (fond blanc, touche de dégradé), tout centré (ADR-024) ────────┐
+│  + +                                                        ✕       │
+│  + +          Crée ton CV professionnel                             │
+│  + +          en quelques secondes grâce à l'IA.                    │
+│            Réponds à 5 questions, l'IA rédige ton CV.               │
+│                                                                     │
+│                  [ Créer mon CV gratuitement ]          ⟋           │
+│      ○       ✓ 1er CV gratuit · ✓ 5 questions · ✓ Sans carte        │
+│                                        |||||          ◠◠            │
 └─────────────────────────────────────────────────────────────────────┘
+Formes décoratives (grille de « + », croix, anneau, trait arrondi, traits, arcs) : couleurs de
+la charte, sans animation, réparties sur toute la largeur ; sur mobile, seules la croix et les
+arcs restent (aucun chevauchement avec le texte).
+La section remplit tout le premier écran sous l'en-tête, quel que soit l'écran (téléphone,
+tablette, portable, écran 4K, fenêtre large et basse), contenu centré verticalement et
+entièrement visible. Le titre est proportionnel à la fenêtre : de 36 px (téléphone) à 128 px
+(très grand écran), limité par la hauteur ; il garde le même découpage en trois lignes en
+français à partir de 640 px (vérifié de 375×812 à 2560×1440).
 ┌ FONCTIONNALITÉS (fond surface) : 6 cartes, 3×2 ordinateur, 1 colonne mobile ┐
 │ Création avec IA · Amélioration des expériences · Adaptation à une offre ·  │
 │ Lettres de motivation · Version LinkedIn · Simulation d'entretien           │
@@ -144,7 +155,8 @@ Tes réponses sont conservées.
 Première connexion sans nom : « Comment t'appelles-tu ? » Prénom [__] Nom [__] [Continuer].
 
 - Chargement : boutons en chargement.
-- Vide : e-mail vide → bouton désactivé.
+- Vide : e-mail vide → message « Saisis une adresse e-mail valide » (le bouton reste actif pour
+  ne jamais perdre une saisie faite avant que la page soit interactive, ADR-024).
 - Erreur : e-mail invalide, code invalide ou expiré, trop de demandes (`RATE_LIMITED`).
 - Succès : redirection vers `next`.
 

@@ -106,6 +106,13 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 23/11/2026 — **Micro-interactions et accueil** (demandes de l'utilisateur) : liste de
+  bibliothèques triée, seul le nécessaire appliqué (boutons de chargement, apparitions en
+  fondu, aucune nouvelle dépendance) ; section d'accueil centrée sur la structure fournie ;
+  tests de bout en bout stabilisés (3 navigateurs en parallèle). Accueil en plein premier
+  écran, texte proportionnel à l'écran (vérifié sur 9 tailles, de 375×812 à 2560×1440).
+  ADR-024. Vérifié : lint, types, 75 tests unitaires, build, 96 tests de bout en bout.
+
 - 23/11/2026 — **Logo** (demande de l'utilisateur) : logo du kit détouré et affiché à l'identique
   en français ; icône + nom traduit sur deux lignes dans les autres langues (choix de
   l'utilisateur, ADR-023). Vérifié : lint, types, 75 tests unitaires, build, 94 tests de bout en

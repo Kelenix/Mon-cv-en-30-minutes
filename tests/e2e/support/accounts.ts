@@ -49,7 +49,9 @@ export async function signInWithCode(page: Page, email: string) {
   const previous = await emailCount(email);
   await page.getByLabel(t.emailLabel).fill(email);
   await page.getByRole("button", { name: t.sendCode }).click();
-  await expect(page.getByText(`Code envoyé à ${email}.`)).toBeVisible();
+  await expect(page.getByText(`Code envoyé à ${email}.`)).toBeVisible({
+    timeout: 15_000,
+  });
   const { code } = await waitForEmail(email, previous);
   await page.getByLabel(t.codeLabel).fill(code);
   await page.getByRole("button", { name: t.verify }).click();
@@ -68,8 +70,19 @@ export async function signUp(page: Page, email = uniqueEmail()) {
 }
 
 export async function expectNoAccessibilityViolations(page: Page) {
-  // Le titre des pages rendues à la requête arrive en flux : l'audit attend qu'il soit là.
+  // Le titre des pages rendues à la requête arrive en flux : l'audit attend qu'il soit là, puis
+  // la fin des apparitions en fondu (contrastes mesurés sur l'état final).
   await expect(page).toHaveTitle(/\S/);
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter(
+          (animation) => animation.effect?.getTiming().iterations !== Infinity,
+        )
+        .map((animation) => animation.finished),
+    ),
+  );
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
     .analyze();

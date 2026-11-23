@@ -3,9 +3,9 @@
 import { useTranslations } from "next-intl";
 import { useActionState } from "react";
 import { FormAlert } from "@/components/form/form-alert";
+import { SubmitButton } from "@/components/form/submit-button";
 import { TextField } from "@/components/form/text-field";
 import { useFormErrors } from "@/components/form/use-form-errors";
-import { Button } from "@/components/ui/button";
 import type { ActionResult } from "@/core/action-result";
 import { updateProfile } from "../actions";
 import type { ProfileValues } from "../schemas";
@@ -22,7 +22,7 @@ export function ProfileForm({
   initialValues: ProfileValues;
 }) {
   const t = useTranslations();
-  const [state, action, pending] = useActionState(
+  const [state, action] = useActionState(
     async (
       _previous: ProfileState,
       formData: FormData,
@@ -83,14 +83,9 @@ export function ProfileForm({
       ) : (
         <FormAlert message={errors.message} />
       )}
-      <Button
-        type="submit"
-        className="justify-self-start"
-        disabled={pending}
-        aria-busy={pending}
-      >
+      <SubmitButton className="justify-self-start">
         {t("account.save")}
-      </Button>
+      </SubmitButton>
     </form>
   );
 }

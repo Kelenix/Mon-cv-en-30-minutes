@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
 import { FormAlert } from "@/components/form/form-alert";
+import { SubmitButton } from "@/components/form/submit-button";
 import { TextField } from "@/components/form/text-field";
 import { useFormErrors } from "@/components/form/use-form-errors";
 import {
@@ -29,7 +30,7 @@ export function DeleteAccountDialog() {
   const locale = useLocale();
   const word = DELETE_CONFIRMATION_WORDS[locale];
   const [confirmation, setConfirmation] = useState("");
-  const [result, action, pending] = useActionState(
+  const [result, action] = useActionState(
     (_previous: ActionResult<never> | null, formData: FormData) =>
       deleteAccount(formData),
     null,
@@ -72,17 +73,12 @@ export function DeleteAccountDialog() {
           ) : null}
           <AlertDialogFooter>
             <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-            <Button
-              type="submit"
+            <SubmitButton
               variant="destructive"
-              disabled={
-                pending ||
-                confirmation.trim().toLocaleUpperCase(locale) !== word
-              }
-              aria-busy={pending}
+              disabled={confirmation.trim().toLocaleUpperCase(locale) !== word}
             >
               {t("confirm")}
-            </Button>
+            </SubmitButton>
           </AlertDialogFooter>
         </form>
       </AlertDialogContent>

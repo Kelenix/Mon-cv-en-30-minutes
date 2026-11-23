@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { FormSkeleton } from "@/components/form/form-skeleton";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/form/submit-button";
 import { signOut } from "@/features/auth/actions";
 import { requireUser } from "@/features/auth/session";
 import { getOwnProfile } from "@/features/profile/data/profile-repository";
@@ -72,10 +72,10 @@ async function AccountContent() {
 
       <form action={signOut} className="mt-10 border-t border-border pt-8">
         <input type="hidden" name="locale" value={locale} />
-        <Button type="submit" variant="outline">
+        <SubmitButton variant="outline">
           <LogOutIcon aria-hidden="true" />
           {t("signOut")}
-        </Button>
+        </SubmitButton>
       </form>
 
       <section

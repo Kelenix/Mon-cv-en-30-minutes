@@ -13,7 +13,8 @@ export function FormAlert({
     <p
       role={tone === "error" ? "alert" : "status"}
       className={cn(
-        "rounded-lg px-4 py-3 text-base font-medium",
+        // Apparition discrète (200 ms), supprimée si le système réduit les animations.
+        "animate-in rounded-lg px-4 py-3 text-base font-medium duration-200 fade-in-0",
         tone === "error"
           ? "bg-destructive/10 text-destructive"
           : "bg-surface text-foreground",

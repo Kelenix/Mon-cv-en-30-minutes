@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { type ReactNode, useActionState, useEffect, useState } from "react";
 import { FormAlert } from "@/components/form/form-alert";
+import { SubmitButton } from "@/components/form/submit-button";
 import { TextField } from "@/components/form/text-field";
 import { useFormErrors } from "@/components/form/use-form-errors";
 import { Button } from "@/components/ui/button";
@@ -50,10 +51,10 @@ export function SignInForm({ googleEnabled }: { googleEnabled: boolean }) {
         <>
           <form action={signInWithGoogle}>
             {hiddenFields}
-            <Button type="submit" variant="outline" className="w-full">
+            <SubmitButton variant="outline" className="w-full">
               <GoogleMark />
               {t("google")}
-            </Button>
+            </SubmitButton>
           </form>
           <p className="flex items-center gap-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">
             {t("or")}
@@ -79,23 +80,28 @@ export function SignInForm({ googleEnabled }: { googleEnabled: boolean }) {
 }
 
 type StepProps = { hiddenFields: ReactNode };
+type EmailStepState = {
+  result: ActionResult<{ email: string }> | null;
+  email: string;
+};
 
 function EmailStep({
   hiddenFields,
   onSent,
 }: StepProps & { onSent: (email: string) => void }) {
   const t = useTranslations("auth");
-  const [email, setEmail] = useState("");
-  const [result, action, pending] = useActionState(
+  // Champ non contrôlé : la saisie faite avant que la page soit interactive n'est pas perdue ;
+  // l'adresse envoyée est gardée pour réafficher le champ après une erreur.
+  const [{ result, email }, action] = useActionState(
     async (
-      _previous: ActionResult<{ email: string }> | null,
+      _previous: EmailStepState,
       formData: FormData,
-    ) => {
+    ): Promise<EmailStepState> => {
       const response = await requestEmailCode(formData);
       if (response.ok) onSent(response.data.email);
-      return response;
+      return { result: response, email: String(formData.get("email") ?? "") };
     },
-    null,
+    { result: null, email: "" },
   );
   const errors = useFormErrors(result);
 
@@ -109,20 +115,13 @@ function EmailStep({
         placeholder={t("emailPlaceholder")}
         autoComplete="email"
         required
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
+        defaultValue={email}
         error={errors.field("email")}
       />
       {result && !result.ok && result.error.code !== "VALIDATION_ERROR" ? (
         <FormAlert message={errors.message} />
       ) : null}
-      <Button
-        type="submit"
-        disabled={pending || !email.trim()}
-        aria-busy={pending}
-      >
-        {t("sendCode")}
-      </Button>
+      <SubmitButton>{t("sendCode")}</SubmitButton>
     </form>
   );
 }
@@ -136,12 +135,12 @@ function CodeStep({
   const [code, setCode] = useState("");
   const [secondsLeft, setSecondsLeft] = useState(RESEND_DELAY_SECONDS);
 
-  const [result, verifyAction, verifying] = useActionState(
+  const [result, verifyAction] = useActionState(
     (_previous: ActionResult<never> | null, formData: FormData) =>
       verifyEmailCode(formData),
     null,
   );
-  const [resendResult, resendAction, resending] = useActionState(
+  const [resendResult, resendAction] = useActionState(
     async (
       _previous: ActionResult<{ email: string }> | null,
       formData: FormData,
@@ -162,7 +161,7 @@ function CodeStep({
   }, [secondsLeft]);
 
   return (
-    <div className="grid gap-4">
+    <div className="grid animate-in gap-4 duration-200 fade-in-0">
       <p role="status" className="text-base">
         {t("codeSent", { email })}
       </p>
@@ -184,13 +183,7 @@ function CodeStep({
         {result && !result.ok && result.error.code !== "VALIDATION_ERROR" ? (
           <FormAlert message={errors.message} />
         ) : null}
-        <Button
-          type="submit"
-          disabled={verifying || code.length !== 6}
-          aria-busy={verifying}
-        >
-          {t("verify")}
-        </Button>
+        <SubmitButton disabled={code.length !== 6}>{t("verify")}</SubmitButton>
       </form>
       <form
         action={resendAction}
@@ -198,16 +191,15 @@ function CodeStep({
       >
         {hiddenFields}
         <input type="hidden" name="email" value={email} />
-        <Button
-          type="submit"
+        <SubmitButton
           variant="link"
           className="px-0"
-          disabled={resending || secondsLeft > 0}
+          disabled={secondsLeft > 0}
         >
           {secondsLeft > 0
             ? t("resendIn", { seconds: secondsLeft })
             : t("resend")}
-        </Button>
+        </SubmitButton>
         <Button
           type="button"
           variant="link"

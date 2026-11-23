@@ -89,6 +89,10 @@ automatique sur iOS).
   étapes de l'assistant). Courbe `ease-out`.
 - Aucune animation en boucle hors chargement.
 - `prefers-reduced-motion: reduce` : transitions supprimées, chargement statique.
+- Micro-interactions en place (ADR-024) : bouton d'envoi `SubmitButton` (indicateur de
+  chargement, texte conservé, désactivé pendant l'action et tant que la page n'est pas
+  interactive) ; messages de formulaire et étapes qui apparaissent en fondu (200 ms).
+  Animations en CSS (tw-animate-css), sans bibliothèque d'animation.
 
 ---
 
