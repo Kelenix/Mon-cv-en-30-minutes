@@ -6,6 +6,41 @@
 
 ---
 
+## ADR-025 — Accueil orienté conversion, illustration officielle, compatibilité ATS
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté (remplace la disposition centrée de l'ADR-024 pour l'accueil)
+- **Décideur** : l'utilisateur (critiques : trop de vide, en-tête décalé, plus d'image, textes
+  peu convaincants, rappel que les CV doivent passer les logiciels de filtrage ; disposition
+  « texte à gauche, image à droite » choisie parmi deux propositions), Claude pour la
+  réalisation (rôles : ui-ux-designer, product-owner, frontend-engineer)
+- **Contexte** : la page d'accueil doit pousser à créer un CV ; l'INTAKE §4.1 exige une
+  illustration officielle de la marque, retirée par erreur à l'ADR-024.
+- **Décision** :
+  - **Disposition** : texte à gauche, illustration officielle du kit (jeune homme à
+    l'ordinateur, CV validé, fusée, chronomètre 30s, détourée comme le logo) à droite sur
+    ordinateur ; l'un sous l'autre sur téléphone et tablette. Section en plein premier écran,
+    tailles et espacements proportionnels à l'écran.
+  - **Textes** (5 langues) : mention « Optimisé pour les logiciels de recrutement (ATS) » ;
+    titre « Ton CV professionnel en quelques secondes, prêt à passer les filtres des
+    recruteurs. » (milieu de phrase mis en valeur) ; sous-titre qui décrit ce que fait l'IA et
+    la suite (relire, ajuster, télécharger en PDF) ; avantages « 1er CV gratuit », « Sans carte
+    bancaire », « CV en 5 langues ». Aucun chiffre ni score non vérifiable (ADR-002).
+  - **En-tête** : même largeur que la page, plus haut (80 px) et texte plus grand sur
+    ordinateur, bouton « Créer mon CV » toujours visible à partir de 1 024 px (§4.4).
+  - **Conteneur de page** : 1 440 px, puis 80 % de l'écran sur les très grands écrans.
+  - **Compatibilité ATS des CV** : règle H34 et critères ajoutés à US-11 et US-17 (mise en page
+    sur une colonne, intitulés standard, texte réel, test d'extraction de texte des exports).
+- **Alternatives écartées** : texte centré et image dessous (proposée, non retenue) ; maquette
+  de CV dessinée en HTML (l'INTAKE demande l'illustration officielle) ; score ATS affiché
+  (fonction inexistante, promesse trompeuse).
+- **Conséquences** : l'illustration source fait 649 px de large ; elle est limitée à 896 px
+  d'affichage pour rester nette ; un fichier source en haute résolution (tâche 8) permettrait de
+  l'agrandir. Les tests vérifient le plein écran et comparent le titre sans ses balises.
+- **Impact** : métier (fort : conversion) / technique (faible)
+
+---
+
 ## ADR-024 — Bibliothèques d'interface : seulement le nécessaire ; accueil centré
 
 - **Date** : 23/11/2026

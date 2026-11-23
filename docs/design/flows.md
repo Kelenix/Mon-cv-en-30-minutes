@@ -56,6 +56,17 @@ Le solde « ⚡ 12 » ouvre un détail : crédits inclus / crédits achetés, li
 ### 3.1 Accueil `/` (US-01, US-02, US-03)
 
 ```
+Disposition actuelle (ADR-025) : texte à gauche, illustration officielle à droite.
+┌ HERO (ADR-025), plein premier écran ─────────────────────────────────┐
+│ [✓ Optimisé pour les logiciels de recrutement (ATS)]                │
+│ Ton CV professionnel en quelques      │  [Illustration officielle : │
+│ secondes, prêt à passer les filtres   │   jeune homme à l'ordinateur,│
+│ des recruteurs.                       │   CV validé, fusée, 30s]     │
+│ Réponds à 5 questions : l'IA rédige…  │                              │
+│ [ Créer mon CV gratuitement ]         │                              │
+│ ✓ 1er CV gratuit ✓ Sans carte ✓ 5 langues                            │
+└─────────────────────────────────────────────────────────────────────┘
+Téléphone et tablette : le texte puis l'illustration. Version précédente, abandonnée (ADR-024) :
 ┌ HERO (fond blanc, touche de dégradé), tout centré (ADR-024) ────────┐
 │  + +                                                        ✕       │
 │  + +          Crée ton CV professionnel                             │

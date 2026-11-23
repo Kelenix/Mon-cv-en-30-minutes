@@ -6,7 +6,7 @@ import logoIcon from "@/assets/brand/logo-icone.png";
 
 // Hauteur d'affichage (px) sur ordinateur ; les fichiers sources, détourés du kit fourni, sont
 // redimensionnés par Next.js (ADR-023).
-const HEIGHT = 56;
+const HEIGHT = 64;
 
 function scaledWidth(image: StaticImageData) {
   return Math.round((image.width * HEIGHT) / image.height);
@@ -27,7 +27,7 @@ export function Logo() {
           width={scaledWidth(logoFr)}
           height={HEIGHT}
           loading="eager"
-          className="h-11 w-auto sm:h-14"
+          className="h-11 w-auto sm:h-14 lg:h-16"
         />
       </Link>
     );
@@ -44,12 +44,14 @@ export function Logo() {
         width={scaledWidth(logoIcon)}
         height={HEIGHT}
         loading="eager"
-        className="h-11 w-auto shrink-0 sm:h-14"
+        className="h-11 w-auto shrink-0 sm:h-14 lg:h-16"
       />
       {/* Deux lignes, comme le logo fourni : le nom, puis le connecteur et la pastille. */}
       <span className="flex flex-col items-start gap-0.5">
-        <span className="text-lg leading-none sm:text-2xl">{t("lead")}</span>
-        <span className="flex items-center gap-1 text-xs sm:text-sm">
+        <span className="text-lg leading-none sm:text-2xl lg:text-[1.75rem]">
+          {t("lead")}
+        </span>
+        <span className="flex items-center gap-1 text-xs sm:text-sm lg:text-base">
           <span>{t("connector")}</span>
           <span className="rounded-full bg-primary px-2 py-0.5 text-primary-foreground italic">
             {t("pill")}

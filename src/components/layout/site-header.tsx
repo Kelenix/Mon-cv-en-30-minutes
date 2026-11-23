@@ -15,9 +15,12 @@ export function SiteHeader() {
 
   return (
     <header className="border-b border-border bg-background">
-      <div className="container-page flex h-16 items-center justify-between gap-4">
+      <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
         <Logo />
-        <nav aria-label={t("main")} className="flex items-center gap-1">
+        <nav
+          aria-label={t("main")}
+          className="flex items-center gap-1 lg:gap-2 lg:[&_a]:text-lg lg:[&_button]:text-lg"
+        >
           {/* Sur mobile, le lien Tarifs reste accessible depuis le pied de page. */}
           <Link
             href="/tarifs"
@@ -32,6 +35,13 @@ export function SiteHeader() {
           <Suspense fallback={<AuthNavLinkFallback />}>
             <AuthNavLink />
           </Suspense>
+          {/* Appel à l'action toujours visible sur ordinateur (§4.4). */}
+          <Link
+            href="/creer"
+            className={cn(buttonVariants(), "ml-2 hidden lg:inline-flex")}
+          >
+            {t("createCv")}
+          </Link>
         </nav>
       </div>
     </header>

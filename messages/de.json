@@ -32,16 +32,19 @@
     "privacy": "Datenschutz",
     "cookies": "Cookies",
     "signIn": "Anmelden",
-    "account": "Mein Konto"
+    "account": "Mein Konto",
+    "createCv": "Lebenslauf erstellen"
   },
   "home": {
-    "title": "Erstelle deinen professionellen Lebenslauf in Sekunden mit KI.",
-    "subtitle": "Beantworte 5 Fragen, die KI schreibt deinen Lebenslauf.",
+    "eyebrow": "Optimiert für Bewerbermanagementsysteme (ATS)",
+    "title": "Dein professioneller Lebenslauf <highlight>in wenigen Sekunden</highlight> – bereit für die Filter der Personaler.",
+    "subtitle": "Beantworte 5 Fragen: Die KI schreibt einen klaren, strukturierten Lebenslauf, den Bewerbermanagementsysteme lesen können. Du prüfst ihn, passt ihn an und lädst ihn als PDF herunter.",
+    "illustrationAlt": "Ein Bewerber erstellt seinen Lebenslauf am Laptop: Der Lebenslauf ist in 30 Sekunden fertig.",
     "cta": "Lebenslauf kostenlos erstellen",
     "highlights": {
       "freeFirstCv": "Erster Lebenslauf gratis",
-      "fiveQuestions": "5 Fragen",
-      "noCard": "Ohne Kreditkarte"
+      "noCard": "Ohne Kreditkarte",
+      "cvLanguages": "Lebenslauf in 5 Sprachen"
     },
     "features": {
       "title": "Alles für deinen nächsten Job",

@@ -6,6 +6,9 @@ import es from "../../messages/es.json";
 import fr from "../../messages/fr.json";
 import it_ from "../../messages/it.json";
 
+/** Texte affiché d'un message à balises de mise en forme (ex. `<highlight>`). */
+const plainText = (message: string) => message.replace(/<\/?\w+>/g, "");
+
 const CATALOGS = { fr, en, it: it_, es, de } as const;
 const LOCALES = Object.keys(CATALOGS) as (keyof typeof CATALOGS)[];
 
@@ -22,7 +25,7 @@ test.describe("Multilingue (US-41)", () => {
       await expect(page).toHaveURL(new RegExp(`/${locale}$`));
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-        CATALOGS[locale].home.title,
+        plainText(CATALOGS[locale].home.title),
       );
       await context.close();
     });
@@ -55,7 +58,7 @@ test.describe("Multilingue (US-41)", () => {
 
     await expect(page).toHaveURL(/\/de$/);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      de.home.title,
+      plainText(de.home.title),
     );
 
     await page.goto("/");

@@ -32,16 +32,19 @@
     "privacy": "Privacy",
     "cookies": "Cookie",
     "signIn": "Accedi",
-    "account": "Il mio account"
+    "account": "Il mio account",
+    "createCv": "Crea il mio CV"
   },
   "home": {
-    "title": "Crea il tuo CV professionale in pochi secondi grazie all'IA.",
-    "subtitle": "Rispondi a 5 domande, l'IA scrive il tuo CV.",
+    "eyebrow": "Ottimizzato per i software di selezione (ATS)",
+    "title": "Il tuo CV professionale <highlight>in pochi secondi</highlight>, pronto a superare i filtri dei selezionatori.",
+    "subtitle": "Rispondi a 5 domande: l'IA scrive un CV chiaro, strutturato e leggibile dai software di selezione. Lo rileggi, lo modifichi, lo scarichi in PDF.",
+    "illustrationAlt": "Un candidato crea il suo CV al computer: il CV è pronto in 30 secondi.",
     "cta": "Crea il mio CV gratis",
     "highlights": {
       "freeFirstCv": "Primo CV gratis",
-      "fiveQuestions": "5 domande",
-      "noCard": "Senza carta di credito"
+      "noCard": "Senza carta di credito",
+      "cvLanguages": "CV in 5 lingue"
     },
     "features": {
       "title": "Tutto per ottenere il tuo prossimo lavoro",

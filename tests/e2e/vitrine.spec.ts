@@ -7,6 +7,9 @@ import es from "../../messages/es.json";
 import fr from "../../messages/fr.json";
 import it_ from "../../messages/it.json";
 
+/** Texte affiché d'un message à balises de mise en forme (ex. `<highlight>`). */
+const plainText = (message: string) => message.replace(/<\/?\w+>/g, "");
+
 const CATALOGS = { fr, en, it: it_, es, de } as const;
 type Locale = keyof typeof CATALOGS;
 const LOCALES = Object.keys(CATALOGS) as Locale[];
@@ -82,7 +85,7 @@ test.describe("Accueil (US-01, US-02, US-03)", () => {
     await page.goto("/fr");
 
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      fr.home.title,
+      plainText(fr.home.title),
     );
     await expect(
       page.getByRole("link", { name: fr.home.cta }).first(),

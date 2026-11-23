@@ -106,6 +106,12 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 23/11/2026 — **Accueil refait** (critiques de l'utilisateur) : texte à gauche, illustration
+  officielle du kit à droite (disposition choisie par l'utilisateur), textes orientés
+  conversion et ATS dans les 5 langues, en-tête aligné et agrandi avec bouton « Créer mon CV »,
+  conteneur élargi. Règle H34 « compatibilité ATS » ajoutée aux stories US-11 et US-17.
+  ADR-025.
+
 - 23/11/2026 — **Micro-interactions et accueil** (demandes de l'utilisateur) : liste de
   bibliothèques triée, seul le nécessaire appliqué (boutons de chargement, apparitions en
   fondu, aucune nouvelle dépendance) ; section d'accueil centrée sur la structure fournie ;

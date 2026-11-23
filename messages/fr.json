@@ -32,16 +32,19 @@
     "privacy": "Confidentialité",
     "cookies": "Cookies",
     "signIn": "Se connecter",
-    "account": "Mon compte"
+    "account": "Mon compte",
+    "createCv": "Créer mon CV"
   },
   "home": {
-    "title": "Crée ton CV professionnel en quelques secondes grâce à l'IA.",
-    "subtitle": "Réponds à 5 questions, l'IA rédige ton CV.",
+    "eyebrow": "Optimisé pour les logiciels de recrutement (ATS)",
+    "title": "Ton CV professionnel <highlight>en quelques secondes</highlight>, prêt à passer les filtres des recruteurs.",
+    "subtitle": "Réponds à 5 questions : l'IA rédige un CV clair, structuré et lisible par les logiciels de recrutement. Tu le relis, tu l'ajustes, tu le télécharges en PDF.",
+    "illustrationAlt": "Un candidat crée son CV sur son ordinateur : le CV est validé en 30 secondes.",
     "cta": "Créer mon CV gratuitement",
     "highlights": {
       "freeFirstCv": "1er CV gratuit",
-      "fiveQuestions": "5 questions",
-      "noCard": "Sans carte bancaire"
+      "noCard": "Sans carte bancaire",
+      "cvLanguages": "CV en 5 langues"
     },
     "features": {
       "title": "Tout pour décrocher ton prochain poste",

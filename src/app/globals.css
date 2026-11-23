@@ -73,10 +73,12 @@
   --shadow-card-hover: 0 12px 32px rgb(15 111 230 / 0.12);
 }
 
-/* Conteneur de page : 1 200 px maximum, marges 16 / 24 / 32 px (design system §4). */
+/* Conteneur de page : 1 440 px, puis 80 % de l'écran sur les très grands écrans, pour que le
+   contenu occupe la largeur disponible (ADR-025) ; les textes longs gardent leur propre
+   largeur. Marges 16 / 24 / 32 px (design system §4). */
 @utility container-page {
   width: 100%;
-  max-width: 75rem;
+  max-width: max(90rem, 80vw);
   margin-inline: auto;
   padding-inline: 1rem;
 

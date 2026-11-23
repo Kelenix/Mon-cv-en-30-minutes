@@ -32,16 +32,19 @@
     "privacy": "Privacy",
     "cookies": "Cookies",
     "signIn": "Sign in",
-    "account": "My account"
+    "account": "My account",
+    "createCv": "Create my CV"
   },
   "home": {
-    "title": "Create your professional CV in seconds with AI.",
-    "subtitle": "Answer 5 questions and AI writes your CV.",
+    "eyebrow": "Built for applicant tracking systems (ATS)",
+    "title": "Your professional CV <highlight>in seconds</highlight>, ready to get past recruiters' filters.",
+    "subtitle": "Answer 5 questions: the AI writes a clear, well-structured CV that applicant tracking systems can read. Review it, fine-tune it, download it as a PDF.",
+    "illustrationAlt": "A candidate creates a CV on a laptop: the CV is approved in 30 seconds.",
     "cta": "Create my CV for free",
     "highlights": {
       "freeFirstCv": "First CV free",
-      "fiveQuestions": "5 questions",
-      "noCard": "No credit card"
+      "noCard": "No credit card",
+      "cvLanguages": "CV in 5 languages"
     },
     "features": {
       "title": "Everything you need to land your next job",

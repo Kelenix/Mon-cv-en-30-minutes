@@ -44,6 +44,7 @@ Elles complètent H1–H17 du plan et sont consignées dans `DECISION_LOG.md` (A
 | H31 | Nom de marque traduit par langue (propositions à valider, tâche manuelle 12) : FR « Mon CV en 30 Secondes », EN « My CV in 30 Seconds », IT « Curriculum in 30 Secondi », ES « Mi CV en 30 Segundos », DE « Mein Lebenslauf in 30 Sekunden ». Le filigrane du PDF est rédigé dans la langue du CV avec le nom de cette langue. |
 | H32 | Prix identiques en euros dans toutes les langues, formatés selon la langue (« 6,99 € », « €6.99 »). |
 | H33 | Ton familier dans toutes les langues de l'interface (tu, you, tu, tú, du) ; ton formel dans les pages légales. |
+| H34 | **Compatibilité ATS** (rappel de l'utilisateur, ADR-025) : tout CV généré et exporté doit pouvoir être lu par les logiciels de recrutement qui filtrent les candidatures. Mise en page sur une colonne ; rubriques aux intitulés standard (Expérience professionnelle, Formation, Compétences, Langues), traduits dans la langue du CV ; texte réel et sélectionnable (jamais d'image ni de texte dans des formes) ; pas de tableau ni de zone de texte pour le contenu ; coordonnées dans le corps du document, pas seulement dans l'en-tête ou le pied de page ; polices standard ; dates dans un format homogène ; le filigrane (US-16) reste une ligne de texte séparée du contenu. |
 
 ---
 
@@ -250,6 +251,9 @@ d'**obtenir un CV structuré en quelques secondes.
    20 profils de référence.
 5. **Alors** le CV ne contient aucune entreprise, date, diplôme ou certification absent des
    réponses (vérifié sur le jeu de référence) et il est rédigé dans la langue des réponses.
+5 bis. **Alors** le CV respecte la compatibilité ATS (H34) : rubriques aux intitulés standard,
+   une seule colonne, contenu en texte, formulations sobres et mots-clés du métier visé repris
+   tels quels.
 6. **Quand** la génération échoue, **alors** un message clair propose de réessayer, sans perte des
    réponses ni des crédits.
 7. **Alors** une même adresse IP ne peut pas obtenir plus de 3 générations gratuites par jour
@@ -321,6 +325,9 @@ formulaire de candidature.
 1. **Étant donné** un abonné (essai compris) ou un CV débloqué en CV Pro, **quand** il exporte,
    **alors** le PDF n'a pas de filigrane et l'export DOCX est proposé.
 2. **Alors** le DOCX s'ouvre dans Word et LibreOffice avec ses sections, titres et listes.
+2 bis. **Alors** le PDF et le DOCX respectent la compatibilité ATS (H34) : le texte extrait
+   automatiquement des deux fichiers restitue chaque rubrique dans l'ordre de lecture, sans
+   perte ni mélange (vérifié par test d'extraction de texte).
 3. **Étant donné** un utilisateur sans droit, **alors** il voit comment débloquer le DOCX, et un
    appel direct à l'export DOCX est refusé côté serveur.
 
