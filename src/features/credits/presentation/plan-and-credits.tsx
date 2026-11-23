@@ -20,7 +20,7 @@ export function PlanAndCredits({
   return (
     <section
       aria-labelledby="formule-credits"
-      className="mt-10 border-t border-border pt-8"
+      className="rounded-2xl border border-border p-6 md:p-8"
     >
       <h2 id="formule-credits" className="text-xl font-semibold">
         {t("account.planTitle")}

@@ -47,6 +47,13 @@ export const routing = defineRouting({
       es: "/cv/[id]/carta",
       de: "/cv/[id]/anschreiben",
     },
+    "/cv/[id]/entretien": {
+      fr: "/cv/[id]/entretien",
+      en: "/cv/[id]/interview",
+      it: "/cv/[id]/colloquio",
+      es: "/cv/[id]/entrevista",
+      de: "/cv/[id]/vorstellungsgespraech",
+    },
     "/connexion": {
       fr: "/connexion",
       en: "/sign-in",

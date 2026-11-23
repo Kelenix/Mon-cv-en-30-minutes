@@ -19,13 +19,11 @@ export default async function CreatePage() {
 
   return (
     <div className="container-page py-10 md:py-14">
-      <div className="mx-auto max-w-2xl">
-        <Intro />
-        <div className="mt-8">
-          <NextIntlClientProvider messages={messages}>
-            <CvWizard />
-          </NextIntlClientProvider>
-        </div>
+      <Intro />
+      <div className="mt-8">
+        <NextIntlClientProvider messages={messages}>
+          <CvWizard />
+        </NextIntlClientProvider>
       </div>
     </div>
   );

@@ -1,4 +1,10 @@
-import { EyeIcon, IdCardIcon, MailIcon, TargetIcon } from "lucide-react";
+import {
+  EyeIcon,
+  IdCardIcon,
+  MailIcon,
+  MessagesSquareIcon,
+  TargetIcon,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -8,6 +14,11 @@ const TABS = [
   { key: "adapt", pathname: "/cv/[id]/adapter", Icon: TargetIcon },
   { key: "linkedin", pathname: "/cv/[id]/linkedin", Icon: IdCardIcon },
   { key: "letter", pathname: "/cv/[id]/lettre", Icon: MailIcon },
+  {
+    key: "interview",
+    pathname: "/cv/[id]/entretien",
+    Icon: MessagesSquareIcon,
+  },
 ] as const;
 
 /** Onglets d'un CV (docs/design/flows.md §3.6) : aperçu, puis outils IA (Inc-7 à Inc-9). */

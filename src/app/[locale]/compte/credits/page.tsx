@@ -89,78 +89,86 @@ async function Credits({
         </div>
       ) : null}
 
-      <section aria-labelledby="formule" className="mt-8">
-        <h2 id="formule" className={headingClass}>
-          {t("plan.title")}
-        </h2>
-        {subscription ? (
-          <div className="mt-4 grid justify-items-start gap-3">
-            <p className="text-lg font-semibold">
-              {tPlans(`names.${subscription.plan}`)} ·{" "}
-              {t(`plan.intervals.${subscription.interval}`)}
-            </p>
-            <p>{statusLine(subscription, t, date)}</p>
-            <PortalButton />
-          </div>
-        ) : (
-          <div className="mt-4 grid justify-items-start gap-3">
-            <p className="text-lg font-semibold">{t("plan.none")}</p>
-            <p className="text-muted-foreground">{t("plan.noneHint")}</p>
-            {profile.trial_used_at ? null : (
-              <div className="grid max-w-xl gap-2">
-                <PlanCheckoutButton tier={TRIAL.plan} trial>
-                  {t("checkout.trial", { days: TRIAL.days })}
-                </PlanCheckoutButton>
-                <p className="text-sm text-muted-foreground">
-                  {t("checkout.trialTerms", {
-                    days: TRIAL.days,
-                    credits: TRIAL.credits,
-                  })}
-                </p>
-              </div>
-            )}
-            <Link
-              href="/tarifs"
-              className={buttonVariants({ variant: "outline" })}
-            >
-              {t("plan.seePlans")}
-            </Link>
-          </div>
-        )}
-      </section>
-
-      {wallet ? (
-        <section aria-labelledby="credits" className={sectionClass}>
-          <h2 id="credits" className={headingClass}>
-            {t("credits.title")}
+      <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-8">
+        <section
+          aria-labelledby="formule"
+          className="rounded-2xl border border-border p-6 md:p-8"
+        >
+          <h2 id="formule" className={headingClass}>
+            {t("plan.title")}
           </h2>
-          <dl className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-xl bg-surface p-4">
-              <dt className="font-medium">{t("credits.total")}</dt>
-              <dd className="mt-1 text-3xl font-bold">{wallet.total}</dd>
+          {subscription ? (
+            <div className="mt-4 grid justify-items-start gap-3">
+              <p className="text-lg font-semibold">
+                {tPlans(`names.${subscription.plan}`)} ·{" "}
+                {t(`plan.intervals.${subscription.interval}`)}
+              </p>
+              <p>{statusLine(subscription, t, date)}</p>
+              <PortalButton />
             </div>
-            <div className="rounded-xl border border-border p-4">
-              <dt className="font-medium">{t("credits.included")}</dt>
-              <dd className="mt-1 text-3xl font-bold">{wallet.included}</dd>
-              {subscription?.nextCreditGrantAt ? (
-                <dd className="mt-1 text-sm text-muted-foreground">
-                  {t("credits.includedReset", {
-                    count: subscription.monthlyCredits,
-                    date: date(subscription.nextCreditGrantAt),
-                  })}
-                </dd>
-              ) : null}
+          ) : (
+            <div className="mt-4 grid justify-items-start gap-3">
+              <p className="text-lg font-semibold">{t("plan.none")}</p>
+              <p className="text-muted-foreground">{t("plan.noneHint")}</p>
+              {profile.trial_used_at ? null : (
+                <div className="grid gap-2">
+                  <PlanCheckoutButton tier={TRIAL.plan} trial>
+                    {t("checkout.trial", { days: TRIAL.days })}
+                  </PlanCheckoutButton>
+                  <p className="text-sm text-muted-foreground">
+                    {t("checkout.trialTerms", {
+                      days: TRIAL.days,
+                      credits: TRIAL.credits,
+                    })}
+                  </p>
+                </div>
+              )}
+              <Link
+                href="/tarifs"
+                className={buttonVariants({ variant: "outline" })}
+              >
+                {t("plan.seePlans")}
+              </Link>
             </div>
-            <div className="rounded-xl border border-border p-4">
-              <dt className="font-medium">{t("credits.purchased")}</dt>
-              <dd className="mt-1 text-3xl font-bold">{wallet.purchased}</dd>
-              <dd className="mt-1 text-sm text-muted-foreground">
-                {t("credits.purchasedHint")}
-              </dd>
-            </div>
-          </dl>
+          )}
         </section>
-      ) : null}
+
+        {wallet ? (
+          <section
+            aria-labelledby="credits"
+            className="rounded-2xl border border-border p-6 md:p-8"
+          >
+            <h2 id="credits" className={headingClass}>
+              {t("credits.title")}
+            </h2>
+            <dl className="mt-6 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-xl bg-surface p-4">
+                <dt className="font-medium">{t("credits.total")}</dt>
+                <dd className="mt-1 text-3xl font-bold">{wallet.total}</dd>
+              </div>
+              <div className="rounded-xl border border-border p-4">
+                <dt className="font-medium">{t("credits.included")}</dt>
+                <dd className="mt-1 text-3xl font-bold">{wallet.included}</dd>
+                {subscription?.nextCreditGrantAt ? (
+                  <dd className="mt-1 text-sm text-muted-foreground">
+                    {t("credits.includedReset", {
+                      count: subscription.monthlyCredits,
+                      date: date(subscription.nextCreditGrantAt),
+                    })}
+                  </dd>
+                ) : null}
+              </div>
+              <div className="rounded-xl border border-border p-4">
+                <dt className="font-medium">{t("credits.purchased")}</dt>
+                <dd className="mt-1 text-3xl font-bold">{wallet.purchased}</dd>
+                <dd className="mt-1 text-sm text-muted-foreground">
+                  {t("credits.purchasedHint")}
+                </dd>
+              </div>
+            </dl>
+          </section>
+        ) : null}
+      </div>
 
       <section aria-labelledby="recharger" className={sectionClass}>
         <h2 id="recharger" className={headingClass}>

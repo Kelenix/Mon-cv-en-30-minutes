@@ -2,17 +2,23 @@
 
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
-import type { ActionResult, FieldErrors } from "@/core/action-result";
+import type {
+  ActionResult,
+  ErrorCode,
+  FieldErrors,
+} from "@/core/action-result";
 
 /**
  * Lance un outil IA payant : identifiant de demande à chaque clic (un double envoi n'est pas
  * débité deux fois), état d'attente, message d'erreur traduit, et détails pour la fenêtre
- * « Solde insuffisant ».
+ * « Solde insuffisant ». `messages` remplace le texte de certaines erreurs (ex. outil gratuit :
+ * aucun crédit à rendre).
  */
 export function useAiTool<Input, Result>(
   action: (
     input: Input & { requestId: string },
   ) => Promise<ActionResult<Result>>,
+  messages: Partial<Record<ErrorCode, string>> = {},
 ) {
   const tErrors = useTranslations("errors");
   const [pending, startTransition] = useTransition();
@@ -33,7 +39,7 @@ export function useAiTool<Input, Result>(
         setError(
           result.error.code === "VALIDATION_ERROR" && field
             ? tErrors(`fields.${field}` as "fields.required")
-            : tErrors(result.error.code),
+            : (messages[result.error.code] ?? tErrors(result.error.code)),
         );
       }
     });

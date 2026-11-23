@@ -1,9 +1,18 @@
-import type { AiAdaptation, AiLinkedin } from "@/features/ai/cv-tools-writer";
+import type {
+  AiAdaptation,
+  AiInterviewFeedback,
+  AiLinkedin,
+} from "@/features/ai/cv-tools-writer";
 import { clip } from "./content";
-import { GENERATED_LIMITS, type LinkedinOutput } from "./generated";
+import {
+  GENERATED_LIMITS,
+  INTERVIEW_LIMITS,
+  type InterviewFeedback,
+  type LinkedinOutput,
+} from "./generated";
 import { CV_LIMITS, type CvContent, type CvExperience } from "./schemas";
 
-// Résultats des outils IA ramenés au contenu du CV (US-25 à US-28) : limites appliquées et,
+// Résultats des outils IA ramenés au contenu du CV (US-25 à US-30) : limites appliquées et,
 // pour l'adaptation, garantie qu'aucune expérience ni compétence n'est ajoutée (US-27 c.3),
 // quelle que soit la sortie de l'IA (y compris sous l'effet d'une consigne cachée).
 
@@ -102,4 +111,41 @@ export function linkedinFromAi(
       ),
     })),
   };
+}
+
+/** 8 questions distinctes et bornées (US-30 c.1) ; null si l'IA en donne moins. */
+export function cleanQuestions(questions: string[]): string[] | null {
+  const clean = [
+    ...new Set(
+      questions
+        .map((question) => clip(question, INTERVIEW_LIMITS.question))
+        .filter(Boolean),
+    ),
+  ].slice(0, INTERVIEW_LIMITS.questions);
+  return clean.length === INTERVIEW_LIMITS.questions ? clean : null;
+}
+
+/**
+ * Retour pour chaque question répondue, et pour elles seules (US-30 c.3), dans l'ordre des
+ * questions ; null s'il en manque un.
+ */
+export function feedbackFromAi(
+  answers: string[],
+  ai: AiInterviewFeedback["feedback"],
+): InterviewFeedback[] | null {
+  const byIndex = new Map(ai.map((item) => [item.index, item]));
+  const feedback: InterviewFeedback[] = [];
+  for (const [index, answer] of answers.entries()) {
+    if (!answer.trim()) continue;
+    const item = byIndex.get(index);
+    const entry = item && {
+      index,
+      strengths: clip(item.strengths, INTERVIEW_LIMITS.strengths),
+      improvements: clip(item.improvements, INTERVIEW_LIMITS.improvements),
+      example: clip(item.example, INTERVIEW_LIMITS.example),
+    };
+    if (!entry?.strengths || !entry.improvements || !entry.example) return null;
+    feedback.push(entry);
+  }
+  return feedback;
 }

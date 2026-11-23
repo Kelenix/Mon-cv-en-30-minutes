@@ -11,13 +11,19 @@ import {
 } from "@/core/action-result";
 import {
   coverLetter,
+  interviewFeedback,
+  interviewQuestions,
   linkedinProfile,
   adaptToJob as writeAdaptation,
   improveExperience as writeExperience,
   summaryVariants,
 } from "@/features/ai/cv-tools-writer";
 import { AiError } from "@/features/ai/client";
-import { runPaidAiOperation } from "@/features/ai/operation";
+import {
+  runFreeAiOperation,
+  runPaidAiOperation,
+  usageParams,
+} from "@/features/ai/operation";
 import { getCurrentUser } from "@/features/auth/session";
 import { getActivePlan } from "@/features/billing/subscription";
 import { planEntitlements } from "@/features/plans/entitlements";
@@ -27,6 +33,10 @@ import { createClient } from "@/lib/supabase/server";
 import { clip } from "./content";
 import {
   GENERATED_LIMITS,
+  type InterviewFeedback,
+  interviewAnswersSchema,
+  interviewOutputSchema,
+  interviewRequestSchema,
   type LetterOutput,
   letterOutputSchema,
   letterRequestSchema,
@@ -41,13 +51,15 @@ import {
   type CvExperience,
 } from "./schemas";
 import {
+  cleanQuestions,
   cleanVariants,
   experienceProposal,
+  feedbackFromAi,
   linkedinFromAi,
   mergeAdaptation,
 } from "./tools";
 
-// Outils IA du CV (US-25 à US-29, docs/system-design.md §3) : chaque action
+// Outils IA du CV (US-25 à US-30, docs/system-design.md §3) : chaque action
 // revérifie la session, la propriété du CV et les droits ; le crédit est débité sous verrou et
 // rendu en cas d'échec.
 
@@ -376,4 +388,114 @@ export async function updateGeneratedContent(
     .single();
   if (error) return fail("INTERNAL");
   return ok({ updatedAt: data.updated_at });
+}
+
+/** Simulation d'entretien (US-30 c.1) : 8 questions adaptées au CV et au poste visé. */
+export async function startInterview(
+  input: unknown,
+): Promise<ActionResult<{ generationId: string; questions: string[] }>> {
+  const parsed = interviewRequestSchema.extend(base).safeParse(input);
+  if (!parsed.success) return validationError(parsed.error);
+  const user = await getCurrentUser();
+  if (!user) return fail("UNAUTHENTICATED");
+
+  const cv = await getOwnCv(parsed.data.cvId);
+  if (!cv) return fail("NOT_FOUND");
+  const { position, language } = parsed.data;
+
+  const result = await runPaidAiOperation({
+    user,
+    requestId: parsed.data.requestId,
+    operation: "interview",
+    execute: async () => {
+      const { output, usage } = await interviewQuestions(
+        cv.content,
+        position,
+        language,
+      );
+      const questions = cleanQuestions(output.questions);
+      if (!questions) {
+        throw new AiError("AI_INVALID_OUTPUT", "questions", usage);
+      }
+      return { value: questions, usage };
+    },
+    record: (questions) => ({
+      cvId: cv.id,
+      kind: "interview",
+      language,
+      input: { position },
+      output: { questions },
+    }),
+  });
+  if (!result.ok) return result;
+  refresh();
+  return ok({
+    generationId: result.data.generationId!,
+    questions: result.data.value,
+  });
+}
+
+/**
+ * Retour sur les réponses (US-30 c.2, c.3), sans coût : une seule fois par simulation, réponses
+ * et retour conservés avec elle (c.4).
+ */
+export async function submitInterviewAnswers(
+  input: unknown,
+): Promise<ActionResult<{ feedback: InterviewFeedback[] }>> {
+  const parsed = z
+    .object({
+      requestId: z.uuid(),
+      generationId: z.uuid(),
+      answers: interviewAnswersSchema,
+    })
+    .safeParse(input);
+  if (!parsed.success) return validationError(parsed.error);
+  const user = await getCurrentUser();
+  if (!user) return fail("UNAUTHENTICATED");
+
+  const supabase = await createClient();
+  const { data: generation } = await supabase
+    .from("generations")
+    .select("cv_id, language, input, output")
+    .eq("id", parsed.data.generationId)
+    .eq("kind", "interview")
+    .maybeSingle();
+  if (!generation) return fail("NOT_FOUND");
+  const request = generation.input as { position?: string; answers?: unknown };
+  if (request.answers) return fail("CONFLICT");
+  const stored = interviewOutputSchema.safeParse(generation.output);
+  const cv = await getOwnCv(generation.cv_id);
+  if (!stored.success || !cv) return fail("NOT_FOUND");
+
+  const answers = parsed.data.answers.map((answer) => answer.trim());
+  const result = await runFreeAiOperation({
+    user,
+    requestId: parsed.data.requestId,
+    kind: "interview_feedback",
+    execute: async () => {
+      const { output, usage } = await interviewFeedback(
+        cv.content,
+        {
+          position: request.position ?? "",
+          questions: stored.data.questions,
+          answers,
+        },
+        generation.language,
+      );
+      const feedback = feedbackFromAi(answers, output.feedback);
+      if (!feedback) throw new AiError("AI_INVALID_OUTPUT", "feedback", usage);
+      return { value: feedback, usage };
+    },
+    complete: (admin, operationId, feedback, usage) =>
+      admin.rpc("complete_interview_feedback", {
+        p_operation_id: operationId,
+        ...usageParams(usage),
+        p_generation_id: parsed.data.generationId,
+        p_answers: answers,
+        p_feedback: feedback,
+      }),
+  });
+  if (!result.ok) return result;
+  refresh();
+  return ok({ feedback: result.data.value });
 }

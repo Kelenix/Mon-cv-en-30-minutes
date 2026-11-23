@@ -1,14 +1,18 @@
 import { describe, expect, it } from "vitest";
 import {
   GENERATED_LIMITS,
+  INTERVIEW_LIMITS,
+  interviewAnswersSchema,
   letterRequestSchema,
   linkedinOutputSchema,
   wordCount,
 } from "@/features/cv/generated";
 import type { CvContent } from "@/features/cv/schemas";
 import {
+  cleanQuestions,
   cleanVariants,
   experienceProposal,
+  feedbackFromAi,
   linkedinFromAi,
   mergeAdaptation,
 } from "@/features/cv/tools";
@@ -187,5 +191,55 @@ describe("lettre de motivation", () => {
   it("compte les mots de la lettre", () => {
     expect(wordCount("Madame, Monsieur,\n\nJe postule  au poste.")).toBe(6);
     expect(wordCount("   ")).toBe(0);
+  });
+});
+
+describe("simulation d'entretien", () => {
+  const questions = Array.from(
+    { length: 8 },
+    (_, index) => `Question ${index + 1} ?`,
+  );
+
+  it("garde 8 questions distinctes et bornées, sinon la sortie est refusée", () => {
+    expect(
+      cleanQuestions([...questions, "Question 1 ?", "Question 9 ?"]),
+    ).toEqual(questions);
+    expect(
+      cleanQuestions(["Q ".repeat(400), ...questions.slice(1)])?.[0].length,
+    ).toBeLessThanOrEqual(INTERVIEW_LIMITS.question);
+    expect(
+      cleanQuestions([...questions.slice(0, 7), "  ", "Question 1 ?"]),
+    ).toBeNull();
+  });
+
+  it("demande au moins une réponse, de 2 000 caractères au plus", () => {
+    const answers = Array<string>(8).fill("");
+    expect(
+      interviewAnswersSchema.safeParse(answers).error?.issues[0].message,
+    ).toBe("required");
+    answers[2] = "Ma réponse";
+    expect(interviewAnswersSchema.safeParse(answers).success).toBe(true);
+    answers[3] = "a".repeat(INTERVIEW_LIMITS.answer + 1);
+    expect(interviewAnswersSchema.safeParse(answers).success).toBe(false);
+    expect(interviewAnswersSchema.safeParse(["Une seule"]).success).toBe(false);
+  });
+
+  it("donne un retour pour chaque question répondue, et pour elles seules", () => {
+    const answers = ["Réponse 1", "", "Réponse 3", "", "", "", "", ""];
+    const item = (index: number) => ({
+      index,
+      strengths: `Fort ${index}`,
+      improvements: `Mieux ${index}`,
+      example: `Exemple ${index}`,
+    });
+
+    expect(
+      feedbackFromAi(answers, [item(2), item(1), item(0), item(9)]),
+    ).toEqual([item(0), item(2)]);
+    // Retour manquant ou vide pour une question répondue : sortie refusée.
+    expect(feedbackFromAi(answers, [item(0)])).toBeNull();
+    expect(
+      feedbackFromAi(answers, [item(0), { ...item(2), example: " " }]),
+    ).toBeNull();
   });
 });

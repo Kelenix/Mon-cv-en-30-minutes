@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import {
+  BRAND_POINTS,
+  BrandAside,
+  SPLIT_LAYOUT,
+} from "@/components/layout/brand-aside";
 import { requireUser } from "@/features/auth/session";
 import { CreditPackButtons } from "@/features/billing/presentation/offers";
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
@@ -26,16 +31,20 @@ export default async function GenerationPage({
   searchParams,
 }: PageProps<"/[locale]/creer/generation">) {
   const t = await getTranslations("generation");
+  const tHome = await getTranslations("home");
 
   return (
     <div className="container-page py-12 md:py-16">
-      <div className="mx-auto max-w-xl">
-        <h1 className="mb-8 text-[1.75rem] leading-tight font-bold md:text-4xl">
-          {t("title")}
-        </h1>
-        <Suspense fallback={<GenerationSteps current={0} />}>
-          <Generation searchParams={searchParams} />
-        </Suspense>
+      <div className={SPLIT_LAYOUT}>
+        <div>
+          <h1 className="mb-8 text-[1.75rem] leading-tight font-bold md:text-4xl">
+            {t("title")}
+          </h1>
+          <Suspense fallback={<GenerationSteps current={0} />}>
+            <Generation searchParams={searchParams} />
+          </Suspense>
+        </div>
+        <BrandAside points={BRAND_POINTS.map((key) => tHome(key))} />
       </div>
     </div>
   );

@@ -4,6 +4,25 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Modifié
+
+- Tous les écrans en pleine largeur : assistant de création (exemple et récapitulatif des
+  réponses à droite), connexion, bienvenue, génération et pages d'erreur (illustration et atouts
+  à droite), compte et crédits (cartes côte à côte), pages légales (sommaire fixe à gauche).
+
+### Ajouté — Inc-9 : simulation d'entretien
+
+- Onglet « Entretien » : poste visé et langue, 8 questions fréquentes adaptées au CV
+  (2 crédits).
+- Réponses écrites à tout ou partie des questions, puis retour gratuit pour chacune : points
+  forts, points à améliorer, exemple de réponse.
+- Simulations conservées avec le CV et consultables ensuite.
+
+### Sécurité
+
+- Les accroches, adaptations et simulations ne se modifient plus directement en base ; seuls la
+  version LinkedIn et la lettre se corrigent.
+
 ### Ajouté — Inc-8 : LinkedIn et lettre de motivation
 
 - Onglet « LinkedIn » : titre du profil, section Infos et une description par expérience, prêts

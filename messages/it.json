@@ -312,6 +312,9 @@
     "intro": "Rispondi in modo semplice, con parole tue. L'IA scrive e impagina il tuo CV.",
     "progress": "Domanda {current} di {total}",
     "example": "Vedi un esempio",
+    "exampleTitle": "Esempio di risposta",
+    "summaryTitle": "Le tue risposte",
+    "notAnswered": "Nessuna risposta per ora",
     "counter": "{count, number} / {max, number}",
     "jobRequired": "Indica il lavoro che cerchi per continuare.",
     "shortAnswers": "Le tue risposte sono brevi: più dettagli dai (ruoli, mansioni, strumenti, titoli di studio), più preciso sarà il tuo CV.",
@@ -559,7 +562,8 @@
       "preview": "Anteprima",
       "adapt": "Adatta a un'offerta",
       "linkedin": "LinkedIn",
-      "letter": "Lettera di presentazione"
+      "letter": "Lettera di presentazione",
+      "interview": "Colloquio"
     },
     "experience": {
       "button": "Migliora con l'IA — {cost, plural, one {# credito} other {# crediti}}",
@@ -641,6 +645,29 @@
       "copy": "Copia la lettera",
       "words": "{count, plural, one {# parola} other {# parole}}",
       "empty": "La tua lettera apparirà qui, pronta da modificare e copiare."
+    },
+    "interview": {
+      "metaTitle": "Simulazione di colloquio",
+      "title": "Simula un colloquio",
+      "intro": "Indica il ruolo che cerchi: l'IA ti pone 8 domande frequenti adatte a «{title}». Rispondi per iscritto, poi ricevi un riscontro su ogni risposta.",
+      "empty": "Le tue 8 domande appariranno qui, con lo spazio per rispondere.",
+      "position": "Ruolo desiderato",
+      "language": "Lingua del colloquio",
+      "start": "Avvia la simulazione — {cost, plural, one {# credito} other {# crediti}}",
+      "restart": "Nuova simulazione — {cost, plural, one {# credito} other {# crediti}}",
+      "resultTitle": "Colloquio: {position}",
+      "answerHint": "Rispondi per iscritto a tutte o ad alcune domande (al massimo 2.000 caratteri per risposta), poi chiedi il tuo riscontro: è gratuito.",
+      "reviewedHint": "Il tuo riscontro, domanda per domanda. Questa simulazione resta disponibile con il tuo CV.",
+      "questionNumber": "Domanda {number}",
+      "review": "Ottieni il mio riscontro — gratis",
+      "reviewPending": "Analisi delle tue risposte…",
+      "reviewFailed": "Il riscontro non è andato a buon fine. Non è stato addebitato nulla: riprova.",
+      "reviewed": "riscontro ricevuto",
+      "yourAnswer": "La tua risposta",
+      "strengths": "Punti di forza",
+      "improvements": "Da migliorare",
+      "example": "Esempio di risposta",
+      "unanswered": "Nessuna risposta a questa domanda."
     }
   }
 }

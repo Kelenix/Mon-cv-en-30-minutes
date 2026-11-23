@@ -6,6 +6,68 @@
 
 ---
 
+## ADR-033 — Tous les écrans en pleine largeur
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : ui-designer, frontend-engineer), à la demande de l'utilisateur
+- **Contexte** : l'utilisateur refuse tout écran à colonne étroite entourée de vide (accueil,
+  « Mes CV », outils du CV, puis l'assistant de création) ; la règle du design system exemptait
+  encore les formulaires courts.
+- **Décision** :
+  - **Assistant de création** : question à gauche ; à droite, l'exemple de réponse toujours
+    visible et le récapitulatif des 5 réponses (cliquable pour revenir à une question).
+  - **Connexion, bienvenue, génération, page introuvable, erreur, CV introuvable** : contenu à
+    gauche, colonne de la marque à droite (`BrandAside` : illustration officielle et atouts déjà
+    rédigés pour l'accueil), masquée sur mobile.
+  - **Compte** : informations à gauche ; formule et crédits, déconnexion et zone sensible à
+    droite, en cartes. **Crédits et formule** : formule et soldes côte à côte.
+  - **Pages légales** : sommaire fixe à gauche, texte sur toute la largeur restante.
+  - Règle du design system (§4) étendue à tous les écrans ; seules exceptions : fenêtres de
+    dialogue et feuille du CV.
+- **Alternatives écartées** : colonne étroite centrée (convention des formulaires de connexion),
+  refusée par l'utilisateur ; texte légal limité à 75 caractères par ligne (laisse un vide à
+  droite).
+- **Impact** : fonctionnel (faible), visuel (fort)
+
+---
+
+## ADR-032 — Simulation d'entretien (Inc-9)
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : ai-engineer, backend-engineer, frontend-engineer,
+  security-engineer)
+- **Contexte** : US-30 ; IA toujours simulée (clé Anthropic absente).
+- **Décision** :
+  - **Onglet « Entretien »** (`/cv/[id]/entretien`, chemin traduit) : poste visé obligatoire et
+    langue au choix, « Lancer la simulation — 2 crédits » ; 8 questions adaptées au CV et au poste
+    (exactement 8, sinon sortie invalide et crédits rendus).
+  - **Les 8 questions sont listées, chacune avec son champ de réponse** (et non en accordéon comme
+    prévu dans `flows.md`) : tout est visible, sans clic d'ouverture ; même disposition en deux
+    colonnes que les autres outils. Les réponses en cours restent dans la page (une par
+    simulation) et le navigateur prévient avant de la quitter ; elles ne sont enregistrées qu'avec
+    le retour.
+  - **Retour gratuit, journalisé** : opération `interview_feedback` de coût nul
+    (`begin_ai_operation` accepte désormais un coût de 0 : rejeu, limite par minute et coûts de
+    l'appel comme les autres). Un retour par question répondue (points forts, à améliorer,
+    exemple de réponse fondé sur le CV et la réponse, tutoiement) ; un retour incomplet est
+    refusé et peut être redemandé, sans débit.
+  - **Un seul retour par simulation** : `complete_interview_feedback` enregistre réponses
+    (`input`, écrit par le serveur seul) et retour (`output`) en une transaction, `CONFLICT`
+    ensuite. Empêche de rejouer gratuitement l'IA sur une même simulation.
+  - **Correction directe limitée à LinkedIn et à la lettre** (RLS) : accroches, adaptation et
+    entretien restent tels que produits, puisque le serveur les relit.
+  - Message d'échec propre au retour (« Rien n'a été débité ») : `useAiTool` accepte des textes
+    d'erreur sur mesure.
+- **Corrigé en passant** : le test « lisible sur mobile » comptait les onglets masqués dans la
+  barre d'onglets qui défile ; il ne mesure plus que la barre elle-même.
+- **Reporté** : qualité réelle des questions et des retours (jeu de référence) et durées (NFR-02)
+  avec la clé Anthropic.
+- **Impact** : fonctionnel / financier (moyen)
+
+---
+
 ## ADR-031 — Version LinkedIn et lettre de motivation (Inc-8)
 
 - **Date** : 23/11/2026

@@ -88,7 +88,7 @@ function CopyableField({
   );
 }
 
-function LanguageSelect({
+export function LanguageSelect({
   label,
   value,
   onChange,
@@ -121,7 +121,7 @@ function LanguageSelect({
 }
 
 /** Bouton d'envoi et erreur d'un outil payant. */
-function GenerateControls({
+export function GenerateControls({
   label,
   pending,
   error,
@@ -153,15 +153,21 @@ function GenerateControls({
   );
 }
 
+/** Version listée dans l'historique : date et résumé de la demande. */
+type HistoryItem = Pick<
+  Generated<unknown>,
+  "generationId" | "createdAt" | "label"
+>;
+
 /** Versions générées pour ce CV, de la plus récente à la plus ancienne (H20). */
-function History<Output>({
+export function History<Item extends HistoryItem>({
   items,
   current,
   onShow,
 }: {
-  items: Generated<Output>[];
-  current?: Generated<Output>;
-  onShow: (item: Generated<Output>) => void;
+  items: Item[];
+  current?: Item;
+  onShow: (item: Item) => void;
 }) {
   const t = useTranslations("cvTools.generated");
   const format = useFormatter();

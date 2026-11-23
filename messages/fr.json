@@ -312,6 +312,9 @@
     "intro": "Réponds simplement, avec tes mots. L'IA rédige et met en forme ton CV.",
     "progress": "Question {current} sur {total}",
     "example": "Voir un exemple",
+    "exampleTitle": "Exemple de réponse",
+    "summaryTitle": "Tes réponses",
+    "notAnswered": "Pas encore de réponse",
     "counter": "{count, number} / {max, number}",
     "jobRequired": "Indique le métier visé pour continuer.",
     "shortAnswers": "Tes réponses sont courtes : plus tu donnes de détails (postes, missions, outils, diplômes), plus ton CV sera précis.",
@@ -559,7 +562,8 @@
       "preview": "Aperçu",
       "adapt": "Adapter à une offre",
       "linkedin": "LinkedIn",
-      "letter": "Lettre de motivation"
+      "letter": "Lettre de motivation",
+      "interview": "Entretien"
     },
     "experience": {
       "button": "Améliorer avec l'IA — {cost, plural, one {# crédit} other {# crédits}}",
@@ -641,6 +645,29 @@
       "copy": "Copier la lettre",
       "words": "{count, plural, one {# mot} other {# mots}}",
       "empty": "Ta lettre apparaîtra ici, prête à modifier et à copier."
+    },
+    "interview": {
+      "metaTitle": "Simulation d'entretien",
+      "title": "Simuler un entretien",
+      "intro": "Indique le poste visé : l'IA te pose 8 questions fréquentes adaptées à « {title} ». Réponds par écrit, puis reçois un retour sur chaque réponse.",
+      "empty": "Tes 8 questions apparaîtront ici, avec un espace pour répondre.",
+      "position": "Poste visé",
+      "language": "Langue de l'entretien",
+      "start": "Lancer la simulation — {cost, plural, one {# crédit} other {# crédits}}",
+      "restart": "Nouvelle simulation — {cost, plural, one {# crédit} other {# crédits}}",
+      "resultTitle": "Entretien : {position}",
+      "answerHint": "Réponds par écrit à tout ou partie des questions (2 000 caractères au plus par réponse), puis demande ton retour : il est gratuit.",
+      "reviewedHint": "Ton retour, question par question. Cette simulation reste disponible avec ton CV.",
+      "questionNumber": "Question {number}",
+      "review": "Obtenir mon retour — gratuit",
+      "reviewPending": "Analyse de tes réponses…",
+      "reviewFailed": "Le retour n'a pas abouti. Rien n'a été débité : réessaie.",
+      "reviewed": "retour reçu",
+      "yourAnswer": "Ta réponse",
+      "strengths": "Points forts",
+      "improvements": "À améliorer",
+      "example": "Exemple de réponse",
+      "unanswered": "Pas de réponse à cette question."
     }
   }
 }

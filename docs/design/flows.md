@@ -304,7 +304,7 @@ Texte structuré, sommaire ancré, date de mise à jour. Statiques.
 | Adapter à une offre (Inc-7) | Champ annonce ; résultat côte à côte ; mots-clés manquants en badges ; [Appliquer] [Enregistrer comme nouveau CV] |
 | LinkedIn (Inc-8) | Blocs titre / Infos / expériences, chacun avec [Copier] et compteur de caractères |
 | Lettre (Inc-8) | Poste, entreprise, annonce ; lettre modifiable ; [Copier] |
-| Entretien (Inc-9) | 8 questions en accordéon, réponse écrite par question ; [Obtenir mon retour] ; retour par question |
+| Entretien (Inc-9) | Poste et langue à gauche ; à droite, les 8 questions listées, chacune avec son champ de réponse ; [Obtenir mon retour — gratuit] ; puis, par question : réponse, points forts, à améliorer, exemple (ADR-032) |
 | Bandeau de consentement (Inc-11) | Plateforme certifiée Google ; Accepter / Refuser au même niveau ; dans la langue affichée |
 | Langue des contenus (Inc-7 à 9) | Chaque outil affiche « Langue » réglée sur celle du CV, modifiable avant de générer |
 | Vidéo récompensée (Inc-11) | Bouton dans les crédits et la fenêtre §3.8 ; compteur « 2 sur 3 aujourd'hui » |

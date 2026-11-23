@@ -226,6 +226,9 @@ isOneToOne: true
 "complete_cv_generation":
 { Args: { "p_answers": Json,"p_cache_read_tokens": number,"p_content": Json,"p_cost_usd_micros": number,"p_cv_limit"?: number,"p_duration_ms": number,"p_input_tokens": number,"p_language": Database["public"]['Enums']["app_locale"],"p_model": string,"p_operation_id": string,"p_output_tokens": number,"p_replace_cv_id"?: string,"p_title": string }; Returns: string
                            },
+"complete_interview_feedback":
+{ Args: { "p_answers": Json,"p_cache_read_tokens": number,"p_cost_usd_micros": number,"p_duration_ms": number,"p_feedback": Json,"p_generation_id": string,"p_input_tokens": number,"p_model": string,"p_operation_id": string,"p_output_tokens": number }; Returns: undefined
+                           },
 "fail_ai_operation":
 { Args: { "p_cache_read_tokens"?: number,"p_cost_usd_micros"?: number,"p_duration_ms"?: number,"p_error_code": string,"p_input_tokens"?: number,"p_model"?: string,"p_operation_id": string,"p_output_tokens"?: number }; Returns: number
                            },

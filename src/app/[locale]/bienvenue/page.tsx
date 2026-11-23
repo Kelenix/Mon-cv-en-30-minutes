@@ -3,6 +3,11 @@ import { redirect } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import {
+  BRAND_POINTS,
+  BrandAside,
+  SPLIT_LAYOUT,
+} from "@/components/layout/brand-aside";
 import { FormSkeleton } from "@/components/form/form-skeleton";
 import { localizedPath, safeNextPath } from "@/features/auth/paths";
 import { requireUser } from "@/features/auth/session";
@@ -22,19 +27,23 @@ export default async function WelcomePage({
   searchParams,
 }: PageProps<"/[locale]/bienvenue">) {
   const t = await getTranslations("welcome");
+  const tHome = await getTranslations("home");
 
   return (
     <div className="container-page py-12 md:py-16">
-      <div className="mx-auto max-w-md">
-        <h1 className="text-[1.75rem] leading-tight font-bold md:text-4xl">
-          {t("title")}
-        </h1>
-        <p className="mt-3 text-lg text-muted-foreground">{t("subtitle")}</p>
-        <div className="mt-8">
-          <Suspense fallback={<FormSkeleton fields={2} />}>
-            <Welcome searchParams={searchParams} />
-          </Suspense>
+      <div className={SPLIT_LAYOUT}>
+        <div>
+          <h1 className="text-[1.75rem] leading-tight font-bold md:text-4xl">
+            {t("title")}
+          </h1>
+          <p className="mt-3 text-lg text-muted-foreground">{t("subtitle")}</p>
+          <div className="mt-8">
+            <Suspense fallback={<FormSkeleton fields={2} />}>
+              <Welcome searchParams={searchParams} />
+            </Suspense>
+          </div>
         </div>
+        <BrandAside points={BRAND_POINTS.map((key) => tHome(key))} />
       </div>
     </div>
   );

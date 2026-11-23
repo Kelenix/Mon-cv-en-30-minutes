@@ -312,6 +312,9 @@
     "intro": "Answer simply, in your own words. AI writes and formats your CV.",
     "progress": "Question {current} of {total}",
     "example": "See an example",
+    "exampleTitle": "Sample answer",
+    "summaryTitle": "Your answers",
+    "notAnswered": "No answer yet",
     "counter": "{count, number} / {max, number}",
     "jobRequired": "Enter the job you're aiming for to continue.",
     "shortAnswers": "Your answers are short: the more details you give (jobs, tasks, tools, degrees), the more accurate your CV will be.",
@@ -559,7 +562,8 @@
       "preview": "Preview",
       "adapt": "Tailor to a job offer",
       "linkedin": "LinkedIn",
-      "letter": "Cover letter"
+      "letter": "Cover letter",
+      "interview": "Interview"
     },
     "experience": {
       "button": "Improve with AI — {cost, plural, one {# credit} other {# credits}}",
@@ -641,6 +645,29 @@
       "copy": "Copy the letter",
       "words": "{count, plural, one {# word} other {# words}}",
       "empty": "Your letter will appear here, ready to edit and copy."
+    },
+    "interview": {
+      "metaTitle": "Mock interview",
+      "title": "Practise an interview",
+      "intro": "Enter the job you want: AI asks you 8 common questions tailored to “{title}”. Answer in writing, then get feedback on each answer.",
+      "empty": "Your 8 questions will appear here, with room to answer.",
+      "position": "Target job",
+      "language": "Interview language",
+      "start": "Start the mock interview — {cost, plural, one {# credit} other {# credits}}",
+      "restart": "New mock interview — {cost, plural, one {# credit} other {# credits}}",
+      "resultTitle": "Interview: {position}",
+      "answerHint": "Answer all or some of the questions in writing (up to 2,000 characters each), then ask for your feedback: it's free.",
+      "reviewedHint": "Your feedback, question by question. This mock interview stays available with your CV.",
+      "questionNumber": "Question {number}",
+      "review": "Get my feedback — free",
+      "reviewPending": "Reviewing your answers…",
+      "reviewFailed": "The feedback could not be produced. Nothing was charged: try again.",
+      "reviewed": "feedback received",
+      "yourAnswer": "Your answer",
+      "strengths": "Strengths",
+      "improvements": "To improve",
+      "example": "Sample answer",
+      "unanswered": "No answer to this question."
     }
   }
 }

@@ -76,7 +76,7 @@ automatique sur iOS).
 |---------|--------|
 | Unité d'espacement | 4 px (échelle Tailwind) ; sections : 64 px mobile, 96 px ordinateur |
 | Conteneur | 1 200 px maximum (référence d'écran 1 440 px) ; marges latérales 16 px mobile, 24 px tablette, 32 px ordinateur |
-| Largeur du contenu | **Pleine largeur du conteneur, alignée à gauche** : jamais de colonne étroite centrée (`mx-auto max-w-…`) dans une page. Sur ordinateur, l'espace est rempli (outils du CV : formulaire à gauche, résultat à droite, état vide explicite avant le premier résultat). Exceptions : formulaires courts de connexion, fenêtres de dialogue |
+| Largeur du contenu | **Tous les écrans en pleine largeur du conteneur** : aucune colonne étroite (`mx-auto max-w-…`) entourée de vide, formulaires courts compris. Sur ordinateur, une seconde colonne utile occupe l'espace : outils du CV (formulaire / résultat, état vide explicite), assistant (question / exemple et récapitulatif des réponses), compte et crédits (cartes côte à côte), pages légales (sommaire fixe / texte), écrans courts — connexion, bienvenue, génération, pages d'erreur — (contenu / colonne de la marque `BrandAside` : illustration et atouts). Sur mobile, tout s'empile. Exceptions : fenêtres de dialogue et feuille du CV (ADR-033) |
 | Points de rupture | 640, 768, 1024, 1280 px (Tailwind) ; conception mobile d'abord |
 | Rayons | Boutons d'action : pilule (`rounded-full`) ; champs : 12 px ; cartes : 16 px ; boîtes de dialogue : 20 px |
 | Ombres | Carte : `0 8px 24px rgb(15 111 230 / 0.08)` ; survol : `0 12px 32px rgb(15 111 230 / 0.12)` ; carte mise en avant : ombre + bordure `primary` |

@@ -312,6 +312,9 @@
     "intro": "Responde con sencillez, con tus propias palabras. La IA redacta tu CV y le da formato.",
     "progress": "Pregunta {current} de {total}",
     "example": "Ver un ejemplo",
+    "exampleTitle": "Ejemplo de respuesta",
+    "summaryTitle": "Tus respuestas",
+    "notAnswered": "Todavía sin respuesta",
     "counter": "{count, number} / {max, number}",
     "jobRequired": "Indica el puesto al que aspiras para continuar.",
     "shortAnswers": "Tus respuestas son cortas: cuantos más detalles des (puestos, tareas, herramientas, títulos), más preciso será tu CV.",
@@ -559,7 +562,8 @@
       "preview": "Vista previa",
       "adapt": "Adaptar a una oferta",
       "linkedin": "LinkedIn",
-      "letter": "Carta de presentación"
+      "letter": "Carta de presentación",
+      "interview": "Entrevista"
     },
     "experience": {
       "button": "Mejorar con IA — {cost, plural, one {# crédito} other {# créditos}}",
@@ -641,6 +645,29 @@
       "copy": "Copiar la carta",
       "words": "{count, plural, one {# palabra} other {# palabras}}",
       "empty": "Tu carta aparecerá aquí, lista para editar y copiar."
+    },
+    "interview": {
+      "metaTitle": "Simulación de entrevista",
+      "title": "Simular una entrevista",
+      "intro": "Indica el puesto que buscas: la IA te hace 8 preguntas frecuentes adaptadas a «{title}». Responde por escrito y recibe una valoración de cada respuesta.",
+      "empty": "Tus 8 preguntas aparecerán aquí, con espacio para responder.",
+      "position": "Puesto deseado",
+      "language": "Idioma de la entrevista",
+      "start": "Empezar la simulación — {cost, plural, one {# crédito} other {# créditos}}",
+      "restart": "Nueva simulación — {cost, plural, one {# crédito} other {# créditos}}",
+      "resultTitle": "Entrevista: {position}",
+      "answerHint": "Responde por escrito a todas o algunas preguntas (2.000 caracteres como máximo por respuesta) y pide tu valoración: es gratuita.",
+      "reviewedHint": "Tu valoración, pregunta por pregunta. Esta simulación queda disponible con tu CV.",
+      "questionNumber": "Pregunta {number}",
+      "review": "Obtener mi valoración — gratis",
+      "reviewPending": "Analizando tus respuestas…",
+      "reviewFailed": "La valoración no se pudo completar. No se ha cobrado nada: inténtalo de nuevo.",
+      "reviewed": "valoración recibida",
+      "yourAnswer": "Tu respuesta",
+      "strengths": "Puntos fuertes",
+      "improvements": "A mejorar",
+      "example": "Ejemplo de respuesta",
+      "unanswered": "Sin respuesta a esta pregunta."
     }
   }
 }

@@ -269,7 +269,16 @@ test("le CV est rédigé dans la langue choisie et reste lisible sur mobile (US-
   await expect(sheet.getByText("Awa Diallo")).toBeVisible();
   const overflowing = await page.evaluate(() =>
     [...document.querySelectorAll("body *")]
-      .filter((element) => element.getBoundingClientRect().right > 361)
+      .filter((element) => {
+        if (element.getBoundingClientRect().right <= 361) return false;
+        // Dans une zone qui défile horizontalement (onglets), seule la zone compte.
+        for (let box = element.parentElement; box; box = box.parentElement) {
+          if (["auto", "scroll"].includes(getComputedStyle(box).overflowX)) {
+            return box.getBoundingClientRect().right > 361;
+          }
+        }
+        return true;
+      })
       .map((element) => element.tagName),
   );
   expect(overflowing).toEqual([]);

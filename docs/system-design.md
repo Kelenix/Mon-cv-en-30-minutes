@@ -88,8 +88,8 @@ Toutes les actions qui génèrent du texte acceptent `language?` (défaut : lang
 | `applyAdaptation` | `generationId`, `mode` : `replace` \| `new`, `locale` (titre du nouveau CV) | `{ cvId }` (+ `FORBIDDEN` si `new` hors Pro/Premium) | 0 |
 | `generateLinkedin` | `requestId`, `cvId`, `language` | `{ generationId, output: { headline, about, experiences[] } }` (une description par expérience du CV ; 220, 2 600 et 2 000 caractères au plus) | 1 |
 | `generateCoverLetter` | `requestId`, `cvId`, `position` (2 à 120), `company?` (≤ 120), `jobPosting?` (≤ 10 000), `language` | `{ generationId, output: { letter } }` | 2 |
-| `startInterview` | `requestId`, `cvId`, `position` | `{ generationId, questions }` (8) | 2 |
-| `submitInterviewAnswers` | `generationId`, `answers[]` (≤ 2 000 chacune) | `{ feedback }` (+ `CONFLICT` si déjà évalué) | 0 |
+| `startInterview` | `requestId`, `cvId`, `position` (2 à 120), `language` | `{ generationId, questions }` (8) | 2 |
+| `submitInterviewAnswers` | `requestId`, `generationId`, `answers` (8, vides permises, au moins une ; ≤ 2 000 chacune) | `{ feedback }` (une entrée par question répondue ; `CONFLICT` si déjà évalué) | 0 (opération journalisée et limitée) |
 | `updateGeneratedContent` | `generationId`, `output` (revalidé avec le schéma du type ; seuls LinkedIn et lettre se modifient) | `{ updatedAt }` | 0 |
 
 ### Paiements (Inc-6, Inc-11)

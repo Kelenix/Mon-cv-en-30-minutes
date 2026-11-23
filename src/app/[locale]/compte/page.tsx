@@ -28,14 +28,12 @@ export default async function AccountPage() {
 
   return (
     <div className="container-page py-12 md:py-16">
-      <div className="mx-auto max-w-2xl">
-        <h1 className="text-[1.75rem] leading-tight font-bold md:text-4xl">
-          {t("title")}
-        </h1>
-        <Suspense fallback={<FormSkeleton fields={4} />}>
-          <AccountContent />
-        </Suspense>
-      </div>
+      <h1 className="text-[1.75rem] leading-tight font-bold md:text-4xl">
+        {t("title")}
+      </h1>
+      <Suspense fallback={<FormSkeleton fields={4} />}>
+        <AccountContent />
+      </Suspense>
     </div>
   );
 }
@@ -53,51 +51,61 @@ async function AccountContent() {
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <section aria-labelledby="informations" className="mt-10">
-        <h2 id="informations" className="text-xl font-semibold">
-          {t("infoTitle")}
-        </h2>
-        <p className="mt-1 text-muted-foreground">{t("infoHint")}</p>
-        <dl className="mt-6">
-          <dt className="font-medium">{t("email")}</dt>
-          <dd className="mt-1 break-all">{user.email}</dd>
-          <dd className="mt-1 text-sm text-muted-foreground">
-            {t("emailHint")}
-          </dd>
-        </dl>
-        <div className="mt-6">
-          <ProfileForm
-            initialValues={{
-              firstName: profile.first_name ?? "",
-              lastName: profile.last_name ?? "",
-              phone: profile.phone ?? "",
-              city: profile.city ?? "",
-            }}
-          />
+      <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-8">
+        <section
+          aria-labelledby="informations"
+          className="rounded-2xl border border-border p-6 md:p-8"
+        >
+          <h2 id="informations" className="text-xl font-semibold">
+            {t("infoTitle")}
+          </h2>
+          <p className="mt-1 text-muted-foreground">{t("infoHint")}</p>
+          <dl className="mt-6">
+            <dt className="font-medium">{t("email")}</dt>
+            <dd className="mt-1 break-all">{user.email}</dd>
+            <dd className="mt-1 text-sm text-muted-foreground">
+              {t("emailHint")}
+            </dd>
+          </dl>
+          <div className="mt-6">
+            <ProfileForm
+              initialValues={{
+                firstName: profile.first_name ?? "",
+                lastName: profile.last_name ?? "",
+                phone: profile.phone ?? "",
+                city: profile.city ?? "",
+              }}
+            />
+          </div>
+        </section>
+
+        <div className="grid gap-6 lg:gap-8">
+          {wallet ? <PlanAndCredits wallet={wallet} plan={plan} /> : null}
+
+          <form
+            action={signOut}
+            className="rounded-2xl border border-border p-6 md:p-8"
+          >
+            <input type="hidden" name="locale" value={locale} />
+            <SubmitButton variant="outline">
+              <LogOutIcon aria-hidden="true" />
+              {t("signOut")}
+            </SubmitButton>
+          </form>
+
+          <section
+            aria-labelledby="zone-sensible"
+            className="rounded-2xl border border-destructive/30 p-6 md:p-8"
+          >
+            <h2 id="zone-sensible" className="text-xl font-semibold">
+              {t("dangerTitle")}
+            </h2>
+            <div className="mt-4">
+              <DeleteAccountDialog />
+            </div>
+          </section>
         </div>
-      </section>
-
-      {wallet ? <PlanAndCredits wallet={wallet} plan={plan} /> : null}
-
-      <form action={signOut} className="mt-10 border-t border-border pt-8">
-        <input type="hidden" name="locale" value={locale} />
-        <SubmitButton variant="outline">
-          <LogOutIcon aria-hidden="true" />
-          {t("signOut")}
-        </SubmitButton>
-      </form>
-
-      <section
-        aria-labelledby="zone-sensible"
-        className="mt-10 border-t border-border pt-8"
-      >
-        <h2 id="zone-sensible" className="text-xl font-semibold">
-          {t("dangerTitle")}
-        </h2>
-        <div className="mt-4">
-          <DeleteAccountDialog />
-        </div>
-      </section>
+      </div>
     </NextIntlClientProvider>
   );
 }

@@ -312,6 +312,9 @@
     "intro": "Antworte einfach, in deinen eigenen Worten. Die KI schreibt und gestaltet deinen Lebenslauf.",
     "progress": "Frage {current} von {total}",
     "example": "Beispiel anzeigen",
+    "exampleTitle": "Beispielantwort",
+    "summaryTitle": "Deine Antworten",
+    "notAnswered": "Noch keine Antwort",
     "counter": "{count, number} / {max, number}",
     "jobRequired": "Gib den angestrebten Beruf an, um fortzufahren.",
     "shortAnswers": "Deine Antworten sind kurz: Je mehr Details du angibst (Stellen, Aufgaben, Tools, Abschlüsse), desto genauer wird dein Lebenslauf.",
@@ -559,7 +562,8 @@
       "preview": "Vorschau",
       "adapt": "An eine Stelle anpassen",
       "linkedin": "LinkedIn",
-      "letter": "Anschreiben"
+      "letter": "Anschreiben",
+      "interview": "Vorstellungsgespräch"
     },
     "experience": {
       "button": "Mit KI verbessern — {cost, plural, one {# Credit} other {# Credits}}",
@@ -641,6 +645,29 @@
       "copy": "Anschreiben kopieren",
       "words": "{count, plural, one {# Wort} other {# Wörter}}",
       "empty": "Dein Anschreiben erscheint hier, bereit zum Bearbeiten und Kopieren."
+    },
+    "interview": {
+      "metaTitle": "Vorstellungsgespräch üben",
+      "title": "Vorstellungsgespräch üben",
+      "intro": "Gib die gewünschte Stelle an: Die KI stellt dir 8 häufige Fragen, passend zu „{title}“. Antworte schriftlich und erhalte dann Feedback zu jeder Antwort.",
+      "empty": "Deine 8 Fragen erscheinen hier, mit Platz für deine Antworten.",
+      "position": "Gewünschte Stelle",
+      "language": "Sprache des Gesprächs",
+      "start": "Simulation starten — {cost, plural, one {# Credit} other {# Credits}}",
+      "restart": "Neue Simulation — {cost, plural, one {# Credit} other {# Credits}}",
+      "resultTitle": "Vorstellungsgespräch: {position}",
+      "answerHint": "Beantworte alle oder einige Fragen schriftlich (höchstens 2.000 Zeichen pro Antwort) und fordere dann dein Feedback an: Es ist kostenlos.",
+      "reviewedHint": "Dein Feedback, Frage für Frage. Diese Simulation bleibt bei deinem Lebenslauf gespeichert.",
+      "questionNumber": "Frage {number}",
+      "review": "Mein Feedback erhalten — kostenlos",
+      "reviewPending": "Deine Antworten werden ausgewertet …",
+      "reviewFailed": "Das Feedback konnte nicht erstellt werden. Es wurde nichts abgebucht: Versuche es erneut.",
+      "reviewed": "Feedback erhalten",
+      "yourAnswer": "Deine Antwort",
+      "strengths": "Stärken",
+      "improvements": "Verbesserungspotenzial",
+      "example": "Beispielantwort",
+      "unanswered": "Keine Antwort auf diese Frage."
     }
   }
 }
