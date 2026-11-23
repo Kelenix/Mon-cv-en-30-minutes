@@ -447,7 +447,8 @@
     "title": "Meine Lebensläufe",
     "create": "Lebenslauf erstellen",
     "empty": "Du hast noch keinen Lebenslauf. Beantworte 5 Fragen, um deinen ersten zu erstellen.",
-    "updated": "Geändert am {date}"
+    "updated": "Geändert am {date}",
+    "open": "Öffnen"
   },
   "upsell": {
     "title": "Mehr aus deinem Lebenslauf machen",

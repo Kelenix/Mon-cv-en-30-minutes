@@ -10,6 +10,7 @@ import { type CvContent, cvContentSchema } from "./schemas";
 export type CvSummary = {
   id: string;
   title: string;
+  language: AppLocale;
   updatedAt: string;
   proUnlocked: boolean;
 };
@@ -19,13 +20,14 @@ export const listOwnCvs = cache(async (): Promise<CvSummary[]> => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cvs")
-    .select("id, title, updated_at, pro_unlocked_at")
+    .select("id, title, language, updated_at, pro_unlocked_at")
     .order("updated_at", { ascending: false })
     .order("id", { ascending: false });
   if (error) throw error;
   return data.map((cv) => ({
     id: cv.id,
     title: cv.title,
+    language: cv.language,
     updatedAt: cv.updated_at,
     proUnlocked: cv.pro_unlocked_at !== null,
   }));

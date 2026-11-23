@@ -447,7 +447,8 @@
     "title": "I miei CV",
     "create": "Crea un CV",
     "empty": "Non hai ancora un CV. Rispondi a 5 domande per creare il primo.",
-    "updated": "Modificato il {date}"
+    "updated": "Modificato il {date}",
+    "open": "Apri"
   },
   "upsell": {
     "title": "Fai di più con il tuo CV",
