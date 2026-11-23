@@ -381,6 +381,7 @@
     "edit": "Edit: {section}",
     "done": "Finish editing: {section}",
     "copy": "Copy text",
+    "copyShort": "Copy",
     "copied": "Copied",
     "copyFailed": "Couldn't copy: select the CV text to copy it.",
     "counter": "{count, number} / {max, number}",
@@ -556,7 +557,9 @@
     "tabs": {
       "label": "CV tools",
       "preview": "Preview",
-      "adapt": "Tailor to a job offer"
+      "adapt": "Tailor to a job offer",
+      "linkedin": "LinkedIn",
+      "letter": "Cover letter"
     },
     "experience": {
       "button": "Improve with AI — {cost, plural, one {# credit} other {# credits}}",
@@ -596,7 +599,48 @@
       "previewLabel": "Tailored CV preview",
       "historyTitle": "Previous tailorings",
       "show": "Show",
-      "newTitle": "{title} — tailored"
+      "newTitle": "{title} — tailored",
+      "empty": "Your adapted CV and the missing keywords will appear here."
+    },
+    "generated": {
+      "counter": "{count, number} / {max, number}",
+      "pending": "Writing…",
+      "historyTitle": "Previous versions",
+      "show": "Show",
+      "justNow": "Just now"
+    },
+    "linkedin": {
+      "metaTitle": "LinkedIn version",
+      "title": "My LinkedIn version",
+      "intro": "AI turns “{title}” into texts ready to paste on your LinkedIn profile: headline, About section and experiences, without making anything up.",
+      "language": "Language of the LinkedIn version",
+      "generate": "Generate my LinkedIn version — {cost, plural, one {# credit} other {# credits}}",
+      "regenerate": "Generate a new version — {cost, plural, one {# credit} other {# credits}}",
+      "resultTitle": "Your LinkedIn texts",
+      "headline": "Profile headline",
+      "copyHeadline": "Copy the profile headline",
+      "about": "About",
+      "copyAbout": "Copy the About section",
+      "experiences": "Experience",
+      "copyExperience": "Copy the description of “{name}”",
+      "untitled": "Untitled experience",
+      "empty": "Your LinkedIn texts will appear here, ready to copy."
+    },
+    "letter": {
+      "metaTitle": "Cover letter",
+      "title": "My cover letter",
+      "intro": "Enter the job you want: AI writes a letter based on “{title}”, without making anything up.",
+      "position": "Target job",
+      "company": "Company (optional)",
+      "posting": "Job posting (optional)",
+      "postingHint": "Paste the posting for a letter that answers what the employer expects.",
+      "language": "Language of the letter",
+      "generate": "Write my letter — {cost, plural, one {# credit} other {# credits}}",
+      "resultTitle": "Your letter",
+      "letter": "Cover letter",
+      "copy": "Copy the letter",
+      "words": "{count, plural, one {# word} other {# words}}",
+      "empty": "Your letter will appear here, ready to edit and copy."
     }
   }
 }

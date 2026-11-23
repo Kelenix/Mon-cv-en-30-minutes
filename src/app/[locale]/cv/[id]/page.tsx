@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { buttonVariants } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
 import {
   CreditPackButtons,
@@ -10,6 +9,7 @@ import {
 } from "@/features/billing/presentation/offers";
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
 import { getActivePlan } from "@/features/billing/subscription";
+import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
 import { CvTabs } from "@/features/cv/presentation/cv-tabs";
 import { CvWorkspace } from "@/features/cv/presentation/cv-workspace";
 import { UpsellCard } from "@/features/cv/presentation/upsell-card";
@@ -17,7 +17,6 @@ import { getOwnCv, listGenerations } from "@/features/cv/repository";
 import { PLANS, type PlanTier } from "@/features/plans/catalog";
 import { canExportWithoutWatermark } from "@/features/plans/entitlements";
 import { pickClientMessages } from "@/i18n/client-messages";
-import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("cvEditor");
@@ -54,24 +53,8 @@ async function CvLoader({
   const locale = await getLocale();
   await requireUser(locale, "/cv");
   const cv = await getOwnCv(id);
-  const t = await getTranslations("cvEditor");
 
-  // CV absent ou d'un autre compte (la RLS le rend introuvable).
-  if (!cv) {
-    return (
-      <div className="mx-auto grid max-w-xl gap-6 py-10">
-        <h1 className="text-[1.75rem] leading-tight font-bold">
-          {t("notFound")}
-        </h1>
-        <Link
-          href="/cv"
-          className={buttonVariants({ className: "justify-self-start" })}
-        >
-          {t("myCvs")}
-        </Link>
-      </div>
-    );
-  }
+  if (!cv) return <CvNotFound />;
 
   // Intitulés des rubriques dans la langue du CV, quelle que soit celle de l'interface (US-42).
   const sections = await getTranslations({
@@ -93,13 +76,15 @@ async function CvLoader({
   ]);
   const exportUnlocked = canExportWithoutWatermark(plan, cv.proUnlocked);
   const nextPlan = plan ? NEXT_PLAN[plan] : null;
+  // Colonne des offres seulement s'il y a quelque chose à proposer (sinon, pleine largeur).
+  const hasOffers = !exportUnlocked || plan === null || nextPlan !== null;
   const tPlans = await getTranslations("plans");
   const tUpsell = await getTranslations("upsell");
 
   return (
     <NextIntlClientProvider messages={messages}>
       {query.paiement === "ok" || query.paiement === "annule" ? (
-        <div className="mx-auto mb-6 max-w-[52rem]">
+        <div className="mb-6">
           <PaymentReturn
             outcome={query.paiement}
             sessionId={
@@ -111,7 +96,13 @@ async function CvLoader({
           />
         </div>
       ) : null}
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] xl:items-start">
+      <div
+        className={
+          hasOffers
+            ? "grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] xl:items-start"
+            : "grid gap-6"
+        }
+      >
         <div className="min-w-0">
           <CvTabs cvId={cv.id} current="preview" />
           <CvWorkspace
@@ -134,23 +125,25 @@ async function CvLoader({
             }}
           />
         </div>
-        <div className="grid gap-6 xl:sticky xl:top-6">
-          {exportUnlocked ? null : <CvProOffer cvId={cv.id} />}
-          {plan === null ? <UpsellCard /> : null}
-          {plan && nextPlan ? (
-            <UpsellCard
-              upgrade={{
-                title: tUpsell("upgradeTitle", {
-                  plan: tPlans(`names.${nextPlan}`),
-                }),
-                text: tUpsell("upgradeText", {
-                  count: PLANS[nextPlan].monthlyCredits,
-                  current: PLANS[plan].monthlyCredits,
-                }),
-              }}
-            />
-          ) : null}
-        </div>
+        {hasOffers ? (
+          <div className="grid gap-6 xl:sticky xl:top-6">
+            {exportUnlocked ? null : <CvProOffer cvId={cv.id} />}
+            {plan === null ? <UpsellCard /> : null}
+            {plan && nextPlan ? (
+              <UpsellCard
+                upgrade={{
+                  title: tUpsell("upgradeTitle", {
+                    plan: tPlans(`names.${nextPlan}`),
+                  }),
+                  text: tUpsell("upgradeText", {
+                    count: PLANS[nextPlan].monthlyCredits,
+                    current: PLANS[plan].monthlyCredits,
+                  }),
+                }}
+              />
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </NextIntlClientProvider>
   );
@@ -158,7 +151,7 @@ async function CvLoader({
 
 function SheetSkeleton() {
   return (
-    <div aria-hidden="true" className="mx-auto grid w-full max-w-[52rem] gap-4">
+    <div aria-hidden="true" className="grid w-full gap-4">
       <div className="h-16 rounded-xl bg-surface motion-safe:animate-pulse" />
       <div className="aspect-[210/297] rounded-sm bg-surface motion-safe:animate-pulse" />
     </div>

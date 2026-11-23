@@ -6,6 +6,47 @@
 
 ---
 
+## ADR-031 — Version LinkedIn et lettre de motivation (Inc-8)
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : ai-engineer, backend-engineer, frontend-engineer,
+  security-engineer)
+- **Contexte** : US-28, US-29, H20, H21 ; IA toujours simulée (clé Anthropic absente).
+- **Décision** :
+  - **Deux onglets du CV** : « LinkedIn » (`/cv/[id]/linkedin`) et « Lettre de motivation »
+    (`/cv/[id]/lettre`, chemin traduit), sur le modèle de « Adapter à une offre ».
+  - **LinkedIn** : l'IA renvoie le titre, la section Infos et une description par expérience,
+    désignée par son identifiant ; le serveur reconstruit le résultat à partir du CV
+    (`linkedinFromAi`) : une entrée par expérience du CV, poste et entreprise repris du CV,
+    expérience inventée écartée, description oubliée remplacée par les puces du CV, limites de
+    LinkedIn appliquées (220, 2 600, 2 000 caractères). Première personne, sans hashtag ni emoji.
+  - **Lettre** : poste obligatoire (2 à 120 caractères), entreprise et annonce facultatives ;
+    250 à 400 mots demandés à l'IA, sans en-tête d'adresse ni date ni champ à compléter, signée du
+    nom du CV ; le nombre de mots est affiché sans être imposé (l'utilisateur peut raccourcir).
+  - **Langue au choix** pour les deux (défaut : langue du CV, US-42 c.4).
+  - **Modifiable et conservé (H20, H21)** : chaque version est enregistrée dans `generations` ;
+    les corrections partent automatiquement (`updateGeneratedContent`, gratuite), revalidées
+    par le serveur avec le schéma du type (seuls LinkedIn et lettre sont modifiables). Les
+    5 dernières versions restent consultables ; changer de version envoie d'abord la correction
+    en attente.
+  - **Copie bloc par bloc** : un bouton « Copier » par texte, dont le nom accessible précise le
+    bloc et contient le texte affiché (WCAG 2.5.3).
+  - Essential : la lettre se paie en crédits achetés (US-09 c.2), LinkedIn aussi en crédits
+    inclus, selon la matrice.
+- **Mise en page en pleine largeur** (demande de l'utilisateur) : plus aucune colonne étroite
+  centrée dans les pages du CV. Onglets et outils occupent toute la largeur ; sur ordinateur,
+  formulaire et versions à gauche (2/5), résultat à droite (3/5) avec un état vide explicite
+  (`ToolLayout`) ; l'aperçu du CV remplit la colonne principale et la colonne des offres
+  disparaît quand il n'y a rien à proposer. Règle ajoutée au design system (§4).
+- **Corrigé en passant** : l'historique de « Adapter à une offre » débordait sur mobile (texte sur
+  une ligne) ; les intitulés passent désormais à la ligne (2 lignes au plus) ; « 10 000 » ne se
+  coupe plus en fin de ligne.
+- **Reporté** : qualité réelle des textes et durées (NFR-02) avec la clé Anthropic.
+- **Impact** : fonctionnel (moyen)
+
+---
+
 ## ADR-030 — Choix de réalisation des outils d'amélioration par l'IA (Inc-7)
 
 - **Date** : 23/11/2026

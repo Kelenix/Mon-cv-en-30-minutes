@@ -1,7 +1,7 @@
 # Sécurité — Mon CV en 30 Secondes (version Web)
 
 > Rôle : security-engineer. Mis à jour à chaque incrément qui touche l'authentification, les
-> données, les paiements ou un service tiers. Dernière revue : Inc-7 (outils IA), 23/11/2026.
+> données, les paiements ou un service tiers. Dernière revue : Inc-8 (LinkedIn, lettre), 23/11/2026.
 
 ## 1. Ce qui est protégé
 
@@ -55,6 +55,8 @@
 | Abonnement qui continue après la suppression du compte | Client Stripe supprimé avant le compte ; suppression refusée si Stripe échoue | Revue de code |
 | Consigne cachée dans une annonce (« ignore les instructions… ») | Annonce encadrée et échappée, déclarée comme donnée ; CV adapté reconstruit par le serveur à partir de l'original : aucune expérience, compétence ou formation ajoutée | `tests/unit/cv-tools.test.ts` |
 | Contenus générés d'un autre compte | RLS sur `generations` (lecture et correction du texte de ses seuls contenus) ; création réservée au serveur, rattachée à un CV du même compte | `tests/db/generations.test.ts` |
+| Correction forgée d'un contenu généré (texte géant, autre type) | `updateGeneratedContent` revalide le texte avec le schéma du type (limites de LinkedIn, 10 000 caractères pour une lettre) ; adaptation, accroche et entretien non modifiables | `tests/unit/cv-tools.test.ts`, `tests/e2e/linkedin-lettre.spec.ts` |
+| Version LinkedIn hors du CV (consigne cachée, expérience inventée) | Résultat reconstruit par le serveur à partir du CV : postes et entreprises du CV seulement | `tests/unit/cv-tools.test.ts` |
 | Nouveau CV hors formule (requête forgée) | `applyAdaptation` en mode `new` refusé (`FORBIDDEN`) sans Pro ni Premium | Revue de code |
 | Clickjacking, détection de type, fuite de référent | En-têtes : `frame-ancestors 'none'`, HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy` | `next.config.ts` |
 

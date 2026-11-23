@@ -10,6 +10,8 @@ import {
   validationError,
 } from "@/core/action-result";
 import {
+  coverLetter,
+  linkedinProfile,
   adaptToJob as writeAdaptation,
   improveExperience as writeExperience,
   summaryVariants,
@@ -23,6 +25,14 @@ import { localeSchema } from "@/i18n/locale-schema";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { clip } from "./content";
+import {
+  GENERATED_LIMITS,
+  type LetterOutput,
+  letterOutputSchema,
+  letterRequestSchema,
+  type LinkedinOutput,
+  linkedinOutputSchema,
+} from "./generated";
 import { getOwnCv } from "./repository";
 import {
   CV_LIMITS,
@@ -30,9 +40,14 @@ import {
   cvContentSchema,
   type CvExperience,
 } from "./schemas";
-import { cleanVariants, experienceProposal, mergeAdaptation } from "./tools";
+import {
+  cleanVariants,
+  experienceProposal,
+  linkedinFromAi,
+  mergeAdaptation,
+} from "./tools";
 
-// Outils d'amélioration par l'IA (US-25 à US-27, docs/system-design.md §3) : chaque action
+// Outils IA du CV (US-25 à US-29, docs/system-design.md §3) : chaque action
 // revérifie la session, la propriété du CV et les droits ; le crédit est débité sous verrou et
 // rendu en cas d'échec.
 
@@ -236,4 +251,129 @@ export async function applyAdaptation(
     .single();
   if (error) return fail("INTERNAL");
   return ok({ cvId: created.id });
+}
+
+/** Version LinkedIn (US-28) : titre, section Infos, une description par expérience. */
+export async function generateLinkedin(
+  input: unknown,
+): Promise<ActionResult<{ generationId: string; output: LinkedinOutput }>> {
+  const parsed = z.object({ ...base, language: localeSchema }).safeParse(input);
+  if (!parsed.success) return validationError(parsed.error);
+  const user = await getCurrentUser();
+  if (!user) return fail("UNAUTHENTICATED");
+
+  const cv = await getOwnCv(parsed.data.cvId);
+  if (!cv) return fail("NOT_FOUND");
+  const { language } = parsed.data;
+
+  const result = await runPaidAiOperation({
+    user,
+    requestId: parsed.data.requestId,
+    operation: "linkedin",
+    execute: async () => {
+      const { output, usage } = await linkedinProfile(cv.content, language);
+      return { value: linkedinFromAi(cv.content, output), usage };
+    },
+    record: (output) => ({
+      cvId: cv.id,
+      kind: "linkedin",
+      language,
+      output,
+    }),
+  });
+  if (!result.ok) return result;
+  refresh();
+  return ok({
+    generationId: result.data.generationId!,
+    output: result.data.value,
+  });
+}
+
+/** Lettre de motivation (US-29), conservée avec le CV et modifiable (H20, H21). */
+export async function generateCoverLetter(
+  input: unknown,
+): Promise<ActionResult<{ generationId: string; output: LetterOutput }>> {
+  const parsed = letterRequestSchema.extend(base).safeParse(input);
+  if (!parsed.success) return validationError(parsed.error);
+  const user = await getCurrentUser();
+  if (!user) return fail("UNAUTHENTICATED");
+
+  const cv = await getOwnCv(parsed.data.cvId);
+  if (!cv) return fail("NOT_FOUND");
+  const { position, language } = parsed.data;
+  const company = parsed.data.company || undefined;
+  const jobPosting = parsed.data.jobPosting || undefined;
+
+  const result = await runPaidAiOperation({
+    user,
+    requestId: parsed.data.requestId,
+    operation: "coverLetter",
+    execute: async () => {
+      const { output, usage } = await coverLetter(
+        cv.content,
+        { position, company, jobPosting },
+        language,
+      );
+      const letter = clip(output.letter, GENERATED_LIMITS.letter);
+      if (!letter) throw new AiError("AI_INVALID_OUTPUT", "empty", usage);
+      return { value: { letter }, usage };
+    },
+    record: (output) => ({
+      cvId: cv.id,
+      kind: "cover_letter",
+      language,
+      input: {
+        position,
+        company: company ?? null,
+        jobPosting: jobPosting ?? null,
+      },
+      output,
+    }),
+  });
+  if (!result.ok) return result;
+  refresh();
+  return ok({
+    generationId: result.data.generationId!,
+    output: result.data.value,
+  });
+}
+
+const EDITABLE = {
+  linkedin: linkedinOutputSchema,
+  cover_letter: letterOutputSchema,
+} as const;
+
+/** Corrections de l'utilisateur sur une version LinkedIn ou une lettre (gratuit, sous la RLS). */
+export async function updateGeneratedContent(
+  input: unknown,
+): Promise<ActionResult<{ updatedAt: string }>> {
+  const parsed = z
+    .object({ generationId: z.uuid(), output: z.unknown() })
+    .safeParse(input);
+  if (!parsed.success) return validationError(parsed.error);
+  const user = await getCurrentUser();
+  if (!user) return fail("UNAUTHENTICATED");
+
+  const supabase = await createClient();
+  const { data: generation } = await supabase
+    .from("generations")
+    .select("kind")
+    .eq("id", parsed.data.generationId)
+    .maybeSingle();
+  if (!generation) return fail("NOT_FOUND");
+  if (!(generation.kind in EDITABLE)) return fail("VALIDATION_ERROR");
+
+  const output = EDITABLE[generation.kind as keyof typeof EDITABLE].safeParse(
+    parsed.data.output,
+  );
+  if (!output.success) return validationError(output.error);
+
+  const { data, error } = await supabase
+    .from("generations")
+    .update({ output: output.data })
+    .eq("id", parsed.data.generationId)
+    .select("updated_at")
+    .single();
+  if (error) return fail("INTERNAL");
+  return ok({ updatedAt: data.updated_at });
 }

@@ -381,6 +381,7 @@
     "edit": "Modificar: {section}",
     "done": "Terminar de modificar: {section}",
     "copy": "Copiar el texto",
+    "copyShort": "Copiar",
     "copied": "Copiado",
     "copyFailed": "No se ha podido copiar: selecciona el texto del CV para copiarlo.",
     "counter": "{count, number} / {max, number}",
@@ -556,7 +557,9 @@
     "tabs": {
       "label": "Herramientas del CV",
       "preview": "Vista previa",
-      "adapt": "Adaptar a una oferta"
+      "adapt": "Adaptar a una oferta",
+      "linkedin": "LinkedIn",
+      "letter": "Carta de presentación"
     },
     "experience": {
       "button": "Mejorar con IA — {cost, plural, one {# crédito} other {# créditos}}",
@@ -596,7 +599,48 @@
       "previewLabel": "Vista previa del CV adaptado",
       "historyTitle": "Adaptaciones anteriores",
       "show": "Mostrar",
-      "newTitle": "{title} — adaptado"
+      "newTitle": "{title} — adaptado",
+      "empty": "Tu CV adaptado y las palabras clave que faltan aparecerán aquí."
+    },
+    "generated": {
+      "counter": "{count, number} / {max, number}",
+      "pending": "Redactando…",
+      "historyTitle": "Versiones anteriores",
+      "show": "Mostrar",
+      "justNow": "Ahora mismo"
+    },
+    "linkedin": {
+      "metaTitle": "Versión LinkedIn",
+      "title": "Mi versión LinkedIn",
+      "intro": "La IA convierte «{title}» en textos listos para pegar en tu perfil de LinkedIn: titular, sección Acerca de y experiencias, sin inventar nada.",
+      "language": "Idioma de la versión LinkedIn",
+      "generate": "Generar mi versión LinkedIn — {cost, plural, one {# crédito} other {# créditos}}",
+      "regenerate": "Generar una nueva versión — {cost, plural, one {# crédito} other {# créditos}}",
+      "resultTitle": "Tus textos de LinkedIn",
+      "headline": "Titular del perfil",
+      "copyHeadline": "Copiar el titular del perfil",
+      "about": "Acerca de",
+      "copyAbout": "Copiar la sección Acerca de",
+      "experiences": "Experiencia",
+      "copyExperience": "Copiar la descripción de «{name}»",
+      "untitled": "Experiencia sin título",
+      "empty": "Tus textos de LinkedIn aparecerán aquí, listos para copiar."
+    },
+    "letter": {
+      "metaTitle": "Carta de presentación",
+      "title": "Mi carta de presentación",
+      "intro": "Indica el puesto que buscas: la IA redacta una carta a partir de «{title}», sin inventar nada.",
+      "position": "Puesto deseado",
+      "company": "Empresa (opcional)",
+      "posting": "Oferta (opcional)",
+      "postingHint": "Pega la oferta para una carta que responda a lo que se espera del puesto.",
+      "language": "Idioma de la carta",
+      "generate": "Redactar mi carta — {cost, plural, one {# crédito} other {# créditos}}",
+      "resultTitle": "Tu carta",
+      "letter": "Carta de presentación",
+      "copy": "Copiar la carta",
+      "words": "{count, plural, one {# palabra} other {# palabras}}",
+      "empty": "Tu carta aparecerá aquí, lista para editar y copiar."
     }
   }
 }

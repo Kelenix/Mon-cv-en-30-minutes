@@ -1,4 +1,4 @@
-import { EyeIcon, TargetIcon } from "lucide-react";
+import { EyeIcon, IdCardIcon, MailIcon, TargetIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 const TABS = [
   { key: "preview", pathname: "/cv/[id]", Icon: EyeIcon },
   { key: "adapt", pathname: "/cv/[id]/adapter", Icon: TargetIcon },
+  { key: "linkedin", pathname: "/cv/[id]/linkedin", Icon: IdCardIcon },
+  { key: "letter", pathname: "/cv/[id]/lettre", Icon: MailIcon },
 ] as const;
 
 /** Onglets d'un CV (docs/design/flows.md §3.6) : aperçu, puis outils IA (Inc-7 à Inc-9). */
@@ -19,7 +21,7 @@ export function CvTabs({
   const t = useTranslations("cvTools.tabs");
 
   return (
-    <nav aria-label={t("label")} className="mx-auto mb-4 w-full max-w-[52rem]">
+    <nav aria-label={t("label")} className="mb-4 w-full">
       {/* Trait de base dessiné à l'intérieur de la liste : l'onglet actif le recouvre sans
           déborder (aucun ascenseur vertical). */}
       <ul className="flex gap-1 overflow-x-auto shadow-[inset_0_-1px_0_var(--color-border)]">

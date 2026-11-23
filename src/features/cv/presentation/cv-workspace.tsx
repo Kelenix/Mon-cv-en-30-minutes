@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  AlertCircleIcon,
-  CheckIcon,
-  CopyIcon,
-  Loader2Icon,
-  PencilIcon,
-  RotateCcwIcon,
-} from "lucide-react";
+import { CheckIcon, PencilIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { type ReactNode, useEffect, useId, useRef, useState } from "react";
+import { type ReactNode, useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { AppLocale } from "@/i18n/routing";
 import { updateCv } from "../actions";
@@ -29,133 +22,11 @@ import {
   HeaderView,
   LanguagesView,
 } from "./cv-views";
+import { CopyButton, SaveIndicator, useAutosave } from "./editing";
 import { ExportButtons } from "./export-buttons";
 import { ImproveExperience, ImproveSummary } from "./improve-tools";
 
-type SaveStatus = "idle" | "saving" | "saved" | "error" | "invalid";
 type SectionKey = "header" | keyof CvSectionTitles;
-
-/**
- * Enregistrement automatique 1 s après la dernière modification (docs/system-design.md §7) ;
- * les envois partent dans l'ordre, et seule la dernière modification fixe l'indicateur.
- */
-function useAutosave(cvId: string) {
-  const [status, setStatus] = useState<SaveStatus>("idle");
-  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const queue = useRef(Promise.resolve());
-  const latest = useRef(0);
-
-  // Avertissement du navigateur si l'on quitte la page avant l'enregistrement.
-  const unsaved = status !== "idle" && status !== "saved";
-  useEffect(() => {
-    if (!unsaved) return;
-    const warn = (event: BeforeUnloadEvent) => event.preventDefault();
-    window.addEventListener("beforeunload", warn);
-    return () => window.removeEventListener("beforeunload", warn);
-  }, [unsaved]);
-
-  function save(content: CvContent, delay = 1_000) {
-    clearTimeout(timer.current);
-    const attempt = ++latest.current;
-    if (!cvContentSchema.safeParse(content).success) {
-      setStatus("invalid");
-      return;
-    }
-    // « Enregistrement… » dès la modification : jamais « Enregistré » tant qu'un envoi attend.
-    setStatus("saving");
-    timer.current = setTimeout(() => {
-      queue.current = queue.current.then(async () => {
-        const result = await updateCv({ cvId, content }).catch(() => null);
-        if (attempt === latest.current) {
-          setStatus(result?.ok ? "saved" : "error");
-        }
-      });
-    }, delay);
-  }
-
-  return { status, save };
-}
-
-function SaveIndicator({
-  status,
-  onRetry,
-}: {
-  status: SaveStatus;
-  onRetry: () => void;
-}) {
-  const t = useTranslations("cvEditor.status");
-  return (
-    <div className="flex min-h-11 items-center gap-2 text-sm">
-      <p role="status" className="flex items-center gap-1.5">
-        {status === "saving" ? (
-          <>
-            <Loader2Icon
-              aria-hidden="true"
-              className="size-4 motion-safe:animate-spin"
-            />
-            {t("saving")}
-          </>
-        ) : status === "saved" ? (
-          <>
-            <CheckIcon aria-hidden="true" className="size-4 text-success" />
-            {t("saved")}
-          </>
-        ) : status === "error" || status === "invalid" ? (
-          <span className="flex items-center gap-1.5 font-medium text-destructive">
-            <AlertCircleIcon aria-hidden="true" className="size-4" />
-            {t(status)}
-          </span>
-        ) : null}
-      </p>
-      {status === "error" ? (
-        <Button variant="ghost" onClick={onRetry}>
-          <RotateCcwIcon aria-hidden="true" />
-          {t("retry")}
-        </Button>
-      ) : null}
-    </div>
-  );
-}
-
-function CopyButton({ getText }: { getText: () => string }) {
-  const t = useTranslations("cvEditor");
-  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
-
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(getText());
-      setState("copied");
-    } catch {
-      setState("failed");
-    }
-    setTimeout(() => setState("idle"), 3_000);
-  }
-
-  return (
-    <>
-      <Button variant="outline" onClick={() => void copy()}>
-        {state === "copied" ? (
-          <CheckIcon aria-hidden="true" />
-        ) : (
-          <CopyIcon aria-hidden="true" />
-        )}
-        {state === "copied" ? t("copied") : t("copy")}
-      </Button>
-      <p
-        role="status"
-        className={
-          state === "failed" ? "basis-full text-sm text-destructive" : "sr-only"
-        }
-      >
-        {state === "copied"
-          ? t("copied")
-          : state === "failed"
-            ? t("copyFailed")
-            : ""}
-      </p>
-    </>
-  );
-}
 
 /** Rubrique de la feuille : intitulé, bouton de modification, puis lecture ou saisie. */
 function Section({
@@ -261,9 +132,11 @@ export function CvWorkspace({
   const uiLocale = useLocale();
   const [content, setContent] = useState(initialContent);
   const [editing, setEditing] = useState<SectionKey | null>(null);
-  const { status, save } = useAutosave(cvId);
   // Exports et outils IA lisent le CV enregistré : inactifs tant qu'une modification attend.
-  const saved = status === "idle" || status === "saved";
+  const { status, save, saved } = useAutosave(
+    (value: CvContent) => updateCv({ cvId, content: value }),
+    (value) => cvContentSchema.safeParse(value).success,
+  );
 
   function change(next: CvContent) {
     setContent(next);
@@ -280,7 +153,7 @@ export function CvWorkspace({
   );
 
   return (
-    <div className="mx-auto grid w-full max-w-[52rem] min-w-0 gap-4">
+    <div className="grid w-full min-w-0 gap-4">
       <div className="sticky top-0 z-10 -mx-4 flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border bg-background/95 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-xl sm:border">
         <h1 className="w-full min-w-0 truncate text-lg font-bold sm:me-auto sm:w-auto md:text-xl">
           {title}

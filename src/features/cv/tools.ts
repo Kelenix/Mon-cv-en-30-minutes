@@ -1,8 +1,9 @@
-import type { AiAdaptation } from "@/features/ai/cv-tools-writer";
+import type { AiAdaptation, AiLinkedin } from "@/features/ai/cv-tools-writer";
 import { clip } from "./content";
+import { GENERATED_LIMITS, type LinkedinOutput } from "./generated";
 import { CV_LIMITS, type CvContent, type CvExperience } from "./schemas";
 
-// Résultats des outils IA ramenés au contenu du CV (US-25 à US-27) : limites appliquées et,
+// Résultats des outils IA ramenés au contenu du CV (US-25 à US-28) : limites appliquées et,
 // pour l'adaptation, garantie qu'aucune expérience ni compétence n'est ajoutée (US-27 c.3),
 // quelle que soit la sortie de l'IA (y compris sous l'effet d'une consigne cachée).
 
@@ -77,4 +78,28 @@ export function mergeAdaptation(original: CvContent, ai: AiAdaptation) {
     skills: orderedSkills,
   };
   return { content, missingKeywords };
+}
+
+/** Version LinkedIn (US-28) : limites de LinkedIn, une description par expérience du CV. */
+export function linkedinFromAi(
+  original: CvContent,
+  ai: AiLinkedin,
+): LinkedinOutput {
+  const descriptions = new Map(
+    ai.experiences.map((item) => [item.id, item.description]),
+  );
+  return {
+    headline: clip(ai.headline, GENERATED_LIMITS.headline),
+    about: clip(ai.about, GENERATED_LIMITS.about),
+    experiences: original.experiences.map((item) => ({
+      id: item.id,
+      role: item.role,
+      company: item.company,
+      // Description vide ou oubliée par l'IA : les puces du CV, à reprendre par l'utilisateur.
+      description: clip(
+        descriptions.get(item.id)?.trim() || item.bullets.join("\n"),
+        GENERATED_LIMITS.experience,
+      ),
+    })),
+  };
 }

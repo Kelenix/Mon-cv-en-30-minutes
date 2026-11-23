@@ -381,6 +381,7 @@
     "edit": "Bearbeiten: {section}",
     "done": "Bearbeitung beenden: {section}",
     "copy": "Text kopieren",
+    "copyShort": "Kopieren",
     "copied": "Kopiert",
     "copyFailed": "Kopieren nicht möglich: Markiere den Text des Lebenslaufs, um ihn zu kopieren.",
     "counter": "{count, number} / {max, number}",
@@ -556,7 +557,9 @@
     "tabs": {
       "label": "Lebenslauf-Werkzeuge",
       "preview": "Vorschau",
-      "adapt": "An eine Stelle anpassen"
+      "adapt": "An eine Stelle anpassen",
+      "linkedin": "LinkedIn",
+      "letter": "Anschreiben"
     },
     "experience": {
       "button": "Mit KI verbessern — {cost, plural, one {# Credit} other {# Credits}}",
@@ -596,7 +599,48 @@
       "previewLabel": "Vorschau des angepassten Lebenslaufs",
       "historyTitle": "Frühere Anpassungen",
       "show": "Anzeigen",
-      "newTitle": "{title} — angepasst"
+      "newTitle": "{title} — angepasst",
+      "empty": "Dein angepasster Lebenslauf und die fehlenden Schlüsselwörter erscheinen hier."
+    },
+    "generated": {
+      "counter": "{count, number} / {max, number}",
+      "pending": "Wird geschrieben …",
+      "historyTitle": "Frühere Versionen",
+      "show": "Anzeigen",
+      "justNow": "Gerade eben"
+    },
+    "linkedin": {
+      "metaTitle": "LinkedIn-Version",
+      "title": "Meine LinkedIn-Version",
+      "intro": "Die KI macht aus „{title}“ Texte, die du direkt in dein LinkedIn-Profil einfügen kannst: Profilslogan, Info-Bereich und Berufserfahrung, ohne etwas zu erfinden.",
+      "language": "Sprache der LinkedIn-Version",
+      "generate": "Meine LinkedIn-Version erstellen — {cost, plural, one {# Credit} other {# Credits}}",
+      "regenerate": "Neue Version erstellen — {cost, plural, one {# Credit} other {# Credits}}",
+      "resultTitle": "Deine LinkedIn-Texte",
+      "headline": "Profilslogan",
+      "copyHeadline": "Profilslogan kopieren",
+      "about": "Info",
+      "copyAbout": "Info-Bereich kopieren",
+      "experiences": "Berufserfahrung",
+      "copyExperience": "Beschreibung von „{name}“ kopieren",
+      "untitled": "Erfahrung ohne Titel",
+      "empty": "Deine LinkedIn-Texte erscheinen hier, bereit zum Kopieren."
+    },
+    "letter": {
+      "metaTitle": "Anschreiben",
+      "title": "Mein Anschreiben",
+      "intro": "Gib die gewünschte Stelle an: Die KI schreibt ein Anschreiben auf Basis von „{title}“, ohne etwas zu erfinden.",
+      "position": "Gewünschte Stelle",
+      "company": "Unternehmen (optional)",
+      "posting": "Stellenanzeige (optional)",
+      "postingHint": "Füge die Anzeige ein, damit das Anschreiben auf die Anforderungen der Stelle eingeht.",
+      "language": "Sprache des Anschreibens",
+      "generate": "Mein Anschreiben schreiben — {cost, plural, one {# Credit} other {# Credits}}",
+      "resultTitle": "Dein Anschreiben",
+      "letter": "Anschreiben",
+      "copy": "Anschreiben kopieren",
+      "words": "{count, plural, one {# Wort} other {# Wörter}}",
+      "empty": "Dein Anschreiben erscheint hier, bereit zum Bearbeiten und Kopieren."
     }
   }
 }

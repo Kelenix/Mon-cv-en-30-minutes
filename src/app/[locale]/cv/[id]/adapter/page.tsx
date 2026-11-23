@@ -3,7 +3,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { FormSkeleton } from "@/components/form/form-skeleton";
-import { buttonVariants } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
 import { CreditPackButtons } from "@/features/billing/presentation/offers";
 import { getActivePlan } from "@/features/billing/subscription";
@@ -12,12 +11,12 @@ import {
   type Adaptation,
   AdaptTool,
 } from "@/features/cv/presentation/adapt-tool";
+import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
 import { CvTabs } from "@/features/cv/presentation/cv-tabs";
 import { getOwnCv, listGenerations } from "@/features/cv/repository";
 import type { CvContent } from "@/features/cv/schemas";
 import { planEntitlements } from "@/features/plans/entitlements";
 import { pickClientMessages } from "@/i18n/client-messages";
-import { Link } from "@/i18n/navigation";
 import { type AppLocale, routing } from "@/i18n/routing";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -65,21 +64,7 @@ async function AdaptLoader({
   const cv = await getOwnCv(id);
   const t = await getTranslations();
 
-  if (!cv) {
-    return (
-      <div className="mx-auto grid max-w-xl gap-6 py-10">
-        <h1 className="text-[1.75rem] leading-tight font-bold">
-          {t("cvEditor.notFound")}
-        </h1>
-        <Link
-          href="/cv"
-          className={buttonVariants({ className: "justify-self-start" })}
-        >
-          {t("cvEditor.myCvs")}
-        </Link>
-      </div>
-    );
-  }
+  if (!cv) return <CvNotFound />;
 
   const [plan, generations, sectionTitles, messages] = await Promise.all([
     getActivePlan(),
@@ -113,7 +98,7 @@ async function AdaptLoader({
   return (
     <NextIntlClientProvider messages={messages}>
       <CvTabs cvId={cv.id} current="adapt" />
-      <div className="mx-auto grid w-full max-w-[52rem] gap-2">
+      <div className="grid gap-2">
         <h1 className="text-[1.75rem] leading-tight font-bold md:text-3xl">
           {t("cvTools.adapt.title")}
         </h1>

@@ -5,10 +5,10 @@
 
 ## Snapshot
 
-- **Phase courante** : 4 — Implémentation (Inc-7 terminé ; vérification Stripe réelle en attente des clés)
+- **Phase courante** : 4 — Implémentation (Inc-8 terminé ; vérification Stripe réelle en attente des clés)
 - **Dernière mise à jour** : 23/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : Inc-8 (LinkedIn et lettre de motivation). En attente côté utilisateur :
+- **Prochaine action** : Inc-9 (simulation d'entretien). En attente côté utilisateur :
   tâche 4 (clés Stripe de test) pour vérifier les paiements avec Stripe, tâche 3 (clé Anthropic)
   pour mesurer la qualité réelle de l'IA (jeu de référence, NFR-02). Noms de marque traduits utilisés tels que
   proposés tant que la tâche 12 n'est pas faite.
@@ -25,7 +25,7 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-7 ✅ (jalon M2 ; M3 en attente des clés Stripe) |
+| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-8 ✅ (jalon M2 ; M3 en attente des clés Stripe) |
 | 5 — Qualité                 | ⬜ à faire | |
 | 6 — Mise en production      | ⬜ à faire | |
 | 7 — Documentation           | ⬜ à faire | |
@@ -48,7 +48,7 @@ Taille relative : S / M / L / XL.
 | Inc-5 | Exports PDF / DOCX | US-16, 17 | Inc-4 | M | M2 | ✅ (US-17 c.1 vérifié avec un CV Pro posé en test ; achat et abonnements à l'Inc-6) |
 | Inc-6 | Paiements | US-18 à 23, US-38 (CGV) | Inc-3, Inc-5, clés Stripe test | XL | M3 | ✅ code et tests ; vérification avec Stripe réel dès la tâche 4 (US-38 c.3 : CGV déjà rédigées à l'Inc-1) |
 | Inc-7 | Amélioration IA | US-25, 26, 27 | Inc-6 | L | M4 | ✅ (IA simulée ; US-25 c.3, US-27 c.5 et NFR-02 à mesurer avec la clé) |
-| Inc-8 | LinkedIn + lettre de motivation | US-28, 29 | Inc-6 | M | M4 | ⬜ |
+| Inc-8 | LinkedIn + lettre de motivation | US-28, 29 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-9 | Simulation d'entretien | US-30 | Inc-6 | M | M4 | ⬜ |
 | Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ⬜ |
 | Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ⬜ |
@@ -106,6 +106,15 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 23/11/2026 — **Inc-8 terminé** : onglets « LinkedIn » et « Lettre de motivation » ; version
+  LinkedIn (titre, Infos, une description par expérience, limites de LinkedIn, reconstruite à
+  partir du CV) et lettre (poste obligatoire, entreprise et annonce facultatives, nombre de mots),
+  langue au choix, textes modifiables avec enregistrement automatique, copie bloc par bloc,
+  versions conservées ; outils d'édition partagés avec l'éditeur du CV ; pages du CV en pleine
+  largeur (formulaire à gauche, résultat à droite) ; historique de l'adaptation corrigé sur
+  mobile ; 5 langues. Vérifié : lint, types, tests unitaires, base,
+  build, bout en bout. ADR-031.
 
 - 23/11/2026 — **Inc-7 terminé** : contenus générés conservés avec le CV (RLS), appel à Claude et
   opération payante mis en commun, amélioration d'une expérience (avant / après), 3 ou 5

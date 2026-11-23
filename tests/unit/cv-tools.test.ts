@@ -1,8 +1,15 @@
 import { describe, expect, it } from "vitest";
+import {
+  GENERATED_LIMITS,
+  letterRequestSchema,
+  linkedinOutputSchema,
+  wordCount,
+} from "@/features/cv/generated";
 import type { CvContent } from "@/features/cv/schemas";
 import {
   cleanVariants,
   experienceProposal,
+  linkedinFromAi,
   mergeAdaptation,
 } from "@/features/cv/tools";
 
@@ -98,5 +105,87 @@ describe("amélioration d'une expérience et de l'accroche", () => {
       "B",
       "C",
     ]);
+  });
+});
+
+describe("version LinkedIn", () => {
+  it("garde une description par expérience du CV, sans expérience inventée", () => {
+    const output = linkedinFromAi(CV, {
+      headline: "Comptable | Excel | SAP ".repeat(20),
+      about: "Je suis comptable.",
+      experiences: [
+        { id: "kpmg", description: "  Rapprochements bancaires.  " },
+        { id: "inventee", description: "Directrice financière chez Google" },
+      ],
+    });
+
+    expect(output.headline.length).toBeLessThanOrEqual(
+      GENERATED_LIMITS.headline,
+    );
+    expect(output.about).toBe("Je suis comptable.");
+    // Poste et entreprise viennent du CV ; l'ordre aussi.
+    expect(output.experiences).toEqual([
+      {
+        id: "fidal",
+        role: "Comptable",
+        company: "Fidal",
+        // Description oubliée par l'IA : les puces du CV.
+        description: "Tenue de la comptabilité",
+      },
+      {
+        id: "kpmg",
+        role: "Assistante comptable",
+        company: "KPMG",
+        description: "Rapprochements bancaires.",
+      },
+    ]);
+    expect(linkedinOutputSchema.safeParse(output).success).toBe(true);
+  });
+
+  it("refuse une modification qui dépasse les limites de LinkedIn", () => {
+    const output = linkedinFromAi(CV, {
+      headline: "Comptable",
+      about: "",
+      experiences: [],
+    });
+    expect(
+      linkedinOutputSchema.safeParse({
+        ...output,
+        about: "a".repeat(GENERATED_LIMITS.about + 1),
+      }).success,
+    ).toBe(false);
+  });
+});
+
+describe("lettre de motivation", () => {
+  it("exige le poste visé ; entreprise et annonce sont facultatives", () => {
+    const request = letterRequestSchema.safeParse({
+      position: "  Comptable  ",
+      company: "",
+      jobPosting: "",
+      language: "fr",
+    });
+    expect(request.success && request.data.position).toBe("Comptable");
+
+    const missing = letterRequestSchema.safeParse({
+      position: " ",
+      language: "fr",
+    });
+    expect(missing.error?.issues[0]).toMatchObject({
+      path: ["position"],
+      message: "required",
+    });
+    expect(
+      letterRequestSchema.safeParse({
+        position: "Comptable",
+        jobPosting: "a".repeat(GENERATED_LIMITS.jobPosting + 1),
+        language: "fr",
+      }).success,
+    ).toBe(false);
+  });
+
+  it("compte les mots de la lettre", () => {
+    expect(wordCount("Madame, Monsieur,\n\nJe postule  au poste.")).toBe(6);
+    expect(wordCount("   ")).toBe(0);
   });
 });

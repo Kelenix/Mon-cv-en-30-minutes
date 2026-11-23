@@ -209,6 +209,20 @@ Première connexion sans nom : « Comment t'appelles-tu ? » Prénom [__] Nom [_
 
 Mobile : barre d'actions fixe en bas (Copier, PDF, Plus…), panneau sous le CV.
 Les outils IA (Inc-7 à Inc-9) s'ajoutent en onglets ; ils n'apparaissent pas avant d'exister.
+Toute la page est en pleine largeur ; sans offre à proposer (Premium, CV débloqué), le CV
+occupe toute la largeur.
+
+Onglets des outils (« Adapter à une offre », « LinkedIn », « Lettre de motivation ») :
+
+```
+┌ Formulaire (2/5) ─────────────┐ ┌ Résultat (3/5) ───────────────────────────────┐
+│ Champs, langue                │ │ Avant la 1re génération : cadre pointillé     │
+│ [Générer — n crédits]         │ │ « Tes textes … apparaîtront ici. »            │
+│ Versions précédentes          │ │ Ensuite : textes modifiables, [Copier]        │
+└───────────────────────────────┘ └───────────────────────────────────────────────┘
+```
+
+Mobile : formulaire puis résultat, l'un sous l'autre (pas de cadre vide).
 
 - Chargement : squelette de la feuille A4.
 - Vide : sans objet (un CV a toujours un contenu) ; section vide → « Ajoute une expérience ».

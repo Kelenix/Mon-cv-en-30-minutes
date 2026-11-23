@@ -4,6 +4,24 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-8 : LinkedIn et lettre de motivation
+
+- Onglet « LinkedIn » : titre du profil, section Infos et une description par expérience, prêts
+  à coller, dans les limites de LinkedIn (1 crédit).
+- Onglet « Lettre de motivation » : poste visé, entreprise et annonce facultatives, lettre de
+  250 à 400 mots sans rien inventer, nombre de mots affiché (2 crédits).
+- Textes modifiables, enregistrés automatiquement, copiables bloc par bloc ; versions
+  précédentes consultables depuis le CV ; langue au choix.
+
+### Modifié
+
+- Pages du CV en pleine largeur : aperçu, onglets et outils alignés à gauche ; sur ordinateur,
+  formulaire à gauche et résultat à droite.
+
+### Corrigé
+
+- L'historique de « Adapter à une offre » ne déborde plus de l'écran sur mobile.
+
 ### Ajouté — Inc-7 : amélioration par l'IA
 
 - « Améliorer avec l'IA » sous chaque expérience : avant / après, puis Remplacer ou Garder
