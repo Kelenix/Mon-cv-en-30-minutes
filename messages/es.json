@@ -279,7 +279,8 @@
       "invalidCode": "Código no válido o caducado.",
       "invalidPhone": "Introduce un número de teléfono válido.",
       "invalidConfirmation": "La palabra introducida no coincide.",
-      "tooMany": "Demasiados elementos."
+      "tooMany": "Demasiados elementos.",
+      "tooShort": "Este texto es demasiado corto."
     },
     "INSUFFICIENT_CREDITS": "No tienes suficientes créditos para esta acción.",
     "CV_LIMIT_REACHED": "Tu plan conserva un número limitado de CV: elige cuál sustituir.",
@@ -363,11 +364,6 @@
     "editAnswers": "Modificar mis respuestas",
     "seeOffers": "Ver los planes",
     "cancel": "Cancelar",
-    "credits": {
-      "title": "Te {missing, plural, one {falta # crédito} other {faltan # créditos}}",
-      "description": "Generar un CV cuesta {cost, plural, one {# crédito} other {# créditos}}. Tu saldo: {balance, plural, one {# crédito} other {# créditos}}.",
-      "upgrade": "Pasarme a Pro"
-    },
     "replace": {
       "title": "¿Sustituir un CV?",
       "description": "Tu plan conserva {limit, plural, one {# CV} other {# CV}}. El nuevo CV sustituirá a:",
@@ -539,5 +535,68 @@
       "unlock": "Desbloquear este CV"
     },
     "pricingCvPro": "Se desbloquea desde la vista previa de tu CV."
+  },
+  "creditsDialog": {
+    "title": "Te {missing, plural, one {falta # crédito} other {faltan # créditos}}",
+    "description": "{operation} cuesta {cost, plural, one {# crédito} other {# créditos}}. Tu saldo: {balance, plural, one {# crédito} other {# créditos}}.",
+    "purchasedOnly": "Con Essential, esta función se paga con créditos comprados. Recarga para usarla o pásate a Pro para pagarla con tus créditos incluidos.",
+    "upgrade": "Pasarme a Pro",
+    "cancel": "Cancelar",
+    "operations": {
+      "generateCv": "Generar un CV",
+      "improveExperience": "Mejorar una experiencia",
+      "improveSummary": "Mejorar el perfil",
+      "adaptToJob": "Adaptar el CV a una oferta",
+      "linkedin": "Crear una versión para LinkedIn",
+      "interview": "Simular una entrevista",
+      "coverLetter": "Generar una carta de presentación"
+    }
+  },
+  "cvTools": {
+    "tabs": {
+      "label": "Herramientas del CV",
+      "preview": "Vista previa",
+      "adapt": "Adaptar a una oferta"
+    },
+    "experience": {
+      "button": "Mejorar con IA — {cost, plural, one {# crédito} other {# créditos}}",
+      "title": "Experiencia mejorada",
+      "before": "Antes",
+      "after": "Después",
+      "charged": "El crédito se consume tanto si la sustituyes como si no.",
+      "keep": "Conservar el original",
+      "replace": "Sustituir"
+    },
+    "summary": {
+      "button": "Mejorar el perfil — {cost, plural, one {# crédito} other {# créditos}}",
+      "history": "Propuestas ({count})",
+      "title": "Elige tu perfil",
+      "previous": "Propuestas anteriores",
+      "choose": "Usar este perfil",
+      "cancel": "Cancelar"
+    },
+    "adapt": {
+      "metaTitle": "Adaptar a una oferta",
+      "title": "Adaptar mi CV a una oferta",
+      "intro": "Pega una oferta: la IA destaca lo que importa para este puesto en «{title}», sin inventar nada.",
+      "postingLabel": "Texto de la oferta",
+      "postingHint": "Pega la oferta completa (funciones, perfil buscado, competencias): de 50 a 10.000 caracteres.",
+      "counter": "{count, number} / {max, number}",
+      "languageLabel": "Idioma del CV adaptado",
+      "submit": "Adaptar — {cost, plural, one {# crédito} other {# créditos}}",
+      "pending": "Adaptación en curso…",
+      "resultTitle": "Tu CV adaptado",
+      "missingTitle": "Palabras clave de la oferta que faltan en tu CV",
+      "missingHint": "Añádelas solo si de verdad corresponden a tu trayectoria.",
+      "noMissing": "Tu CV ya incluye las palabras clave importantes de la oferta.",
+      "apply": "Aplicar a este CV",
+      "saveAsNew": "Guardar como nuevo CV",
+      "saveAsNewLocked": "Con Pro o Premium, conserva cada versión adaptada como un nuevo CV.",
+      "seeOffers": "Ver los planes",
+      "previewLabel": "Vista previa del CV adaptado",
+      "historyTitle": "Adaptaciones anteriores",
+      "show": "Mostrar",
+      "newTitle": "{title} — adaptado"
+    }
   }
 }

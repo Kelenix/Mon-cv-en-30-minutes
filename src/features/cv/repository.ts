@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import type { AppLocale } from "@/i18n/routing";
+import type { Database } from "@/lib/supabase/database.types";
 import { createClient } from "@/lib/supabase/server";
 import { type CvContent, cvContentSchema } from "./schemas";
 
@@ -60,4 +61,22 @@ export async function getOwnCv(id: string): Promise<Cv | null> {
     content: cvContentSchema.parse(data.content),
     proUnlocked: data.pro_unlocked_at !== null,
   };
+}
+
+/** Derniers contenus générés d'un type pour un CV (H20), du plus récent au plus ancien. */
+export async function listGenerations(
+  cvId: string,
+  kind: Database["public"]["Enums"]["generation_kind"],
+  limit = 5,
+) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("generations")
+    .select("id, language, input, output, created_at")
+    .eq("cv_id", cvId)
+    .eq("kind", kind)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return data;
 }

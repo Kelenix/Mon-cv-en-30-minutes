@@ -279,7 +279,8 @@
       "invalidCode": "Codice non valido o scaduto.",
       "invalidPhone": "Inserisci un numero di telefono valido.",
       "invalidConfirmation": "La parola inserita non corrisponde.",
-      "tooMany": "Troppi elementi."
+      "tooMany": "Troppi elementi.",
+      "tooShort": "Questo testo è troppo breve."
     },
     "INSUFFICIENT_CREDITS": "Non hai abbastanza crediti per questa azione.",
     "CV_LIMIT_REACHED": "Il tuo piano conserva un numero limitato di CV: scegli quale sostituire.",
@@ -363,11 +364,6 @@
     "editAnswers": "Modifica le mie risposte",
     "seeOffers": "Vedi le offerte",
     "cancel": "Annulla",
-    "credits": {
-      "title": "Ti {missing, plural, one {manca # credito} other {mancano # crediti}}",
-      "description": "Generare un CV costa {cost, plural, one {# credito} other {# crediti}}. Il tuo saldo: {balance, plural, one {# credito} other {# crediti}}.",
-      "upgrade": "Passa a Pro"
-    },
     "replace": {
       "title": "Sostituire un CV?",
       "description": "Il tuo piano conserva {limit, plural, one {# CV} other {# CV}}. Il nuovo CV sostituirà:",
@@ -539,5 +535,68 @@
       "unlock": "Sblocca questo CV"
     },
     "pricingCvPro": "Da sbloccare dall'anteprima del tuo CV."
+  },
+  "creditsDialog": {
+    "title": "Ti {missing, plural, one {manca # credito} other {mancano # crediti}}",
+    "description": "{operation} costa {cost, plural, one {# credito} other {# crediti}}. Il tuo saldo: {balance, plural, one {# credito} other {# crediti}}.",
+    "purchasedOnly": "Con Essential, questa funzione si paga con i crediti acquistati. Ricarica per usarla, oppure passa a Pro per pagarla con i crediti inclusi.",
+    "upgrade": "Passa a Pro",
+    "cancel": "Annulla",
+    "operations": {
+      "generateCv": "Generare un CV",
+      "improveExperience": "Migliorare un'esperienza",
+      "improveSummary": "Migliorare il profilo",
+      "adaptToJob": "Adattare il CV a un'offerta",
+      "linkedin": "Creare una versione LinkedIn",
+      "interview": "Simulare un colloquio",
+      "coverLetter": "Generare una lettera di presentazione"
+    }
+  },
+  "cvTools": {
+    "tabs": {
+      "label": "Strumenti del CV",
+      "preview": "Anteprima",
+      "adapt": "Adatta a un'offerta"
+    },
+    "experience": {
+      "button": "Migliora con l'IA — {cost, plural, one {# credito} other {# crediti}}",
+      "title": "Esperienza migliorata",
+      "before": "Prima",
+      "after": "Dopo",
+      "charged": "Il credito viene usato in ogni caso, che tu sostituisca o no.",
+      "keep": "Mantieni l'originale",
+      "replace": "Sostituisci"
+    },
+    "summary": {
+      "button": "Migliora il profilo — {cost, plural, one {# credito} other {# crediti}}",
+      "history": "Proposte ({count})",
+      "title": "Scegli il tuo profilo",
+      "previous": "Proposte precedenti",
+      "choose": "Usa questo profilo",
+      "cancel": "Annulla"
+    },
+    "adapt": {
+      "metaTitle": "Adatta a un'offerta",
+      "title": "Adatta il mio CV a un'offerta",
+      "intro": "Incolla un annuncio: l'IA mette in risalto ciò che conta per questo ruolo in «{title}», senza inventare nulla.",
+      "postingLabel": "Testo dell'annuncio",
+      "postingHint": "Incolla l'annuncio completo (mansioni, profilo ricercato, competenze): da 50 a 10.000 caratteri.",
+      "counter": "{count, number} / {max, number}",
+      "languageLabel": "Lingua del CV adattato",
+      "submit": "Adatta — {cost, plural, one {# credito} other {# crediti}}",
+      "pending": "Adattamento in corso…",
+      "resultTitle": "Il tuo CV adattato",
+      "missingTitle": "Parole chiave dell'annuncio assenti dal tuo CV",
+      "missingHint": "Aggiungile solo se corrispondono davvero al tuo percorso.",
+      "noMissing": "Il tuo CV contiene già le parole chiave importanti dell'annuncio.",
+      "apply": "Applica a questo CV",
+      "saveAsNew": "Salva come nuovo CV",
+      "saveAsNewLocked": "Con Pro o Premium, conserva ogni versione adattata come nuovo CV.",
+      "seeOffers": "Vedi le offerte",
+      "previewLabel": "Anteprima del CV adattato",
+      "historyTitle": "Adattamenti precedenti",
+      "show": "Mostra",
+      "newTitle": "{title} — adattato"
+    }
   }
 }

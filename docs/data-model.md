@@ -229,6 +229,7 @@ Fonctions `SECURITY DEFINER` avec `search_path` vide ; `execute` retiré à `pub
 | `fail_ai_operation(operation_id, error_code, model, tokens…)` | Rembourse une seule fois et marque l'opération échouée | Inc-4 |
 | `fulfill_purchase(user_id, product, session_id, amount_cents, currency, terms_accepted_at, credits, cv_id)` | Enregistre l'achat une seule fois par session de paiement, puis ajoute les crédits, débloque le CV Pro ou retire les publicités | Inc-6 |
 | `sync_subscription(user_id, subscription_id, plan, interval, status, monthly_credits, trial_credits, period_end, cancel_at_period_end, trial_ends_at)` | État relu chez Stripe : essai (crédits d'essai, essai consommé), début ou fin d'essai (quota), montée (quota immédiat), fin (inclus à zéro), date de prochaine remise | Inc-6 |
+| `complete_ai_operation(operation_id, model, tokens…, cv_id, kind, language, input, output)` | Fin réussie d'une opération IA (hors génération de CV) : coûts journalisés et, le cas échéant, contenu conservé avec le CV du même compte | Inc-7 |
 | `run_monthly_grants()` | Pour chaque abonnement `active` ou `past_due` dont `next_credit_grant_at <= now()` : remise au quota, prochaine date + 1 mois | Inc-6 |
 | `run_daily_maintenance()` | Efface les IP hachées de plus de 30 jours et les événements Stripe de plus de 90 jours ; rembourse les opérations IA restées « en cours » plus de 15 minutes (les jetons expirés s'ajoutent à l'Inc-11) | Inc-6 |
 
@@ -265,7 +266,7 @@ Les contraintes `unique` (`stripe_checkout_session_id`, `provider_subscription_i
 | Inc-3 | `credits` | Énumérations, `credit_wallets`, `credit_ledger`, `ai_operations`, fonctions de crédits, `handle_new_user` complété |
 | Inc-4 | `cvs` | Table `cvs`, RLS, index, fonctions de génération |
 | Inc-6 | `billing` | `subscriptions`, `purchases`, `stripe_events`, `fulfill_purchase`, `sync_subscription`, `pg_cron`, `run_monthly_grants`, `run_daily_maintenance` |
-| Inc-7 | `generations` | Table `generations`, RLS |
+| Inc-7 | `generations` | Table `generations`, RLS, `complete_ai_operation` |
 | Inc-11 | `ads` | `reward_tokens` |
 
 Chaque migration est rejouable depuis zéro (`npm run db:reset`) et vérifiée en CI.

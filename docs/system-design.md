@@ -74,16 +74,18 @@ IA idempotentes (un double clic ou un rejeu ne débite qu'une fois).
 
 ### Outils IA (Inc-7 à Inc-9)
 
-Toutes : `UNAUTHENTICATED`, `VALIDATION_ERROR`, `NOT_FOUND`, `FEATURE_LOCKED`,
-`INSUFFICIENT_CREDITS`, `RATE_LIMITED`, `AI_UNAVAILABLE`, `AI_INVALID_OUTPUT`.
+Toutes : `UNAUTHENTICATED`, `VALIDATION_ERROR`, `NOT_FOUND`, `INSUFFICIENT_CREDITS` (avec
+`cost`, `missing` et `purchasedOnly` pour Essential), `RATE_LIMITED` (dont une demande rejouée),
+`AI_UNAVAILABLE`, `AI_INVALID_OUTPUT`. Aucune fonction n'est fermée par la matrice : tout se paie
+au moins en crédits achetés (ADR-030).
 Toutes les actions qui génèrent du texte acceptent `language?` (défaut : langue du CV, H30).
 
 | Action | Entrée | Sortie | Coût |
 |--------|--------|--------|------|
-| `improveExperience` | `requestId`, `cvId`, `experienceId` | `{ proposal }` (expérience réécrite) | 1 |
+| `improveExperience` | `requestId`, `cvId`, `experienceId` (avec au moins une mission) | `{ proposal }` (puces réécrites) | 1 |
 | `improveSummary` | `requestId`, `cvId` | `{ generationId, variants }` (3 ou 5) | 1 |
-| `adaptToJob` | `requestId`, `cvId`, `jobPosting` (50 à 10 000) | `{ generationId, adaptedContent, missingKeywords }` | 2 |
-| `applyAdaptation` | `generationId`, `mode` : `replace` \| `new` | `{ cvId }` (+ `FORBIDDEN` si `new` hors Pro/Premium) | 0 |
+| `adaptToJob` | `requestId`, `cvId`, `jobPosting` (50 à 10 000), `language` | `{ generationId, content, missingKeywords }` | 2 |
+| `applyAdaptation` | `generationId`, `mode` : `replace` \| `new`, `locale` (titre du nouveau CV) | `{ cvId }` (+ `FORBIDDEN` si `new` hors Pro/Premium) | 0 |
 | `generateLinkedin` | `requestId`, `cvId` | `{ generationId, headline, about, experiences }` | 1 |
 | `generateCoverLetter` | `requestId`, `cvId`, `position` (2 à 120), `company?`, `jobPosting?` | `{ generationId, letter }` | 2 |
 | `startInterview` | `requestId`, `cvId`, `position` | `{ generationId, questions }` (8) | 2 |

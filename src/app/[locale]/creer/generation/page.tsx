@@ -50,7 +50,7 @@ async function Generation({
     searchParams,
     listOwnCvs(),
     getActivePlan(),
-    pickClientMessages(["generation", "errors", "billing"]),
+    pickClientMessages(["generation", "errors", "billing", "creditsDialog"]),
   ]);
   const screen = (
     <GenerationScreen

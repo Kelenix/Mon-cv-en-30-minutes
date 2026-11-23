@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { createCheckoutSession } from "../actions";
-import type { CheckoutItem } from "../stripe-mapping";
+import type { CheckoutItem, ReturnTo } from "../stripe-mapping";
 
 /**
  * Lance un paiement Stripe Checkout : redirection vers Stripe, ou vers la connexion pour un
@@ -19,7 +19,7 @@ export function useCheckout() {
   const [redirecting, setRedirecting] = useState(false);
   const [error, setError] = useState<string>();
 
-  function start(item: CheckoutItem, returnTo?: "credits" | "generation") {
+  function start(item: CheckoutItem, returnTo?: ReturnTo) {
     setError(undefined);
     startTransition(async () => {
       const result = await createCheckoutSession({ locale, item, returnTo });

@@ -279,7 +279,8 @@
       "invalidCode": "Code invalide ou expiré.",
       "invalidPhone": "Saisis un numéro de téléphone valide.",
       "invalidConfirmation": "Le mot saisi ne correspond pas.",
-      "tooMany": "Trop d'éléments."
+      "tooMany": "Trop d'éléments.",
+      "tooShort": "Ce texte est trop court."
     },
     "INSUFFICIENT_CREDITS": "Il te manque des crédits pour cette action.",
     "CV_LIMIT_REACHED": "Ta formule conserve un nombre limité de CV : choisis celui à remplacer.",
@@ -363,11 +364,6 @@
     "editAnswers": "Modifier mes réponses",
     "seeOffers": "Voir les offres",
     "cancel": "Annuler",
-    "credits": {
-      "title": "Il te manque {missing, plural, one {# crédit} other {# crédits}}",
-      "description": "Générer un CV coûte {cost, plural, one {# crédit} other {# crédits}}. Ton solde : {balance, plural, one {# crédit} other {# crédits}}.",
-      "upgrade": "Passer en Pro"
-    },
     "replace": {
       "title": "Remplacer un CV ?",
       "description": "Ta formule conserve {limit, plural, one {# CV} other {# CV}}. Le nouveau CV remplacera :",
@@ -539,5 +535,68 @@
       "unlock": "Débloquer ce CV"
     },
     "pricingCvPro": "À débloquer depuis l'aperçu de ton CV."
+  },
+  "creditsDialog": {
+    "title": "Il te manque {missing, plural, one {# crédit} other {# crédits}}",
+    "description": "{operation} coûte {cost, plural, one {# crédit} other {# crédits}}. Ton solde : {balance, plural, one {# crédit} other {# crédits}}.",
+    "purchasedOnly": "Avec Essential, cette fonction se paie en crédits achetés. Recharge pour l'utiliser, ou passe en Pro pour la payer avec tes crédits inclus.",
+    "upgrade": "Passer en Pro",
+    "cancel": "Annuler",
+    "operations": {
+      "generateCv": "Générer un CV",
+      "improveExperience": "Améliorer une expérience",
+      "improveSummary": "Améliorer l'accroche",
+      "adaptToJob": "Adapter le CV à une offre",
+      "linkedin": "Créer une version LinkedIn",
+      "interview": "Simuler un entretien",
+      "coverLetter": "Générer une lettre de motivation"
+    }
+  },
+  "cvTools": {
+    "tabs": {
+      "label": "Outils du CV",
+      "preview": "Aperçu",
+      "adapt": "Adapter à une offre"
+    },
+    "experience": {
+      "button": "Améliorer avec l'IA — {cost, plural, one {# crédit} other {# crédits}}",
+      "title": "Expérience améliorée",
+      "before": "Avant",
+      "after": "Après",
+      "charged": "Le crédit est consommé, que tu remplaces ou non.",
+      "keep": "Garder l'original",
+      "replace": "Remplacer"
+    },
+    "summary": {
+      "button": "Améliorer l'accroche — {cost, plural, one {# crédit} other {# crédits}}",
+      "history": "Propositions ({count})",
+      "title": "Choisis ton accroche",
+      "previous": "Propositions précédentes",
+      "choose": "Utiliser cette accroche",
+      "cancel": "Annuler"
+    },
+    "adapt": {
+      "metaTitle": "Adapter à une offre",
+      "title": "Adapter mon CV à une offre",
+      "intro": "Colle une annonce : l'IA met en avant ce qui compte pour ce poste dans « {title} », sans rien inventer.",
+      "postingLabel": "Texte de l'annonce",
+      "postingHint": "Colle l'annonce complète (missions, profil recherché, compétences) : 50 à 10 000 caractères.",
+      "counter": "{count, number} / {max, number}",
+      "languageLabel": "Langue du CV adapté",
+      "submit": "Adapter — {cost, plural, one {# crédit} other {# crédits}}",
+      "pending": "Adaptation en cours…",
+      "resultTitle": "Ton CV adapté",
+      "missingTitle": "Mots-clés de l'annonce absents de ton CV",
+      "missingHint": "Ajoute-les seulement s'ils correspondent vraiment à ton parcours.",
+      "noMissing": "Ton CV reprend déjà les mots-clés importants de l'annonce.",
+      "apply": "Appliquer à ce CV",
+      "saveAsNew": "Enregistrer comme nouveau CV",
+      "saveAsNewLocked": "Avec Pro ou Premium, garde chaque version adaptée comme un nouveau CV.",
+      "seeOffers": "Voir les offres",
+      "previewLabel": "Aperçu du CV adapté",
+      "historyTitle": "Adaptations précédentes",
+      "show": "Afficher",
+      "newTitle": "{title} — adapté"
+    }
   }
 }

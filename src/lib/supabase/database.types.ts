@@ -103,6 +103,38 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"generations": {
+                  Row: {
+                    "created_at": string,"cv_id": string,"id": string,"input": NonNullable<Json>,"kind": Database["public"]['Enums']["generation_kind"],"language": Database["public"]['Enums']["app_locale"],"operation_id": string | null,"output": NonNullable<Json>,"updated_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"cv_id": string,"id"?: string,"input"?: NonNullable<Json>,"kind": Database["public"]['Enums']["generation_kind"],"language": Database["public"]['Enums']["app_locale"],"operation_id"?: string | null,"output": NonNullable<Json>,"updated_at"?: string,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"cv_id"?: string,"id"?: string,"input"?: NonNullable<Json>,"kind"?: Database["public"]['Enums']["generation_kind"],"language"?: Database["public"]['Enums']["app_locale"],"operation_id"?: string | null,"output"?: NonNullable<Json>,"updated_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "generations_cv_id_fkey"
+      columns: ["cv_id"]
+isOneToOne: false
+      referencedRelation: "cvs"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "generations_operation_id_fkey"
+      columns: ["operation_id"]
+isOneToOne: false
+      referencedRelation: "ai_operations"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "generations_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"profiles": {
                   Row: {
                     "ads_removed_at": string | null,"city": string | null,"created_at": string,"first_name": string | null,"free_generation_used_at": string | null,"id": string,"interstitial_shown_at": string | null,"last_name": string | null,"last_seen_at": string,"locale": Database["public"]['Enums']["app_locale"],"phone": string | null,"retention_warning_sent_at": string | null,"stripe_customer_id": string | null,"trial_used_at": string | null,"updated_at": string
@@ -188,6 +220,9 @@ isOneToOne: true
               "created": boolean,"operation_id": string,"status": Database["public"]['Enums']["ai_operation_status"],"was_free": boolean
             }[]
                            },
+"complete_ai_operation":
+{ Args: { "p_cache_read_tokens": number,"p_cost_usd_micros": number,"p_cv_id"?: string,"p_duration_ms": number,"p_input"?: Json,"p_input_tokens": number,"p_kind"?: Database["public"]['Enums']["generation_kind"],"p_language"?: Database["public"]['Enums']["app_locale"],"p_model": string,"p_operation_id": string,"p_output"?: Json,"p_output_tokens": number }; Returns: string
+                           },
 "complete_cv_generation":
 { Args: { "p_answers": Json,"p_cache_read_tokens": number,"p_content": Json,"p_cost_usd_micros": number,"p_cv_limit"?: number,"p_duration_ms": number,"p_input_tokens": number,"p_language": Database["public"]['Enums']["app_locale"],"p_model": string,"p_operation_id": string,"p_output_tokens": number,"p_replace_cv_id"?: string,"p_title": string }; Returns: string
                            },
@@ -229,7 +264,7 @@ isOneToOne: true
                            }
           }
           Enums: {
-            "ai_operation_kind": "generate_cv"|"improve_experience"|"improve_summary"|"adapt_to_job"|"linkedin"|"cover_letter"|"interview"|"interview_feedback","ai_operation_status": "pending"|"succeeded"|"failed","app_locale": "fr"|"en"|"it"|"es"|"de","billing_interval": "month"|"year","credit_bucket": "included"|"purchased","ledger_reason": "ai_operation"|"ai_refund"|"pack_purchase"|"rewarded_ad"|"trial_grant"|"monthly_grant"|"upgrade_grant"|"included_expiry"|"subscription_end","plan_tier": "essential"|"pro"|"premium","purchase_product": "credits_5"|"credits_15"|"credits_40"|"cv_pro"|"ads_removal","subscription_source": "stripe"|"app_store"|"play_store","subscription_status": "trialing"|"active"|"past_due"|"unpaid"|"canceled"|"incomplete"|"incomplete_expired"|"paused"
+            "ai_operation_kind": "generate_cv"|"improve_experience"|"improve_summary"|"adapt_to_job"|"linkedin"|"cover_letter"|"interview"|"interview_feedback","ai_operation_status": "pending"|"succeeded"|"failed","app_locale": "fr"|"en"|"it"|"es"|"de","billing_interval": "month"|"year","credit_bucket": "included"|"purchased","generation_kind": "summary_variants"|"job_adaptation"|"linkedin"|"cover_letter"|"interview","ledger_reason": "ai_operation"|"ai_refund"|"pack_purchase"|"rewarded_ad"|"trial_grant"|"monthly_grant"|"upgrade_grant"|"included_expiry"|"subscription_end","plan_tier": "essential"|"pro"|"premium","purchase_product": "credits_5"|"credits_15"|"credits_40"|"cv_pro"|"ads_removal","subscription_source": "stripe"|"app_store"|"play_store","subscription_status": "trialing"|"active"|"past_due"|"unpaid"|"canceled"|"incomplete"|"incomplete_expired"|"paused"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -345,7 +380,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "ai_operation_kind": ["generate_cv", "improve_experience", "improve_summary", "adapt_to_job", "linkedin", "cover_letter", "interview", "interview_feedback"],"ai_operation_status": ["pending", "succeeded", "failed"],"app_locale": ["fr", "en", "it", "es", "de"],"billing_interval": ["month", "year"],"credit_bucket": ["included", "purchased"],"ledger_reason": ["ai_operation", "ai_refund", "pack_purchase", "rewarded_ad", "trial_grant", "monthly_grant", "upgrade_grant", "included_expiry", "subscription_end"],"plan_tier": ["essential", "pro", "premium"],"purchase_product": ["credits_5", "credits_15", "credits_40", "cv_pro", "ads_removal"],"subscription_source": ["stripe", "app_store", "play_store"],"subscription_status": ["trialing", "active", "past_due", "unpaid", "canceled", "incomplete", "incomplete_expired", "paused"]
+            "ai_operation_kind": ["generate_cv", "improve_experience", "improve_summary", "adapt_to_job", "linkedin", "cover_letter", "interview", "interview_feedback"],"ai_operation_status": ["pending", "succeeded", "failed"],"app_locale": ["fr", "en", "it", "es", "de"],"billing_interval": ["month", "year"],"credit_bucket": ["included", "purchased"],"generation_kind": ["summary_variants", "job_adaptation", "linkedin", "cover_letter", "interview"],"ledger_reason": ["ai_operation", "ai_refund", "pack_purchase", "rewarded_ad", "trial_grant", "monthly_grant", "upgrade_grant", "included_expiry", "subscription_end"],"plan_tier": ["essential", "pro", "premium"],"purchase_product": ["credits_5", "credits_15", "credits_40", "cv_pro", "ads_removal"],"subscription_source": ["stripe", "app_store", "play_store"],"subscription_status": ["trialing", "active", "past_due", "unpaid", "canceled", "incomplete", "incomplete_expired", "paused"]
           }
         }
 } as const

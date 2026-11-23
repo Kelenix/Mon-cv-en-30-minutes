@@ -4,6 +4,17 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-7 : amélioration par l'IA
+
+- « Améliorer avec l'IA » sous chaque expérience : avant / après, puis Remplacer ou Garder
+  l'original (1 crédit).
+- « Améliorer l'accroche » : 3 variantes (5 avec Pro et Premium) à choisir, consultables ensuite
+  (1 crédit).
+- Onglet « Adapter à une offre » : annonce collée, CV adapté sans rien inventer, mots-clés
+  manquants, application au CV ou nouveau CV avec Pro et Premium (2 crédits).
+- Fenêtre « Solde insuffisant » commune, avec recharge sur place et rappel des crédits achetés
+  pour Essential.
+
 ### Ajouté — Inc-6 : paiements
 
 - Abonnements Essential, Pro et Premium (mensuels ou annuels) et essai gratuit de Pro 3 jours

@@ -19,6 +19,7 @@ import { generateCv } from "../actions";
 import { clearDraft, useDraft } from "../draft";
 import type { CvSummary } from "../repository";
 import { cvAnswersSchema } from "../schemas";
+import { CreditsDialog } from "./credits-dialog";
 import { GenerationSteps } from "./generation-steps";
 
 type State =
@@ -195,8 +196,6 @@ export function GenerationScreen({
 
   if (state.kind !== "error") return <GenerationSteps current={0} />;
 
-  const cost = Number(state.details?.cost ?? 0);
-  const missing = Number(state.details?.missing ?? 0);
   return (
     <div className="grid gap-6">
       <FormAlert message={tErrors(state.code)} />
@@ -220,33 +219,13 @@ export function GenerationScreen({
         </Link>
       </div>
 
-      <AlertDialog
+      <CreditsDialog
         open={state.code === "INSUFFICIENT_CREDITS" && creditsDialogOpen}
         onOpenChange={setCreditsDialogOpen}
-      >
-        <AlertDialogContent className="max-w-md sm:max-w-md">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-lg font-semibold">
-              {t("credits.title", { missing })}
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-base text-foreground">
-              {t("credits.description", { cost, balance: cost - missing })}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          {topUp}
-          <AlertDialogFooter className="sm:flex-wrap">
-            <Button variant="ghost" onClick={() => setCreditsDialogOpen(false)}>
-              {t("cancel")}
-            </Button>
-            <Link
-              href={{ pathname: "/tarifs", hash: "formules" }}
-              className={buttonVariants({ variant: "outline" })}
-            >
-              {t("credits.upgrade")}
-            </Link>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        operation="generateCv"
+        details={state.details}
+        topUp={topUp}
+      />
     </div>
   );
 }

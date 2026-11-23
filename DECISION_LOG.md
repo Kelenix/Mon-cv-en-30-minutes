@@ -6,6 +6,44 @@
 
 ---
 
+## ADR-030 — Choix de réalisation des outils d'amélioration par l'IA (Inc-7)
+
+- **Date** : 23/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : ai-engineer, backend-engineer, frontend-engineer,
+  security-engineer)
+- **Contexte** : US-25, US-26, US-27, US-09 ; IA toujours simulée (clé Anthropic absente).
+- **Décision** :
+  - **Appel à Claude mis en commun** (`features/ai/claude.ts`) : flux, effort `low`, sortie
+    structurée, repli, motif d'arrêt, coûts ; la génération du CV l'utilise aussi.
+  - **Opération payante commune** (`features/ai/operation.ts`) : coût et crédits utilisables selon
+    la matrice, débit sous verrou, IA, puis fonction SQL `complete_ai_operation` (contenu conservé
+    avec le CV dans la même transaction, H20) ou remboursement. Une demande rejouée n'est jamais
+    relancée (`RATE_LIMITED`, ou `AI_UNAVAILABLE` si elle avait échoué).
+  - **Aucune fonction n'est fermée** : la matrice permet tout avec des crédits achetés ; le
+    « cadenas » prend la forme de la fenêtre « Solde insuffisant », qui précise pour Essential que
+    la fonction se paie en crédits achetés (US-09 c.2), et de « Enregistrer comme nouveau CV »,
+    réservé à Pro et Premium (`FORBIDDEN` côté serveur).
+  - **Améliorer une expérience** : seules les puces sont réécrites (poste, entreprise et dates
+    intacts) ; bouton absent sans mission décrite (l'IA inventerait) ; rien n'est conservé, la
+    proposition est appliquée ou non au CV.
+  - **Accroche** : 3 ou 5 variantes selon la formule, conservées et consultables depuis le CV.
+  - **Adaptation** : l'IA désigne les expériences par leur identifiant ; le serveur reconstruit le
+    CV à partir de l'original (`mergeAdaptation`) : aucune expérience, compétence ou formation
+    nouvelle, quoi que renvoie l'IA, même sous l'effet d'une consigne cachée dans l'annonce
+    (US-27 c.3, c.5) ; mots-clés manquants sans ceux déjà présents. Langue au choix (US-42 c.4) ;
+    l'appliquer change aussi la langue du CV ; un nouveau CV reçoit le titre « … — adapté ».
+  - **Onglets du CV** : « Aperçu » et « Adapter à une offre » (`/cv/[id]/adapter`), pour accueillir
+    LinkedIn, lettre et entretien (Inc-8, Inc-9).
+  - Outils inactifs tant qu'une modification n'est pas enregistrée (l'IA lit le CV enregistré).
+  - Fenêtre « Solde insuffisant » commune à la génération et aux outils ; un achat lancé depuis un
+    CV y ramène.
+- **Reporté** : mesure de la fidélité (US-25 c.3) et des durées (NFR-02) sur le jeu de référence,
+  et test d'injection avec le vrai modèle (US-27 c.5), dès que la clé Anthropic est fournie.
+- **Impact** : fonctionnel / financier (moyen)
+
+---
+
 ## ADR-029 — Choix de réalisation des paiements (Inc-6)
 
 - **Date** : 23/11/2026

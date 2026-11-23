@@ -4,12 +4,16 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
-import { CvProOffer } from "@/features/billing/presentation/offers";
+import {
+  CreditPackButtons,
+  CvProOffer,
+} from "@/features/billing/presentation/offers";
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
 import { getActivePlan } from "@/features/billing/subscription";
+import { CvTabs } from "@/features/cv/presentation/cv-tabs";
 import { CvWorkspace } from "@/features/cv/presentation/cv-workspace";
 import { UpsellCard } from "@/features/cv/presentation/upsell-card";
-import { getOwnCv } from "@/features/cv/repository";
+import { getOwnCv, listGenerations } from "@/features/cv/repository";
 import { PLANS, type PlanTier } from "@/features/plans/catalog";
 import { canExportWithoutWatermark } from "@/features/plans/entitlements";
 import { pickClientMessages } from "@/i18n/client-messages";
@@ -74,9 +78,18 @@ async function CvLoader({
     locale: cv.language,
     namespace: "cvSections",
   });
-  const [plan, messages] = await Promise.all([
+  const [plan, summaries, messages] = await Promise.all([
     getActivePlan(),
-    pickClientMessages(["cvEditor", "cvExport", "upsell", "billing", "errors"]),
+    listGenerations(cv.id, "summary_variants"),
+    pickClientMessages([
+      "cvEditor",
+      "cvExport",
+      "cvTools",
+      "creditsDialog",
+      "upsell",
+      "billing",
+      "errors",
+    ]),
   ]);
   const exportUnlocked = canExportWithoutWatermark(plan, cv.proUnlocked);
   const nextPlan = plan ? NEXT_PLAN[plan] : null;
@@ -99,20 +112,28 @@ async function CvLoader({
         </div>
       ) : null}
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] xl:items-start">
-        <CvWorkspace
-          cvId={cv.id}
-          title={cv.title}
-          language={cv.language}
-          initialContent={cv.content}
-          exportUnlocked={exportUnlocked}
-          sectionTitles={{
-            summary: sections("summary"),
-            experiences: sections("experiences"),
-            skills: sections("skills"),
-            education: sections("education"),
-            languages: sections("languages"),
-          }}
-        />
+        <div className="min-w-0">
+          <CvTabs cvId={cv.id} current="preview" />
+          <CvWorkspace
+            cvId={cv.id}
+            title={cv.title}
+            language={cv.language}
+            initialContent={cv.content}
+            exportUnlocked={exportUnlocked}
+            summaryHistory={summaries.map(
+              (generation) =>
+                (generation.output as { variants?: string[] }).variants ?? [],
+            )}
+            topUp={<CreditPackButtons returnTo={{ cvId: cv.id }} stacked />}
+            sectionTitles={{
+              summary: sections("summary"),
+              experiences: sections("experiences"),
+              skills: sections("skills"),
+              education: sections("education"),
+              languages: sections("languages"),
+            }}
+          />
+        </div>
         <div className="grid gap-6 xl:sticky xl:top-6">
           {exportUnlocked ? null : <CvProOffer cvId={cv.id} />}
           {plan === null ? <UpsellCard /> : null}

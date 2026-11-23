@@ -279,7 +279,8 @@
       "invalidCode": "Ungültiger oder abgelaufener Code.",
       "invalidPhone": "Gib eine gültige Telefonnummer ein.",
       "invalidConfirmation": "Das eingegebene Wort stimmt nicht überein.",
-      "tooMany": "Zu viele Einträge."
+      "tooMany": "Zu viele Einträge.",
+      "tooShort": "Dieser Text ist zu kurz."
     },
     "INSUFFICIENT_CREDITS": "Dir fehlen Credits für diese Aktion.",
     "CV_LIMIT_REACHED": "Dein Tarif speichert nur eine begrenzte Zahl an Lebensläufen: Wähle den aus, der ersetzt werden soll.",
@@ -363,11 +364,6 @@
     "editAnswers": "Antworten bearbeiten",
     "seeOffers": "Angebote ansehen",
     "cancel": "Abbrechen",
-    "credits": {
-      "title": "Dir {missing, plural, one {fehlt # Credit} other {fehlen # Credits}}",
-      "description": "Ein Lebenslauf kostet {cost, plural, one {# Credit} other {# Credits}}. Dein Guthaben: {balance, plural, one {# Credit} other {# Credits}}.",
-      "upgrade": "Zu Pro wechseln"
-    },
     "replace": {
       "title": "Lebenslauf ersetzen?",
       "description": "Dein Tarif speichert {limit, plural, one {# Lebenslauf} other {# Lebensläufe}}. Der neue Lebenslauf ersetzt:",
@@ -539,5 +535,68 @@
       "unlock": "Diesen Lebenslauf freischalten"
     },
     "pricingCvPro": "Freischaltung in der Vorschau deines Lebenslaufs."
+  },
+  "creditsDialog": {
+    "title": "Dir {missing, plural, one {fehlt # Credit} other {fehlen # Credits}}",
+    "description": "{operation} kostet {cost, plural, one {# Credit} other {# Credits}}. Dein Guthaben: {balance, plural, one {# Credit} other {# Credits}}.",
+    "purchasedOnly": "Mit Essential wird diese Funktion mit gekauften Credits bezahlt. Lade Credits auf, um sie zu nutzen, oder wechsle zu Pro, um sie mit deinen inklusiven Credits zu bezahlen.",
+    "upgrade": "Zu Pro wechseln",
+    "cancel": "Abbrechen",
+    "operations": {
+      "generateCv": "Einen Lebenslauf erstellen",
+      "improveExperience": "Eine Erfahrung verbessern",
+      "improveSummary": "Das Profil verbessern",
+      "adaptToJob": "Den Lebenslauf an eine Stelle anpassen",
+      "linkedin": "Eine LinkedIn-Version erstellen",
+      "interview": "Ein Vorstellungsgespräch simulieren",
+      "coverLetter": "Ein Anschreiben erstellen"
+    }
+  },
+  "cvTools": {
+    "tabs": {
+      "label": "Lebenslauf-Werkzeuge",
+      "preview": "Vorschau",
+      "adapt": "An eine Stelle anpassen"
+    },
+    "experience": {
+      "button": "Mit KI verbessern — {cost, plural, one {# Credit} other {# Credits}}",
+      "title": "Verbesserte Erfahrung",
+      "before": "Vorher",
+      "after": "Nachher",
+      "charged": "Der Credit wird verbraucht, ob du ersetzt oder nicht.",
+      "keep": "Original behalten",
+      "replace": "Ersetzen"
+    },
+    "summary": {
+      "button": "Profil verbessern — {cost, plural, one {# Credit} other {# Credits}}",
+      "history": "Vorschläge ({count})",
+      "title": "Wähle dein Profil",
+      "previous": "Frühere Vorschläge",
+      "choose": "Dieses Profil verwenden",
+      "cancel": "Abbrechen"
+    },
+    "adapt": {
+      "metaTitle": "An eine Stelle anpassen",
+      "title": "Meinen Lebenslauf an eine Stelle anpassen",
+      "intro": "Füge eine Stellenanzeige ein: Die KI hebt in „{title}“ hervor, was für diese Stelle zählt, ohne etwas zu erfinden.",
+      "postingLabel": "Text der Stellenanzeige",
+      "postingHint": "Füge die vollständige Anzeige ein (Aufgaben, gesuchtes Profil, Kenntnisse): 50 bis 10.000 Zeichen.",
+      "counter": "{count, number} / {max, number}",
+      "languageLabel": "Sprache des angepassten Lebenslaufs",
+      "submit": "Anpassen — {cost, plural, one {# Credit} other {# Credits}}",
+      "pending": "Anpassung läuft…",
+      "resultTitle": "Dein angepasster Lebenslauf",
+      "missingTitle": "Schlüsselwörter der Anzeige, die in deinem Lebenslauf fehlen",
+      "missingHint": "Füge sie nur hinzu, wenn sie wirklich zu deinem Werdegang passen.",
+      "noMissing": "Dein Lebenslauf enthält bereits die wichtigen Schlüsselwörter der Anzeige.",
+      "apply": "Auf diesen Lebenslauf anwenden",
+      "saveAsNew": "Als neuen Lebenslauf speichern",
+      "saveAsNewLocked": "Mit Pro oder Premium behältst du jede angepasste Version als neuen Lebenslauf.",
+      "seeOffers": "Angebote ansehen",
+      "previewLabel": "Vorschau des angepassten Lebenslaufs",
+      "historyTitle": "Frühere Anpassungen",
+      "show": "Anzeigen",
+      "newTitle": "{title} — angepasst"
+    }
   }
 }

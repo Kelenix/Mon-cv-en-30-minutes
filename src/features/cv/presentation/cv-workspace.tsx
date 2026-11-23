@@ -30,6 +30,7 @@ import {
   LanguagesView,
 } from "./cv-views";
 import { ExportButtons } from "./export-buttons";
+import { ImproveExperience, ImproveSummary } from "./improve-tools";
 
 type SaveStatus = "idle" | "saving" | "saved" | "error" | "invalid";
 type SectionKey = "header" | keyof CvSectionTitles;
@@ -241,6 +242,8 @@ export function CvWorkspace({
   initialContent,
   sectionTitles,
   exportUnlocked,
+  summaryHistory,
+  topUp,
 }: {
   cvId: string;
   title: string;
@@ -249,12 +252,18 @@ export function CvWorkspace({
   sectionTitles: CvSectionTitles;
   /** PDF sans filigrane et DOCX autorisés (abonnement ou CV Pro). */
   exportUnlocked: boolean;
+  /** Variantes d'accroche déjà proposées (US-26 c.3). */
+  summaryHistory: string[][];
+  /** Recharge proposée quand le solde ne suffit pas (fournie par la page). */
+  topUp?: ReactNode;
 }) {
   const t = useTranslations("cvEditor");
   const uiLocale = useLocale();
   const [content, setContent] = useState(initialContent);
   const [editing, setEditing] = useState<SectionKey | null>(null);
   const { status, save } = useAutosave(cvId);
+  // Exports et outils IA lisent le CV enregistré : inactifs tant qu'une modification attend.
+  const saved = status === "idle" || status === "saved";
 
   function change(next: CvContent) {
     setContent(next);
@@ -276,11 +285,7 @@ export function CvWorkspace({
         <h1 className="w-full min-w-0 truncate text-lg font-bold sm:me-auto sm:w-auto md:text-xl">
           {title}
         </h1>
-        <ExportButtons
-          cvId={cvId}
-          unlocked={exportUnlocked}
-          ready={status === "idle" || status === "saved"}
-        />
+        <ExportButtons cvId={cvId} unlocked={exportUnlocked} ready={saved} />
         <CopyButton getText={() => cvToPlainText(content, sectionTitles)} />
         <SaveIndicator status={status} onRetry={() => save(content, 0)} />
       </div>
@@ -306,11 +311,22 @@ export function CvWorkspace({
           editLabel={sectionTitles.summary}
           {...section("summary")}
           view={
-            content.summary ? (
-              <p className="whitespace-pre-line">{content.summary}</p>
-            ) : (
-              empty(t("empty.summary"))
-            )
+            <>
+              {content.summary ? (
+                <p className="whitespace-pre-line">{content.summary}</p>
+              ) : (
+                empty(t("empty.summary"))
+              )}
+              <div lang={uiLocale}>
+                <ImproveSummary
+                  cvId={cvId}
+                  history={summaryHistory}
+                  disabled={!saved}
+                  onChoose={(summary) => change({ ...content, summary })}
+                  topUp={topUp}
+                />
+              </div>
+            </>
           }
           editor={
             <SummaryEditor
@@ -325,7 +341,29 @@ export function CvWorkspace({
           {...section("experiences")}
           view={
             content.experiences.length ? (
-              <ExperiencesView items={content.experiences} />
+              <ExperiencesView
+                items={content.experiences}
+                action={(item) =>
+                  item.bullets.length > 0 ? (
+                    <div lang={uiLocale}>
+                      <ImproveExperience
+                        cvId={cvId}
+                        experience={item}
+                        disabled={!saved}
+                        topUp={topUp}
+                        onReplace={(proposal) =>
+                          change({
+                            ...content,
+                            experiences: content.experiences.map((current) =>
+                              current.id === proposal.id ? proposal : current,
+                            ),
+                          })
+                        }
+                      />
+                    </div>
+                  ) : null
+                }
+              />
             ) : (
               empty(t("empty.experiences"))
             )

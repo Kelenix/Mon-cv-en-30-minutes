@@ -1,16 +1,9 @@
 import "server-only";
-import Anthropic from "@anthropic-ai/sdk";
-import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
-import { env } from "@/core/env";
 import type { CvAnswers } from "@/features/cv/schemas";
 import type { AppLocale } from "@/i18n/routing";
-import {
-  AiError,
-  type AiUsage,
-  estimateCostUsdMicros,
-  getClaude,
-} from "./client";
+import { callClaude, escapeData, LANGUAGE_NAMES } from "./claude";
+import { type AiUsage, getClaude } from "./client";
 import { simulateCv } from "./simulated-cv";
 
 // Rédaction d'un CV à partir des 5 réponses (US-11, US-42, H34). Sortie structurée validée par
@@ -76,17 +69,6 @@ export const aiCvSchema = z.object({
 });
 export type AiCv = z.infer<typeof aiCvSchema>;
 
-const { type, schema } = betaZodOutputFormat(aiCvSchema);
-const OUTPUT_FORMAT = { type, schema };
-
-const LANGUAGE_NAMES: Record<AppLocale, string> = {
-  fr: "French",
-  en: "English",
-  it: "Italian",
-  es: "Spanish",
-  de: "German",
-};
-
 const SYSTEM_PROMPT = `You write CVs for job seekers. You turn the candidate's free-text answers into a structured CV that recruiters and applicant tracking systems (ATS) can read.
 
 Rules:
@@ -105,28 +87,12 @@ const ANSWER_TAGS: Record<keyof CvAnswers, string> = {
   goal: "career_goal",
 };
 
-/** Les réponses ne peuvent pas fermer les balises qui les encadrent. */
-function escapeData(text: string) {
-  return text
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
-}
-
 function userMessage(answers: CvAnswers, language: AppLocale) {
   const blocks = Object.entries(ANSWER_TAGS).map(
     ([key, tag]) =>
       `<${tag}>${escapeData(answers[key as keyof CvAnswers])}</${tag}>`,
   );
   return `Target language: ${LANGUAGE_NAMES[language]}.\n\n<candidate_answers>\n${blocks.join("\n")}\n</candidate_answers>`;
-}
-
-function parseJson(text: string): unknown {
-  try {
-    return JSON.parse(text);
-  } catch {
-    return undefined;
-  }
 }
 
 /**
@@ -140,64 +106,10 @@ export async function writeCv(
   const claude = getClaude();
   if (!claude) return simulateCv(answers);
 
-  const startedAt = Date.now();
-  let message;
-  try {
-    message = await claude.beta.messages
-      .stream(
-        {
-          model: env.ANTHROPIC_MODEL,
-          max_tokens: 16_000,
-          betas: ["server-side-fallback-2026-07-01"],
-          fallbacks: "default",
-          system: SYSTEM_PROMPT,
-          messages: [{ role: "user", content: userMessage(answers, language) }],
-          output_config: { effort: "low", format: OUTPUT_FORMAT },
-        },
-        { signal: AbortSignal.timeout(110_000) },
-      )
-      .finalMessage();
-  } catch (error) {
-    const reason =
-      error instanceof Anthropic.APIError
-        ? `api_${error.status ?? error.name}`
-        : "unknown";
-    throw new AiError("AI_UNAVAILABLE", reason);
-  }
-
-  const cacheRead = message.usage.cache_read_input_tokens ?? 0;
-  const usage: AiUsage = {
-    model: message.model,
-    inputTokens: message.usage.input_tokens,
-    outputTokens: message.usage.output_tokens,
-    cacheReadTokens: cacheRead,
-    costUsdMicros: estimateCostUsdMicros(message.model, {
-      input: message.usage.input_tokens,
-      output: message.usage.output_tokens,
-      cacheRead,
-    }),
-    durationMs: Date.now() - startedAt,
-  };
-
-  // Motif d'arrêt contrôlé avant de lire la réponse (refus de toute la chaîne de repli, coupure).
-  if (message.stop_reason === "refusal") {
-    throw new AiError("AI_UNAVAILABLE", "refusal", usage);
-  }
-  if (message.stop_reason !== "end_turn") {
-    throw new AiError(
-      "AI_INVALID_OUTPUT",
-      `stop_${message.stop_reason}`,
-      usage,
-    );
-  }
-
-  // Après un repli, seul le dernier bloc de texte (celui du modèle qui a répondu) compte.
-  let text: string | undefined;
-  for (const block of message.content) {
-    if (block.type === "text") text = block.text;
-  }
-  const parsed = aiCvSchema.safeParse(text && parseJson(text));
-  if (!parsed.success) throw new AiError("AI_INVALID_OUTPUT", "schema", usage);
-
-  return { cv: parsed.data, usage };
+  const { output, usage } = await callClaude(claude, {
+    system: SYSTEM_PROMPT,
+    user: userMessage(answers, language),
+    schema: aiCvSchema,
+  });
+  return { cv: output, usage };
 }

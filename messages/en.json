@@ -279,7 +279,8 @@
       "invalidCode": "Invalid or expired code.",
       "invalidPhone": "Enter a valid phone number.",
       "invalidConfirmation": "The word you typed doesn't match.",
-      "tooMany": "Too many items."
+      "tooMany": "Too many items.",
+      "tooShort": "This text is too short."
     },
     "INSUFFICIENT_CREDITS": "You don't have enough credits for this action.",
     "CV_LIMIT_REACHED": "Your plan keeps a limited number of CVs: choose the one to replace.",
@@ -363,11 +364,6 @@
     "editAnswers": "Edit my answers",
     "seeOffers": "See plans",
     "cancel": "Cancel",
-    "credits": {
-      "title": "You're missing {missing, plural, one {# credit} other {# credits}}",
-      "description": "Generating a CV costs {cost, plural, one {# credit} other {# credits}}. Your balance: {balance, plural, one {# credit} other {# credits}}.",
-      "upgrade": "Upgrade to Pro"
-    },
     "replace": {
       "title": "Replace a CV?",
       "description": "Your plan keeps {limit, plural, one {# CV} other {# CVs}}. The new CV will replace:",
@@ -539,5 +535,68 @@
       "unlock": "Unlock this CV"
     },
     "pricingCvPro": "Unlock it from your CV preview."
+  },
+  "creditsDialog": {
+    "title": "You're missing {missing, plural, one {# credit} other {# credits}}",
+    "description": "{operation} costs {cost, plural, one {# credit} other {# credits}}. Your balance: {balance, plural, one {# credit} other {# credits}}.",
+    "purchasedOnly": "With Essential, this feature is paid with purchased credits. Top up to use it, or upgrade to Pro to pay with your included credits.",
+    "upgrade": "Upgrade to Pro",
+    "cancel": "Cancel",
+    "operations": {
+      "generateCv": "Generating a CV",
+      "improveExperience": "Improving an experience",
+      "improveSummary": "Improving the summary",
+      "adaptToJob": "Tailoring the CV to a job offer",
+      "linkedin": "Creating a LinkedIn version",
+      "interview": "Simulating an interview",
+      "coverLetter": "Writing a cover letter"
+    }
+  },
+  "cvTools": {
+    "tabs": {
+      "label": "CV tools",
+      "preview": "Preview",
+      "adapt": "Tailor to a job offer"
+    },
+    "experience": {
+      "button": "Improve with AI — {cost, plural, one {# credit} other {# credits}}",
+      "title": "Improved experience",
+      "before": "Before",
+      "after": "After",
+      "charged": "The credit is used whether you replace it or not.",
+      "keep": "Keep the original",
+      "replace": "Replace"
+    },
+    "summary": {
+      "button": "Improve the summary — {cost, plural, one {# credit} other {# credits}}",
+      "history": "Suggestions ({count})",
+      "title": "Choose your summary",
+      "previous": "Previous suggestions",
+      "choose": "Use this summary",
+      "cancel": "Cancel"
+    },
+    "adapt": {
+      "metaTitle": "Tailor to a job offer",
+      "title": "Tailor my CV to a job offer",
+      "intro": "Paste a job posting: AI highlights what matters for this job in “{title}”, without making anything up.",
+      "postingLabel": "Job posting text",
+      "postingHint": "Paste the full posting (tasks, profile sought, skills): 50 to 10,000 characters.",
+      "counter": "{count, number} / {max, number}",
+      "languageLabel": "Language of the tailored CV",
+      "submit": "Tailor — {cost, plural, one {# credit} other {# credits}}",
+      "pending": "Tailoring in progress…",
+      "resultTitle": "Your tailored CV",
+      "missingTitle": "Keywords from the posting missing from your CV",
+      "missingHint": "Only add them if they truly match your background.",
+      "noMissing": "Your CV already includes the posting's key keywords.",
+      "apply": "Apply to this CV",
+      "saveAsNew": "Save as a new CV",
+      "saveAsNewLocked": "With Pro or Premium, keep each tailored version as a new CV.",
+      "seeOffers": "See plans",
+      "previewLabel": "Tailored CV preview",
+      "historyTitle": "Previous tailorings",
+      "show": "Show",
+      "newTitle": "{title} — tailored"
+    }
   }
 }

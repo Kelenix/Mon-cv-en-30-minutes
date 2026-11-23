@@ -23,6 +23,9 @@ export type CheckoutItem =
       trial: boolean;
     };
 
+/** Page de retour après le paiement d'un pack : crédits, génération, ou un CV. */
+export type ReturnTo = "credits" | "generation" | { cvId: string };
+
 export function checkoutLookupKey(item: CheckoutItem) {
   if (item.kind === "pack") return item.product;
   if (item.kind === "cvPro") return "cv_pro";

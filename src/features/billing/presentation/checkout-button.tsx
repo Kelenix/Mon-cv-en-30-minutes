@@ -5,7 +5,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { useHydrated } from "@/components/form/use-hydrated";
 import { Button } from "@/components/ui/button";
 import type { BillingInterval, PlanTier } from "@/features/plans/catalog";
-import type { CheckoutItem } from "../stripe-mapping";
+import type { CheckoutItem, ReturnTo } from "../stripe-mapping";
 import { useCheckout } from "./use-checkout";
 
 type ButtonProps = Pick<
@@ -59,7 +59,7 @@ export function CheckoutButton({
   ...buttonProps
 }: ButtonProps & {
   item: CheckoutItem;
-  returnTo?: "credits" | "generation";
+  returnTo?: ReturnTo;
   children: ReactNode;
 }) {
   const { start, busy, error } = useCheckout();

@@ -28,6 +28,7 @@ import {
   type CheckoutItem,
   checkoutLookupKey,
   checkoutParams,
+  type ReturnTo,
 } from "./stripe-mapping";
 import { getStripe, priceIdFor } from "./stripe";
 import { getCurrentSubscription } from "./subscription";
@@ -37,8 +38,10 @@ import { getCurrentSubscription } from "./subscription";
 
 const checkoutSchema = z.object({
   locale: localeSchema,
-  /** Page de retour d'un pack : crédits et formule, ou reprise de la génération. */
-  returnTo: z.enum(["credits", "generation"]).default("credits"),
+  /** Page de retour d'un pack : crédits et formule, reprise de la génération, ou un CV. */
+  returnTo: z
+    .union([z.enum(["credits", "generation"]), z.object({ cvId: z.uuid() })])
+    .default("credits"),
   item: z.discriminatedUnion("kind", [
     z.object({
       kind: z.literal("pack"),
@@ -55,16 +58,21 @@ const checkoutSchema = z.object({
 });
 
 /** Adresse de retour ; `{CHECKOUT_SESSION_ID}` est remplacé par Stripe. */
-function returnUrl(locale: AppLocale, item: CheckoutItem, returnTo: string) {
-  const path =
+function returnUrl(locale: AppLocale, item: CheckoutItem, returnTo: ReturnTo) {
+  const cvId =
     item.kind === "cvPro"
-      ? `/${locale}/cv/${item.cvId}`
-      : localizedPath(
-          locale,
-          item.kind === "pack" && returnTo === "generation"
-            ? "/creer/generation"
-            : "/compte/credits",
-        );
+      ? item.cvId
+      : typeof returnTo === "object" && item.kind === "pack"
+        ? returnTo.cvId
+        : null;
+  const path = cvId
+    ? `/${locale}/cv/${cvId}`
+    : localizedPath(
+        locale,
+        item.kind === "pack" && returnTo === "generation"
+          ? "/creer/generation"
+          : "/compte/credits",
+      );
   return `${env.NEXT_PUBLIC_SITE_URL}${path}`;
 }
 

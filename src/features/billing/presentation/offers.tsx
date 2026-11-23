@@ -5,6 +5,7 @@ import {
   CREDIT_PACKS,
   CV_PRO_PRICE_CENTS,
 } from "@/features/plans/catalog";
+import type { ReturnTo } from "../stripe-mapping";
 import { CheckoutButton } from "./checkout-button";
 
 function usePrice() {
@@ -21,7 +22,7 @@ export function CreditPackButtons({
   returnTo,
   stacked = false,
 }: {
-  returnTo?: "credits" | "generation";
+  returnTo?: ReturnTo;
   stacked?: boolean;
 }) {
   const t = useTranslations("billing.topUp");

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { joinFilled, period } from "../content";
 import type { CvContent } from "../schemas";
 
@@ -22,8 +23,11 @@ export function HeaderView({ header }: { header: CvContent["header"] }) {
 
 export function ExperiencesView({
   items,
+  action,
 }: {
   items: CvContent["experiences"];
+  /** Commande affichée sous chaque expérience (aperçu modifiable, hors exports). */
+  action?: (item: CvContent["experiences"][number]) => ReactNode;
 }) {
   return (
     <div className="grid gap-4">
@@ -45,6 +49,7 @@ export function ExperiencesView({
               ))}
             </ul>
           ) : null}
+          {action?.(item)}
         </div>
       ))}
     </div>
