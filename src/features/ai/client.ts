@@ -7,9 +7,12 @@ import { env } from "@/core/env";
 
 let client: Anthropic | undefined;
 
-/** Client de l'API, ou `null` sans clé : l'IA est alors simulée (tâche manuelle 3). */
+/**
+ * Client de l'API, ou `null` sans clé ou avec `AI_SIMULATION` (tests) : l'IA est alors simulée
+ * (tâche manuelle 3).
+ */
 export function getClaude(): Anthropic | null {
-  if (!env.ANTHROPIC_API_KEY) return null;
+  if (!env.ANTHROPIC_API_KEY || env.AI_SIMULATION) return null;
   client ??= new Anthropic({
     apiKey: env.ANTHROPIC_API_KEY,
     timeout: 60_000,

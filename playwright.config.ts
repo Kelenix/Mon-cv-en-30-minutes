@@ -36,6 +36,9 @@ export default defineConfig({
   webServer: {
     // En CI, le build de production est testé ; en local, le serveur de développement suffit.
     command: isCi ? `npm run start -- -p ${PORT}` : `npm run dev -- -p ${PORT}`,
+    // IA toujours simulée pendant les tests, même avec une clé dans `.env.local` : résultats
+    // stables et aucun coût.
+    env: { AI_SIMULATION: "true" },
     url: `http://localhost:${PORT}/fr`,
     reuseExistingServer: !isCi,
     timeout: 120_000,

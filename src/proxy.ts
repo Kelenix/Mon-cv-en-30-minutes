@@ -9,6 +9,8 @@ import { env } from "@/core/env";
 import { isAdminEmail } from "@/features/admin/admins";
 import { recordVisit } from "@/features/admin/record-visit";
 import {
+  adminDestination,
+  isAccountSpacePath,
   isPrivatePath,
   isSignInPath,
   localeOfPath,
@@ -90,8 +92,15 @@ export default async function proxy(
   // Provenance des visites : comptée après la réponse, sans la retarder.
   event.waitUntil(recordVisit(request).catch(() => undefined));
 
-  const signedIn = Boolean(await readSession(request, response));
+  const claims = await readSession(request, response);
+  const signedIn = Boolean(claims);
+  const isAdmin = isAdminEmail(claims?.email);
   const locale = localeOfPath(pathname) ?? routing.defaultLocale;
+
+  // Un administrateur n'a pas d'espace « Mon compte » : tout passe par l'administration.
+  if (isAdmin && isAccountSpacePath(pathname)) {
+    return redirectKeepingCookies(request, response, "/admin");
+  }
 
   if (!signedIn && isPrivatePath(pathname)) {
     return redirectKeepingCookies(
@@ -101,11 +110,13 @@ export default async function proxy(
     );
   }
   if (signedIn && isSignInPath(pathname)) {
+    const next = safeNextPath(searchParams.get("next"));
     return redirectKeepingCookies(
       request,
       response,
-      safeNextPath(searchParams.get("next")) ??
-        localizedPath(locale, "/compte"),
+      isAdmin
+        ? adminDestination(next)
+        : (next ?? localizedPath(locale, "/compte")),
     );
   }
   return response;

@@ -22,7 +22,7 @@
   Aucun compte Supabase n'est nécessaire ; leur configuration est dans `deploy/`
   (`docs/deployment.md`).
 
-## Tâche 3 : Créer une clé API Anthropic
+## Tâche 3 ✅ : Créer une clé API Anthropic (faite le 24/11/2026 ; clé vérifiée, Claude Opus 5.5 disponible)
 - **Pourquoi** : génération des CV, lettres, versions LinkedIn et entretiens.
 - **Quand** : avant l'Inc-4.
 - **Étapes** :
@@ -34,8 +34,9 @@
      par `generate-secrets.sh`) : sans elle, le site refuse de démarrer.
 - **Coût** : à l'usage (voir la question Q4 du plan).
 - **Vérification** : un CV généré en local est reformulé (et non plus une simple copie des
-  réponses, comme le fait l'IA simulée) ; je mesurerai alors la durée et la fidélité sur 20
-  profils de référence (US-11 c.4 et c.5).
+  réponses, comme le fait l'IA simulée). La durée et la fidélité ont été mesurées sur 20 profils
+  de référence le 24/11/2026 : P95 de 5,9 s, aucun fait inventé (ADR-041). Pour relancer la
+  mesure, payante (environ 0,35 $) : `npm run eval:ai`.
 
 ## Tâche 4 ⏱ : Ouvrir le compte Stripe
 - **Pourquoi** : vendre crédits, abonnements, CV Pro et retrait des publicités.
@@ -157,7 +158,7 @@
 ## Tâche 9 : Mettre le site en ligne sur le VPS Hostinger
 - **Pourquoi** : mise en ligne (ADR-038). Tout est prêt dans `deploy/` et a été répété en
   local ; il reste ce qui demande tes comptes et ton serveur.
-- **Quand** : maintenant, une fois les tâches 3, 4, 6, 7, 16 et 17 faites (5 et 10 peuvent suivre).
+- **Quand** : maintenant, une fois les tâches 4, 6, 7, 16 et 17 faites (5 et 10 peuvent suivre).
 - **Étapes** : suivre `docs/deployment.md`, étapes 1 à 8 : commander le VPS (Ubuntu 24.04,
   centre de données dans l'UE) et le domaine, clé SSH, `setup-vps.sh`, DNS (`@`, `www`, `api`),
   clé de lecture du dépôt, `deploy/.env`, `deploy.sh`, puis Stripe et Google.

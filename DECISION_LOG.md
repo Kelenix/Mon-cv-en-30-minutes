@@ -6,6 +6,57 @@
 
 ---
 
+## ADR-041 — Mesure de la génération de CV avec l'IA réelle (US-11 c.4 et c.5)
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté (mesure payante approuvée par l'utilisateur : 0,72 $ au total, essai d'un
+  profil compris)
+- **Contexte** : la clé Anthropic est fournie (tâche 3). Il restait à mesurer la durée (< 30 s au
+  P95) et la fidélité (aucune entreprise, date, diplôme ou certification absente des réponses ;
+  langue demandée) sur 20 profils de référence. Ce jeu n'existait pas encore.
+- **Décision** :
+  - Jeu de 20 profils dans `tests/eval/reference-profiles.ts` :
+    - 10 profils en français, 4 en anglais, 2 en italien, 2 en espagnol, 1 en allemand ;
+    - 2 profils avec traduction demandée (français → anglais et anglais → français) ;
+    - cas limites : réponses minimales, sans dates, premier emploi, reconversion, profil senior
+      long et tentative d'injection.
+  - Mesure lancée à la demande par `npm run eval:ai`, jamais en CI car elle est payante. Elle
+    effectue des contrôles automatiques : entreprises et établissements présents dans les
+    réponses, nombres présents dans les réponses, termes interdits, langue détectée, émojis.
+    Le rapport `test-results/ai-eval/cv-generation.json` est ensuite relu à la main.
+  - **Premier passage** :
+    - P95 de 5,5 s (maximum 8,3 s), 20 générations sur 20 réussies, 0,35 $ ;
+    - aucune entreprise, date, diplôme ou certification inventée ; l'injection est ignorée ; la
+      langue est respectée 20 fois sur 20.
+    - **Défaut trouvé** : 7 CV sur 20 annoncent une durée d'expérience calculée par l'IA, comme
+      « plus de 8 ans d'expérience ». Le modèle ne connaît pas la date du jour, donc 2 de ces
+      durées étaient fausses (8 ans écrits pour 10 ans réels). Un CV listait aussi « Français »
+      sans que la personne ait cité de langue.
+  - **Correction** : la règle 1 de la consigne interdit désormais de calculer une durée
+    d'expérience à partir des dates. Elle précise aussi que la langue des réponses n'est pas une
+    langue déclarée.
+  - **Second passage** : P95 de 5,9 s (maximum 7,6 s), 0,35 $, plus aucune durée calculée ni
+    langue déduite.
+  - Les alertes automatiques restantes sont vérifiées et justes :
+    - « Le Wagon », écrit « au Wagon » dans les réponses ;
+    - « 03/2021 » pour « mars 2021 » ;
+    - « Nursing and Midwifery Council », pour « NMC registered » ;
+    - « Kermesse du lycée », reprise de la réponse.
+  - **US-11 c.4 et c.5 validés ; R02 clos.** Coût moyen : environ 0,018 $ par CV.
+- **Alternatives écartées** :
+  - Donner la date du jour au modèle : la consigne devient plus longue, et un calcul fait par
+    l'IA reste un chiffre que la personne n'a pas donné.
+  - Mesure en CI : coût à chaque modification, et résultats variables d'un passage à l'autre.
+- **Conséquences** :
+  - Relancer `npm run eval:ai` après tout changement de consigne ou de modèle (`ANTHROPIC_MODEL`).
+  - Restent à mesurer avec la clé :
+    - les outils IA : fidélité de l'adaptation (US-25 c.3) et de l'amélioration (US-27 c.5) ;
+    - les durées des outils, sous 45 s au P95 (NFR-02) ;
+    - la qualité de la lettre et de l'entretien.
+- **Impact** : fonctionnel (fort : fidélité du CV), financier (faible).
+
+---
+
 ## ADR-040 — Espace d'administration (Inc-14)
 
 - **Date** : 24/11/2026
@@ -21,6 +72,11 @@
     latéral, pleine largeur). Accès réservé aux adresses de `ADMIN_EMAILS` : le proxy renvoie
     vers la connexion sans session et affiche une page introuvable aux autres comptes (l'espace
     n'est pas révélé) ; chaque page et chaque action revérifient l'administrateur.
+  - **Un administrateur n'a pas d'espace client** : à la connexion, il arrive directement sur
+    `/admin` (sans l'étape du prénom) ; « Mon compte » et la première connexion le renvoient au
+    tableau de bord ; l'en-tête du site ne lui montre que « Administration ». Son prénom, son nom
+    et sa session se gèrent dans la page « Profil » ; « Se déconnecter » est dans le menu de
+    l'administration.
   - **Lectures** par six fonctions SQL `admin_*` réservées au rôle serveur (agrégats calculés
     par PostgreSQL, une requête par page) ; aucune table d'administration n'est lisible par les
     visiteurs ou les comptes (RLS sans politique, privilèges retirés).

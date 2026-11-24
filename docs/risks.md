@@ -7,10 +7,10 @@
 | # | Risque | Catégorie | Prob. | Impact | Niveau | Parade | Incrément | État |
 |---|--------|-----------|-------|--------|--------|--------|-----------|------|
 | R01 | Un abonné Premium annuel qui consomme ses 150 crédits coûte plus qu'il ne rapporte avec Claude Opus 5.5 | Coût | Moyenne | Fort | 🟠 | Effort de réflexion bas, sorties courtes et structurées, cache de prompt, coût enregistré par opération (NFR-07), modèle modifiable par configuration | Inc-4 | Accepté par l'utilisateur (ADR-006) |
-| R02 | La génération d'un CV dépasse 30 s au P95 (NFR-02) | Technique | Moyenne | Fort | 🟠 | Mesure dès le début de l'Inc-4 sur 20 profils ; effort bas, schéma de sortie concis, affichage des étapes. Si l'objectif n'est pas tenu : question à l'utilisateur (mode rapide plus cher, ou objectif revu) | Inc-4 | Ouvert |
+| R02 | La génération d'un CV dépasse 30 s au P95 (NFR-02) | Technique | Moyenne | Fort | 🟠 | Mesure dès le début de l'Inc-4 sur 20 profils ; effort bas, schéma de sortie concis, affichage des étapes. Si l'objectif n'est pas tenu : question à l'utilisateur (mode rapide plus cher, ou objectif revu) | Inc-4 | Clos : P95 de 5,9 s mesuré avec l'IA réelle le 24/11/2026 (ADR-041) |
 | R03 | Non-conformité : RGPD, cookies publicitaires, droit de rétractation, résiliation en ligne, promesses de prix | Légal | Moyenne | Fort | 🟠 | Bandeau certifié (US-32), pages légales (US-38), case de renonciation (US-18), portail Stripe (US-22), prix et économies calculés (ADR-002), relecture par un juriste (tâche 7) | Inc-1, 6, 11 | Ouvert |
 | R04 | TVA : Stripe n'est pas marchand officiel ; déclarations TVA (dont guichet unique OSS pour les clients UE) à la charge du vendeur | Légal / coût | Haute | Moyen | 🟠 | Prix affichés TTC ; option Stripe Tax pour le calcul ; vérification des obligations avec un expert-comptable (tâche 7) | Inc-6 | Ouvert |
-| R05 | L'IA invente des expériences, chiffres ou diplômes | Produit | Moyenne | Fort | 🟠 | Consignes strictes, sortie structurée validée, jeu de 20 profils de référence vérifié (US-11, US-25, US-27), modification manuelle toujours possible | Inc-4, 7 | Ouvert |
+| R05 | L'IA invente des expériences, chiffres ou diplômes | Produit | Moyenne | Fort | 🟠 | Consignes strictes, sortie structurée validée, jeu de 20 profils de référence vérifié (US-11, US-25, US-27), modification manuelle toujours possible | Inc-4, 7 | Ouvert : création de CV vérifiée (ADR-041, `npm run eval:ai`) ; outils IA (US-25, US-27) à mesurer |
 | R06 | Injection de consignes via le texte d'une annonce | Sécurité | Moyenne | Moyen | 🟠 | Annonce encadrée comme donnée, sortie structurée, aucun outil exposé au modèle, test d'injection (US-27) | Inc-7 | Ouvert |
 | R07 | Double débit ou solde négatif lors d'opérations simultanées | Technique | Moyenne | Fort | 🟠 | Débit dans une fonction Postgres avec verrou de ligne, journal non modifiable, test de concurrence (US-08, NFR-08) | Inc-3 | Ouvert |
 | R08 | Notifications Stripe reçues en double ou dans le désordre | Technique | Moyenne | Fort | 🟠 | Journal d'idempotence des événements, état relu depuis Stripe à chaque événement d'abonnement | Inc-6 | Ouvert |
@@ -31,5 +31,5 @@
 | R24 | Compte administrateur compromis (boîte e-mail de l'administrateur) | Sécurité | Faible | Fort | 🟡 | Liste fermée d'administrateurs, journal des actions, double authentification sur la boîte e-mail (tâche 17) | Inc-14 | Ouvert |
 | R23 | Exploitation d'un serveur auto-hébergé : panne ou perte du VPS, mises à jour oubliées, sauvegardes restées sur le serveur | Exploitation | Moyenne | Fort | 🟡 | Retour automatique au déploiement, sondes, sauvegardes de la nuit et procédure de restauration testées ; sauvegardes Hostinger et copie hors serveur (tâche 15) ; mises à jour de sécurité automatiques (`docs/deployment.md`) | Inc-13 | Ouvert |
 
-**Aucun risque 🔴 à ce jour.** R02 est le seul qui pourrait déclencher une question (vitesse
-contre coût), après mesure réelle en Inc-4.
+**Aucun risque 🔴 à ce jour.** R02, le seul qui pouvait déclencher une question (vitesse contre
+coût), est clos : la mesure réelle donne 5,9 s au P95 pour 30 s visées (ADR-041).

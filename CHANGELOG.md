@@ -4,6 +4,19 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Mesure de l'IA réelle
+
+- Jeu de 20 profils de référence et mesure de la création de CV avec l'IA réelle
+  (`npm run eval:ai`, payante, jamais en CI). Résultats : 5,9 s au P95 et aucun fait inventé
+  (US-11 c.4 et c.5).
+- `AI_SIMULATION` : les tests de bout en bout restent sur l'IA simulée même avec une clé.
+
+### Modifié
+
+- Consigne de rédaction du CV : l'IA ne calcule plus de durée d'expérience à partir des dates.
+  Elle ne connaît pas la date du jour, donc ses calculs pouvaient être faux. Elle n'ajoute plus
+  non plus la langue des réponses aux langues parlées.
+
 ### Ajouté — Inc-14 : espace d'administration
 
 - `/admin`, réservé aux administrateurs : vue d'ensemble, utilisateurs (recherche, fiche,
@@ -11,6 +24,8 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
   durée, coût), provenance des visiteurs (canaux, sources, pays, conversion), état du système
   (services, tâches de la nuit, sauvegardes, serveur) et journal des actions ; graphiques
   jour par jour sur 7, 30, 90 jours ou 12 mois.
+- Un administrateur arrive directement sur le tableau de bord à la connexion et n'a pas
+  d'espace « Mon compte » ; page « Profil » et bouton « Se déconnecter » dans l'administration.
 - Visites comptées sans cookie ni adresse IP ; pays des comptes à la première connexion ;
   moyens de paiement et échéances d'abonnement enregistrés.
 

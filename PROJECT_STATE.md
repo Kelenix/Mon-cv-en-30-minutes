@@ -9,9 +9,9 @@
 - **Dernière mise à jour** : 24/11/2026
 - **Santé** : 🟢 OK
 - **Prochaine action** : côté utilisateur, mise en ligne en suivant `docs/deployment.md`
-  (tâche 9, après les tâches 3, 4, 6, 7, 16 et 17), puis tâches 14 et 15. Ensuite, sur le domaine :
-  mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle de l'IA (NFR-02,
-  jeu de référence), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
+  (tâche 9, après les tâches 4, 6, 7, 16 et 17), puis tâches 14 et 15. Ensuite, sur le domaine :
+  mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle des outils IA
+  (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà mesurée, ADR-041), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
   que la tâche 12 n'est pas faite.
 - **Git** : `main` jusqu'à l'Inc-12 (ee79947), identique à `origin/main` ; Inc-13 pas encore
   commité. Le serveur récupère le code depuis GitHub : envoyer `main` avant chaque mise en ligne.
@@ -43,7 +43,7 @@ Taille relative : S / M / L / XL.
 | Inc-1 | Accueil + Tarifs + pages légales | US-01, 02, 03, 38 | Inc-0 | M | M1 | ✅ (US-01 c.3 → Inc-4, US-03 c.2 → Inc-6) |
 | Inc-2 | Comptes | US-04, 05, 06 | Inc-0 | M | M2 | ✅ (US-04 c.3 → Inc-4 ; US-05 c.1 et c.3, US-06 c.2 Stripe → Inc-3 et Inc-6) |
 | Inc-3 | Crédits & droits | US-07, 08, 09 | Inc-2 | L | M2 | ✅ (US-07 c.2 → Inc-6 ; US-08 c.1, c.3, c.4 → Inc-4 ; US-09 c.2, c.4 → Inc-7) |
-| Inc-4 | Création de CV par IA | US-10 à 15, US-42 | Inc-3, clé Anthropic | L | M2 | ✅ (IA simulée tant que la tâche 3 n'est pas faite ; US-11 c.4 et c.5 à mesurer avec la clé ; US-15 c.3 → Inc-6) |
+| Inc-4 | Création de CV par IA | US-10 à 15, US-42 | Inc-3, clé Anthropic | L | M2 | ✅ (US-11 c.4 et c.5 mesurés avec l'IA réelle : P95 de 5,9 s, aucun fait inventé, ADR-041 ; US-15 c.3 → Inc-6) |
 | Inc-5 | Exports PDF / DOCX | US-16, 17 | Inc-4 | M | M2 | ✅ (US-17 c.1 vérifié avec un CV Pro posé en test ; achat et abonnements à l'Inc-6) |
 | Inc-6 | Paiements | US-18 à 23, US-38 (CGV) | Inc-3, Inc-5, clés Stripe test | XL | M3 | ✅ code et tests ; vérification avec Stripe réel dès la tâche 4 (US-38 c.3 : CGV déjà rédigées à l'Inc-1) |
 | Inc-7 | Amélioration IA | US-25, 26, 27 | Inc-6 | L | M4 | ✅ (IA simulée ; US-25 c.3, US-27 c.5 et NFR-02 à mesurer avec la clé) |
@@ -74,7 +74,7 @@ Inc-1 peut avancer en parallèle d'Inc-2 ; Inc-7 à Inc-10 sont indépendants en
 
 | Tâche manuelle (`docs/manual-tasks.md`) | Bloque | Remarque |
 |-----------------------------------------|--------|----------|
-| 3 — Clé API Anthropic | Démonstration d'Inc-4 | Le code et les tests avancent avec une IA simulée |
+| 3 ✅ — Clé API Anthropic | — | Faite le 24/11/2026 ; IA réelle en local, tests toujours en IA simulée (`AI_SIMULATION`) |
 | 4 — Compte Stripe (clés de test) | Inc-6 | Clés de test disponibles dès l'inscription ; l'activation complète ne bloque qu'Inc-13 |
 | 5 — Google OAuth | Bouton Google en local (Inc-2) | Non bloquant : la connexion par e-mail fonctionne |
 | 8 — Logo et illustrations | Finition d'Inc-1 | Non bloquant : logotype typographique en attendant |
@@ -108,6 +108,20 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 24/11/2026 — **Création de CV mesurée avec l'IA réelle** (ADR-041, 0,72 $ approuvés) :
+  - jeu de 20 profils de référence créé ; mesure lancée par `npm run eval:ai`, jamais en CI ;
+  - P95 de 5,9 s, 20 générations réussies sur 20 ; aucune entreprise, date, diplôme ou
+    certification inventée ; injection ignorée ; langue respectée ;
+  - consigne corrigée : l'IA ne calcule plus de durée d'expérience (2 erreurs au premier
+    passage) ;
+  - US-11 c.4 et c.5 validés ; R02 clos.
+  - Reste : mesurer les outils IA (US-25 c.3, US-27 c.5, NFR-02).
+
+- 24/11/2026 — **Tâche 3 faite** : clé Anthropic vérifiée (Claude Opus 5.5 disponible) ; IA réelle
+  en développement ; les tests de bout en bout forcent l'IA simulée (`AI_SIMULATION`, posé par
+  `playwright.config.ts`) pour rester stables et gratuits. Reste : mesure de qualité réelle
+  (US-11 c.4 et c.5, NFR-02).
 
 - 24/11/2026 — **Inc-14 : espace d'administration** (demande de l'utilisateur) : `/admin` réservé
   à `ADMIN_EMAILS` (proxy, pages, actions), vue d'ensemble, utilisateurs (fiche, crédits offerts,

@@ -45,6 +45,20 @@ export function isSignInPath(path: string) {
   return matches(path, "/connexion");
 }
 
+/** Espace « Mon compte » et première connexion : remplacés par l'administration pour un admin. */
+export function isAccountSpacePath(path: string) {
+  return matches(path, "/compte") || matches(path, "/bienvenue");
+}
+
+/** Destination d'un administrateur : la page d'administration demandée, sinon l'accueil admin. */
+export function adminDestination(next: string | undefined) {
+  return next === "/admin" ||
+    next?.startsWith("/admin/") ||
+    next?.startsWith("/admin?")
+    ? next
+    : "/admin";
+}
+
 /**
  * Destination après connexion : uniquement une adresse interne au site (aucune redirection
  * ouverte vers un autre domaine, docs/system-design.md §3).

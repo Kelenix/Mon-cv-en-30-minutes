@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test";
 import {
   expectNoAccessibilityViolations,
   MESSAGES,
+  signInWithCode,
   signUp,
 } from "./support/accounts";
 import { deleteUserIfExists } from "./support/admin";
@@ -32,6 +33,8 @@ test("un compte ordinaire tombe sur une page introuvable", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     fr.notFound.title,
   );
+  await page.goto("/fr/compte");
+  await expect(page.getByRole("link", { name: fr.nav.admin })).toHaveCount(0);
 });
 
 test("l'administrateur consulte les tableaux de bord, offre des crédits et retrouve l'action au journal", async ({
@@ -43,9 +46,10 @@ test("l'administrateur consulte les tableaux de bord, offre des crédits et retr
   await deleteUserIfExists(ADMIN);
   const adminContext = await browser.newContext();
   const admin = await adminContext.newPage();
-  await signUp(admin, ADMIN);
-
-  await admin.goto("/admin");
+  // Connexion : directement le tableau de bord, sans espace « Mon compte » ni étape du prénom.
+  await admin.goto("/fr/connexion");
+  await signInWithCode(admin, ADMIN);
+  await expect(admin).toHaveURL(/\/admin$/);
   await expect(
     admin.getByRole("heading", { level: 1, name: "Vue d'ensemble" }),
   ).toBeVisible();
@@ -85,6 +89,29 @@ test("l'administrateur consulte les tableaux de bord, offre des crédits et retr
   const row = admin.getByRole("row", { name: new RegExp(customer) });
   await expect(row).toContainText("Crédits offerts");
   await expect(row).toContainText("7 crédits · Geste commercial");
+
+  await nav.getByRole("link", { name: "Profil" }).click();
+  await admin.getByLabel("Prénom").fill("Ada");
+  await admin.getByLabel("Nom", { exact: true }).fill("Admin");
+  await admin.getByRole("button", { name: "Enregistrer" }).click();
+  await expect(admin.getByText("Profil enregistré.")).toBeVisible();
+  await expectNoAccessibilityViolations(admin);
+
+  // Sur le site : seul le lien vers l'administration ; « Mon compte » renvoie au tableau de bord.
+  await admin.goto("/fr");
+  const header = admin.getByRole("banner");
+  await expect(header.getByRole("link", { name: fr.nav.account })).toHaveCount(
+    0,
+  );
+  await header.getByRole("link", { name: fr.nav.admin }).click();
+  await expect(admin).toHaveURL(/\/admin$/);
+  await admin.goto("/fr/compte");
+  await expect(admin).toHaveURL(/\/admin$/);
+
+  await nav.getByRole("button", { name: "Se déconnecter" }).click();
+  await expect(admin).toHaveURL(/\/fr$/);
+  await admin.goto("/admin");
+  await expect(admin).toHaveURL(/\/fr\/connexion\?next=%2Fadmin$/);
 
   await adminContext.close();
 });

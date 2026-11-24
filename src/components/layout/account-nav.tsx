@@ -1,6 +1,13 @@
-import { FileTextIcon, LogInIcon, UserRoundIcon } from "lucide-react";
+import {
+  FileTextIcon,
+  LogInIcon,
+  ShieldCheckIcon,
+  UserRoundIcon,
+} from "lucide-react";
+import NextLink from "next/link";
 import { getTranslations } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
+import { isAdminEmail } from "@/features/admin/admins";
 import { getCurrentUser } from "@/features/auth/session";
 import { CreditsBadge } from "@/features/credits/presentation/credits-badge";
 import { getCurrentWallet } from "@/features/credits/wallet";
@@ -15,7 +22,8 @@ const desktopLinkClass = cn(linkClass, "hidden sm:inline-flex");
 /**
  * Partie « compte » de l'en-tête, lue à la requête : « Se connecter » pour un visiteur ; « Mes
  * CV », solde de crédits (US-07) et « Mon compte » pour une personne connectée (sur mobile, le
- * solde et un menu).
+ * solde et un menu). Un administrateur n'a que le lien vers l'administration : pas d'espace
+ * compte (ADR-040).
  */
 export async function AccountNav() {
   const t = await getTranslations();
@@ -27,6 +35,16 @@ export async function AccountNav() {
         <LogInIcon aria-hidden="true" />
         <span className="sr-only sm:not-sr-only">{t("nav.signIn")}</span>
       </Link>
+    );
+  }
+
+  if (isAdminEmail(user.email)) {
+    // Hors du routage par langue : lien Next.js simple, vers /admin.
+    return (
+      <NextLink href="/admin" className={linkClass}>
+        <ShieldCheckIcon aria-hidden="true" />
+        <span className="sr-only sm:not-sr-only">{t("nav.admin")}</span>
+      </NextLink>
     );
   }
 

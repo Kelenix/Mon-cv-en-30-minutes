@@ -62,6 +62,8 @@ const envSchema = z
     ),
     ANTHROPIC_API_KEY: optionalText,
     ANTHROPIC_MODEL: z.string().min(1).default("claude-opus-5-5"),
+    // Tests de bout en bout : IA simulée même si une clé est présente (résultats stables, gratuits).
+    AI_SIMULATION: z.stringbool().default(false),
     STRIPE_SECRET_KEY: optionalText,
     STRIPE_WEBHOOK_SECRET: optionalText,
     IP_HASH_SALT: optionalText.refine((value) => !value || value.length >= 32, {
