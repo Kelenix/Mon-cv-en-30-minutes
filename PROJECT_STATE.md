@@ -109,6 +109,10 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 24/11/2026 — **Tâche 6 commencée** : compte Resend créé. Le domaine n'est pas encore acheté ;
+  sa vérification chez Resend et la clé d'envoi suivront l'achat du domaine (étape 1 de la mise
+  en ligne).
+
 - 24/11/2026 — **Tâches 4 et 5 (mode test)**.
   - **Stripe** : compte « Kelenix Teck », partagé avec d'autres produits (ADR-042).
     - Le code ne touche plus qu'aux objets marqués `moncv` : clés de prix préfixées, portail

@@ -113,6 +113,9 @@
 - **Vérification** : connexion Google réussie en local.
 
 ## Tâche 6 : Configurer Resend pour les e-mails
+- **Avancement (24/11/2026)** : compte Resend créé. Les étapes 2 à 6 attendent le domaine, qui
+  s'achète à l'étape 1 de `docs/deployment.md` (tâche 9) : faire Resend juste après, avant
+  `deploy.sh`.
 - **Pourquoi** : envoyer les codes de connexion et les avertissements avant suppression des
   comptes inactifs (US-40). Le fournisseur choisi est **Resend**, utilisé en SMTP par
   l'authentification et par le site.
@@ -190,7 +193,9 @@
 ## Tâche 9 : Mettre le site en ligne sur le VPS Hostinger
 - **Pourquoi** : mise en ligne (ADR-038). Tout est prêt dans `deploy/` et a été répété en
   local ; il reste ce qui demande tes comptes et ton serveur.
-- **Quand** : maintenant, une fois les tâches 4, 6, 7, 16 et 17 faites (5 et 10 peuvent suivre).
+- **Quand** : maintenant, une fois les tâches 4, 7, 16 et 17 faites (5 et 10 peuvent suivre).
+  Le domaine s'achète à l'étape 1 ; la tâche 6 (Resend) se termine juste après, avant
+  `deploy.sh`.
 - **Étapes** : suivre `docs/deployment.md`, étapes 1 à 8 : commander le VPS (Ubuntu 24.04,
   centre de données dans l'UE) et le domaine, clé SSH, `setup-vps.sh`, DNS (`@`, `www`, `api`),
   clé de lecture du dépôt, `deploy/.env`, `deploy.sh`, puis Stripe et Google.
