@@ -158,7 +158,7 @@ export const fr: LegalContent = {
             "Compte : adresse e-mail, prénom, nom et, si vous les renseignez, téléphone et ville.",
             "Contenu : vos réponses aux questions, vos CV et les contenus générés (lettres, versions LinkedIn, simulations d'entretien).",
             "Utilisation : opérations réalisées, crédits, formule et achats. Les données de carte bancaire sont traitées uniquement par Stripe ; nous ne conservons que les références des paiements.",
-            "Technique : adresse IP sous forme hachée (transformée de façon irréversible) pour prévenir les abus, journaux techniques, préférence de langue.",
+            "Technique : adresse IP sous forme hachée (transformée de façon irréversible) pour prévenir les abus, journaux techniques, préférence de langue, pays déduit de l'adresse IP lors de la première connexion (l'adresse elle-même n'est pas conservée).",
           ],
         },
         {
@@ -167,6 +167,7 @@ export const fr: LegalContent = {
             "Fournir le service, gérer votre compte, vos crédits et vos abonnements : exécution du contrat.",
             "Facturation et obligations comptables : obligation légale.",
             "Prévention des abus et suivi des coûts du service : intérêt légitime.",
+            "Statistiques internes de fréquentation (site ou campagne d'origine, pays), anonymes, sans cookie et sans lien avec votre compte : intérêt légitime.",
             "Publicités personnalisées pour les utilisateurs sans abonnement : consentement, que vous pouvez retirer à tout moment.",
           ],
         },
@@ -175,6 +176,7 @@ export const fr: LegalContent = {
           paragraphs: [
             "Les données du compte, les CV et les contenus générés sont conservés jusqu'à la suppression du compte, ou pendant trois ans d'inactivité ; un e-mail vous prévient trente jours avant la suppression automatique.",
             "L'adresse IP hachée est effacée après trente jours ; les événements de paiement techniques après quatre-vingt-dix jours. Les factures sont conservées par Stripe pendant la durée imposée par la loi.",
+            "Après la suppression d'un compte, seuls le montant et la date des paiements et le coût des opérations sont gardés, sans aucun lien avec vous, pour la comptabilité et les statistiques. Les statistiques de fréquentation sont gardées vingt-cinq mois.",
             "Avant la création de votre compte, vos réponses aux cinq questions sont enregistrées uniquement dans votre navigateur, puis effacées dès que votre CV est enregistré.",
           ],
         },

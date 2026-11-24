@@ -63,6 +63,10 @@ const nextConfig: NextConfig = {
     "/api/cv/[id]/export": [
       "./node_modules/@expo-google-fonts/arimo/{400Regular,700Bold}/*.ttf",
     ],
+    // Base des pays (DB-IP, CC BY 4.0), lue à l'exécution par le proxy et la connexion (ADR-040).
+    "/**": [
+      "./node_modules/@ip-location-db/dbip-country-mmdb/dbip-country.mmdb",
+    ],
   },
   turbopack: {
     rules: {

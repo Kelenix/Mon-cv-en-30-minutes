@@ -78,6 +78,9 @@
 | Mise en ligne d'une version cassée ou mal configurée | Variables validées au démarrage (`instrumentation.ts`), sonde de santé, vérifications après déploiement, retour automatique à l'image précédente | Répétition locale (variable manquante → retour) |
 | Accès SSH par force brute | Clés uniquement (mot de passe désactivé), fail2ban ; clé GitHub limitée par commande imposée à `deploy.sh`, version validée | `deploy/scripts/setup-vps.sh` |
 | Faille d'un composant du serveur | Mises à jour de sécurité Ubuntu automatiques ; images à version fixée, mises à jour par commit (`docs/deployment.md` §13) | Revue |
+| Accès à l'administration par un compte ordinaire | Liste `ADMIN_EMAILS` sur le serveur ; proxy (connexion exigée, page introuvable sinon), puis chaque page et chaque action revérifient ; fonctions `admin_*` et tables réservées au rôle serveur | `tests/e2e/administration.spec.ts`, `tests/db/admin.test.ts` |
+| Abus d'un administrateur, action par erreur | Journal de chaque action (auteur, compte, détail) gardé un an ; suppression confirmée par l'e-mail du compte ; jamais sur son propre compte | `tests/e2e/administration.spec.ts` |
+| Statistiques de visites trop intrusives | Compteurs par jour, sans cookie, sans adresse IP, sans lien avec un compte ; pays seul à la première connexion | `tests/db/admin.test.ts` |
 | Compte inactif conservé indéfiniment (RGPD) | Avertissement à 3 ans moins 30 jours, suppression 30 jours après, jamais pour un abonné ; fonctions réservées au serveur ; prénom échappé dans l'e-mail | `tests/db/retention.test.ts`, `tests/unit/retention-email.test.ts` |
 
 ## 3. Points résiduels
@@ -92,6 +95,7 @@
 | SMTP : e-mails de connexion indispensables | Moyen | Fournisseur dédié et domaine authentifié (tâche 6, R15) |
 | Base, sauvegardes et site sur un même VPS : la perte du serveur perd les sauvegardes locales | Moyen | Sauvegardes Hostinger et copie hors serveur (tâche 15) |
 | Exploitation du serveur (mises à jour des images Supabase, Caddy, Node) à la charge de l'exploitant | Moyen | Procédure dans `docs/deployment.md` §13 ; vérifier les avis de sécurité une fois par mois |
+| Accès à l'administration protégé par la seule boîte e-mail de l'administrateur (code de connexion) | Moyen | Double authentification sur la boîte e-mail (tâche 17) ; double authentification propre au site envisageable ensuite |
 | Clés Supabase en HS256 : `getClaims` vérifie le jeton auprès de l'authentification à chaque requête | Faible | Appel interne au VPS (quelques millisecondes) |
 | 4 vulnérabilités modérées dans la CLI shadcn (outil de développement) | Faible | Hors production ; la CI audite les dépendances de production |
 | Plafond de CV gratuits par IP inactif sans `IP_HASH_SALT` | Faible | Sel obligatoire en production (le démarrage échoue sinon) |

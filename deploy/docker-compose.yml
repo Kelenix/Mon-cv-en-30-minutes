@@ -64,7 +64,10 @@ services:
     build:
       context: ..
       dockerfile: deploy/Dockerfile
-      args: *app-public
+      args:
+        <<: *app-public
+        # Version affichée dans l'état du système (administration).
+        APP_VERSION: ${APP_TAG:-dev}
     environment:
       <<: *app-public
       APP_ENV: production
@@ -83,6 +86,10 @@ services:
       SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-Mon CV en 30 Secondes}
       CRON_SECRET: ${CRON_SECRET:-}
       TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
+      ADMIN_EMAILS: ${ADMIN_EMAILS:-}
+    # Sauvegardes de la nuit, en lecture seule : date et taille dans l'état du système.
+    volumes:
+      - /var/backups/mon-cv:/backups:ro
     networks: [edge]
 
   db:

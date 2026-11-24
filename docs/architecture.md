@@ -348,3 +348,12 @@ Supabase en local, Studio à la demande par tunnel SSH. `api.domaine` n'ouvre au
 connexion Google ; le reste exige la clé du serveur. Déploiement, retour arrière, sauvegardes et
 exploitation : `docs/deployment.md`.
 
+---
+
+## 18. Administration (ADR-040)
+
+`/admin` (hors routage par langue, en français) : réservé à `ADMIN_EMAILS` (proxy, pages,
+actions) ; lectures par les fonctions SQL `admin_*` (rôle serveur) ; actions journalisées dans
+`admin_audit_log`. Provenance par compteurs anonymes (`site_visits`, alimentés par le proxy),
+pays par la base DB-IP embarquée ; moyens de paiement et échéances d'abonnement (`invoice.paid`)
+notés par le webhook. Graphiques : Recharts.

@@ -107,6 +107,12 @@ Le site et sa base tournent sur un VPS Hostinger, dans Docker (ADR-038). Pas-à-
 exploitation, sauvegardes et retour arrière : [`docs/deployment.md`](docs/deployment.md). Une
 fois activé, chaque envoi sur `main` dont la CI est verte est mis en ligne automatiquement.
 
+## Administration
+
+`/admin` (en français), réservé aux adresses de `ADMIN_EMAILS` : statistiques, utilisateurs,
+revenus, IA, provenance, état du système, journal (ADR-040). En local, ajouter son adresse à
+`.env.local`.
+
 ## Ajouter ou modifier un texte
 
 1. Ajouter la clé dans `messages/fr.json`.

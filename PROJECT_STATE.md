@@ -9,7 +9,7 @@
 - **Dernière mise à jour** : 24/11/2026
 - **Santé** : 🟢 OK
 - **Prochaine action** : côté utilisateur, mise en ligne en suivant `docs/deployment.md`
-  (tâche 9, après les tâches 3, 4, 6, 7 et 16), puis tâches 14 et 15. Ensuite, sur le domaine :
+  (tâche 9, après les tâches 3, 4, 6, 7, 16 et 17), puis tâches 14 et 15. Ensuite, sur le domaine :
   mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle de l'IA (NFR-02,
   jeu de référence), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
   que la tâche 12 n'est pas faite.
@@ -53,6 +53,7 @@ Taille relative : S / M / L / XL.
 | Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ✅ en simulation (annonces Google réelles : tâche 10, après la mise en ligne) |
 | Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ✅ (Lighthouse local : performance 90 et 91, SEO 100 ; à remesurer sur le domaine à l'Inc-13) |
 | Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 3, 4, 6, 7, 9 | M | M6 | ✅ préparé et répété en local (VPS Hostinger, ADR-038) ; mise en ligne : tâche 9 |
+| Inc-14 | Espace d'administration (demande de l'utilisateur) | — | Inc-13 | L | — | ✅ (ADR-040) |
 
 ## Jalons (chacun démontrable et testable)
 
@@ -107,6 +108,13 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 24/11/2026 — **Inc-14 : espace d'administration** (demande de l'utilisateur) : `/admin` réservé
+  à `ADMIN_EMAILS` (proxy, pages, actions), vue d'ensemble, utilisateurs (fiche, crédits offerts,
+  suspension, suppression), revenus et moyens de paiement, IA, provenance (compteurs anonymes,
+  pays DB-IP), état du système, journal ; graphiques Recharts ; webhook `invoice.paid` ;
+  revenus et coûts gardés anonymes après suppression ; politique de confidentialité (5 langues) ;
+  tâche 17. ADR-040.
 
 - 24/11/2026 — **Protection contre les robots** (demande de l'utilisateur) : Cloudflare Turnstile
   à chaque envoi de code (invisible le plus souvent), plafonds par IP et par adresse e-mail en

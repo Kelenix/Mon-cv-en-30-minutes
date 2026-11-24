@@ -158,7 +158,7 @@ export const de: LegalContent = {
             "Konto: E-Mail-Adresse, Vorname, Nachname sowie, sofern Sie diese angeben, Telefonnummer und Wohnort.",
             "Inhalte: Ihre Antworten auf die Fragen, Ihre Lebensläufe und die erstellten Inhalte (Anschreiben, LinkedIn-Versionen, Simulationen von Vorstellungsgesprächen).",
             "Nutzung: durchgeführte Vorgänge, Credits, Tarif und Käufe. Kartendaten werden ausschließlich von Stripe verarbeitet; wir speichern nur die Zahlungsreferenzen.",
-            "Technische Daten: IP-Adresse in gehashter (unumkehrbar umgewandelter) Form zur Verhinderung von Missbrauch, technische Protokolle, Spracheinstellung.",
+            "Technische Daten: IP-Adresse in gehashter (unumkehrbar umgewandelter) Form zur Verhinderung von Missbrauch, technische Protokolle, Spracheinstellung, aus der IP-Adresse bei der ersten Anmeldung abgeleitetes Land (die Adresse selbst wird nicht gespeichert).",
           ],
         },
         {
@@ -167,6 +167,7 @@ export const de: LegalContent = {
             "Bereitstellung des Dienstes, Verwaltung Ihres Kontos, Ihrer Credits und Ihrer Abonnements: Vertragserfüllung.",
             "Rechnungsstellung und buchhalterische Pflichten: rechtliche Verpflichtung.",
             "Verhinderung von Missbrauch und Überwachung der Kosten des Dienstes: berechtigtes Interesse.",
+            "Interne Besuchsstatistiken (verweisende Website oder Kampagne, Land), anonym, ohne Cookies und ohne Verbindung zu Ihrem Konto: berechtigtes Interesse.",
             "Personalisierte Werbung für Nutzer ohne Abonnement: Einwilligung, die Sie jederzeit widerrufen können.",
           ],
         },
@@ -175,6 +176,7 @@ export const de: LegalContent = {
           paragraphs: [
             "Die Kontodaten, die Lebensläufe und die erstellten Inhalte werden bis zur Löschung des Kontos bzw. bis zum Ablauf von drei Jahren Inaktivität gespeichert; Sie werden dreißig Tage vor der automatischen Löschung per E-Mail benachrichtigt.",
             "Die gehashte IP-Adresse wird nach dreißig Tagen gelöscht, technische Zahlungsereignisse nach neunzig Tagen. Rechnungen werden von Stripe für die gesetzlich vorgeschriebene Dauer aufbewahrt.",
+            "Nach der Löschung eines Kontos werden nur Betrag und Datum der Zahlungen sowie die Kosten der Vorgänge ohne jeden Bezug zu Ihnen für Buchhaltung und Statistik aufbewahrt. Besuchsstatistiken werden fünfundzwanzig Monate aufbewahrt.",
             "Vor der Erstellung Ihres Kontos werden Ihre Antworten auf die fünf Fragen ausschließlich in Ihrem Browser gespeichert und gelöscht, sobald Ihr Lebenslauf gespeichert ist.",
           ],
         },

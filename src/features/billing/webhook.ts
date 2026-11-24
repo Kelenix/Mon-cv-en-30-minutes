@@ -6,7 +6,11 @@ import {
   productCredits,
 } from "@/features/plans/catalog";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { customerIdOf, subscriptionState } from "./stripe-mapping";
+import {
+  customerIdOf,
+  paymentMethodLabel,
+  subscriptionState,
+} from "./stripe-mapping";
 
 // Traitement des événements Stripe (docs/system-design.md §6.2 et §6.3) : chaque événement n'est
 // traité qu'une fois ; l'abonnement est relu chez Stripe, donc l'ordre d'arrivée est
@@ -44,8 +48,18 @@ async function userIdForCustomer(admin: Admin, customerId: string | null) {
   return data?.id ?? null;
 }
 
+/** Moyen de paiement noté pour les statistiques ; son échec ne bloque jamais le webhook. */
+async function savePaymentMethod(
+  query: PromiseLike<{ error: { message: string } | null }>,
+) {
+  const { error } = await query;
+  if (error) console.warn("Moyen de paiement non noté", error.message);
+}
+
 async function syncSubscription(admin: Admin, stripe: Stripe, id: string) {
-  const subscription = await stripe.subscriptions.retrieve(id);
+  const subscription = await stripe.subscriptions.retrieve(id, {
+    expand: ["default_payment_method"],
+  });
   const state = subscriptionState(subscription);
   if (!state) throw new Error(`Abonnement sans formule connue : ${id}`);
 
@@ -60,6 +74,52 @@ async function syncSubscription(admin: Admin, stripe: Stripe, id: string) {
     p_user_id: userId,
     ...state,
   });
+  check(error);
+  const method = paymentMethodLabel(subscription.default_payment_method);
+  if (method) {
+    await savePaymentMethod(
+      admin
+        .from("subscriptions")
+        .update({ payment_method: method })
+        .eq("provider_subscription_id", id),
+    );
+  }
+}
+
+/** Paiement d'une échéance d'abonnement (revenus, ADR-040) ; les essais à 0 € sont ignorés. */
+async function recordInvoice(
+  admin: Admin,
+  stripe: Stripe,
+  invoice: Stripe.Invoice,
+  paidAt: number,
+) {
+  const subscriptionId = customerIdOf(
+    invoice.parent?.subscription_details?.subscription,
+  );
+  if (!invoice.id || !subscriptionId || invoice.amount_paid <= 0) return;
+
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
+    expand: ["default_payment_method"],
+  });
+  const state = subscriptionState(subscription);
+  const userId =
+    subscription.metadata.user_id ||
+    (await userIdForCustomer(admin, customerIdOf(invoice.customer)));
+  const { error } = await admin.from("subscription_invoices").upsert(
+    {
+      user_id: userId,
+      stripe_invoice_id: invoice.id,
+      plan: state?.p_plan ?? null,
+      billing_interval: state?.p_interval ?? null,
+      amount_cents: invoice.amount_paid,
+      currency: invoice.currency,
+      payment_method: paymentMethodLabel(subscription.default_payment_method),
+      paid_at: new Date(
+        (invoice.status_transitions.paid_at ?? paidAt) * 1000,
+      ).toISOString(),
+    },
+    { onConflict: "stripe_invoice_id", ignoreDuplicates: true },
+  );
   check(error);
 }
 
@@ -93,6 +153,26 @@ async function completeCheckout(
     p_cv_id: cvId || undefined,
   });
   check(error);
+
+  const intentId = customerIdOf(session.payment_intent);
+  if (intentId) {
+    try {
+      const intent = await stripe.paymentIntents.retrieve(intentId, {
+        expand: ["payment_method"],
+      });
+      const method = paymentMethodLabel(intent.payment_method);
+      if (method) {
+        await savePaymentMethod(
+          admin
+            .from("purchases")
+            .update({ payment_method: method })
+            .eq("stripe_checkout_session_id", session.id),
+        );
+      }
+    } catch (error) {
+      console.warn("Moyen de paiement non lu", (error as Error).message);
+    }
+  }
 }
 
 export async function handleStripeEvent(stripe: Stripe, event: Stripe.Event) {
@@ -115,6 +195,9 @@ export async function handleStripeEvent(stripe: Stripe, event: Stripe.Event) {
     case "customer.subscription.paused":
     case "customer.subscription.resumed":
       await syncSubscription(admin, stripe, event.data.object.id);
+      break;
+    case "invoice.paid":
+      await recordInvoice(admin, stripe, event.data.object, event.created);
       break;
   }
 

@@ -50,6 +50,8 @@ jobs:
       # Publicités de test, sans script externe, vérifiées de bout en bout (Inc-11).
       ADS_MODE: simulation
       ADS_REMOVAL_ENABLED: "true"
+      # Administrateur de test de l'espace d'administration (Inc-14).
+      ADMIN_EMAILS: admin-e2e@exemple.test
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

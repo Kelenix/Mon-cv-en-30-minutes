@@ -158,7 +158,7 @@ export const en: LegalContent = {
             "Account: email address, first name, last name and, if you provide them, phone number and city.",
             "Content: your answers to the questions, your CVs and the generated content (cover letters, LinkedIn versions, mock interviews).",
             "Usage: operations performed, credits, plan and purchases. Bank card data is processed solely by Stripe; we only keep payment references.",
-            "Technical: IP address in hashed form (irreversibly transformed) to prevent abuse, technical logs, language preference.",
+            "Technical: IP address in hashed form (irreversibly transformed) to prevent abuse, technical logs, language preference, country inferred from the IP address at first sign-in (the address itself is not kept).",
           ],
         },
         {
@@ -167,6 +167,7 @@ export const en: LegalContent = {
             "Providing the service and managing your account, credits and subscriptions: performance of the contract.",
             "Invoicing and accounting obligations: legal obligation.",
             "Abuse prevention and monitoring of service costs: legitimate interest.",
+            "Internal visit statistics (referring site or campaign, country), anonymous, without cookies and not linked to your account: legitimate interest.",
             "Personalised advertising for users without a subscription: consent, which you can withdraw at any time.",
           ],
         },
@@ -175,6 +176,7 @@ export const en: LegalContent = {
           paragraphs: [
             "Account data, CVs and generated content are kept until the account is deleted, or for three years of inactivity; you will be notified by email thirty days before automatic deletion.",
             "The hashed IP address is erased after thirty days, and technical payment events after ninety days. Invoices are kept by Stripe for the period required by law.",
+            "After an account is deleted, only the amount and date of payments and the cost of operations are kept, with no link to you, for accounting and statistics. Visit statistics are kept for twenty-five months.",
             "Before you create your account, your answers to the five questions are stored only in your browser, then erased as soon as your CV is saved.",
           ],
         },

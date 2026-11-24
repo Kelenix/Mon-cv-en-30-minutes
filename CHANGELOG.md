@@ -4,6 +4,21 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-14 : espace d'administration
+
+- `/admin`, réservé aux administrateurs : vue d'ensemble, utilisateurs (recherche, fiche,
+  crédits offerts, suspension, suppression), revenus et moyens de paiement, IA (volume, échecs,
+  durée, coût), provenance des visiteurs (canaux, sources, pays, conversion), état du système
+  (services, tâches de la nuit, sauvegardes, serveur) et journal des actions ; graphiques
+  jour par jour sur 7, 30, 90 jours ou 12 mois.
+- Visites comptées sans cookie ni adresse IP ; pays des comptes à la première connexion ;
+  moyens de paiement et échéances d'abonnement enregistrés.
+
+### Modifié — Inc-14
+
+- Politique de confidentialité complétée (statistiques anonymes, pays, historique financier
+  anonyme après suppression d'un compte), dans les 5 langues.
+
 ### Ajouté — Inc-13 : mise en production
 
 - Mise en ligne sur un VPS Hostinger, tout dans Docker : site, base de données et

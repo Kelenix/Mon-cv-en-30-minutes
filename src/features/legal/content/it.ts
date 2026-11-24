@@ -158,7 +158,7 @@ export const it: LegalContent = {
             "Account: indirizzo e-mail, nome, cognome e, se li indica, telefono e città.",
             "Contenuti: le Sue risposte alle domande, i Suoi CV e i contenuti generati (lettere, versioni LinkedIn, simulazioni di colloquio).",
             "Utilizzo: operazioni effettuate, crediti, piano e acquisti. I dati della carta di pagamento sono trattati esclusivamente da Stripe; conserviamo solo i riferimenti dei pagamenti.",
-            "Dati tecnici: indirizzo IP in forma di hash (trasformato in modo irreversibile) per prevenire gli abusi, log tecnici, preferenza di lingua.",
+            "Dati tecnici: indirizzo IP in forma di hash (trasformato in modo irreversibile) per prevenire gli abusi, log tecnici, preferenza di lingua, paese dedotto dall'indirizzo IP al primo accesso (l'indirizzo stesso non viene conservato).",
           ],
         },
         {
@@ -167,6 +167,7 @@ export const it: LegalContent = {
             "Fornire il servizio, gestire il Suo account, i Suoi crediti e i Suoi abbonamenti: esecuzione del contratto.",
             "Fatturazione e obblighi contabili: obbligo di legge.",
             "Prevenzione degli abusi e monitoraggio dei costi del servizio: legittimo interesse.",
+            "Statistiche interne sulle visite (sito o campagna di provenienza, paese), anonime, senza cookie e senza collegamento al Suo account: legittimo interesse.",
             "Pubblicità personalizzata per gli utenti senza abbonamento: consenso, che può revocare in qualsiasi momento.",
           ],
         },
@@ -175,6 +176,7 @@ export const it: LegalContent = {
           paragraphs: [
             "I dati dell'account, i CV e i contenuti generati sono conservati fino alla cancellazione dell'account, oppure per tre anni di inattività; un'e-mail La avvisa trenta giorni prima della cancellazione automatica.",
             "L'indirizzo IP sottoposto a hash viene cancellato dopo trenta giorni; gli eventi tecnici di pagamento dopo novanta giorni. Le fatture sono conservate da Stripe per la durata prevista dalla legge.",
+            "Dopo la cancellazione di un account, vengono conservati solo l'importo e la data dei pagamenti e il costo delle operazioni, senza alcun collegamento con Lei, a fini contabili e statistici. Le statistiche sulle visite sono conservate per venticinque mesi.",
             "Prima della creazione del Suo account, le Sue risposte alle cinque domande sono salvate esclusivamente nel Suo browser e vengono cancellate non appena il Suo CV viene salvato.",
           ],
         },

@@ -136,3 +136,16 @@ export function customerIdOf(
 ) {
   return typeof customer === "string" ? customer : (customer?.id ?? null);
 }
+
+/**
+ * Moyen de paiement pour les statistiques (ADR-040) : portefeuille d'une carte (Apple Pay,
+ * Google Pay, Link…), sinon le type Stripe (`card`, `paypal`, `sepa_debit`…). `null` si le
+ * moyen n'est pas développé dans la réponse.
+ */
+export function paymentMethodLabel(
+  method: string | Stripe.PaymentMethod | null | undefined,
+) {
+  if (!method || typeof method === "string") return null;
+  if (method.type === "card") return method.card?.wallet?.type ?? "card";
+  return method.type;
+}

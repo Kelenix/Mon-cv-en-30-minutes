@@ -158,7 +158,7 @@ export const es: LegalContent = {
             "Cuenta: dirección de correo electrónico, nombre, apellidos y, si los indica, teléfono y ciudad.",
             "Contenido: sus respuestas a las preguntas, sus CV y los contenidos generados (cartas, versiones para LinkedIn, simulaciones de entrevista).",
             "Uso: operaciones realizadas, créditos, plan y compras. Los datos de la tarjeta bancaria son tratados únicamente por Stripe; solo conservamos las referencias de los pagos.",
-            "Datos técnicos: dirección IP en forma de hash (transformada de manera irreversible) para prevenir abusos, registros técnicos y preferencia de idioma.",
+            "Datos técnicos: dirección IP en forma de hash (transformada de manera irreversible) para prevenir abusos, registros técnicos y preferencia de idioma; país deducido de la dirección IP en el primer inicio de sesión (la dirección en sí no se conserva).",
           ],
         },
         {
@@ -167,6 +167,7 @@ export const es: LegalContent = {
             "Prestar el servicio y gestionar su cuenta, sus créditos y sus suscripciones: ejecución del contrato.",
             "Facturación y obligaciones contables: cumplimiento de una obligación legal.",
             "Prevención de abusos y seguimiento de los costes del servicio: interés legítimo.",
+            "Estadísticas internas de visitas (sitio o campaña de procedencia, país), anónimas, sin cookies y sin vínculo con su cuenta: interés legítimo.",
             "Publicidad personalizada para los usuarios sin suscripción: consentimiento, que puede retirar en cualquier momento.",
           ],
         },
@@ -175,6 +176,7 @@ export const es: LegalContent = {
           paragraphs: [
             "Los datos de la cuenta, los CV y los contenidos generados se conservan hasta la eliminación de la cuenta o durante tres años de inactividad; recibirá un aviso por correo electrónico treinta días antes de la eliminación automática.",
             "La dirección IP con hash se borra a los treinta días, y los eventos técnicos de pago, a los noventa días. Stripe conserva las facturas durante el plazo exigido por la ley.",
+            "Tras la eliminación de una cuenta, solo se conservan el importe y la fecha de los pagos y el coste de las operaciones, sin ningún vínculo con usted, con fines contables y estadísticos. Las estadísticas de visitas se conservan veinticinco meses.",
             "Antes de crear su cuenta, sus respuestas a las cinco preguntas se guardan únicamente en su navegador y se borran en cuanto se guarda su CV.",
           ],
         },

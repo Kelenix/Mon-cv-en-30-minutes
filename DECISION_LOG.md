@@ -6,6 +6,68 @@
 
 ---
 
+## ADR-040 — Espace d'administration (Inc-14)
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté (le back-office était « hors de cette version » ; ajouté à la demande de
+  l'utilisateur)
+- **Décideur** : l'utilisateur (« une dashboard complète ») ; réalisation : Claude (rôles :
+  architecte, backend, frontend, sécurité, données)
+- **Contexte** : aucun espace pour suivre l'activité, les revenus, l'IA, la provenance des
+  visiteurs ni pour agir sur un compte ; seul Supabase Studio (tunnel SSH) donnait accès à la
+  base.
+- **Décision** :
+  - **`/admin`**, en français, hors du routage par langue, avec sa propre mise en page (menu
+    latéral, pleine largeur). Accès réservé aux adresses de `ADMIN_EMAILS` : le proxy renvoie
+    vers la connexion sans session et affiche une page introuvable aux autres comptes (l'espace
+    n'est pas révélé) ; chaque page et chaque action revérifient l'administrateur.
+  - **Lectures** par six fonctions SQL `admin_*` réservées au rôle serveur (agrégats calculés
+    par PostgreSQL, une requête par page) ; aucune table d'administration n'est lisible par les
+    visiteurs ou les comptes (RLS sans politique, privilèges retirés).
+  - **Pages** : vue d'ensemble (comptes, actifs, abonnés, revenu mensuel récurrent, revenus, CV,
+    IA, coût) ; revenus et paiements (par produit, par moyen de paiement, abonnements, économie
+    des crédits) ; IA (volume, réussite, durée, coût et tokens par opération, causes d'échec) ;
+    provenance (visites par canal, source et pays, pays et langue des comptes, conversion,
+    Google ou code) ; utilisateurs (recherche, filtre, fiche détaillée) ; état du système
+    (services interrogés en direct, tâches planifiées, sauvegardes, mémoire, disque, tables) ;
+    journal. Période au choix : 7, 30, 90 jours ou 12 mois.
+  - **Graphiques** : Recharts (aires jour par jour, info-bulle, tableau pour les lecteurs
+    d'écran), barres de répartition en HTML ; palette validée pour le daltonisme (bleu, orange,
+    vert d'eau), état toujours écrit (icône et libellé).
+  - **Actions** : offrir des crédits (achetés, motif), suspendre ou réactiver (bannissement
+    GoTrue), supprimer (comme US-06, e-mail à saisir) ; jamais sur son propre compte ; chaque
+    action est inscrite au journal (auteur, compte, détail), gardé un an.
+  - **Provenance sans traceur** : le proxy compte chaque arrivée sur une page (hors robots et
+    préchargements) dans des compteurs par jour, canal (accès direct, recherche, réseaux,
+    sites référents, campagne `utm_source`), source et pays ; ni cookie, ni adresse IP, ni lien
+    avec un compte ; gardés 25 mois. Pays d'un compte déduit de l'adresse IP à la première
+    connexion. Pays par la base DB-IP « IP to Country Lite » (CC BY 4.0, citée), embarquée :
+    aucun appel extérieur.
+  - **Paiements** : moyen de paiement noté (carte, Apple Pay, Google Pay, PayPal, SEPA…) pour
+    les achats et les abonnements ; échéances d'abonnement enregistrées à l'événement Stripe
+    `invoice.paid` (à ajouter au webhook) ; revenus et coûts de l'IA gardés anonymes à la
+    suppression d'un compte (lien vers le compte mis à vide) pour que l'historique reste juste.
+  - **Rétention** : chaque passage est tracé (`job_runs`) pour l'état du système ; les
+    sauvegardes de la nuit sont montées en lecture seule dans le conteneur du site.
+- **Alternatives écartées** :
+  - Outil tiers (Metabase, Grafana, PostHog, Google Analytics) : un service de plus à
+    héberger, ou des traceurs soumis au consentement ; pas d'action sur les comptes.
+  - Rôle administrateur en base modifiable depuis l'interface : un compte compromis pourrait
+    en créer d'autres ; la liste vient de la configuration du serveur.
+  - Attribution des inscriptions par cookie (source de chaque compte) : traceur soumis au
+    consentement ; seuls des compteurs anonymes sont gardés.
+  - Interface traduite en 5 langues : réservée à l'exploitant, francophone.
+- **Conséquences** :
+  - Politique de confidentialité complétée (5 langues) : pays à la première connexion,
+    statistiques anonymes, historique financier anonyme.
+  - Ajouter `invoice.paid` aux événements du webhook Stripe et `ADMIN_EMAILS` à `deploy/.env`
+    (tâches 4 et 17).
+  - L'accès repose sur la connexion par code e-mail : protéger la boîte e-mail de
+    l'administrateur (double authentification chez le fournisseur).
+- **Impact** : fonctionnel (fort), sécurité (moyen), légal (faible, données anonymes).
+
+---
+
 ## ADR-039 — Protection contre les robots à la connexion
 
 - **Date** : 24/11/2026

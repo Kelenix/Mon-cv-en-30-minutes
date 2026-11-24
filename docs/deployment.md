@@ -158,6 +158,7 @@ base, secret JWT et clés Supabase, sel des adresses IP, jeton des tâches. Comp
 | `ANTHROPIC_API_KEY` | Clé Anthropic (tâche 3) |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Clés du **mode réel** (étape 8) |
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Clés Cloudflare Turnstile (tâche 16) |
+| `ADMIN_EMAILS` | Ton adresse e-mail, pour l'espace d'administration (tâche 17) |
 | `LEGAL_*` | Informations du vendeur (tâche 7) |
 | `LEGAL_HOSTING` | `Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre`, suivi du téléphone indiqué dans les mentions légales de hostinger.fr (à vérifier) |
 | `GOOGLE_*`, `ADS_*` | Plus tard (étape 8, tâche 10) |
@@ -212,8 +213,8 @@ téléchargement du PDF.
 
    - **Développeurs → Webhooks → Ajouter une destination** :
      `https://ton-domaine.fr/api/stripe/webhook`, avec les événements
-     `checkout.session.completed`, `checkout.session.async_payment_succeeded` et
-     `customer.subscription.*` ;
+     `checkout.session.completed`, `checkout.session.async_payment_succeeded`,
+     `customer.subscription.*` et `invoice.paid` ;
    - copie son secret dans `STRIPE_WEBHOOK_SECRET` (`deploy/.env`) ;
    - refais les réglages de la tâche 4 (CGV, annulation après échec des relances).
 
@@ -310,7 +311,14 @@ demande (`cat /var/run/reboot-required` existe) : tous les services repartent se
   Le script demande de taper `RESTAURER` : il efface la base actuelle, la recrée, repasse les
   migrations, recharge les données et vérifie le site.
 
-## 15. Administration de la base (Supabase Studio)
+## 15. Espace d'administration
+
+`https://ton-domaine.fr/admin`, après connexion avec une adresse de `ADMIN_EMAILS` : vue
+d'ensemble, utilisateurs (fiche, crédits offerts, suspension, suppression), revenus et moyens de
+paiement, IA, provenance des visiteurs, état du système (services, tâches de la nuit,
+sauvegardes, mémoire, disque) et journal des actions. Détail : ADR-040.
+
+## 15 bis. Administration de la base (Supabase Studio)
 
 Studio n'est jamais exposé sur Internet. Pour l'ouvrir :
 

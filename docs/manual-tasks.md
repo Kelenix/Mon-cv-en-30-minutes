@@ -59,7 +59,8 @@
        `docker compose --env-file .env.local up stripe` pendant les tests (Docker suffit).
   4. À la mise en production : produits, prix et portail du mode réel avec
      `npm run stripe:seed -- --live`, réglages ci-dessus refaits en mode réel, webhook
-     `https://<domaine>/api/stripe/webhook` ; clés du mode réel dans `deploy/.env` sur le
+     `https://<domaine>/api/stripe/webhook` (avec l'événement `invoice.paid` pour les revenus
+     des abonnements) ; clés du mode réel dans `deploy/.env` sur le
      serveur (`docs/deployment.md`, étape 8).
 - **Coût** : commission par transaction (environ 1,5 % + 0,25 € par carte UE ; vérifier la grille
   en vigueur).
@@ -156,7 +157,7 @@
 ## Tâche 9 : Mettre le site en ligne sur le VPS Hostinger
 - **Pourquoi** : mise en ligne (ADR-038). Tout est prêt dans `deploy/` et a été répété en
   local ; il reste ce qui demande tes comptes et ton serveur.
-- **Quand** : maintenant, une fois les tâches 3, 4, 6, 7 et 16 faites (5 et 10 peuvent suivre).
+- **Quand** : maintenant, une fois les tâches 3, 4, 6, 7, 16 et 17 faites (5 et 10 peuvent suivre).
 - **Étapes** : suivre `docs/deployment.md`, étapes 1 à 8 : commander le VPS (Ubuntu 24.04,
   centre de données dans l'UE) et le domaine, clé SSH, `setup-vps.sh`, DNS (`@`, `www`, `api`),
   clé de lecture du dépôt, `deploy/.env`, `deploy.sh`, puis Stripe et Google.
@@ -275,3 +276,17 @@
 - **Coût** : gratuit.
 - **Vérification** : sur la page de connexion, le bouton « Recevoir un code » s'active après une
   seconde environ et le code arrive ; Cloudflare → Turnstile → Analytics compte les vérifications.
+
+## Tâche 17 : Déclarer les administrateurs
+- **Pourquoi** : l'espace d'administration (`https://<domaine>/admin`, ADR-040) n'est ouvert
+  qu'aux adresses déclarées sur le serveur.
+- **Quand** : à la mise en ligne.
+- **Étapes** :
+  1. Dans `deploy/.env` : `ADMIN_EMAILS=ton-adresse@exemple.fr` (plusieurs adresses séparées
+     par des virgules), puis `deploy/scripts/deploy.sh`.
+  2. Te connecter sur le site avec cette adresse (code reçu par e-mail), puis ouvrir `/admin`.
+  3. Activer la double authentification sur cette boîte e-mail : elle donne accès à
+     l'administration.
+- **Coût** : gratuit.
+- **Vérification** : `/admin` affiche la vue d'ensemble ; avec un autre compte, la page est
+  introuvable.

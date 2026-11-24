@@ -5,16 +5,30 @@ export type Database = {
   
   "public": {
           Tables: {
-            "ai_operations": {
+            "admin_audit_log": {
                   Row: {
-                    "cache_read_tokens": number | null,"cost_usd_micros": number | null,"created_at": string,"credits_charged": number,"duration_ms": number | null,"error_code": string | null,"finished_at": string | null,"id": string,"input_tokens": number | null,"ip_hash": string | null,"kind": Database["public"]['Enums']["ai_operation_kind"],"model": string | null,"output_tokens": number | null,"request_id": string,"status": Database["public"]['Enums']["ai_operation_status"],"user_id": string,"was_free": boolean
+                    "action": string,"admin_email": string,"created_at": string,"details": NonNullable<Json>,"id": number,"target_email": string | null,"target_user_id": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "cache_read_tokens"?: number | null,"cost_usd_micros"?: number | null,"created_at"?: string,"credits_charged"?: number,"duration_ms"?: number | null,"error_code"?: string | null,"finished_at"?: string | null,"id"?: string,"input_tokens"?: number | null,"ip_hash"?: string | null,"kind": Database["public"]['Enums']["ai_operation_kind"],"model"?: string | null,"output_tokens"?: number | null,"request_id": string,"status"?: Database["public"]['Enums']["ai_operation_status"],"user_id": string,"was_free"?: boolean
+                    "action": string,"admin_email": string,"created_at"?: string,"details"?: NonNullable<Json>,"id"?: never,"target_email"?: string | null,"target_user_id"?: string | null
                   }
                   Update: {
-                    "cache_read_tokens"?: number | null,"cost_usd_micros"?: number | null,"created_at"?: string,"credits_charged"?: number,"duration_ms"?: number | null,"error_code"?: string | null,"finished_at"?: string | null,"id"?: string,"input_tokens"?: number | null,"ip_hash"?: string | null,"kind"?: Database["public"]['Enums']["ai_operation_kind"],"model"?: string | null,"output_tokens"?: number | null,"request_id"?: string,"status"?: Database["public"]['Enums']["ai_operation_status"],"user_id"?: string,"was_free"?: boolean
+                    "action"?: string,"admin_email"?: string,"created_at"?: string,"details"?: NonNullable<Json>,"id"?: never,"target_email"?: string | null,"target_user_id"?: string | null
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"ai_operations": {
+                  Row: {
+                    "cache_read_tokens": number | null,"cost_usd_micros": number | null,"created_at": string,"credits_charged": number,"duration_ms": number | null,"error_code": string | null,"finished_at": string | null,"id": string,"input_tokens": number | null,"ip_hash": string | null,"kind": Database["public"]['Enums']["ai_operation_kind"],"model": string | null,"output_tokens": number | null,"request_id": string,"status": Database["public"]['Enums']["ai_operation_status"],"user_id": string | null,"was_free": boolean
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "cache_read_tokens"?: number | null,"cost_usd_micros"?: number | null,"created_at"?: string,"credits_charged"?: number,"duration_ms"?: number | null,"error_code"?: string | null,"finished_at"?: string | null,"id"?: string,"input_tokens"?: number | null,"ip_hash"?: string | null,"kind": Database["public"]['Enums']["ai_operation_kind"],"model"?: string | null,"output_tokens"?: number | null,"request_id": string,"status"?: Database["public"]['Enums']["ai_operation_status"],"user_id"?: string | null,"was_free"?: boolean
+                  }
+                  Update: {
+                    "cache_read_tokens"?: number | null,"cost_usd_micros"?: number | null,"created_at"?: string,"credits_charged"?: number,"duration_ms"?: number | null,"error_code"?: string | null,"finished_at"?: string | null,"id"?: string,"input_tokens"?: number | null,"ip_hash"?: string | null,"kind"?: Database["public"]['Enums']["ai_operation_kind"],"model"?: string | null,"output_tokens"?: number | null,"request_id"?: string,"status"?: Database["public"]['Enums']["ai_operation_status"],"user_id"?: string | null,"was_free"?: boolean
                   }
                   Relationships: [
                     {
@@ -135,30 +149,44 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
-                },"profiles": {
+                },"job_runs": {
                   Row: {
-                    "ads_removed_at": string | null,"city": string | null,"created_at": string,"first_name": string | null,"free_generation_used_at": string | null,"id": string,"interstitial_shown_at": string | null,"last_name": string | null,"last_seen_at": string,"locale": Database["public"]['Enums']["app_locale"],"phone": string | null,"retention_warning_sent_at": string | null,"stripe_customer_id": string | null,"trial_used_at": string | null,"updated_at": string
+                    "details": NonNullable<Json>,"finished_at": string,"id": number,"job": string,"ok": boolean
                   }
                   ComputedFields: never
                   Insert: {
-                    "ads_removed_at"?: string | null,"city"?: string | null,"created_at"?: string,"first_name"?: string | null,"free_generation_used_at"?: string | null,"id": string,"interstitial_shown_at"?: string | null,"last_name"?: string | null,"last_seen_at"?: string,"locale"?: Database["public"]['Enums']["app_locale"],"phone"?: string | null,"retention_warning_sent_at"?: string | null,"stripe_customer_id"?: string | null,"trial_used_at"?: string | null,"updated_at"?: string
+                    "details"?: NonNullable<Json>,"finished_at"?: string,"id"?: never,"job": string,"ok": boolean
                   }
                   Update: {
-                    "ads_removed_at"?: string | null,"city"?: string | null,"created_at"?: string,"first_name"?: string | null,"free_generation_used_at"?: string | null,"id"?: string,"interstitial_shown_at"?: string | null,"last_name"?: string | null,"last_seen_at"?: string,"locale"?: Database["public"]['Enums']["app_locale"],"phone"?: string | null,"retention_warning_sent_at"?: string | null,"stripe_customer_id"?: string | null,"trial_used_at"?: string | null,"updated_at"?: string
+                    "details"?: NonNullable<Json>,"finished_at"?: string,"id"?: never,"job"?: string,"ok"?: boolean
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"profiles": {
+                  Row: {
+                    "ads_removed_at": string | null,"city": string | null,"created_at": string,"first_name": string | null,"free_generation_used_at": string | null,"id": string,"interstitial_shown_at": string | null,"last_name": string | null,"last_seen_at": string,"locale": Database["public"]['Enums']["app_locale"],"phone": string | null,"retention_warning_sent_at": string | null,"signup_country": string | null,"stripe_customer_id": string | null,"trial_used_at": string | null,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "ads_removed_at"?: string | null,"city"?: string | null,"created_at"?: string,"first_name"?: string | null,"free_generation_used_at"?: string | null,"id": string,"interstitial_shown_at"?: string | null,"last_name"?: string | null,"last_seen_at"?: string,"locale"?: Database["public"]['Enums']["app_locale"],"phone"?: string | null,"retention_warning_sent_at"?: string | null,"signup_country"?: string | null,"stripe_customer_id"?: string | null,"trial_used_at"?: string | null,"updated_at"?: string
+                  }
+                  Update: {
+                    "ads_removed_at"?: string | null,"city"?: string | null,"created_at"?: string,"first_name"?: string | null,"free_generation_used_at"?: string | null,"id"?: string,"interstitial_shown_at"?: string | null,"last_name"?: string | null,"last_seen_at"?: string,"locale"?: Database["public"]['Enums']["app_locale"],"phone"?: string | null,"retention_warning_sent_at"?: string | null,"signup_country"?: string | null,"stripe_customer_id"?: string | null,"trial_used_at"?: string | null,"updated_at"?: string
                   }
                   Relationships: [
                     
                   ]
                 },"purchases": {
                   Row: {
-                    "amount_cents": number,"created_at": string,"currency": string,"cv_id": string | null,"id": string,"product": Database["public"]['Enums']["purchase_product"],"stripe_checkout_session_id": string,"terms_accepted_at": string,"user_id": string
+                    "amount_cents": number,"created_at": string,"currency": string,"cv_id": string | null,"id": string,"payment_method": string | null,"product": Database["public"]['Enums']["purchase_product"],"stripe_checkout_session_id": string,"terms_accepted_at": string,"user_id": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "amount_cents": number,"created_at"?: string,"currency"?: string,"cv_id"?: string | null,"id"?: string,"product": Database["public"]['Enums']["purchase_product"],"stripe_checkout_session_id": string,"terms_accepted_at": string,"user_id": string
+                    "amount_cents": number,"created_at"?: string,"currency"?: string,"cv_id"?: string | null,"id"?: string,"payment_method"?: string | null,"product": Database["public"]['Enums']["purchase_product"],"stripe_checkout_session_id": string,"terms_accepted_at": string,"user_id"?: string | null
                   }
                   Update: {
-                    "amount_cents"?: number,"created_at"?: string,"currency"?: string,"cv_id"?: string | null,"id"?: string,"product"?: Database["public"]['Enums']["purchase_product"],"stripe_checkout_session_id"?: string,"terms_accepted_at"?: string,"user_id"?: string
+                    "amount_cents"?: number,"created_at"?: string,"currency"?: string,"cv_id"?: string | null,"id"?: string,"payment_method"?: string | null,"product"?: Database["public"]['Enums']["purchase_product"],"stripe_checkout_session_id"?: string,"terms_accepted_at"?: string,"user_id"?: string | null
                   }
                   Relationships: [
                     {
@@ -209,6 +237,20 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"site_visits": {
+                  Row: {
+                    "channel": string,"country": string,"day": string,"source": string,"visits": number
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "channel": string,"country": string,"day": string,"source": string,"visits"?: number
+                  }
+                  Update: {
+                    "channel"?: string,"country"?: string,"day"?: string,"source"?: string,"visits"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"stripe_events": {
                   Row: {
                     "created_at": string,"id": string,"type": string
@@ -223,16 +265,36 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
-                },"subscriptions": {
+                },"subscription_invoices": {
                   Row: {
-                    "billing_interval": Database["public"]['Enums']["billing_interval"],"cancel_at_period_end": boolean,"created_at": string,"current_period_end": string,"id": string,"monthly_credits": number,"next_credit_grant_at": string | null,"plan": Database["public"]['Enums']["plan_tier"],"provider_subscription_id": string,"source": Database["public"]['Enums']["subscription_source"],"status": Database["public"]['Enums']["subscription_status"],"trial_ends_at": string | null,"updated_at": string,"user_id": string
+                    "amount_cents": number,"billing_interval": Database["public"]['Enums']["billing_interval"] | null,"created_at": string,"currency": string,"id": string,"paid_at": string,"payment_method": string | null,"plan": Database["public"]['Enums']["plan_tier"] | null,"stripe_invoice_id": string,"user_id": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "billing_interval": Database["public"]['Enums']["billing_interval"],"cancel_at_period_end"?: boolean,"created_at"?: string,"current_period_end": string,"id"?: string,"monthly_credits": number,"next_credit_grant_at"?: string | null,"plan": Database["public"]['Enums']["plan_tier"],"provider_subscription_id": string,"source"?: Database["public"]['Enums']["subscription_source"],"status": Database["public"]['Enums']["subscription_status"],"trial_ends_at"?: string | null,"updated_at"?: string,"user_id": string
+                    "amount_cents": number,"billing_interval"?: Database["public"]['Enums']["billing_interval"] | null,"created_at"?: string,"currency"?: string,"id"?: string,"paid_at": string,"payment_method"?: string | null,"plan"?: Database["public"]['Enums']["plan_tier"] | null,"stripe_invoice_id": string,"user_id"?: string | null
                   }
                   Update: {
-                    "billing_interval"?: Database["public"]['Enums']["billing_interval"],"cancel_at_period_end"?: boolean,"created_at"?: string,"current_period_end"?: string,"id"?: string,"monthly_credits"?: number,"next_credit_grant_at"?: string | null,"plan"?: Database["public"]['Enums']["plan_tier"],"provider_subscription_id"?: string,"source"?: Database["public"]['Enums']["subscription_source"],"status"?: Database["public"]['Enums']["subscription_status"],"trial_ends_at"?: string | null,"updated_at"?: string,"user_id"?: string
+                    "amount_cents"?: number,"billing_interval"?: Database["public"]['Enums']["billing_interval"] | null,"created_at"?: string,"currency"?: string,"id"?: string,"paid_at"?: string,"payment_method"?: string | null,"plan"?: Database["public"]['Enums']["plan_tier"] | null,"stripe_invoice_id"?: string,"user_id"?: string | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "subscription_invoices_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"subscriptions": {
+                  Row: {
+                    "billing_interval": Database["public"]['Enums']["billing_interval"],"cancel_at_period_end": boolean,"created_at": string,"current_period_end": string,"id": string,"monthly_credits": number,"next_credit_grant_at": string | null,"payment_method": string | null,"plan": Database["public"]['Enums']["plan_tier"],"provider_subscription_id": string,"source": Database["public"]['Enums']["subscription_source"],"status": Database["public"]['Enums']["subscription_status"],"trial_ends_at": string | null,"updated_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "billing_interval": Database["public"]['Enums']["billing_interval"],"cancel_at_period_end"?: boolean,"created_at"?: string,"current_period_end": string,"id"?: string,"monthly_credits": number,"next_credit_grant_at"?: string | null,"payment_method"?: string | null,"plan": Database["public"]['Enums']["plan_tier"],"provider_subscription_id": string,"source"?: Database["public"]['Enums']["subscription_source"],"status": Database["public"]['Enums']["subscription_status"],"trial_ends_at"?: string | null,"updated_at"?: string,"user_id": string
+                  }
+                  Update: {
+                    "billing_interval"?: Database["public"]['Enums']["billing_interval"],"cancel_at_period_end"?: boolean,"created_at"?: string,"current_period_end"?: string,"id"?: string,"monthly_credits"?: number,"next_credit_grant_at"?: string | null,"payment_method"?: string | null,"plan"?: Database["public"]['Enums']["plan_tier"],"provider_subscription_id"?: string,"source"?: Database["public"]['Enums']["subscription_source"],"status"?: Database["public"]['Enums']["subscription_status"],"trial_ends_at"?: string | null,"updated_at"?: string,"user_id"?: string
                   }
                   Relationships: [
                     {
@@ -249,7 +311,26 @@ isOneToOne: true
             [_ in never]: never
           }
           Functions: {
-            "begin_ai_operation":
+            "admin_daily":
+{ Args: { "p_days": number }; Returns: {
+              "ai_cost_micros": number,"ai_failed": number,"ai_operations": number,"cvs": number,"day": string,"revenue_cents": number,"signups": number,"visits": number
+            }[]
+                           },
+"admin_summary":
+{ Args: { "p_days": number }; Returns: Json
+                           },
+"admin_system":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
+"admin_user_detail":
+{ Args: { "p_user_id": string }; Returns: Json
+                           },
+"admin_users":
+{ Args: { "p_limit": number,"p_offset": number,"p_plan": string,"p_search": string }; Returns: {
+              "banned": boolean,"country": string,"created_at": string,"credits": number,"cvs": number,"email": string,"first_name": string,"id": string,"last_name": string,"last_seen_at": string,"locale": Database["public"]['Enums']["app_locale"],"plan": Database["public"]['Enums']["plan_tier"],"spent_cents": number,"subscription_status": Database["public"]['Enums']["subscription_status"],"total": number
+            }[]
+                           },
+"begin_ai_operation":
 { Args: { "p_allow_included": boolean,"p_cost": number,"p_free_ip_limit": number,"p_ip_hash"?: string,"p_kind": Database["public"]['Enums']["ai_operation_kind"],"p_rate_limit": number,"p_request_id": string,"p_try_free": boolean,"p_user_id": string }; Returns: {
               "created": boolean,"operation_id": string,"status": Database["public"]['Enums']["ai_operation_status"],"was_free": boolean
             }[]
@@ -284,6 +365,9 @@ isOneToOne: true
                            },
 "issue_reward_token":
 { Args: { "p_daily_limit": number,"p_user_id": string }; Returns: string
+                           },
+"record_visit":
+{ Args: { "p_channel": string,"p_country": string,"p_source": string }; Returns: undefined
                            },
 "redeem_reward_token":
 { Args: { "p_daily_limit": number,"p_token": string,"p_user_id": string }; Returns: number
@@ -323,7 +407,7 @@ isOneToOne: true
                            }
           }
           Enums: {
-            "ai_operation_kind": "generate_cv"|"improve_experience"|"improve_summary"|"adapt_to_job"|"linkedin"|"cover_letter"|"interview"|"interview_feedback","ai_operation_status": "pending"|"succeeded"|"failed","app_locale": "fr"|"en"|"it"|"es"|"de","billing_interval": "month"|"year","credit_bucket": "included"|"purchased","generation_kind": "summary_variants"|"job_adaptation"|"linkedin"|"cover_letter"|"interview","ledger_reason": "ai_operation"|"ai_refund"|"pack_purchase"|"rewarded_ad"|"trial_grant"|"monthly_grant"|"upgrade_grant"|"included_expiry"|"subscription_end","plan_tier": "essential"|"pro"|"premium","purchase_product": "credits_5"|"credits_15"|"credits_40"|"cv_pro"|"ads_removal","subscription_source": "stripe"|"app_store"|"play_store","subscription_status": "trialing"|"active"|"past_due"|"unpaid"|"canceled"|"incomplete"|"incomplete_expired"|"paused"
+            "ai_operation_kind": "generate_cv"|"improve_experience"|"improve_summary"|"adapt_to_job"|"linkedin"|"cover_letter"|"interview"|"interview_feedback","ai_operation_status": "pending"|"succeeded"|"failed","app_locale": "fr"|"en"|"it"|"es"|"de","billing_interval": "month"|"year","credit_bucket": "included"|"purchased","generation_kind": "summary_variants"|"job_adaptation"|"linkedin"|"cover_letter"|"interview","ledger_reason": "ai_operation"|"ai_refund"|"pack_purchase"|"rewarded_ad"|"trial_grant"|"monthly_grant"|"upgrade_grant"|"included_expiry"|"subscription_end"|"admin_grant","plan_tier": "essential"|"pro"|"premium","purchase_product": "credits_5"|"credits_15"|"credits_40"|"cv_pro"|"ads_removal","subscription_source": "stripe"|"app_store"|"play_store","subscription_status": "trialing"|"active"|"past_due"|"unpaid"|"canceled"|"incomplete"|"incomplete_expired"|"paused"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -439,7 +523,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "ai_operation_kind": ["generate_cv", "improve_experience", "improve_summary", "adapt_to_job", "linkedin", "cover_letter", "interview", "interview_feedback"],"ai_operation_status": ["pending", "succeeded", "failed"],"app_locale": ["fr", "en", "it", "es", "de"],"billing_interval": ["month", "year"],"credit_bucket": ["included", "purchased"],"generation_kind": ["summary_variants", "job_adaptation", "linkedin", "cover_letter", "interview"],"ledger_reason": ["ai_operation", "ai_refund", "pack_purchase", "rewarded_ad", "trial_grant", "monthly_grant", "upgrade_grant", "included_expiry", "subscription_end"],"plan_tier": ["essential", "pro", "premium"],"purchase_product": ["credits_5", "credits_15", "credits_40", "cv_pro", "ads_removal"],"subscription_source": ["stripe", "app_store", "play_store"],"subscription_status": ["trialing", "active", "past_due", "unpaid", "canceled", "incomplete", "incomplete_expired", "paused"]
+            "ai_operation_kind": ["generate_cv", "improve_experience", "improve_summary", "adapt_to_job", "linkedin", "cover_letter", "interview", "interview_feedback"],"ai_operation_status": ["pending", "succeeded", "failed"],"app_locale": ["fr", "en", "it", "es", "de"],"billing_interval": ["month", "year"],"credit_bucket": ["included", "purchased"],"generation_kind": ["summary_variants", "job_adaptation", "linkedin", "cover_letter", "interview"],"ledger_reason": ["ai_operation", "ai_refund", "pack_purchase", "rewarded_ad", "trial_grant", "monthly_grant", "upgrade_grant", "included_expiry", "subscription_end", "admin_grant"],"plan_tier": ["essential", "pro", "premium"],"purchase_product": ["credits_5", "credits_15", "credits_40", "cv_pro", "ads_removal"],"subscription_source": ["stripe", "app_store", "play_store"],"subscription_status": ["trialing", "active", "past_due", "unpaid", "canceled", "incomplete", "incomplete_expired", "paused"]
           }
         }
 } as const

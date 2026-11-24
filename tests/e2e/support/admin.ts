@@ -112,3 +112,11 @@ export async function fulfillAdsRemoval(email: string) {
   });
   if (error) throw error;
 }
+
+/** Supprime le compte s'il existe (administrateur de test recréé à chaque passage). */
+export async function deleteUserIfExists(email: string) {
+  const { data, error } = await admin.auth.admin.listUsers({ perPage: 1000 });
+  if (error) throw error;
+  const user = data.users.find((candidate) => candidate.email === email);
+  if (user) await admin.auth.admin.deleteUser(user.id);
+}

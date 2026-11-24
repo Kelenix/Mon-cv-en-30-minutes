@@ -37,7 +37,8 @@ COPY . .
 RUN NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=build SUPABASE_SECRET_KEY=build npm run build
 
 FROM base AS runner
-ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
+ARG APP_VERSION
+ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 APP_VERSION=$APP_VERSION
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
 USER node

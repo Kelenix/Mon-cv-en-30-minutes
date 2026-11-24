@@ -77,6 +77,19 @@ const envSchema = z
     // Protection contre les robots à la connexion (Cloudflare Turnstile, ADR-039).
     TURNSTILE_SITE_KEY: optionalText,
     TURNSTILE_SECRET_KEY: optionalText,
+    // Espace d'administration : adresses e-mail des administrateurs, séparées par des virgules
+    // (ADR-040). Vide : personne n'y a accès.
+    ADMIN_EMAILS: z
+      .string()
+      .default("")
+      .transform((value) =>
+        value
+          .split(",")
+          .map((email) => email.trim().toLowerCase())
+          .filter(Boolean),
+      ),
+    // Version déployée (commit), affichée dans l'état du système.
+    APP_VERSION: optionalText,
     // Jeton des tâches planifiées (`/api/cron/*`).
     CRON_SECRET: optionalText.refine((value) => !value || value.length >= 32, {
       error: "32 caractères minimum",
