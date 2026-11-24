@@ -6,6 +6,44 @@
 
 ---
 
+## ADR-039 — Protection contre les robots à la connexion
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : sécurité, backend, frontend), à la demande de l'utilisateur
+- **Contexte** : la demande de code de connexion n'avait ni vérification anti-robot ni plafond
+  par adresse IP ; les limites de GoTrue ne voient que l'adresse du serveur du site (tous les
+  appels passent par lui, ADR-038). Un robot pouvait vider le quota Resend (100 e-mails par jour
+  en offre gratuite), bloquer les vraies connexions, créer des comptes en série pour le CV
+  gratuit, ou essayer des codes à la chaîne.
+- **Décision** :
+  - **Cloudflare Turnstile** sur chaque formulaire qui envoie un code (premier envoi et
+    « Renvoyer le code »), en mode `interaction-only` : invisible sauf si Cloudflare demande une
+    interaction, aucune image à déchiffrer. Le bouton reste actif (pas de bouton grisé qui
+    change d'aspect) : à l'envoi, le formulaire attend le jeton si Cloudflare n'a pas fini (10 s
+    au plus). Widget sans hauteur tant qu'il est invisible, marges seulement si une interaction
+    s'affiche. Nouveau jeton après chaque réponse (usage unique), message si la vérification
+    échoue. Jeton vérifié par le
+    serveur auprès de Cloudflare (`siteverify`, 5 s au plus ; refus si absent, invalide ou
+    injoignable). Clés obligatoires en production ; sans clé, désactivé (développement et
+    tests). CSP : `challenges.cloudflare.com` ajouté aux scripts et aux cadres seulement si la
+    clé de site est fournie au build.
+  - **Plafonds en base** (`consume_rate_limit`, verrou par clé, compteurs effacés après un
+    jour) : 10 demandes de code par heure et par IP ; 30 essais de code par heure et par IP et
+    10 par adresse e-mail. IP et e-mail hachés avec le sel secret, jamais stockés en clair.
+    Inactifs sans sel (développement et tests).
+- **Alternatives écartées** : hCaptcha et reCAPTCHA (images à déchiffrer, traceurs
+  publicitaires pour reCAPTCHA) ; CAPTCHA maison (contourné facilement, peu accessible) ;
+  plafonds seuls (un robot qui change d'adresse IP passe) ; plafond dans Caddy (module absent de
+  l'image officielle, et ne connaît pas l'adresse e-mail) ; plafonds en mémoire (perdus à chaque
+  déploiement).
+- **Conséquences** : Cloudflare est un sous-traitant de plus, cité dans la politique de
+  confidentialité (5 langues) ; tâche manuelle 16. Vérifié dans le navigateur avec les clés de
+  test Cloudflare : jeton accepté, jeton refusé, plafond par IP ; aucune erreur de CSP.
+- **Impact** : sécurité (fort), coût (protège le quota d'e-mails et le budget de l'IA).
+
+---
+
 ## ADR-038 — Hébergement sur un VPS Hostinger et rétention des comptes (Inc-13)
 
 - **Date** : 24/11/2026

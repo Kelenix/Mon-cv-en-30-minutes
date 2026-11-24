@@ -9,7 +9,7 @@
 - **Dernière mise à jour** : 24/11/2026
 - **Santé** : 🟢 OK
 - **Prochaine action** : côté utilisateur, mise en ligne en suivant `docs/deployment.md`
-  (tâche 9, après les tâches 3, 4, 6 et 7), puis tâches 14 et 15. Ensuite, sur le domaine :
+  (tâche 9, après les tâches 3, 4, 6, 7 et 16), puis tâches 14 et 15. Ensuite, sur le domaine :
   mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle de l'IA (NFR-02,
   jeu de référence), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
   que la tâche 12 n'est pas faite.
@@ -77,7 +77,7 @@ Inc-1 peut avancer en parallèle d'Inc-2 ; Inc-7 à Inc-10 sont indépendants en
 | 4 — Compte Stripe (clés de test) | Inc-6 | Clés de test disponibles dès l'inscription ; l'activation complète ne bloque qu'Inc-13 |
 | 5 — Google OAuth | Bouton Google en local (Inc-2) | Non bloquant : la connexion par e-mail fonctionne |
 | 8 — Logo et illustrations | Finition d'Inc-1 | Non bloquant : logotype typographique en attendant |
-| 3, 4, 6, 7, 9 — clé Anthropic, Stripe réel, SMTP, infos légales, VPS et domaine | Mise en ligne | Pas-à-pas : `docs/deployment.md` |
+| 3, 4, 6, 7, 9, 16 — clé Anthropic, Stripe réel, Resend, infos légales, VPS et domaine, Turnstile | Mise en ligne | Pas-à-pas : `docs/deployment.md` |
 | 14, 15 — déploiement automatique, surveillance et sauvegardes hors serveur | Exploitation | Après la mise en ligne |
 | 10 — Comptes publicitaires | Activation réelle des pubs | Après la mise en ligne |
 | 13 — Search Console et Bing | Suivi du référencement | Après la mise en ligne |
@@ -107,6 +107,12 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 24/11/2026 — **Protection contre les robots** (demande de l'utilisateur) : Cloudflare Turnstile
+  à chaque envoi de code (invisible le plus souvent), plafonds par IP et par adresse e-mail en
+  base, Cloudflare dans la politique de confidentialité, tâche 16. ADR-039. Page de connexion
+  remplie (demande de l'utilisateur) : atouts du compte et lien vers les conditions sous le
+  formulaire, colonne à la hauteur de l'illustration (vérifié à 1 440, 1 024 et 375 px).
 
 - 24/11/2026 — **Inc-13 préparé** (demande : tout sur un VPS Hostinger) : `deploy/` avec Docker
   Compose (Caddy en HTTPS automatique, site Next.js autonome, PostgreSQL, authentification et API

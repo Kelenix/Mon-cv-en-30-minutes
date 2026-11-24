@@ -210,6 +210,21 @@
     "resendIn": "Invia di nuovo il codice ({seconds} s)",
     "changeEmail": "Usa un'altra email",
     "answersKept": "Le tue risposte sono salvate.",
+    "benefits": {
+      "saved": {
+        "title": "Il tuo CV salvato",
+        "text": "Ritrovalo, modificalo e scaricalo quando vuoi, su tutti i tuoi dispositivi."
+      },
+      "tools": {
+        "title": "Tutti i tuoi strumenti in un unico posto",
+        "text": "Lettera di presentazione, profilo LinkedIn e preparazione al colloquio, a partire dal tuo CV."
+      },
+      "privacy": {
+        "title": "I tuoi dati protetti",
+        "text": "Ospitati nell'Unione europea e mai venduti."
+      }
+    },
+    "terms": "Continuando, accetti i <terms>termini e condizioni</terms> e l'<privacy>informativa sulla privacy</privacy>.",
     "linkInvalid": "Questo link di accesso non è più valido. Richiedi un nuovo codice.",
     "googleFailed": "L'accesso con Google non è riuscito. Riprova o usa la tua email."
   },
@@ -271,6 +286,7 @@
     "VALIDATION_ERROR": "Controlla i campi segnalati.",
     "NOT_FOUND": "Contenuto non trovato.",
     "RATE_LIMITED": "Troppe richieste ravvicinate. Attendi un momento prima di riprovare.",
+    "BOT_CHECK_FAILED": "La verifica anti-robot non è andata a buon fine. Ricarica la pagina e riprova.",
     "INTERNAL": "Si è verificato un errore. Riprova tra un attimo.",
     "fields": {
       "required": "Questo campo è obbligatorio.",

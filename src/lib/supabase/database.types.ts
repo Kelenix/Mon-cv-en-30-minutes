@@ -175,6 +175,20 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"rate_limit_events": {
+                  Row: {
+                    "created_at": string,"key": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"key": string
+                  }
+                  Update: {
+                    "created_at"?: string,"key"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"reward_tokens": {
                   Row: {
                     "created_at": string,"expires_at": string,"id": string,"redeemed_at": string | null,"user_id": string
@@ -253,6 +267,9 @@ isOneToOne: true
                            },
 "complete_interview_feedback":
 { Args: { "p_answers": Json,"p_cache_read_tokens": number,"p_cost_usd_micros": number,"p_duration_ms": number,"p_feedback": Json,"p_generation_id": string,"p_input_tokens": number,"p_model": string,"p_operation_id": string,"p_output_tokens": number }; Returns: undefined
+                           },
+"consume_rate_limit":
+{ Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
                            },
 "fail_ai_operation":
 { Args: { "p_cache_read_tokens"?: number,"p_cost_usd_micros"?: number,"p_duration_ms"?: number,"p_error_code": string,"p_input_tokens"?: number,"p_model"?: string,"p_operation_id": string,"p_output_tokens"?: number }; Returns: number

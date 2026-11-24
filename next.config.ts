@@ -8,21 +8,25 @@ const isDev = process.env.NODE_ENV !== "production";
 // HTTPS dans ce seul mode (ADR-037).
 const googleAds = process.env.ADS_MODE === "google";
 const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+// Vérification anti-robot de la connexion (Cloudflare Turnstile, ADR-039), si configurée.
+const turnstile = process.env.TURNSTILE_SITE_KEY
+  ? " https://challenges.cloudflare.com"
+  : "";
 
 /**
  * Content-Security-Policy (docs/security.md) : ressources du site seulement, plus Supabase ;
  * formulaires vers Supabase puis Google (connexion ; le paiement Stripe est ouvert par script,
- * hors form-action) ; aucune intégration dans un cadre.
+ * hors form-action) ; seul cadre permis : Turnstile (anti-robot), s'il est configuré.
  * Les scripts en ligne de Next.js imposent 'unsafe-inline' (pages générées à l'avance, sans nonce).
  */
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${googleAds ? " https:" : ""}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${googleAds ? " https:" : turnstile}`,
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob:${googleAds ? " https:" : ""}`,
   "font-src 'self' data:",
   `connect-src 'self' ${supabase}${isDev ? " ws:" : ""}${googleAds ? " https:" : ""}`,
-  `frame-src ${googleAds ? "https:" : "'none'"}`,
+  `frame-src ${googleAds ? "https:" : turnstile.trim() || "'none'"}`,
   "worker-src 'self' blob:",
   `form-action 'self' ${supabase} https://accounts.google.com`,
   "frame-ancestors 'none'",

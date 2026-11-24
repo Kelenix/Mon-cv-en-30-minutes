@@ -181,7 +181,7 @@ export const es: LegalContent = {
         {
           title: "Destinatarios y encargados del tratamiento",
           paragraphs: [
-            "Sus datos nunca se venden. Los tratan, por cuenta nuestra: Hostinger (alojamiento del sitio y de los datos, Unión Europea), Anthropic (tratamiento de los textos mediante inteligencia artificial para generar los contenidos que usted solicita), Stripe (pagos), Resend (envío de correos electrónicos) y, únicamente con su consentimiento previo, Google (publicidad).",
+            "Sus datos nunca se venden. Los tratan, por cuenta nuestra: Hostinger (alojamiento del sitio y de los datos, Unión Europea), Anthropic (tratamiento de los textos mediante inteligencia artificial para generar los contenidos que usted solicita), Stripe (pagos), Resend (envío de correos electrónicos), Cloudflare (protección contra bots al iniciar sesión) y, únicamente con su consentimiento previo, Google (publicidad).",
           ],
         },
         {

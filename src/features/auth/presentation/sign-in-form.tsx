@@ -6,6 +6,7 @@ import { type ReactNode, useActionState, useEffect, useState } from "react";
 import { FormAlert } from "@/components/form/form-alert";
 import { SubmitButton } from "@/components/form/submit-button";
 import { TextField } from "@/components/form/text-field";
+import { useTurnstile } from "@/components/form/turnstile";
 import { useFormErrors } from "@/components/form/use-form-errors";
 import { Button } from "@/components/ui/button";
 import type { ActionResult } from "@/core/action-result";
@@ -21,8 +22,15 @@ const RESEND_DELAY_SECONDS = 60;
 /**
  * Connexion sans mot de passe (US-04, docs/design/flows.md §3.4) : Google, ou e-mail puis code
  * à 6 chiffres reçu par e-mail. La page à ouvrir ensuite (`next`) est conservée à chaque étape.
+ * Chaque envoi de code passe la vérification anti-robot Turnstile quand elle est configurée.
  */
-export function SignInForm({ googleEnabled }: { googleEnabled: boolean }) {
+export function SignInForm({
+  googleEnabled,
+  turnstileSiteKey,
+}: {
+  googleEnabled: boolean;
+  turnstileSiteKey: string | null;
+}) {
   const t = useTranslations("auth");
   const locale = useLocale();
   const searchParams = useSearchParams();
@@ -66,10 +74,15 @@ export function SignInForm({ googleEnabled }: { googleEnabled: boolean }) {
         <CodeStep
           email={sentTo}
           hiddenFields={hiddenFields}
+          turnstileSiteKey={turnstileSiteKey}
           onChangeEmail={() => setSentTo(null)}
         />
       ) : (
-        <EmailStep hiddenFields={hiddenFields} onSent={setSentTo} />
+        <EmailStep
+          hiddenFields={hiddenFields}
+          turnstileSiteKey={turnstileSiteKey}
+          onSent={setSentTo}
+        />
       )}
 
       {next.startsWith(localizedPath(locale, "/creer")) ? (
@@ -79,7 +92,7 @@ export function SignInForm({ googleEnabled }: { googleEnabled: boolean }) {
   );
 }
 
-type StepProps = { hiddenFields: ReactNode };
+type StepProps = { hiddenFields: ReactNode; turnstileSiteKey: string | null };
 type EmailStepState = {
   result: ActionResult<{ email: string }> | null;
   email: string;
@@ -87,17 +100,21 @@ type EmailStepState = {
 
 function EmailStep({
   hiddenFields,
+  turnstileSiteKey,
   onSent,
 }: StepProps & { onSent: (email: string) => void }) {
   const t = useTranslations("auth");
   // Champ non contrôlé : la saisie faite avant que la page soit interactive n'est pas perdue ;
   // l'adresse envoyée est gardée pour réafficher le champ après une erreur.
+  const [attempts, setAttempts] = useState(0);
+  const human = useTurnstile(turnstileSiteKey, attempts);
   const [{ result, email }, action] = useActionState(
     async (
       _previous: EmailStepState,
       formData: FormData,
     ): Promise<EmailStepState> => {
-      const response = await requestEmailCode(formData);
+      const response = await requestEmailCode(await human.withToken(formData));
+      setAttempts((count) => count + 1);
       if (response.ok) onSent(response.data.email);
       return { result: response, email: String(formData.get("email") ?? "") };
     },
@@ -121,7 +138,12 @@ function EmailStep({
       {result && !result.ok && result.error.code !== "VALIDATION_ERROR" ? (
         <FormAlert message={errors.message} />
       ) : null}
-      <SubmitButton>{t("sendCode")}</SubmitButton>
+      <HumanCheckAlert failed={human.failed} />
+      {/* Sans espacement : le widget invisible n'ajoute aucun écart au-dessus du bouton. */}
+      <div className="grid">
+        {human.widget}
+        <SubmitButton>{t("sendCode")}</SubmitButton>
+      </div>
     </form>
   );
 }
@@ -129,11 +151,14 @@ function EmailStep({
 function CodeStep({
   email,
   hiddenFields,
+  turnstileSiteKey,
   onChangeEmail,
 }: StepProps & { email: string; onChangeEmail: () => void }) {
   const t = useTranslations("auth");
   const [code, setCode] = useState("");
   const [secondsLeft, setSecondsLeft] = useState(RESEND_DELAY_SECONDS);
+  const [resends, setResends] = useState(0);
+  const human = useTurnstile(turnstileSiteKey, resends);
 
   const [result, verifyAction] = useActionState(
     (_previous: ActionResult<never> | null, formData: FormData) =>
@@ -145,7 +170,8 @@ function CodeStep({
       _previous: ActionResult<{ email: string }> | null,
       formData: FormData,
     ) => {
-      const response = await requestEmailCode(formData);
+      const response = await requestEmailCode(await human.withToken(formData));
+      setResends((count) => count + 1);
       if (response.ok) setSecondsLeft(RESEND_DELAY_SECONDS);
       return response;
     },
@@ -185,33 +211,39 @@ function CodeStep({
         ) : null}
         <SubmitButton disabled={code.length !== 6}>{t("verify")}</SubmitButton>
       </form>
-      <form
-        action={resendAction}
-        className="flex flex-wrap justify-between gap-2"
-      >
+      <form action={resendAction} className="grid">
         {hiddenFields}
         <input type="hidden" name="email" value={email} />
-        <SubmitButton
-          variant="link"
-          className="px-0"
-          disabled={secondsLeft > 0}
-        >
-          {secondsLeft > 0
-            ? t("resendIn", { seconds: secondsLeft })
-            : t("resend")}
-        </SubmitButton>
-        <Button
-          type="button"
-          variant="link"
-          className="px-0"
-          onClick={onChangeEmail}
-        >
-          {t("changeEmail")}
-        </Button>
+        <div className="flex flex-wrap justify-between gap-2">
+          <SubmitButton
+            variant="link"
+            className="px-0"
+            disabled={secondsLeft > 0}
+          >
+            {secondsLeft > 0
+              ? t("resendIn", { seconds: secondsLeft })
+              : t("resend")}
+          </SubmitButton>
+          <Button
+            type="button"
+            variant="link"
+            className="px-0"
+            onClick={onChangeEmail}
+          >
+            {t("changeEmail")}
+          </Button>
+        </div>
+        {human.widget}
       </form>
       <FormAlert message={resendErrors.message} />
+      <HumanCheckAlert failed={human.failed} />
     </div>
   );
+}
+
+function HumanCheckAlert({ failed }: { failed: boolean }) {
+  const t = useTranslations("errors");
+  return failed ? <FormAlert message={t("BOT_CHECK_FAILED")} /> : null;
 }
 
 function GoogleMark() {

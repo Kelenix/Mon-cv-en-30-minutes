@@ -295,5 +295,6 @@ connexion se fait par code, lu dans Mailpit (`http://localhost:54324`).
 | Brouillon des 5 questions | Reprise de la saisie | — (stocké dans le navigateur) | Effacé à l'enregistrement du CV |
 
 Sous-traitants à citer dans la politique de confidentialité : Hostinger (hébergement du site et
-de la base, UE, ADR-038), Anthropic (traitement des textes pour la génération), Stripe (paiement), Resend (e-mails),
+de la base, UE, ADR-038), Anthropic (traitement des textes pour la génération), Stripe (paiement), Resend (e-mails), Cloudflare
+(protection contre les robots à la connexion),
 Google (publicités, après consentement).

@@ -52,7 +52,8 @@ Fichiers (dossier `deploy/`) :
 - **Le code est sur GitHub** : le serveur le récupère depuis le dépôt (tâche manuelle 11). Envoie
   la branche `main` (`git push origin main`) avant l'étape 5.
 - **Comptes et clés prêts** : e-mails par Resend (tâche 6), Anthropic (tâche 3), Stripe activé (tâche 4),
-  informations du vendeur (tâche 7). Google (tâche 5) est facultatif.
+  informations du vendeur (tâche 7), protection contre les robots Cloudflare Turnstile
+  (tâche 16). Google (tâche 5) est facultatif.
 - **Un terminal sur ton ordinateur** : PowerShell suffit (`ssh` et `scp` sont inclus dans
   Windows).
 
@@ -156,6 +157,7 @@ base, secret JWT et clés Supabase, sel des adresses IP, jeton des tâches. Comp
 | `SMTP_PASSWORD`, `SMTP_SENDER_EMAIL` | Clé d'API Resend et adresse d'expédition (tâche 6) ; hôte, port et identifiant Resend déjà remplis |
 | `ANTHROPIC_API_KEY` | Clé Anthropic (tâche 3) |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Clés du **mode réel** (étape 8) |
+| `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Clés Cloudflare Turnstile (tâche 16) |
 | `LEGAL_*` | Informations du vendeur (tâche 7) |
 | `LEGAL_HOSTING` | `Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre`, suivi du téléphone indiqué dans les mentions légales de hostinger.fr (à vérifier) |
 | `GOOGLE_*`, `ADS_*` | Plus tard (étape 8, tâche 10) |

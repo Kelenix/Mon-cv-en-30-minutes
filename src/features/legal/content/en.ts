@@ -181,7 +181,7 @@ export const en: LegalContent = {
         {
           title: "Recipients and processors",
           paragraphs: [
-            "Your data is never sold. It is processed on our behalf by: Hostinger (website and data hosting, European Union), Anthropic (artificial intelligence processing of text to produce the content you request), Stripe (payments), Resend (email delivery) and, only with your consent, Google (advertising).",
+            "Your data is never sold. It is processed on our behalf by: Hostinger (website and data hosting, European Union), Anthropic (artificial intelligence processing of text to produce the content you request), Stripe (payments), Resend (email delivery), Cloudflare (bot protection at sign-in) and, only with your consent, Google (advertising).",
           ],
         },
         {

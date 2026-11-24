@@ -210,6 +210,21 @@
     "resendIn": "Code erneut senden ({seconds} s)",
     "changeEmail": "Andere E-Mail-Adresse verwenden",
     "answersKept": "Deine Antworten bleiben gespeichert.",
+    "benefits": {
+      "saved": {
+        "title": "Dein Lebenslauf gespeichert",
+        "text": "Du findest ihn jederzeit wieder, kannst ihn bearbeiten und herunterladen – auf all deinen Geräten."
+      },
+      "tools": {
+        "title": "Alle Tools an einem Ort",
+        "text": "Anschreiben, LinkedIn-Profil und Vorbereitung auf das Vorstellungsgespräch, auf Basis deines Lebenslaufs."
+      },
+      "privacy": {
+        "title": "Deine Daten geschützt",
+        "text": "In der Europäischen Union gehostet und niemals verkauft."
+      }
+    },
+    "terms": "Wenn du fortfährst, akzeptierst du die <terms>AGB</terms> und die <privacy>Datenschutzerklärung</privacy>.",
     "linkInvalid": "Dieser Anmeldelink ist nicht mehr gültig. Fordere einen neuen Code an.",
     "googleFailed": "Die Anmeldung mit Google hat nicht geklappt. Versuche es noch einmal oder nutze deine E-Mail-Adresse."
   },
@@ -271,6 +286,7 @@
     "VALIDATION_ERROR": "Prüfe die markierten Felder.",
     "NOT_FOUND": "Dieser Inhalt wurde nicht gefunden.",
     "RATE_LIMITED": "Zu viele Anfragen kurz hintereinander. Warte einen Moment, bevor du es erneut versuchst.",
+    "BOT_CHECK_FAILED": "Die Prüfung gegen Bots ist fehlgeschlagen. Lade die Seite neu und versuche es erneut.",
     "INTERNAL": "Ein Fehler ist aufgetreten. Versuche es gleich noch einmal.",
     "fields": {
       "required": "Dieses Feld ist erforderlich.",

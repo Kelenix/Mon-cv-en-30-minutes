@@ -13,14 +13,21 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
   et retour automatique à la version précédente en cas d'échec ; retour arrière en une minute.
 - Sauvegarde des données chaque nuit (14 jours) et restauration testée ; administration de la
   base par tunnel SSH.
+- Protection contre les robots à la connexion : vérification Cloudflare Turnstile, le plus
+  souvent invisible, à chaque envoi de code, et nombre de demandes et d'essais de code limité
+  par connexion et par adresse e-mail.
 - Suppression des comptes inactifs depuis 3 ans (US-40) : e-mail d'avertissement 30 jours avant,
   dans la langue du compte, annulée par une simple connexion ; jamais pour un abonné.
 
 ### Modifié — Inc-13
 
 - Politique de confidentialité et mentions légales : Hostinger héberge le site et les données,
-  dans l'Union européenne, et Resend envoie les e-mails (5 langues).
+  dans l'Union européenne, Resend envoie les e-mails, Cloudflare protège la connexion contre les
+  robots (5 langues).
 - Le site de production refuse de démarrer si une variable obligatoire manque, et l'indique.
+- Page de connexion sans vide : sous le formulaire, ce que le compte apporte (CV enregistré,
+  outils, données protégées) et le lien vers les CGU et la politique de confidentialité ; la
+  colonne a la hauteur de l'illustration.
 
 ### Ajouté — Inc-12 : finitions
 

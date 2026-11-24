@@ -210,6 +210,21 @@
     "resendIn": "Resend the code ({seconds}s)",
     "changeEmail": "Use a different email",
     "answersKept": "Your answers are saved.",
+    "benefits": {
+      "saved": {
+        "title": "Your CV, saved",
+        "text": "Find it, edit it and download it whenever you like, on all your devices."
+      },
+      "tools": {
+        "title": "All your tools in one place",
+        "text": "Cover letter, LinkedIn profile and interview practice, based on your CV."
+      },
+      "privacy": {
+        "title": "Your data, protected",
+        "text": "Hosted in the European Union and never sold."
+      }
+    },
+    "terms": "By continuing, you accept the <terms>terms</terms> and the <privacy>privacy policy</privacy>.",
     "linkInvalid": "This sign-in link is no longer valid. Request a new code.",
     "googleFailed": "Signing in with Google didn't work. Try again or use your email."
   },
@@ -271,6 +286,7 @@
     "VALIDATION_ERROR": "Check the highlighted fields.",
     "NOT_FOUND": "This content couldn't be found.",
     "RATE_LIMITED": "Too many requests in a row. Wait a moment before trying again.",
+    "BOT_CHECK_FAILED": "The anti-bot check didn't go through. Reload the page and try again.",
     "INTERNAL": "Something went wrong. Try again in a moment.",
     "fields": {
       "required": "This field is required.",

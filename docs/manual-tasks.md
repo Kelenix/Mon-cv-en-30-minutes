@@ -156,7 +156,7 @@
 ## Tâche 9 : Mettre le site en ligne sur le VPS Hostinger
 - **Pourquoi** : mise en ligne (ADR-038). Tout est prêt dans `deploy/` et a été répété en
   local ; il reste ce qui demande tes comptes et ton serveur.
-- **Quand** : maintenant, une fois les tâches 3, 4, 6 et 7 faites (5 et 10 peuvent suivre).
+- **Quand** : maintenant, une fois les tâches 3, 4, 6, 7 et 16 faites (5 et 10 peuvent suivre).
 - **Étapes** : suivre `docs/deployment.md`, étapes 1 à 8 : commander le VPS (Ubuntu 24.04,
   centre de données dans l'UE) et le domaine, clé SSH, `setup-vps.sh`, DNS (`@`, `www`, `api`),
   clé de lecture du dépôt, `deploy/.env`, `deploy.sh`, puis Stripe et Google.
@@ -257,3 +257,21 @@
 - **Coût** : gratuit, ou option de sauvegarde Hostinger selon la formule.
 - **Vérification** : la sonde est « Up » ; une sauvegarde de moins de 8 jours existe hors du
   serveur.
+
+## Tâche 16 : Créer les clés Cloudflare Turnstile (protection contre les robots)
+- **Pourquoi** : chaque demande de code de connexion passe une vérification anti-robot, le plus
+  souvent invisible (ADR-039). Elle empêche l'envoi massif d'e-mails (qui viderait le quota
+  Resend et bloquerait les vraies connexions) et la création de comptes en série pour profiter
+  du CV gratuit (coût de l'IA).
+- **Quand** : avant la mise en production ; sans ces clés, le site refuse de démarrer.
+- **Étapes** :
+  1. Créer un compte gratuit sur https://dash.cloudflare.com (le domaine n'a pas besoin d'être
+     géré par Cloudflare).
+  2. **Turnstile → Add widget** : nom « Mon CV en 30 Secondes », nom d'hôte : le domaine du site
+     (ajouter aussi `localhost` pour des essais), mode **Managed**, réponse à la question de
+     pré-autorisation : **No**.
+  3. Copier la **Site Key** dans `TURNSTILE_SITE_KEY` et la **Secret Key** dans
+     `TURNSTILE_SECRET_KEY` (`deploy/.env` sur le serveur), puis `deploy/scripts/deploy.sh`.
+- **Coût** : gratuit.
+- **Vérification** : sur la page de connexion, le bouton « Recevoir un code » s'active après une
+  seconde environ et le code arrive ; Cloudflare → Turnstile → Analytics compte les vérifications.

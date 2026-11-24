@@ -14,10 +14,10 @@ const optionalText = z.preprocess(
 /**
  * Exigées en production : informations du vendeur (US-38, le numéro de TVA reste facultatif),
  * clé de l'IA (sans elle, l'IA est simulée : développement et tests), sel de hachage des
- * adresses IP (plafond de CV gratuits, H27), clés Stripe (sans elles, le paiement est
- * indisponible : message « Le paiement est momentanément indisponible »), serveur d'e-mails et
- * secret de la tâche quotidienne de rétention (sans SMTP, les e-mails sont seulement
- * journalisés : développement et tests).
+ * adresses IP (plafonds par IP), clés Stripe (sans elles, le paiement est indisponible :
+ * message « Le paiement est momentanément indisponible »), serveur d'e-mails (sans SMTP, les
+ * e-mails sont seulement journalisés), secret de la tâche quotidienne de rétention et clés
+ * Turnstile (sans elles, la vérification anti-robot est désactivée : développement et tests).
  */
 const REQUIRED_IN_PRODUCTION = [
   "ANTHROPIC_API_KEY",
@@ -29,6 +29,8 @@ const REQUIRED_IN_PRODUCTION = [
   "SMTP_PASSWORD",
   "SMTP_SENDER_EMAIL",
   "CRON_SECRET",
+  "TURNSTILE_SITE_KEY",
+  "TURNSTILE_SECRET_KEY",
   "LEGAL_COMPANY_NAME",
   "LEGAL_FORM",
   "LEGAL_REGISTRATION",
@@ -72,6 +74,9 @@ const envSchema = z
     SMTP_PASSWORD: optionalText,
     SMTP_SENDER_EMAIL: optionalText.pipe(z.email().optional()),
     SMTP_SENDER_NAME: z.string().trim().min(1).default("Mon CV en 30 Secondes"),
+    // Protection contre les robots à la connexion (Cloudflare Turnstile, ADR-039).
+    TURNSTILE_SITE_KEY: optionalText,
+    TURNSTILE_SECRET_KEY: optionalText,
     // Jeton des tâches planifiées (`/api/cron/*`).
     CRON_SECRET: optionalText.refine((value) => !value || value.length >= 32, {
       error: "32 caractères minimum",

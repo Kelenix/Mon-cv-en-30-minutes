@@ -150,6 +150,7 @@ Composants serveur par défaut ; composants client seulement pour l'interactivit
 | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` (défaut `claude-opus-5-5`) | Serveur | Génération IA |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Serveur | Paiements, vérification des webhooks |
 | `CRON_SECRET` | Serveur | Protection de `/api/cron/*` |
+| `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Build et page de connexion (clé de site), serveur (secret) | Protection contre les robots à la connexion (ADR-039) |
 | `IP_HASH_SALT` | Serveur | Hachage des adresses IP (H27) |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_SENDER_EMAIL`, `SMTP_SENDER_NAME` | Serveur | E-mails d'avertissement de rétention (même SMTP que l'authentification) |
 | `APP_ENV` | Serveur | `production` sur le VPS : variables de production exigées dès le démarrage |
@@ -284,6 +285,8 @@ Vidéo récompensée : jeton à usage unique émis par le serveur, plafond quoti
 - Les Server Actions de Next.js vérifient l'origine des requêtes (protection CSRF) ; les
   cookies de session sont `SameSite=Lax`.
 - Limites de débit par formule (H11) et anti-abus du CV gratuit (H27), calculées en base.
+- Connexion protégée contre les robots : Cloudflare Turnstile à chaque envoi de code, plafonds
+  par IP et par adresse e-mail (`consume_rate_limit`, ADR-039).
 - `npm audit` en CI.
 
 ---

@@ -14,6 +14,11 @@ import { localeSchema } from "@/i18n/locale-schema";
 import { type AppLocale, routing } from "@/i18n/routing";
 import { createClient } from "@/lib/supabase/server";
 import { afterSignInPath } from "./after-sign-in";
+import {
+  allowCodeAttempt,
+  allowCodeRequest,
+  verifyHuman,
+} from "./bot-protection";
 import { localizedPath, safeNextPath } from "./paths";
 
 // Connexion sans mot de passe : code à 6 chiffres par e-mail ou Google (US-04,
@@ -54,6 +59,12 @@ export async function requestEmailCode(
   if (!parsed.success) return validationError(parsed.error);
   const { locale, email } = parsed.data;
 
+  // Robots (ADR-039) : plafond par IP, puis vérification Turnstile.
+  if (!(await allowCodeRequest())) return fail("RATE_LIMITED");
+  if (!(await verifyHuman(formData.get("cf-turnstile-response")))) {
+    return fail("BOT_CHECK_FAILED");
+  }
+
   // Le lien de secours de l'e-mail revient sur /auth/confirm avec la page à ouvrir ensuite.
   const confirmUrl = new URL("/auth/confirm", env.NEXT_PUBLIC_SITE_URL);
   confirmUrl.searchParams.set(
@@ -86,6 +97,7 @@ export async function verifyEmailCode(
   const parsed = verifyCodeSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) return validationError(parsed.error);
   const { locale, email, code } = parsed.data;
+  if (!(await allowCodeAttempt(email))) return fail("RATE_LIMITED");
 
   const supabase = await createClient();
   const { error } = await supabase.auth.verifyOtp({

@@ -181,7 +181,7 @@ export const fr: LegalContent = {
         {
           title: "Destinataires et sous-traitants",
           paragraphs: [
-            "Vos données ne sont jamais vendues. Elles sont traitées, pour notre compte, par : Hostinger (hébergement du site et des données, Union européenne), Anthropic (traitement des textes par l'intelligence artificielle pour produire les contenus que vous demandez), Stripe (paiements), Resend (envoi des e-mails) et, uniquement après votre consentement, Google (publicités).",
+            "Vos données ne sont jamais vendues. Elles sont traitées, pour notre compte, par : Hostinger (hébergement du site et des données, Union européenne), Anthropic (traitement des textes par l'intelligence artificielle pour produire les contenus que vous demandez), Stripe (paiements), Resend (envoi des e-mails), Cloudflare (protection contre les robots à la connexion) et, uniquement après votre consentement, Google (publicités).",
           ],
         },
         {
