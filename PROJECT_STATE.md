@@ -9,7 +9,7 @@
 - **Dernière mise à jour** : 25/11/2026
 - **Santé** : 🟢 OK
 - **Prochaine action** : côté utilisateur, mise en ligne en suivant `docs/deployment.md`
-  (tâche 9, après les tâches 4, 7, 16 et 17 : domaine, Resend et serveur prêts, reprendre à
+  (tâche 9, après les tâches 4, 7 et 17 : domaine, Resend, Turnstile et serveur prêts, reprendre à
   l'étape 5), puis tâches 14 et 15. Ensuite, sur le domaine :
   mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle des outils IA
   (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà mesurée, ADR-041), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
@@ -109,6 +109,10 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Tâche 16 faite** : widget Turnstile « Mon CV en 30 Secondes » créé dans le compte
+  Cloudflare de l'utilisateur (qui ne contenait qu'un widget d'un autre projet), clés rangées
+  dans `deploy/.env` local, clé secrète acceptée par Cloudflare.
 
 - 25/11/2026 — **VPS choisi : le KVM 2 existant**, partagé avec deux autres sites (ADR-044).
   - Le site passe derrière le nginx du serveur, qui tient HTTPS (certbot) ; Caddy reste en local

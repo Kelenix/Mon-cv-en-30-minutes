@@ -209,7 +209,7 @@
   - **Reste** : étapes 5 à 10, à partir de la clé de lecture du dépôt.
   - **Conseillé** : fermer la connexion SSH root par mot de passe, encore ouverte sur ce
     serveur, une fois tes connexions passées par clé.
-- **Quand** : maintenant, une fois les tâches 4, 7, 16 et 17 faites (5 et 10 peuvent suivre).
+- **Quand** : maintenant, une fois les tâches 4, 7 et 17 faites (5 et 10 peuvent suivre).
 - **Étapes** : suivre `docs/deployment.md`, étapes 5 à 10 : clé de lecture du dépôt,
   `deploy/.env` (copié depuis ton ordinateur), `deploy.sh`, puis Stripe, Google, déploiement
   automatique et surveillance.
@@ -310,7 +310,12 @@
 - **Vérification** : la sonde est « Up » ; une sauvegarde de moins de 8 jours existe hors du
   serveur.
 
-## Tâche 16 : Créer les clés Cloudflare Turnstile (protection contre les robots)
+## Tâche 16 ✅ : Créer les clés Cloudflare Turnstile (protection contre les robots)
+- **Fait (25/11/2026)** : widget « Mon CV en 30 Secondes » (`cv30secondes.com` et
+  `localhost`, mode Géré, sans pré-autorisation). Clés rangées dans `deploy/.env` sur ton
+  ordinateur (non versionné), copié sur le serveur à l'étape 6 de `docs/deployment.md`. Clé
+  secrète acceptée par Cloudflare (essai avec un jeton factice). Reste la vérification sur le
+  site en ligne.
 - **Pourquoi** : chaque demande de code de connexion passe une vérification anti-robot, le plus
   souvent invisible (ADR-039). Elle empêche l'envoi massif d'e-mails (qui viderait le quota
   Resend et bloquerait les vraies connexions) et la création de comptes en série pour profiter
