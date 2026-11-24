@@ -12,18 +12,18 @@ const optionalText = z.preprocess(
 );
 
 /**
- * Exigées en production : informations du vendeur (US-38, le numéro de TVA reste facultatif),
+ * Exigées en production : informations du vendeur (US-38 ; forme juridique, immatriculation,
+ * adresse, TVA et médiateur restent facultatifs : leur phrase est alors retirée des pages),
  * clé de l'IA (sans elle, l'IA est simulée : développement et tests), sel de hachage des
- * adresses IP (plafonds par IP), clés Stripe (sans elles, le paiement est indisponible :
- * message « Le paiement est momentanément indisponible »), serveur d'e-mails (sans SMTP, les
- * e-mails sont seulement journalisés), secret de la tâche quotidienne de rétention et clés
- * Turnstile (sans elles, la vérification anti-robot est désactivée : développement et tests).
+ * adresses IP (plafonds par IP), serveur d'e-mails (sans SMTP, les e-mails sont seulement
+ * journalisés), secret de la tâche quotidienne de rétention et clés Turnstile (sans elles, la
+ * vérification anti-robot est désactivée : développement et tests). Les clés Stripe restent
+ * facultatives (ADR-045) : sans elles, le site tourne sans paiement (« Le paiement est
+ * momentanément indisponible »).
  */
 const REQUIRED_IN_PRODUCTION = [
   "ANTHROPIC_API_KEY",
   "IP_HASH_SALT",
-  "STRIPE_SECRET_KEY",
-  "STRIPE_WEBHOOK_SECRET",
   "SMTP_HOST",
   "SMTP_USER",
   "SMTP_PASSWORD",
@@ -32,13 +32,9 @@ const REQUIRED_IN_PRODUCTION = [
   "TURNSTILE_SITE_KEY",
   "TURNSTILE_SECRET_KEY",
   "LEGAL_COMPANY_NAME",
-  "LEGAL_FORM",
-  "LEGAL_REGISTRATION",
-  "LEGAL_ADDRESS",
   "LEGAL_EMAIL",
   "LEGAL_PUBLISHER",
   "LEGAL_HOSTING",
-  "LEGAL_MEDIATOR",
 ] as const;
 
 const envSchema = z

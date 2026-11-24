@@ -12,7 +12,10 @@ export const es: LegalContent = {
         {
           title: "Titular del sitio web",
           paragraphs: [
-            "El sitio {siteUrl} ({brandName}) es editado por {companyName}, {legalForm}, inscrita con el número {registration} y con domicilio social en {address}.",
+            "El sitio {siteUrl} ({brandName}) es editado por {companyName}.",
+            "Forma jurídica: {legalForm}.",
+            "Número de inscripción: {registration}.",
+            "Domicilio social: {address}.",
             "Número de IVA intracomunitario: {vatNumber}.",
             "Contacto: {email}.",
           ],
@@ -129,7 +132,8 @@ export const es: LegalContent = {
         {
           title: "Reclamaciones, mediación y legislación aplicable",
           paragraphs: [
-            "Para cualquier reclamación, escriba primero a {email}. Si no se encuentra una solución, puede recurrir gratuitamente al mediador de consumo: {mediator}.",
+            "Para cualquier reclamación, escriba primero a {email}.",
+            "Si no se encuentra una solución, puede recurrir gratuitamente al mediador de consumo: {mediator}.",
             "Las presentes condiciones se rigen por la legislación francesa, sin que ello le prive de la protección que le otorgan las disposiciones imperativas del país en el que reside.",
           ],
         },
@@ -149,7 +153,8 @@ export const es: LegalContent = {
         {
           title: "Responsable del tratamiento",
           paragraphs: [
-            "{companyName}, {address}. Contacto para cualquier consulta sobre sus datos: {email}.",
+            "{companyName}. Contacto para cualquier consulta sobre sus datos: {email}.",
+            "Dirección: {address}.",
           ],
         },
         {

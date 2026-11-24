@@ -67,18 +67,49 @@ describe("insertion des informations du vendeur", () => {
     );
   });
 
-  it("retire le paragraphe du numéro de TVA s'il n'est pas renseigné", () => {
-    const paragraphs = ["Siège : {address}.", "TVA : {vatNumber}."];
+  it("retire les paragraphes des informations facultatives non renseignées", () => {
+    const paragraphs = [
+      "Édité par {companyName}.",
+      "Forme juridique : {legalForm}.",
+      "Immatriculation : {registration}.",
+      "Siège : {address}.",
+      "TVA : {vatNumber}.",
+      "Médiateur : {mediator}.",
+    ];
 
     expect(
-      fillParagraphs(paragraphs, { address: "Paris" }, "à fournir"),
-    ).toEqual(["Siège : Paris."]);
+      fillParagraphs(paragraphs, { companyName: "Kelenix" }, "à fournir"),
+    ).toEqual(["Édité par Kelenix."]);
     expect(
       fillParagraphs(
         paragraphs,
-        { address: "Paris", vatNumber: "FR00" },
+        { companyName: "Kelenix", address: "Milan", vatNumber: "IT00" },
         "à fournir",
       ),
-    ).toEqual(["Siège : Paris.", "TVA : FR00."]);
+    ).toEqual(["Édité par Kelenix.", "Siège : Milan.", "TVA : IT00."]);
+  });
+
+  it("aucune page ne garde de trou quand seules les informations obligatoires sont données", () => {
+    const required = {
+      brandName: "Mon CV",
+      siteUrl: "https://cv30secondes.com",
+      companyName: "Kelenix",
+      email: "contact@exemple.test",
+      publisher: "Lionel",
+      hosting: "Hostinger",
+    };
+    for (const locale of routing.locales) {
+      for (const page of LEGAL_PAGES) {
+        for (const section of LEGAL_CONTENT[locale].pages[page].sections) {
+          for (const paragraph of fillParagraphs(
+            section.paragraphs,
+            required,
+            "à fournir",
+          )) {
+            expect(paragraph, `${locale} ${page}`).not.toContain("[à fournir]");
+          }
+        }
+      }
+    }
   });
 });

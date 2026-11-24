@@ -12,7 +12,10 @@ export const de: LegalContent = {
         {
           title: "Betreiber der Website",
           paragraphs: [
-            "Die Website {siteUrl} ({brandName}) wird betrieben von {companyName}, {legalForm}, eingetragen unter der Nummer {registration}, mit Sitz in {address}.",
+            "Die Website {siteUrl} ({brandName}) wird betrieben von {companyName}.",
+            "Rechtsform: {legalForm}.",
+            "Registernummer: {registration}.",
+            "Sitz: {address}.",
             "Umsatzsteuer-Identifikationsnummer: {vatNumber}.",
             "Kontakt: {email}.",
           ],
@@ -129,7 +132,8 @@ export const de: LegalContent = {
         {
           title: "Beschwerden, Schlichtung und anwendbares Recht",
           paragraphs: [
-            "Bei Beschwerden wenden Sie sich bitte zunächst schriftlich an {email}. Wird keine Lösung gefunden, können Sie kostenlos die Verbraucherschlichtungsstelle anrufen: {mediator}.",
+            "Bei Beschwerden wenden Sie sich bitte zunächst schriftlich an {email}.",
+            "Wird keine Lösung gefunden, können Sie kostenlos die Verbraucherschlichtungsstelle anrufen: {mediator}.",
             "Diese Bedingungen unterliegen französischem Recht, ohne dass Ihnen dadurch der Schutz der zwingenden Vorschriften des Staates entzogen wird, in dem Sie Ihren gewöhnlichen Aufenthalt haben.",
           ],
         },
@@ -149,7 +153,8 @@ export const de: LegalContent = {
         {
           title: "Verantwortlicher",
           paragraphs: [
-            "{companyName}, {address}. Kontakt für alle Fragen zu Ihren Daten: {email}.",
+            "{companyName}. Kontakt für alle Fragen zu Ihren Daten: {email}.",
+            "Anschrift: {address}.",
           ],
         },
         {

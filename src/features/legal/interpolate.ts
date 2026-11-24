@@ -5,7 +5,13 @@ export type LegalValues = Partial<Record<LegalPlaceholder, string>>;
 const PLACEHOLDER = /\{(\w+)\}/g;
 
 /** Variables dont l'absence est normale : le paragraphe qui les contient est alors retiré. */
-const OPTIONAL_PLACEHOLDERS: readonly string[] = ["vatNumber"];
+const OPTIONAL_PLACEHOLDERS: readonly string[] = [
+  "legalForm",
+  "registration",
+  "address",
+  "vatNumber",
+  "mediator",
+];
 
 function placeholdersIn(text: string): string[] {
   return [...text.matchAll(PLACEHOLDER)].map((match) => match[1] ?? "");

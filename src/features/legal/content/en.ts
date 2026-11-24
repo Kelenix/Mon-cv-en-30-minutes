@@ -12,7 +12,10 @@ export const en: LegalContent = {
         {
           title: "Website publisher",
           paragraphs: [
-            "The website {siteUrl} ({brandName}) is published by {companyName}, {legalForm}, registered under number {registration}, with its registered office at {address}.",
+            "The website {siteUrl} ({brandName}) is published by {companyName}.",
+            "Legal form: {legalForm}.",
+            "Registration number: {registration}.",
+            "Registered office: {address}.",
             "Intra-community VAT number: {vatNumber}.",
             "Contact: {email}.",
           ],
@@ -129,7 +132,8 @@ export const en: LegalContent = {
         {
           title: "Complaints, mediation and governing law",
           paragraphs: [
-            "For any complaint, please first write to {email}. If no solution is found, you may refer the matter free of charge to the consumer mediator: {mediator}.",
+            "For any complaint, please first write to {email}.",
+            "If no solution is found, you may refer the matter free of charge to the consumer mediator: {mediator}.",
             "These terms are governed by French law, without depriving you of the protection afforded by the mandatory rules of the country in which you reside.",
           ],
         },
@@ -149,7 +153,8 @@ export const en: LegalContent = {
         {
           title: "Data controller",
           paragraphs: [
-            "{companyName}, {address}. Contact for any question about your data: {email}.",
+            "{companyName}. Contact for any question about your data: {email}.",
+            "Address: {address}.",
           ],
         },
         {
