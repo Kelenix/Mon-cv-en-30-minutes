@@ -1,21 +1,23 @@
 # Mise en ligne sur un VPS Hostinger
 
 > Pas-à-pas complet pour mettre le site en ligne, puis l'exploiter : mises à jour, retour arrière,
-> sauvegardes, administration. Décision et alternatives : ADR-038 (`DECISION_LOG.md`).
+> sauvegardes, administration. Décisions et alternatives : ADR-038 et ADR-044 (`DECISION_LOG.md`).
 > Compte une demi-journée pour la première mise en ligne, hors délais des fournisseurs.
 
 ## 1. Ce qui tourne sur le serveur
 
 Tout le site tient sur un seul VPS, dans Docker : rien n'est hébergé ailleurs (hors Stripe,
-Anthropic, Google et Resend pour les e-mails).
+Anthropic, Google et Resend pour les e-mails). Ce VPS est le **KVM 2 existant**, qui héberge aussi
+d'autres sites : comme eux, le site passe par le nginx du serveur, qui tient HTTPS (ADR-044).
 
 ```mermaid
 flowchart LR
-  U[Visiteur] -->|HTTPS 443| C[Caddy<br/>certificats automatiques]
+  U[Visiteur] -->|HTTPS 443| N[nginx du serveur<br/>certificats certbot]
+  N -->|127.0.0.1:8180| C[Caddy]
   C -->|domaine| A[Site Next.js]
   C -->|api.domaine| G[Authentification]
   C -->|api.domaine| R[API de la base]
-  A -->|par Caddy, avec la clé du serveur| G
+  A -->|par nginx et Caddy, avec la clé du serveur| G
   A --> R
   G --> D[(PostgreSQL)]
   R --> D
@@ -25,7 +27,8 @@ flowchart LR
 
 | Service | Rôle | Exposé sur Internet |
 |---------|------|---------------------|
-| `caddy` | HTTPS (Let's Encrypt, renouvelé seul), HTTP/2 et HTTP/3, compression | Oui : ports 80 et 443 |
+| nginx (hors Docker) | HTTPS (certbot, renouvelé seul), commun aux sites du serveur | Oui : ports 80 et 443 |
+| `caddy` | Aiguillage vers le site et l'API, règles d'accès, compression | Non : `127.0.0.1:8180`, derrière nginx |
 | `app` | Le site (Next.js, mode serveur autonome) | Non (derrière Caddy) |
 | `db` | PostgreSQL de Supabase, avec `pg_cron` (remise mensuelle des crédits) | **Non** |
 | `auth` | Authentification Supabase (codes de connexion, Google) | Derrière Caddy, sous `api.domaine` |
@@ -42,7 +45,7 @@ Fichiers (dossier `deploy/`) :
 |---------|---------|
 | `docker-compose.yml` | Les services ci-dessus et leur configuration |
 | `Dockerfile` | Image du site, construite sur le serveur |
-| `Caddyfile` | Domaines, HTTPS, règles d'accès à l'API |
+| `Caddyfile` | Domaines, règles d'accès à l'API, adresse réelle du visiteur |
 | `.env.example` | Modèle de `deploy/.env`, la configuration du serveur (jamais versionnée) |
 | `supabase/roles.sql` | Mots de passe des rôles de la base, à sa création |
 | `scripts/` | Préparation du serveur, secrets, déploiement, migrations, vérification, retour arrière, sauvegarde, restauration, rétention |
@@ -57,7 +60,10 @@ Fichiers (dossier `deploy/`) :
 - **Un terminal sur ton ordinateur** : PowerShell suffit (`ssh` et `scp` sont inclus dans
   Windows).
 
-## 3. Étape 1 : commander le VPS et le domaine
+## 3. Étape 1 : le VPS et le domaine
+
+Le site va sur le **VPS KVM 2 existant** (ADR-044) : passe directement au point 3. Pour un VPS
+neuf (déménagement, par exemple) :
 
 1. Sur hostinger.fr, menu **VPS** : la formule **KVM 2** (2 processeurs, 8 Go de mémoire) est
    recommandée ; **KVM 1** (4 Go) fonctionne pour démarrer, avec la mémoire d'échange créée par le
@@ -88,7 +94,22 @@ Get-Content $HOME\.ssh\id_ed25519.pub
 
 Vérification : `ssh root@ADRESSE_IP` ouvre une session sur le serveur.
 
-## 5. Étape 3 : préparer le serveur (une seule fois)
+## 5. Étape 3 : DNS du domaine
+
+Dans la zone DNS du domaine (hPanel → Domaines → DNS), fais pointer ces noms vers le VPS (et les
+mêmes en **AAAA** vers son adresse IPv6, s'il en a une) :
+
+| Nom | Type | Valeur |
+|-----|------|--------|
+| `@` | A | ADRESSE_IP |
+| `www` | CNAME (ou A) | `cv30secondes.com` (ou ADRESSE_IP) |
+| `api` | A | ADRESSE_IP |
+
+Remplace les anciens enregistrements de ces noms (page de parking). La propagation prend de
+quelques minutes à quelques heures. Vérification : `nslookup api.cv30secondes.com` renvoie
+l'adresse du VPS.
+
+## 6. Étape 4 : préparer le serveur (une seule fois)
 
 Depuis la racine du projet, sur ton ordinateur :
 
@@ -97,31 +118,25 @@ scp deploy/scripts/setup-vps.sh root@ADRESSE_IP:/root/
 ```
 
 ```powershell
-ssh root@ADRESSE_IP "bash /root/setup-vps.sh"
+ssh root@ADRESSE_IP "bash /root/setup-vps.sh cv30secondes.com"
 ```
 
-Le script (5 minutes environ) installe les mises à jour de sécurité automatiques, le pare-feu
-(SSH, 80, 443), la protection contre les essais de mots de passe (fail2ban), Docker, 2 Go de
-mémoire d'échange, l'utilisateur `deploy` (avec ta clé SSH), les dossiers `/opt/mon-cv` et
+Le script (5 minutes environ, relançable) installe les mises à jour de sécurité automatiques, le
+pare-feu (SSH, 80, 443), la protection contre les essais de mots de passe (fail2ban), Docker,
+2 Go de mémoire d'échange, l'utilisateur `deploy`, les dossiers `/opt/mon-cv` et
 `/var/backups/mon-cv`, et les tâches de la nuit : sauvegarde à 3 h 15 et rétention des comptes à
-4 h 30 (heure UTC). Il désactive la connexion SSH par mot de passe si une clé est installée.
+4 h 30 (heure UTC). Il configure enfin **nginx** pour le domaine, `www` et `api`, et obtient leur
+certificat HTTPS avec **certbot** (renouvelé automatiquement) : le DNS doit déjà pointer vers le
+serveur.
 
-Vérification : `ssh deploy@ADRESSE_IP` ouvre une session.
+Sur un **serveur neuf**, il désactive aussi la connexion SSH par mot de passe si une clé est
+installée. Sur un **serveur déjà en service** (Docker présent, comme le KVM 2), il ne fait ni mise
+à jour générale (elle redémarrerait les autres sites) ni changement des règles SSH. La connexion
+root par mot de passe reste alors ouverte : ferme-la quand toutes tes connexions passent par une
+clé.
 
-## 6. Étape 4 : DNS du domaine
-
-Dans la zone DNS du domaine (hPanel → Domaines → DNS), crée trois enregistrements **A** vers
-l'adresse IP du VPS (et les mêmes en **AAAA** si le VPS a une adresse IPv6) :
-
-| Nom | Type | Valeur |
-|-----|------|--------|
-| `@` | A | ADRESSE_IP |
-| `www` | A | ADRESSE_IP |
-| `api` | A | ADRESSE_IP |
-
-Supprime les anciens enregistrements A ou CNAME de ces noms (page de parking). La propagation prend
-de quelques minutes à quelques heures. Vérification : `nslookup api.cv30secondes.com` renvoie
-l'adresse du VPS.
+Vérification : `ssh deploy@ADRESSE_IP` ouvre une session, et `https://cv30secondes.com` répond
+« 502 » avec un certificat valide (le site n'est pas encore lancé).
 
 ## 7. Étape 5 : récupérer le code sur le serveur
 
@@ -142,6 +157,11 @@ git clone git@github.com:PROPRIETAIRE/DEPOT.git /opt/mon-cv
 
 ## 8. Étape 6 : configuration du serveur (`deploy/.env`)
 
+Un `deploy/.env` préparé sur ton ordinateur (non versionné : domaine, clé Resend…) se copie
+d'abord sur le serveur, depuis le dossier du projet :
+`scp deploy/.env deploy@ADRESSE_IP:/opt/mon-cv/deploy/.env`. Le script ci-dessous ne remplit
+que les secrets encore vides.
+
 ```bash
 cd /opt/mon-cv/deploy
 ./scripts/generate-secrets.sh
@@ -153,7 +173,7 @@ base, secret JWT et clés Supabase, sel des adresses IP, jeton des tâches. Comp
 
 | Variables | Valeur |
 |-----------|--------|
-| `ACME_EMAIL` | Ton adresse e-mail ; `DOMAIN`, `SUPABASE_DOMAIN` et `SMTP_SENDER_EMAIL` sont déjà remplis pour `cv30secondes.com` |
+| `DOMAIN`, `SUPABASE_DOMAIN`, `SMTP_SENDER_EMAIL` | Déjà remplis pour `cv30secondes.com` |
 | `SMTP_PASSWORD` | Clé d'API Resend (tâche 6) ; hôte, port et identifiant Resend déjà remplis |
 | `ANTHROPIC_API_KEY` | Clé Anthropic (tâche 3) |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Clés du **mode réel** (étape 8) |
@@ -177,8 +197,8 @@ toutes les données.
 
 La première fois, compte 5 à 10 minutes (téléchargement des images, construction du site).
 Le script récupère `origin/main`, construit l'image du site, démarre la base, l'authentification,
-l'API et Caddy (qui obtient les certificats HTTPS), applique les migrations, démarre le site, puis
-vérifie :
+l'API et Caddy (derrière nginx, qui a déjà les certificats), applique les migrations, démarre le
+site, puis vérifie :
 
 ```text
 Vérification de https://cv30secondes.com :
@@ -271,7 +291,7 @@ se termine par « Version … en ligne ».
 
 - Crée une sonde gratuite (par exemple UptimeRobot) sur `https://cv30secondes.com/api/health`, avec
   alerte par e-mail.
-- Les fins de certificat sont gérées par Caddy, rien à faire.
+- Les certificats sont renouvelés par certbot (tâche automatique du serveur), rien à faire.
 - Une fois en ligne, refais la mesure Lighthouse sur le domaine (performance ≥ 90 attendue sur
   mobile, NFR-01).
 
@@ -293,6 +313,10 @@ Commandes à lancer en `deploy`, dans `/opt/mon-cv/deploy`.
 Le retour arrière ne défait pas les migrations : chaque migration doit rester compatible avec la
 version précédente du site (ajouter une colonne avant de s'en servir, la retirer une version
 après qu'elle n'est plus utilisée).
+
+Sur le KVM 2, une tâche de nuit d'un autre site supprime les images Docker inutilisées depuis
+plus de 24 heures : au-delà, `rollback.sh` le signale, et `./scripts/deploy.sh <commit>`
+reconstruit la version voulue (5 minutes environ).
 
 **Mises à jour** : le système se met à jour seul (sécurité). Les versions de Supabase, Caddy et
 Node sont fixées dans `docker-compose.yml` et le `Dockerfile` ; pour en changer, modifier les
@@ -360,7 +384,8 @@ migration versionnée, jamais par Studio.
 
 | Symptôme | Cause probable | Que faire |
 |----------|----------------|-----------|
-| Pas de certificat, erreur HTTPS | DNS pas encore propagé, ports fermés | `nslookup`, puis `docker compose logs caddy` ; relancer `deploy.sh` |
+| Pas de certificat, erreur HTTPS | DNS pas encore propagé, ports fermés | `nslookup`, `sudo certbot certificates`, `sudo nginx -t` ; relancer `setup-vps.sh` (étape 4) |
+| « 502 Bad Gateway » | Site ou Caddy arrêté | `docker compose ps`, `docker compose logs caddy app` ; relancer `deploy.sh` |
 | `deploy.sh` s'arrête sur le site | Variable manquante ou invalide | `docker compose logs app` : la liste est affichée ; corriger `deploy/.env` |
 | Code de connexion non reçu | Clé Resend, domaine non vérifié (SPF, DKIM), quota du jour atteint | `docker compose logs auth` ; Resend → Domains (« Verified ») et Logs |
 | « Trop de tentatives » à la connexion | Plafond d'e-mails par heure | Augmenter `AUTH_EMAILS_PER_HOUR` selon l'offre Resend |

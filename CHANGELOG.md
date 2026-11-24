@@ -13,6 +13,10 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ### Modifié
 
+- Mise en ligne sur un VPS partagé (ADR-044) : le nginx du serveur tient HTTPS (certbot) et
+  transmet à Caddy, qui n'écoute plus que sur `127.0.0.1:8180`. `setup-vps.sh` prend le domaine
+  en argument, installe nginx et certbot, et ménage les sites déjà présents. `ACME_EMAIL` est
+  retiré de `deploy/.env`.
 - Paiements : le compte Stripe peut servir à d'autres produits (ADR-042). Les clés de prix sont
   préfixées `moncv_`, le portail client est propre à l'application et le webhook ignore les
   événements des autres produits. Relancer `npm run stripe:seed` après la mise à jour.

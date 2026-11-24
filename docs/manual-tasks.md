@@ -114,10 +114,14 @@
 - **Coût** : gratuit.
 - **Vérification** : connexion Google réussie en local.
 
-## Tâche 6 : Configurer Resend pour les e-mails
-- **Avancement (24/11/2026)** : compte Resend créé. Les étapes 2 à 6 attendent le domaine, qui
-  s'achète à l'étape 1 de `docs/deployment.md` (tâche 9) : faire Resend juste après, avant
-  `deploy.sh`.
+## Tâche 6 ✅ : Configurer Resend pour les e-mails
+- **Fait (25/11/2026)** :
+  - `cv30secondes.com` vérifié chez Resend (région Ireland), enregistrements DNS créés chez
+    Hostinger ;
+  - clé « Mon CV en 30 Secondes (VPS) », envoi seulement, limitée au domaine, rangée dans
+    `deploy/.env` sur ton ordinateur (non versionné) avec `AUTH_EMAILS_PER_HOUR=10` ;
+  - e-mail de test envoyé depuis `no-reply@cv30secondes.com` et livré.
+  - **Reste** : copier ce `deploy/.env` sur le serveur à l'étape 6 de `docs/deployment.md`.
 - **Pourquoi** : envoyer les codes de connexion et les avertissements avant suppression des
   comptes inactifs (US-40). Le fournisseur choisi est **Resend**, utilisé en SMTP par
   l'authentification et par le site.
@@ -129,7 +133,7 @@
   2. **Domains → Add Domain** : saisir `cv30secondes.com` et choisir la région **Ireland
      (eu-west-1)**, pour un envoi depuis l'Union européenne.
   3. Créer dans la zone DNS du domaine (hPanel → Domaines → DNS) les enregistrements affichés
-     par Resend (MX et TXT pour l'envoi, TXT DKIM `resend._domainkey`, DMARC conseillé), puis
+     par Resend (TXT DKIM `resend._domainkey`, CNAME `rsend` et `send`, TXT `_dmarc`), puis
      **Verify** et attendre « Verified ». Sans cette étape, les e-mails sont refusés ou finissent
      en indésirables.
   4. **API Keys → Create API Key** : nom « VPS », permission **Sending access**, limitée au
@@ -140,7 +144,8 @@
   6. `deploy/scripts/deploy.sh`.
 - **Coût** : l'offre gratuite permet 3 000 e-mails par mois et **100 par jour au plus** : elle
   suffit pour les essais (mettre alors `AUTH_EMAILS_PER_HOUR=10`), mais au-delà de 100 connexions
-  par jour, les codes ne partent plus jusqu'au lendemain. Pour le lancement, l'offre **Pro**
+  par jour, les codes ne partent plus jusqu'au lendemain. Ton compte est sur l'offre gratuite,
+  et ce quota est **partagé** avec tes autres domaines. Pour le lancement, l'offre **Pro**
   (environ 20 $/mois pour 50 000 e-mails, à vérifier sur resend.com/pricing) est recommandée,
   avec `AUTH_EMAILS_PER_HOUR=200`.
 - **Vérification** : un code de connexion arrive en moins d'une minute, hors indésirables ; il
@@ -196,14 +201,19 @@
 ## Tâche 9 : Mettre le site en ligne sur le VPS Hostinger
 - **Pourquoi** : mise en ligne (ADR-038). Tout est prêt dans `deploy/` et a été répété en
   local ; il reste ce qui demande tes comptes et ton serveur.
+- **Avancement (25/11/2026)** : étapes 1 à 4 de `docs/deployment.md` faites.
+  - Domaine **cv30secondes.com** acheté (ADR-043), Resend configuré (tâche 6).
+  - Site installé sur le **VPS KVM 2 existant**, derrière son nginx (ADR-044).
+  - DNS (A et AAAA) pointé vers ce VPS ; serveur préparé, certificat HTTPS obtenu. Le domaine
+    répond « 502 » jusqu'au premier lancement.
+  - **Reste** : étapes 5 à 10, à partir de la clé de lecture du dépôt.
+  - **Conseillé** : fermer la connexion SSH root par mot de passe, encore ouverte sur ce
+    serveur, une fois tes connexions passées par clé.
 - **Quand** : maintenant, une fois les tâches 4, 7, 16 et 17 faites (5 et 10 peuvent suivre).
-  Le domaine **cv30secondes.com** (ADR-043) s'achète à l'étape 1 ; la tâche 6 (Resend) se termine juste après, avant
-  `deploy.sh`.
-- **Étapes** : suivre `docs/deployment.md`, étapes 1 à 8 : commander le VPS (Ubuntu 24.04,
-  centre de données dans l'UE) et le domaine, clé SSH, `setup-vps.sh`, DNS (`@`, `www`, `api`),
-  clé de lecture du dépôt, `deploy/.env`, `deploy.sh`, puis Stripe et Google.
-- **Coût** : VPS KVM 2 recommandé (KVM 1 suffit pour démarrer), selon la durée d'engagement ;
-  domaine environ 10 à 15 €/an. Vérifier les prix sur hostinger.fr.
+- **Étapes** : suivre `docs/deployment.md`, étapes 5 à 10 : clé de lecture du dépôt,
+  `deploy/.env` (copié depuis ton ordinateur), `deploy.sh`, puis Stripe, Google, déploiement
+  automatique et surveillance.
+- **Coût** : aucun coût de serveur en plus (VPS déjà payé) ; domaine environ 10 à 15 €/an.
 - **Vérification** : `deploy.sh` se termine par « Version … en ligne », le site répond en HTTPS
   sur le domaine, la connexion par code fonctionne.
 

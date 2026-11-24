@@ -6,11 +6,11 @@
 ## Snapshot
 
 - **Phase courante** : 6 — Mise en production (Inc-13 prêt et répété en local ; mise en ligne sur le VPS par l'utilisateur, tâche 9)
-- **Dernière mise à jour** : 24/11/2026
+- **Dernière mise à jour** : 25/11/2026
 - **Santé** : 🟢 OK
 - **Prochaine action** : côté utilisateur, mise en ligne en suivant `docs/deployment.md`
-  (tâche 9, après les tâches 4, 7, 16 et 17 : acheter `cv30secondes.com`, terminer Resend
-  avec la tâche 6, puis `deploy.sh`), puis tâches 14 et 15. Ensuite, sur le domaine :
+  (tâche 9, après les tâches 4, 7, 16 et 17 : domaine, Resend et serveur prêts, reprendre à
+  l'étape 5), puis tâches 14 et 15. Ensuite, sur le domaine :
   mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle des outils IA
   (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà mesurée, ADR-041), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
   que la tâche 12 n'est pas faite.
@@ -109,6 +109,20 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **VPS choisi : le KVM 2 existant**, partagé avec deux autres sites (ADR-044).
+  - Le site passe derrière le nginx du serveur, qui tient HTTPS (certbot) ; Caddy reste en local
+    (`127.0.0.1:8180`) pour l'aiguillage et l'adresse réelle du visiteur, vérifiée par un essai
+    local. Le site joint son API par `host-gateway`.
+  - `setup-vps.sh DOMAINE` installe nginx et certbot, sans mise à jour générale ni changement
+    SSH sur un serveur en service. Lancé sur le KVM 2 : certificat obtenu, 2 Go de mémoire
+    d'échange, autres sites inchangés.
+  - DNS A et AAAA de `@` et `api` pointés vers le KVM 2.
+
+- 25/11/2026 — **Tâche 6 faite** : domaine acheté par l'utilisateur, vérifié chez Resend
+  (Ireland) grâce aux enregistrements DKIM, CNAME `rsend` et `send` et DMARC créés chez
+  Hostinger. Clé d'envoi limitée au domaine, rangée dans `deploy/.env` local (non versionné),
+  e-mail de test livré. Le VPS reste à choisir : celui en service fait déjà tourner nginx.
 
 - 24/11/2026 — **Domaine choisi : cv30secondes.com** (ADR-043), libre à cette date, à acheter
   à l'étape 1 de la mise en ligne. Il est prérempli dans `deploy/.env.example` (site, API,

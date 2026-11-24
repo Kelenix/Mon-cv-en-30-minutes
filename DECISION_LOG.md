@@ -6,6 +6,55 @@
 
 ---
 
+## ADR-044 — VPS partagé : le site derrière le nginx du serveur (tâche 9)
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté (choix de l'utilisateur : le VPS KVM 2 existant plutôt qu'un VPS dédié) ;
+  modifie la partie HTTPS d'ADR-038
+- **Contexte** :
+  - Le KVM 2 (Ubuntu 26.04, 2 processeurs, 7,7 Go de mémoire dont 5,6 Go libres) héberge déjà
+    deux autres sites. nginx y occupe les ports 80 et 443, avec des certificats certbot, et
+    chaque application écoute sur `127.0.0.1`.
+  - La procédure d'ADR-038 supposait un VPS dédié, avec Caddy sur les ports 80 et 443 : les
+    deux auraient été en conflit.
+  - Le serveur n'avait pas de mémoire d'échange, et la connexion SSH par mot de passe y est
+    ouverte. Une tâche de nuit d'un autre site supprime les images Docker inutilisées depuis
+    plus de 24 heures.
+- **Décision** :
+  - nginx du serveur devant le site, comme pour les autres : HTTPS de `DOMAIN`, `www` et `api`
+    par certbot (renouvelé automatiquement), tout transmis à Caddy sur `127.0.0.1:8180`.
+  - Caddy garde son rôle d'aiguillage, en HTTP seulement : site, redirection `www`, API fermée
+    sans la clé du serveur, `/api/cron/*` en 404, en-têtes. Il reprend l'adresse du visiteur de
+    `X-Real-IP` posé par nginx (`trusted_proxies` limité aux adresses privées, port lié à
+    `127.0.0.1`), puis la transmet au site.
+  - Le site joint l'API par son adresse publique, via `host-gateway` vers le nginx du serveur
+    (certificat valide, sans sortir du VPS). Cela remplace l'alias réseau vers Caddy.
+  - `setup-vps.sh DOMAINE [E-MAIL]` installe nginx et certbot, et écrit la configuration du site
+    une seule fois. Sur un serveur déjà en service (Docker présent), il ne fait ni mise à jour
+    générale, ni changement des règles SSH, et `--no-upgrade` laisse en place les paquets déjà
+    installés. Il reste valable pour un VPS neuf : le DNS se fait avant lui.
+- **Alternatives écartées** :
+  - VPS dédié : procédure déjà testée, mais coût supplémentaire. Pas retenu par l'utilisateur.
+  - Supprimer Caddy et tout écrire en nginx : plus de changements, et perte des règles déjà
+    testées.
+  - Aiguillage TLS par nom de domaine (`ssl_preread`) vers Caddy : il aurait fallu modifier la
+    configuration des autres sites.
+- **Conséquences** :
+  - Préparé le 25/11/2026 : DNS (A et AAAA), certificat de `cv30secondes.com`, `www` et `api`,
+    2 Go de mémoire d'échange, dossiers et tâches de la nuit. Les autres sites répondent comme
+    avant ; le domaine répond « 502 » jusqu'au premier `deploy.sh`.
+  - Plus de HTTP/3 : nginx sert HTTP/1.1 et HTTP/2.
+  - Retour arrière rapide limité à 24 heures par la suppression nocturne des images ; au-delà,
+    `deploy.sh <commit>` reconstruit la version voulue.
+  - Le site partage le serveur, nginx et l'utilisateur `deploy` avec les autres sites
+    (`docs/security.md`, risques résiduels). La connexion root par mot de passe reste à fermer
+    par l'utilisateur.
+  - Les tâches de la nuit échouent, sans conséquence, tant que le code n'est pas sur le serveur.
+- **Impact** : technique (moyen), sécurité (moyen : serveur partagé), financier (aucun coût
+  ajouté).
+
+---
+
 ## ADR-043 — Nom de domaine : cv30secondes.com
 
 - **Date** : 24/11/2026
@@ -234,7 +283,8 @@
 
 - **Date** : 24/11/2026
 - **Statut** : Accepté (remplace l'hébergement Vercel et Supabase Cloud prévu par le plan et
-  ADR-009 ; le Vercel Cron d'ADR-014 devient une tâche planifiée du serveur)
+  ADR-009 ; le Vercel Cron d'ADR-014 devient une tâche planifiée du serveur). HTTPS revu par
+  ADR-044 : nginx du serveur devant Caddy
 - **Décideur** : l'utilisateur (« tout doit être mis en ligne sur un VPS Hostinger ») ;
   réalisation : Claude (rôles : DevOps, sécurité, release, backend)
 - **Contexte** : mise en production (Inc-13) sur un seul VPS, sans Vercel ni Supabase Cloud ;

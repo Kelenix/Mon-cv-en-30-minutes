@@ -1,5 +1,6 @@
-# Production sur le VPS (ADR-038, docs/deployment.md) : site Next.js, Supabase (base,
-# authentification, API) et proxy HTTPS Caddy, seul service exposé (ports 80 et 443).
+# Production sur le VPS (ADR-038, ADR-044, docs/deployment.md) : site Next.js, Supabase (base,
+# authentification, API) et proxy Caddy, seul service publié, sur 127.0.0.1:8180 pour le nginx
+# du serveur, qui tient HTTPS.
 # Variables : deploy/.env (modèle : deploy/.env.example). Commandes : deploy/scripts/.
 name: mon-cv
 
@@ -37,13 +38,10 @@ services:
     <<: *service
     image: caddy:2.11.9-alpine
     ports:
-      - 80:80
-      - 443:443
-      - 443:443/udp
+      - 127.0.0.1:8180:80
     environment:
       DOMAIN: ${DOMAIN:?DOMAIN manquant dans deploy/.env}
       SUPABASE_DOMAIN: ${SUPABASE_DOMAIN:?SUPABASE_DOMAIN manquant dans deploy/.env}
-      ACME_EMAIL: ${ACME_EMAIL:?ACME_EMAIL manquant dans deploy/.env}
       SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:?lancer deploy/scripts/generate-secrets.sh}
       SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY:?lancer deploy/scripts/generate-secrets.sh}
     volumes:
@@ -51,12 +49,7 @@ services:
       - ../supabase/templates:/srv/templates:ro
       - caddy_data:/data
       - caddy_config:/config
-    networks:
-      edge:
-        # Le site joint l'API Supabase par son adresse publique, sans sortir du serveur.
-        aliases:
-          - ${SUPABASE_DOMAIN}
-      backend: {}
+    networks: [edge, backend]
 
   app:
     <<: *service
@@ -90,6 +83,10 @@ services:
     # Sauvegardes de la nuit, en lecture seule : date et taille dans l'état du système.
     volumes:
       - /var/backups/mon-cv:/backups:ro
+    # Le site joint l'API Supabase par son adresse publique, via le nginx du serveur, sans sortir
+    # du VPS.
+    extra_hosts:
+      - ${SUPABASE_DOMAIN}:host-gateway
     networks: [edge]
 
   db:

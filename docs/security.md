@@ -73,7 +73,7 @@
 | Accès direct à la base ou à l'administration depuis Internet | Seuls SSH, 80 et 443 ouverts (pare-feu) ; PostgreSQL sur un réseau Docker sans le site ni accès extérieur ; Studio lié à `127.0.0.1`, par tunnel SSH seulement | `deploy/docker-compose.yml`, répétition locale (ADR-038) |
 | Appels directs à l'API Supabase (inscription en rafale, lecture de données) contournant le site | `api.domaine` n'accepte sans clé que la connexion Google ; le reste exige la clé du serveur, jamais envoyée au navigateur ; RLS et privilèges en plus | `deploy/scripts/smoke-test.sh` (401 sans clé, 401 sans session) |
 | Tâche planifiée déclenchée par un tiers | `/api/cron/*` fermé au public par Caddy (404) ; jeton `CRON_SECRET` comparé en temps constant (401) | `tests/e2e/exploitation.spec.ts`, `smoke-test.sh` |
-| Usurpation de l'adresse IP (plafond de CV gratuits) | Caddy réécrit `X-Real-IP` avec l'adresse de la connexion | `deploy/Caddyfile` |
+| Usurpation de l'adresse IP (plafond de CV gratuits) | nginx pose `X-Real-IP` avec l'adresse de la connexion ; Caddy, joignable seulement par `127.0.0.1`, ne reprend cet en-tête que d'un proxy du serveur et le réécrit pour le site (ADR-044) | `deploy/Caddyfile`, essai local avec un en-tête falsifié |
 | Secret dans l'image ou les journaux du déploiement | Le build ne reçoit que des valeurs publiques ; secrets donnés au démarrage ; `.env*` exclus de l'image (`.dockerignore`) | Image inspectée (aucun fichier `.env`) |
 | Mise en ligne d'une version cassée ou mal configurée | Variables validées au démarrage (`instrumentation.ts`), sonde de santé, vérifications après déploiement, retour automatique à l'image précédente | Répétition locale (variable manquante → retour) |
 | Accès SSH par force brute | Clés uniquement (mot de passe désactivé), fail2ban ; clé GitHub limitée par commande imposée à `deploy.sh`, version validée | `deploy/scripts/setup-vps.sh` |
@@ -94,6 +94,7 @@
 | Robot capable de résoudre Turnstile avec de nombreuses adresses IP | Faible | Plafond horaire global d'e-mails, 3 CV gratuits par IP et par jour, limites de l'IA par minute ; surveiller Resend et le coût de l'IA |
 | SMTP : e-mails de connexion indispensables | Moyen | Fournisseur dédié et domaine authentifié (tâche 6, R15) |
 | Base, sauvegardes et site sur un même VPS : la perte du serveur perd les sauvegardes locales | Moyen | Sauvegardes Hostinger et copie hors serveur (tâche 15) |
+| VPS partagé avec d'autres sites (même nginx, même Docker, même utilisateur `deploy`) : une faille de l'un peut atteindre les autres ; connexion root par mot de passe encore ouverte | Moyen | Réseaux Docker et base propres au site ; fermer la connexion SSH par mot de passe ; VPS dédié si l'activité grandit (ADR-044) |
 | Exploitation du serveur (mises à jour des images Supabase, Caddy, Node) à la charge de l'exploitant | Moyen | Procédure dans `docs/deployment.md` §13 ; vérifier les avis de sécurité une fois par mois |
 | Accès à l'administration protégé par la seule boîte e-mail de l'administrateur (code de connexion) | Moyen | Double authentification sur la boîte e-mail (tâche 17) ; double authentification propre au site envisageable ensuite |
 | Clés Supabase en HS256 : `getClaims` vérifie le jeton auprès de l'authentification à chaque requête | Faible | Appel interne au VPS (quelques millisecondes) |
