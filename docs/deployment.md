@@ -155,6 +155,16 @@ Sur GitHub, dépôt → **Settings → Deploy keys → Add deploy key** : colle 
 git clone git@github.com:PROPRIETAIRE/DEPOT.git /opt/mon-cv
 ```
 
+**Sur le KVM 2 (fait le 25/11/2026)** : `deploy` partage le serveur avec d'autres sites, donc
+la clé de lecture porte un nom propre au site. C'est `~/.ssh/github_mon_cv`, déclarée dans le
+dépôt comme « VPS KVM 2 (lecture seule) », et utilisée par l'hôte `github-mon-cv` de
+`~/.ssh/config.mon-cv`. Le dépôt du serveur lit donc
+`origin = git@github-mon-cv:Kelenix/Mon-cv-en-30-minutes.git`.
+
+**Toute mise en ligne passe par GitHub** : envoyer `main`, la CI vérifie, puis le workflow
+« Déploiement » lance `deploy.sh` sur le serveur (étape 9). Ne jamais déployer à la main une
+version absente de GitHub. Le dépôt `/opt/mon-cv.git` du premier lancement n'est plus utilisé.
+
 ## 8. Étape 6 : configuration du serveur (`deploy/.env`)
 
 Un `deploy/.env` préparé sur ton ordinateur (non versionné : domaine, clé Resend…) se copie
@@ -176,10 +186,10 @@ base, secret JWT et clés Supabase, sel des adresses IP, jeton des tâches. Comp
 | `DOMAIN`, `SUPABASE_DOMAIN`, `SMTP_SENDER_EMAIL` | Déjà remplis pour `cv30secondes.com` |
 | `SMTP_PASSWORD` | Clé d'API Resend (tâche 6) ; hôte, port et identifiant Resend déjà remplis |
 | `ANTHROPIC_API_KEY` | Clé Anthropic (tâche 3) |
-| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Clés du **mode réel** (étape 8) |
+| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Clés du **mode réel** (étape 8). Vides : le site tourne sans paiement (ADR-045) |
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Clés Cloudflare Turnstile (tâche 16) |
 | `ADMIN_EMAILS` | Ton adresse e-mail, pour l'espace d'administration (tâche 17) |
-| `LEGAL_*` | Informations du vendeur (tâche 7) |
+| `LEGAL_*` | Informations du vendeur (tâche 7) : nom, e-mail, publication et hébergeur obligatoires, le reste facultatif |
 | `LEGAL_HOSTING` | `Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre`, suivi du téléphone indiqué dans les mentions légales de hostinger.fr (à vérifier) |
 | `GOOGLE_*`, `ADS_*` | Plus tard (étape 8, tâche 10) |
 
@@ -221,7 +231,8 @@ téléchargement du PDF.
 
 ## 10. Étape 8 : brancher les services externes
 
-1. **Stripe (mode réel)**, depuis ton ordinateur, à la racine du projet, dans PowerShell :
+1. **Stripe (mode réel)** — fait le 25/11/2026 (tâche 4). Pour le refaire, depuis ton
+   ordinateur, à la racine du projet, dans PowerShell :
 
    ```powershell
    $env:STRIPE_SECRET_KEY = "sk_live_..."; $env:NEXT_PUBLIC_SITE_URL = "https://cv30secondes.com"; npm run stripe:seed -- --live
@@ -261,6 +272,13 @@ téléchargement du PDF.
 Une fois activé, chaque envoi sur `main` lance la CI ; si elle est verte, GitHub met en ligne
 exactement cette version, avec les mêmes vérifications et le même retour automatique en cas
 d'échec.
+
+**Activé le 25/11/2026** :
+- clé `github-actions-mon-cv` ajoutée à `deploy` sur le KVM 2, limitée à `deploy.sh` ;
+- environnement `production` avec ses trois secrets ;
+- `DEPLOY_ENABLED=true`.
+
+La clé privée n'existe que dans les secrets GitHub : pour la changer, refaire les points 1 à 3.
 
 1. Sur ton ordinateur, crée une clé réservée à GitHub :
 

@@ -73,7 +73,7 @@ export default async function PricingPage() {
               }),
             }}
           >
-            <ul className="mt-10 grid gap-8 lg:grid-cols-3">
+            <ul className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
               {PLAN_TIERS.map((tier) => (
                 <li key={tier}>
                   <PlanCard tier={tier}>
@@ -93,7 +93,9 @@ export default async function PricingPage() {
                         tier={tier}
                         trial
                         variant="ghost"
-                        className="w-full"
+                        // Texte long (« Essayer Pro gratuitement 3 jours ») : passe à la ligne
+                        // sur un petit écran au lieu d'élargir la carte.
+                        className="h-auto min-h-11 w-full py-2 text-center whitespace-normal"
                       >
                         {tBilling("checkout.trial", { days: TRIAL.days })}
                       </PlanCheckoutButton>

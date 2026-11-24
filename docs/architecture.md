@@ -155,7 +155,7 @@ Composants serveur par défaut ; composants client seulement pour l'interactivit
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_SENDER_EMAIL`, `SMTP_SENDER_NAME` | Serveur | E-mails d'avertissement de rétention (même SMTP que l'authentification) |
 | `APP_ENV` | Serveur | `production` sur le VPS : variables de production exigées dès le démarrage |
 | `ADS_ENABLED`, `ADS_REMOVAL_ENABLED`, identifiants des blocs publicitaires | Client + serveur | Inc-11 |
-| `LEGAL_*` (raison sociale, SIRET, adresse…) | Build et serveur | Pages légales ; le site de production refuse de démarrer si une valeur manque (US-38) |
+| `LEGAL_*` (raison sociale, contact, adresse…) | Build et serveur | Pages légales ; en production, raison sociale, e-mail, directeur de la publication et hébergeur sont exigés, les autres facultatifs (phrase retirée, ADR-045) |
 
 Les noms exacts des clés Supabase sont confirmés par `supabase status` à l'Inc-0. `core/env.ts`
 valide toutes les variables au démarrage et refuse de démarrer si une variable requise manque.

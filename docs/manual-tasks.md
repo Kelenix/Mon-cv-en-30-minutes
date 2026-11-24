@@ -38,7 +38,16 @@
   de référence le 24/11/2026 : P95 de 5,9 s, aucun fait inventé (ADR-041). Pour relancer la
   mesure, payante (environ 0,35 $) : `npm run eval:ai`.
 
-## Tâche 4 ⏱ : Ouvrir le compte Stripe
+## Tâche 4 ✅ : Ouvrir le compte Stripe
+- **Mode réel branché (25/11/2026)** : les paiements sont ouverts sur https://cv30secondes.com.
+  - Clé secrète dédiée « Mon CV en 30 Secondes » (comme les autres produits du compte).
+  - Produits, 11 prix et portail client `moncv` créés en mode réel (`stripe:seed --live`).
+  - Webhook `https://cv30secondes.com/api/stripe/webhook` (8 événements, marqué `app: moncv`).
+  - Clés dans `deploy/.env` sur le serveur, site redéployé.
+  - Vérifié : session de paiement réelle acceptée avec les CGV (puis expirée), webhook qui
+    refuse les appels non signés, impayés par carte → abonnement annulé.
+  - Points du compte partagé, sans action requise : libellé bancaire « CODECRAFTEUR
+    FORMATION », liens des e-mails Stripe de mise à jour de carte vers kelenix.com.
 - **Avancement (24/11/2026)** : compte existant « Kelenix Teck » (Italie), déjà activé et partagé
   avec d'autres produits (ADR-042).
   - **Mode test configuré** :
@@ -46,7 +55,9 @@
     - produits, prix et portail « moncv » créés ;
     - secret du webhook local ajouté ;
     - achat de test vérifié, crédits ajoutés.
-  - **Reste à faire à la mise en ligne (étape 8 de `docs/deployment.md`)** :
+  - **Historique** : site lancé sans paiement (ADR-045) le 25/11/2026, paiements ouverts le
+    même jour.
+  - **Points notés avant la mise en ligne** :
     - choisir le libellé bancaire vu par les clients (actuellement « CODECRAFTEUR FORMATION ») :
       « CV30SECONDES.COM » tient dans les 22 caractères permis, mais ce réglage du compte vaut
       aussi pour ses autres produits ;
@@ -152,30 +163,20 @@
   apparaît dans Resend → **Emails** avec l'état « Delivered » ; `docker compose logs auth` ne
   montre pas d'erreur SMTP.
 
-## Tâche 7 : Fournir les informations légales du vendeur
-- **Avancement (24/11/2026)** : raison sociale, e-mail de contact et prénom du directeur de la
-  publication fournis ; hébergeur renseigné. Ces valeurs sont placées dans `.env.local` et
-  s'affichent sur les pages légales.
-  - **Reste à fournir** :
-    - statut juridique (et capital pour une société) ;
-    - numéro d'immatriculation (SIRET ou RCS) ;
-    - adresse du siège ;
-    - nom complet du directeur de la publication ;
-    - médiateur de la consommation ;
-    - numéro de TVA, s'il y en a un.
-  - **Hébergeur** : Hostinger ne publie pas de numéro de téléphone (support par chat). Le demander
-    au support, sinon la page de contact sert de moyen de joindre l'hébergeur.
+## Tâche 7 ✅ : Fournir les informations légales du vendeur
+- **Fait (25/11/2026)** : raison sociale, e-mail de contact, directeur de la publication et
+  hébergeur, dans `deploy/.env` sur le serveur. Les autres informations (forme juridique,
+  adresse, médiateur, TVA) sont facultatives : vides, leur phrase n'apparaît pas (ADR-045). Pour
+  en ajouter une plus tard : la variable `LEGAL_*` dans `deploy/.env`, puis `deploy.sh`.
 - **Pourquoi** : mentions légales, CGV, politique de confidentialité et factures sont obligatoires
   pour vendre en ligne.
 - **Quand** : avant l'Inc-6.
 - **Étapes** :
-  1. Réunir : raison sociale ou nom, statut juridique, SIRET, adresse, e-mail de contact, numéro de
-     TVA s'il y a lieu, directeur de la publication, hébergeur (nom, adresse, téléphone) et
-     **médiateur de la consommation** (adhésion obligatoire pour vendre à des particuliers en
-     France). Ces valeurs vont dans les variables `LEGAL_*` de `deploy/.env` sur le serveur ; en
-     production, le site refuse de démarrer si l'une d'elles manque. Hébergeur :
-     Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre, et le
-     téléphone indiqué sur hostinger.fr.
+  1. Réunir : raison sociale ou nom, e-mail de contact, directeur de la publication et hébergeur
+     (obligatoires), puis, si tu les as : statut juridique, adresse, médiateur de la
+     consommation, numéro de TVA. Ces valeurs vont dans les variables `LEGAL_*` de `deploy/.env`
+     sur le serveur. Hébergeur : Hostinger International Ltd, 61 Lordou Vironos Street, 6023
+     Larnaca, Chypre.
   2. Faire relire les CGV et la politique de confidentialité par un juriste avant le lancement,
      **dans chacune des 5 langues** et pour chaque pays où vous vendez (Italie, Espagne,
      Allemagne… ont leurs propres règles de protection du consommateur). Les textes sont dans
@@ -184,7 +185,7 @@
   3. Vérifier vos obligations de TVA avec un expert-comptable (dont le guichet unique OSS pour les
      clients d'autres pays de l'UE) et décider d'activer ou non Stripe Tax pour le calcul.
 - **Coût** : selon le juriste et l'expert-comptable.
-- **Vérification** : les pages légales n'affichent plus aucun champ manquant.
+- **Vérification** : les pages légales n'affichent aucun « [à fournir] ».
 
 ## Tâche 8 : Fournir le logo et les illustrations en fichiers séparés (facultatif)
 - **Pourquoi** : les kits fournis sont des planches composites dont le fond en damier est incrusté
@@ -198,21 +199,26 @@
 - **Coût** : aucun.
 - **Vérification** : les fichiers s'affichent sur fond blanc sans damier.
 
-## Tâche 9 : Mettre le site en ligne sur le VPS Hostinger
+## Tâche 9 ✅ : Mettre le site en ligne sur le VPS Hostinger
 - **Pourquoi** : mise en ligne (ADR-038). Tout est prêt dans `deploy/` et a été répété en
   local ; il reste ce qui demande tes comptes et ton serveur.
-- **Avancement (25/11/2026)** : étapes 1 à 4 de `docs/deployment.md` faites.
-  - Domaine **cv30secondes.com** acheté (ADR-043), Resend configuré (tâche 6).
-  - Site installé sur le **VPS KVM 2 existant**, derrière son nginx (ADR-044).
-  - DNS (A et AAAA) pointé vers ce VPS ; serveur préparé, certificat HTTPS obtenu. Le domaine
-    répond « 502 » jusqu'au premier lancement.
-  - **Reste** : étapes 5 à 10, à partir de la clé de lecture du dépôt.
+- **Fait (25/11/2026)** : **https://cv30secondes.com est en ligne** (version `f96ded6`), sur le
+  VPS KVM 2 existant derrière son nginx (ADR-044), sans paiement pour l'instant (ADR-045).
+  - Domaine acheté (ADR-043), Resend (tâche 6) et Turnstile (tâche 16) configurés.
+  - `deploy/.env` copié, secrets générés, 11 migrations appliquées, toutes les vérifications de
+    `deploy.sh` vertes.
+  - Pages légales en ligne sans valeur manquante, dans les 5 langues ; les autres sites du
+    serveur répondent comme avant.
+  - Paiements ouverts le même jour : Stripe en mode réel (tâche 4).
+  - **Déploiement par GitHub activé** (étape 9) : le serveur lit le dépôt GitHub (clé en lecture
+    seule), et chaque envoi sur `main` avec une CI verte se met en ligne seul. C'est le seul
+    chemin de mise en ligne.
+  - **Reste** : Google en production (tâche 5), surveillance (étape 10, tâche 14), sauvegardes
+    hors du serveur (tâche 15).
   - **Conseillé** : fermer la connexion SSH root par mot de passe, encore ouverte sur ce
     serveur, une fois tes connexions passées par clé.
-- **Quand** : maintenant, une fois les tâches 4, 7 et 17 faites (5 et 10 peuvent suivre).
-- **Étapes** : suivre `docs/deployment.md`, étapes 5 à 10 : clé de lecture du dépôt,
-  `deploy/.env` (copié depuis ton ordinateur), `deploy.sh`, puis Stripe, Google, déploiement
-  automatique et surveillance.
+- **Mettre à jour le site** : envoyer `main` sur GitHub ; la CI puis le workflow « Déploiement »
+  s'en chargent (onglet Actions).
 - **Coût** : aucun coût de serveur en plus (VPS déjà payé) ; domaine environ 10 à 15 €/an.
 - **Vérification** : `deploy.sh` se termine par « Version … en ligne », le site répond en HTTPS
   sur le domaine, la connexion par code fonctionne.
@@ -333,7 +339,10 @@
 - **Vérification** : sur la page de connexion, le bouton « Recevoir un code » s'active après une
   seconde environ et le code arrive ; Cloudflare → Turnstile → Analytics compte les vérifications.
 
-## Tâche 17 : Déclarer les administrateurs
+## Tâche 17 ✅ : Déclarer les administrateurs
+- **Fait (25/11/2026)** : `ADMIN_EMAILS` repris de `.env.local` dans `deploy/.env` sur le
+  serveur. Reste à te connecter sur `https://cv30secondes.com/admin` et à protéger cette boîte
+  e-mail par la double authentification.
 - **Pourquoi** : l'espace d'administration (`https://cv30secondes.com/admin`, ADR-040) n'est ouvert
   qu'aux adresses déclarées sur le serveur.
 - **Quand** : à la mise en ligne.

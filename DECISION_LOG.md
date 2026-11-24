@@ -6,6 +6,39 @@
 
 ---
 
+## ADR-045 — Premier lancement sans paiement ni mentions légales complètes
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté (demande de l'utilisateur : mettre le site en ligne maintenant)
+- **Contexte** :
+  - Le serveur, le domaine, Resend et Turnstile étaient prêts. En production, le site exigeait
+    encore les clés Stripe du mode réel et toutes les informations légales, dont certaines
+    n'existent pas pour l'utilisateur.
+  - Le code de mise en ligne attendait aussi un dépôt GitHub à jour, avec une clé de lecture.
+- **Décision** :
+  - Informations légales : seuls la raison sociale, l'e-mail, le directeur de la publication
+    et l'hébergeur restent exigés. Forme juridique, numéro d'enregistrement, adresse, médiateur
+    et TVA sont facultatifs. Chacun a sa propre phrase dans les 5 langues, retirée quand la
+    valeur manque (même mécanisme que la TVA).
+  - Clés Stripe facultatives en production. Sans elles, le site tourne et le paiement affiche
+    « Le paiement est momentanément indisponible », un comportement déjà testé.
+  - Code envoyé par SSH dans un dépôt du serveur (`/opt/mon-cv.git`), sans passer par GitHub.
+    **Abandonné le jour même** à la demande de l'utilisateur : toute mise en ligne passe par
+    GitHub (serveur branché sur le dépôt, déploiement automatique activé).
+- **Alternatives écartées** :
+  - Attendre Stripe en mode réel : la mise en ligne restait bloquée.
+  - Valeurs fictives dans les mentions légales : trompeuses.
+  - Clés Stripe de test en production : achats fictifs créditant de vrais comptes.
+- **Conséquences** :
+  - Pas de revenus tant que les clés du mode réel ne sont pas dans `deploy/.env` (étape 8 de
+    `docs/deployment.md`). Il suffit ensuite de relancer `deploy.sh`, sans changer le code.
+  - Un oubli des clés Stripe en production ne bloque plus le démarrage : le paiement indisponible
+    se voit sur la page des tarifs et dans l'administration.
+- **Impact** : métier (moyen : pas de vente au lancement), légal (à l'appréciation de
+  l'utilisateur), technique (faible).
+
+---
+
 ## ADR-044 — VPS partagé : le site derrière le nginx du serveur (tâche 9)
 
 - **Date** : 25/11/2026

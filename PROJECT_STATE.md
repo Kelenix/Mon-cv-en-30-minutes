@@ -5,17 +5,17 @@
 
 ## Snapshot
 
-- **Phase courante** : 6 — Mise en production (Inc-13 prêt et répété en local ; mise en ligne sur le VPS par l'utilisateur, tâche 9)
+- **Phase courante** : 6 — Mise en production : **site en ligne sur https://cv30secondes.com** depuis le 25/11/2026, paiements Stripe en mode réel ouverts
 - **Dernière mise à jour** : 25/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : côté utilisateur, mise en ligne en suivant `docs/deployment.md`
-  (tâche 9, après les tâches 4, 7 et 17 : domaine, Resend, Turnstile et serveur prêts, reprendre à
-  l'étape 5), puis tâches 14 et 15. Ensuite, sur le domaine :
+- **Prochaine action** : Google en production (tâche 5), surveillance et sauvegardes hors du
+  serveur (tâches 14 et 15). Ensuite, sur le domaine :
   mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle des outils IA
   (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà mesurée, ADR-041), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
   que la tâche 12 n'est pas faite.
-- **Git** : `main` jusqu'à l'Inc-12 (ee79947), identique à `origin/main` ; Inc-13 pas encore
-  commité. Le serveur récupère le code depuis GitHub : envoyer `main` avant chaque mise en ligne.
+- **Git** : **toute mise en ligne passe par GitHub** (choix de l'utilisateur). Envoi sur `main`,
+  CI, puis workflow « Déploiement » qui lance `deploy.sh` sur le KVM 2. Le serveur lit `origin`
+  sur GitHub avec sa clé en lecture seule.
 
 ## Avancement par phase
 
@@ -109,6 +109,38 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Déploiement par GitHub réparé** (demande de l'utilisateur : « tout doit passer
+  par GitHub »).
+  - Cause des déploiements « ignorés » : `DEPLOY_ENABLED` absente. Cause de la CI rouge depuis
+    `ee79947` : débordement horizontal de `/fr/tarifs` à 375 px sous Linux. Le bouton « Essayer Pro
+    gratuitement 3 jours » ne passait pas à la ligne et élargissait les cartes (379 px).
+  - Correction : grille `grid-cols-1` et bouton d'essai qui passe à la ligne. Vérifié avec
+    Chromium sous Linux (image Playwright) : 375 px sur les tarifs dans les 5 langues, l'accueil et
+    les crédits.
+  - Serveur : clé de lecture du dépôt (lecture seule), `origin` sur GitHub. GitHub Actions :
+    clé limitée à `deploy.sh`, environnement `production` (3 secrets), `DEPLOY_ENABLED=true`.
+
+- 25/11/2026 — **Paiements ouverts (Stripe en mode réel, tâche 4)**.
+  - Clé secrète dédiée « Mon CV en 30 Secondes », après vérification par e-mail et code
+    d'authentification saisis par l'utilisateur.
+  - `stripe:seed --live` : produits, 11 prix et portail `moncv`. Webhook de production créé par
+    l'API (8 événements, `app: moncv`). Clés reportées dans le `deploy/.env` du serveur (deux
+    lignes seulement), `deploy.sh` vert.
+  - Vérifié : session de paiement réelle de 2,99 € créée avec acceptation des CGV puis expirée,
+    webhook à 400 sans signature, impayés par carte → abonnement annulé (réglage du compte).
+
+- 25/11/2026 — **Site en ligne : https://cv30secondes.com** (version `f96ded6`, ADR-045).
+  - Lancé sans paiement : clés Stripe facultatives en production (« momentanément
+    indisponible »). Pages légales : seules les informations du vendeur fournies s'affichent,
+    les autres sont facultatives (phrase retirée).
+  - Code envoyé par SSH dans `/opt/mon-cv.git` (sans GitHub), `deploy/.env` complété depuis
+    `.env.local` (IA, administrateur, informations du vendeur), secrets générés, `deploy.sh` :
+    11 migrations, vérifications vertes.
+  - Contrôles depuis Internet : pages en 0,2 à 0,4 s, pages légales sans valeur manquante dans
+    les 5 langues, Turnstile chargé avec la bonne clé. La case « Vérifiez que vous êtes
+    humain » est apparue dans le navigateur automatisé, et je ne la coche pas. Autres sites
+    du serveur inchangés.
 
 - 25/11/2026 — **Tâche 16 faite** : widget Turnstile « Mon CV en 30 Secondes » créé dans le compte
   Cloudflare de l'utilisateur (qui ne contenait qu'un widget d'un autre projet), clés rangées

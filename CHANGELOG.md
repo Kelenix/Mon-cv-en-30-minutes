@@ -11,8 +11,19 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
   (US-11 c.4 et c.5).
 - `AI_SIMULATION` : les tests de bout en bout restent sur l'IA simulée même avec une clé.
 
+### Corrigé
+
+- Page des tarifs sur mobile : le bouton « Essayer Pro gratuitement 3 jours » passe à la ligne au
+  lieu d'élargir les cartes, qui débordaient de l'écran à 375 px (CI rouge depuis `ee79947`).
+
 ### Modifié
 
+- Déploiement uniquement par GitHub : le serveur lit le dépôt GitHub, et le workflow
+  « Déploiement » est activé (`DEPLOY_ENABLED`, environnement `production`).
+- Premier lancement possible sans paiement (ADR-045) : les clés Stripe ne sont plus exigées en
+  production ; sans elles, le paiement est « momentanément indisponible ». Pages légales :
+  seuls le nom, l'e-mail, le directeur de la publication et l'hébergeur restent exigés ; les
+  autres informations ont chacune leur phrase, retirée si la valeur manque.
 - Mise en ligne sur un VPS partagé (ADR-044) : le nginx du serveur tient HTTPS (certbot) et
   transmet à Caddy, qui n'écoute plus que sur `127.0.0.1:8180`. `setup-vps.sh` prend le domaine
   en argument, installe nginx et certbot, et ménage les sites déjà présents. `ACME_EMAIL` est
