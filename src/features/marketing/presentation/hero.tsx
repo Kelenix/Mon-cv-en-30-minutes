@@ -73,7 +73,7 @@ export function Hero() {
             src={heroIllustration}
             alt={t("illustrationAlt")}
             preload
-            sizes="(min-width: 1280px) min(64vw, 80rem), 40rem"
+            sizes="(min-width: 1280px) min(64vw, 80rem), min(calc(100vw - 2rem), 40rem)"
             className="h-auto w-full"
           />
         </div>

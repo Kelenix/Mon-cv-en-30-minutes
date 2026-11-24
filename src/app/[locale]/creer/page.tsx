@@ -10,6 +10,8 @@ export async function generateMetadata() {
     pathname: "/creer",
     title: t("metaTitle"),
     description: t("metaDescription"),
+    // Page privée, exclue de l'indexation (US-39 c.2).
+    index: false,
   });
 }
 

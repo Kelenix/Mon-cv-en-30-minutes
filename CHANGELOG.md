@@ -4,6 +4,23 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-12 : finitions
+
+- Référencement : aperçu de partage illustré dans chaque langue, données structurées (site,
+  application, offres et prix), `robots.txt` et plan du site multilingue ; pages privées
+  exclues des moteurs de recherche.
+- Politique de sécurité du contenu complète : seules les ressources du site et de Supabase sont
+  acceptées.
+
+### Corrigé — Inc-12
+
+- La page Tarifs ne défile plus de côté sur téléphone (tableau comparatif).
+
+### Modifié — Inc-12
+
+- Accueil plus léger sur téléphone : illustration à la bonne taille, moitié moins de polices
+  chargées à l'ouverture.
+
 ### Ajouté — Inc-11 : publicités
 
 - Bandeau de consentement (Accepter / Refuser au même niveau) et lien « Gérer les cookies » dans

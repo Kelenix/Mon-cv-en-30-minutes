@@ -20,7 +20,7 @@ export function OperationCosts() {
         role="region"
         aria-labelledby="couts"
         tabIndex={0}
-        className="mt-6 overflow-x-auto rounded-xl border border-border"
+        className="relative mt-6 overflow-x-auto rounded-xl border border-border"
       >
         <table className="w-full border-collapse text-left">
           <caption className="sr-only">{t("title")}</caption>

@@ -274,8 +274,9 @@ Vidéo récompensée : jeton à usage unique émis par le serveur, plafond quoti
 - RLS sur 100 % des tables ; écritures sensibles via fonctions SQL `SECURITY DEFINER`
   exécutables par le seul rôle serveur (`docs/data-model.md`).
 - Validation Zod de toute entrée d'action et de route.
-- En-têtes : Content-Security-Policy (domaines Stripe, Supabase, Google ajoutés au besoin),
-  HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `frame-ancestors 'none'`.
+- En-têtes : Content-Security-Policy (site et Supabase ; formulaires vers Supabase et Google ;
+  `https:` ajouté seulement en mode `ADS_MODE=google`, ADR-037), HSTS, `X-Content-Type-Options`,
+  `Referrer-Policy`, `Permissions-Policy`, `frame-ancestors 'none'`.
 - Les Server Actions de Next.js vérifient l'origine des requêtes (protection CSRF) ; les
   cookies de session sont `SameSite=Lax`.
 - Limites de débit par formule (H11) et anti-abus du CV gratuit (H27), calculées en base.

@@ -40,12 +40,13 @@ export function ComparisonTable() {
         {t("pricing.comparison.title")}
       </h2>
       {/* Défilement horizontal limité au tableau sur petit écran, jamais à la page ; la zone est
-          atteignable au clavier pour pouvoir la faire défiler (WCAG 2.1.1). */}
+          atteignable au clavier pour pouvoir la faire défiler (WCAG 2.1.1). « relative » : les
+          textes réservés aux lecteurs d'écran (positionnés) restent dans la zone qui défile. */}
       <div
         role="region"
         aria-labelledby="comparatif"
         tabIndex={0}
-        className="mt-6 overflow-x-auto rounded-xl border border-border"
+        className="relative mt-6 overflow-x-auto rounded-xl border border-border"
       >
         <table className="w-full min-w-[36rem] border-collapse text-left">
           <caption className="sr-only">{t("pricing.comparison.title")}</caption>

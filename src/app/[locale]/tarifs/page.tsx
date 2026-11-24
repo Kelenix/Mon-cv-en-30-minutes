@@ -1,5 +1,6 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { StructuredData } from "@/components/seo/structured-data";
 import { buttonVariants } from "@/components/ui/button";
 import {
   CheckoutButton,
@@ -17,6 +18,7 @@ import { ComparisonTable } from "@/features/plans/presentation/comparison-table"
 import { OneTimeOffers } from "@/features/plans/presentation/one-time-offers";
 import { OperationCosts } from "@/features/plans/presentation/operation-costs";
 import { PlanCard } from "@/features/plans/presentation/plan-card";
+import { pricingStructuredData } from "@/features/marketing/structured-data";
 import { pickClientMessages } from "@/i18n/client-messages";
 import { pageMetadata } from "@/i18n/metadata";
 import { Link } from "@/i18n/navigation";
@@ -42,6 +44,7 @@ export default async function PricingPage() {
 
   return (
     <NextIntlClientProvider messages={messages}>
+      <StructuredData data={await pricingStructuredData()} />
       <div className="container-page py-12 md:py-16">
         <h1 className="text-[2rem] leading-[1.15] font-bold md:text-5xl">
           {t("title")}

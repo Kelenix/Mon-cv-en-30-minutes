@@ -1,7 +1,7 @@
 # Sécurité — Mon CV en 30 Secondes (version Web)
 
 > Rôle : security-engineer. Mis à jour à chaque incrément qui touche l'authentification, les
-> données, les paiements ou un service tiers. Dernière revue : Inc-11 (publicités), 24/11/2026.
+> données, les paiements ou un service tiers. Dernière revue : Inc-12 (finitions, CSP), 24/11/2026.
 
 ## 1. Ce qui est protégé
 
@@ -65,13 +65,16 @@
 | Consigne cachée dans une réponse d'entretien | Questions et réponses encadrées, échappées et déclarées comme données ; retour gardé seulement pour les questions répondues | `tests/unit/cv-tools.test.ts` |
 | Nouveau CV hors formule (requête forgée) | `applyAdaptation` en mode `new` refusé (`FORBIDDEN`) sans Pro ni Premium | Revue de code |
 | Clickjacking, détection de type, fuite de référent | En-têtes : `frame-ancestors 'none'`, HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy` | `next.config.ts` |
+| Script ou ressource venant d'un autre domaine (XSS, injection) | Content-Security-Policy : site et Supabase seulement, aucun cadre ni objet, `base-uri 'self'`, formulaires vers le site, Supabase et Google ; `https:` ouvert seulement en mode `ADS_MODE=google` (ADR-037) | `tests/e2e/audit.spec.ts` (aucune ressource refusée) |
+| Balise injectée par les données structurées | JSON produit par le serveur à partir du catalogue, sans donnée saisie ; `<` échappé | Revue de code |
 
 ## 3. Points résiduels
 
 | Point | Niveau | Suite |
 |-------|--------|-------|
 | Un scanner de liens de messagerie peut ouvrir le lien de l'e-mail avant l'utilisateur et l'invalider | Faible | Le code à 6 chiffres reste utilisable ; message clair si le lien a expiré |
-| Politique de sécurité du contenu (CSP) encore partielle (pas de liste de scripts autorisés) | Moyen | CSP complète à l'Inc-12, quand Stripe et les publicités seront en place |
+| CSP avec `'unsafe-inline'` pour les scripts (pages générées à l'avance, sans nonce) | Faible | React échappe tout contenu ; aucune donnée saisie insérée en HTML brut (ADR-037) |
+| En mode `ADS_MODE=google`, scripts, images, connexions et cadres ouverts à tout domaine HTTPS | Moyen | Exigé par Ad Manager et son bandeau ; à resserrer avec la liste des domaines observés une fois les annonces en ligne (tâche 10) |
 | Les limites locales de Supabase Auth sont relevées pour les tests | Faible | Valeurs par défaut conservées en production (tâche 2) |
 | SMTP par défaut de Supabase inadapté à la production | Moyen | Fournisseur dédié (tâche 6, R15) |
 | 4 vulnérabilités modérées dans la CLI shadcn (outil de développement) | Faible | Hors production ; la CI audite les dépendances de production |

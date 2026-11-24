@@ -26,9 +26,11 @@ const CLIENT_NAMESPACES = [
   "ads",
 ] as const;
 
-// Poppins servie par le site (aucune requête vers Google à l'exécution), caractères des 5 langues.
+// Poppins servie par le site (aucune requête vers Google à l'exécution). Seul le sous-ensemble
+// « latin », qui couvre les 5 langues (accents, œ, €, espaces fines), est préchargé ; les autres
+// restent déclarés et ne sont téléchargés que si un caractère les demande.
 const poppins = Poppins({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
   display: "swap",

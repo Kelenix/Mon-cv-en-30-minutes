@@ -203,3 +203,16 @@
   bas de l'accueil et dans « Mes CV » sans abonnement, aucune annonce avec un abonnement,
   vidéo récompensée qui crédite 1 crédit, interstitiel une seule fois en quittant l'aperçu du
   premier CV, « Gérer les cookies » qui rouvre le choix.
+
+## Tâche 13 : Déclarer le site aux moteurs de recherche
+- **Pourquoi** : faire connaître le plan du site à Google et Bing et suivre le référencement
+  (US-39).
+- **Quand** : une fois le site en ligne sur son domaine (tâche 9).
+- **Étapes** :
+  1. Ouvrir **Google Search Console**, ajouter une propriété de type « Domaine » avec le domaine
+     du site et la valider par l'enregistrement DNS (TXT) indiqué.
+  2. Menu **Sitemaps** : saisir `sitemap.xml` et valider.
+  3. Dans **Bing Webmaster Tools**, importer le site depuis Google Search Console.
+- **Coût** : gratuit.
+- **Vérification** : le sitemap apparaît « Réussi » avec 30 adresses (6 pages dans 5 langues) ;
+  dans les jours qui suivent, l'accueil et les tarifs apparaissent dans « Pages » comme indexés.

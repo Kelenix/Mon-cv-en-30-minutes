@@ -6,6 +6,9 @@ export const routing = defineRouting({
   locales: ["fr", "en", "it", "es", "de"],
   defaultLocale: "en",
   localePrefix: "always",
+  // Versions linguistiques (hreflang) déclarées par les métadonnées des pages publiques et le plan
+  // du site, sur le domaine du site (ADR-037) ; pas d'en-tête `Link` déduit de l'hôte de la requête.
+  alternateLinks: false,
   // Chemins traduits (US-41) : clé = chemin interne (dossier dans `app/[locale]`).
   pathnames: {
     "/": "/",

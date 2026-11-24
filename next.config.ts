@@ -3,8 +3,34 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
-// En-têtes de sécurité de base (docs/architecture.md §13). La Content-Security-Policy complète
-// (scripts, Stripe, Google) est posée à l'Inc-12, quand toutes les origines sont connues.
+const isDev = process.env.NODE_ENV !== "production";
+// Annonces Google (Ad Manager, consentement) : origines nombreuses et variables, autorisées en
+// HTTPS dans ce seul mode (ADR-037).
+const googleAds = process.env.ADS_MODE === "google";
+const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+
+/**
+ * Content-Security-Policy (docs/security.md) : ressources du site seulement, plus Supabase ;
+ * formulaires vers Supabase puis Google (connexion ; le paiement Stripe est ouvert par script,
+ * hors form-action) ; aucune intégration dans un cadre.
+ * Les scripts en ligne de Next.js imposent 'unsafe-inline' (pages générées à l'avance, sans nonce).
+ */
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${googleAds ? " https:" : ""}`,
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob:${googleAds ? " https:" : ""}`,
+  "font-src 'self' data:",
+  `connect-src 'self' ${supabase}${isDev ? " ws:" : ""}${googleAds ? " https:" : ""}`,
+  `frame-src ${googleAds ? "https:" : "'none'"}`,
+  "worker-src 'self' blob:",
+  `form-action 'self' ${supabase} https://accounts.google.com`,
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "object-src 'none'",
+].join("; ");
+
+// En-têtes de sécurité (docs/architecture.md §13).
 const securityHeaders = [
   {
     key: "Strict-Transport-Security",
@@ -18,7 +44,7 @@ const securityHeaders = [
   },
   {
     key: "Content-Security-Policy",
-    value: "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+    value: contentSecurityPolicy,
   },
 ];
 

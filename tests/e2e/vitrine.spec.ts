@@ -317,3 +317,61 @@ test.describe("Pages légales (US-38)", () => {
     await expectNoAccessibilityViolations(page);
   });
 });
+
+test.describe("Référencement (US-39)", () => {
+  test("l'accueil et les tarifs ont un aperçu de partage et des données structurées", async ({
+    page,
+    request,
+  }) => {
+    for (const [path, type] of [
+      ["/fr", "WebSite"],
+      ["/fr/tarifs", "Offer"],
+    ] as const) {
+      await page.goto(path);
+
+      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+        "content",
+        /\/fr\/opengraph-image$/,
+      );
+      await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+        "content",
+        "summary_large_image",
+      );
+      await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+      const structuredData = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+      expect(JSON.stringify(JSON.parse(structuredData ?? "{}"))).toContain(
+        `"@type":"${type}"`,
+      );
+    }
+
+    const image = await request.get("/fr/opengraph-image");
+    expect(image.headers()["content-type"]).toBe("image/png");
+  });
+
+  test("le plan du site liste les pages publiques dans les 5 langues, sans page privée", async ({
+    request,
+  }) => {
+    expect(await (await request.get("/robots.txt")).text()).toMatch(
+      /Sitemap: .+\/sitemap\.xml/,
+    );
+
+    const sitemap = await (await request.get("/sitemap.xml")).text();
+    for (const locale of LOCALES) {
+      expect(sitemap).toContain(`${PRICING_PATHS[locale]}</loc>`);
+      expect(sitemap).not.toContain(CREATE_PATHS[locale]);
+    }
+    expect(sitemap).not.toMatch(/\/(compte|cv)\b/);
+  });
+
+  test("les pages privées sont exclues de l'indexation", async ({ page }) => {
+    for (const path of ["/fr/creer", "/fr/compte"]) {
+      await page.goto(path);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        "content",
+        /noindex/,
+      );
+    }
+  });
+});

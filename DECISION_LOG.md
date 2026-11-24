@@ -6,6 +6,59 @@
 
 ---
 
+## ADR-037 — Référencement, politique de sécurité du contenu et performance (Inc-12)
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté
+- **Décideur** : Claude (rôles : SEO, sécurité, performance, accessibilité)
+- **Contexte** : US-39, audit final US-36 et US-37, NFR-01 (Lighthouse ≥ 90, LCP < 2,5 s
+  sur mobile), CSP complète reportée depuis l'Inc-1.
+- **Décision** :
+  - **Référencement** : titre, description, adresse canonique, `hreflang` (5 langues et
+    `x-default`), Open Graph et carte large déclarés par `pageMetadata` ; image de partage par
+    langue (`[locale]/opengraph-image.tsx`, 1 200 × 630, produite au build, Poppins, logo
+    fourni en français, icône et nom traduit ailleurs). Données structurées schema.org :
+    éditeur, site et application gratuite sur l'accueil ; offres (formules, CV Pro, packs) sur
+    les tarifs, tirées du catalogue. `robots.txt` (sans `/api/` ni `/auth/`) et `sitemap.xml`
+    (accueil, tarifs, pages légales, versions linguistiques). Pages privées en `noindex`
+    plutôt que bloquées dans `robots.txt` : un robot doit pouvoir lire la consigne.
+  - **`hreflang` à une seule source** : l'en-tête HTTP `Link` de next-intl est désactivé
+    (`alternateLinks: false`). Il est déduit de l'hôte de la requête (domaine de
+    prévisualisation, port) et contredisait l'adresse canonique.
+  - **CSP** : ressources du site seulement, plus Supabase ; `frame-ancestors`, `object-src`
+    et `frame-src 'none'` ; `form-action` limité au site, à Supabase et à Google (connexion).
+    Le paiement Stripe est ouvert par script, il n'est donc pas concerné. `'unsafe-inline'`
+    reste nécessaire pour les scripts : les pages sont générées à l'avance, donc sans nonce.
+    En mode `ADS_MODE=google` seulement, `https:` est ajouté aux scripts, images, connexions
+    et cadres : Ad Manager et son bandeau de consentement chargent des domaines nombreux et
+    changeants.
+  - **Performance** : l'illustration de l'accueil déclare sa vraie largeur sur mobile (57 Ko au
+    lieu de 106 Ko) ; seul le sous-ensemble « latin » de Poppins est préchargé (4 fichiers au
+    lieu de 8, il couvre les 5 langues). Les autres sous-ensembles restent déclarés.
+  - **Audit** : `tests/e2e/audit.spec.ts` vérifie 17 pages publiques et privées à 1 440,
+    1 024, 768 et 375 px : aucun défilement horizontal, champs ≥ 16 px et zones tactiles
+    ≥ 44 px sur mobile, axe sans violation, aucune ressource refusée par la CSP. Correctif
+    trouvé : les tableaux défilants sont `relative`, pour que les textes réservés aux
+    lecteurs d'écran ne fassent plus déborder la page.
+- **Alternatives écartées** :
+  - CSP à nonce : rendrait chaque page dynamique et perdrait la génération à l'avance.
+  - CSS intégré à la page (`inlineCss`) : mesuré moins bon (document de 29 à 77 Ko, premier
+    affichage de 0,9 à 1,1 s).
+  - Menus de l'en-tête chargés à la demande : boutons qui apparaissent après coup
+    (transition brusque, ADR-035).
+- **Conséquences** :
+  - Lighthouse mobile en local (serveur de production, médiane de 5 passages) : accueil 90,
+    tarifs 91 en performance ; 100 en accessibilité, bonnes pratiques et SEO. LCP observé
+    0,2 s ; LCP simulé 3,5 à 3,7 s, dû au JavaScript de React et de Next.js transporté en
+    HTTP/1.1 par le serveur local.
+  - Mesure à refaire sur le domaine de production (HTTP/2, Brotli, CDN) à l'Inc-13.
+  - `'unsafe-inline'` laisse passer un script injecté si une faille XSS existait : risque
+    résiduel faible, car React échappe tout contenu et aucune donnée saisie n'est insérée en
+    HTML brut (données structurées issues du catalogue, `<` échappé).
+- **Impact** : technique et sécurité (moyen), métier (acquisition par les moteurs de recherche).
+
+---
+
 ## ADR-036 — Publicités, consentement et vidéo récompensée (Inc-11)
 
 - **Date** : 24/11/2026
