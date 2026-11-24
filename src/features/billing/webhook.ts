@@ -4,17 +4,20 @@ import {
   PURCHASE_PRODUCTS,
   type PurchaseProduct,
   productCredits,
+  STRIPE_APP,
 } from "@/features/plans/catalog";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
   customerIdOf,
+  isAppSubscription,
   paymentMethodLabel,
   subscriptionState,
 } from "./stripe-mapping";
 
 // Traitement des événements Stripe (docs/system-design.md §6.2 et §6.3) : chaque événement n'est
 // traité qu'une fois ; l'abonnement est relu chez Stripe, donc l'ordre d'arrivée est
-// indifférent ; les écritures passent par les fonctions SQL réservées au serveur.
+// indifférent ; les écritures passent par les fonctions SQL réservées au serveur. Les événements
+// des autres produits du compte Stripe sont ignorés (ADR-042).
 
 type Admin = ReturnType<typeof createAdminClient>;
 
@@ -60,8 +63,9 @@ async function syncSubscription(admin: Admin, stripe: Stripe, id: string) {
   const subscription = await stripe.subscriptions.retrieve(id, {
     expand: ["default_payment_method"],
   });
+  if (!isAppSubscription(subscription)) return;
   const state = subscriptionState(subscription);
-  if (!state) throw new Error(`Abonnement sans formule connue : ${id}`);
+  if (!state) throw new Error(`Abonnement dans un état inconnu : ${id}`);
 
   const userId =
     subscription.metadata.user_id ||
@@ -101,6 +105,7 @@ async function recordInvoice(
   const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
     expand: ["default_payment_method"],
   });
+  if (!isAppSubscription(subscription)) return;
   const state = subscriptionState(subscription);
   const userId =
     subscription.metadata.user_id ||
@@ -129,6 +134,7 @@ async function completeCheckout(
   session: Stripe.Checkout.Session,
   confirmedAt: number,
 ) {
+  if (session.metadata?.app !== STRIPE_APP) return;
   if (session.mode === "subscription") {
     const id = customerIdOf(session.subscription);
     if (id) await syncSubscription(admin, stripe, id);

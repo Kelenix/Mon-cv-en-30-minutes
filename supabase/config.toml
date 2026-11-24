@@ -341,7 +341,7 @@ max_frequency = "5s"
 # manuelle 5). Pour l'activer : `enabled = true`, identifiants dans `supabase/.env`, puis
 # GOOGLE_AUTH_ENABLED=true dans `.env.local`.
 [auth.external.google]
-enabled = false
+enabled = true
 client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
 secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
 redirect_uri = ""

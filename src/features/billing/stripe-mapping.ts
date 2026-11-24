@@ -5,6 +5,7 @@ import {
   parseSubscriptionLookupKey,
   type PlanTier,
   PLANS,
+  STRIPE_APP,
   subscriptionLookupKey,
   TRIAL,
 } from "@/features/plans/catalog";
@@ -73,7 +74,7 @@ export function checkoutParams({
     return {
       ...common,
       mode: "subscription",
-      metadata: { user_id: userId },
+      metadata: { app: STRIPE_APP, user_id: userId },
       subscription_data: {
         metadata: { user_id: userId },
         ...(item.trial ? { trial_period_days: TRIAL.days } : {}),
@@ -85,6 +86,7 @@ export function checkoutParams({
     mode: "payment",
     invoice_creation: { enabled: true },
     metadata: {
+      app: STRIPE_APP,
       user_id: userId,
       product: checkoutLookupKey(item),
       ...(item.kind === "cvPro" ? { cv_id: item.cvId } : {}),
@@ -106,6 +108,13 @@ const SUBSCRIPTION_STATUSES = [
   "paused",
 ] as const;
 type SubscriptionStatus = (typeof SUBSCRIPTION_STATUSES)[number];
+
+/** Abonnement à une formule de l'application, et non à un autre produit du compte Stripe. */
+export function isAppSubscription(subscription: Stripe.Subscription) {
+  return subscription.items.data.some(
+    (item) => parseSubscriptionLookupKey(item.price.lookup_key) !== null,
+  );
+}
 
 /** Arguments de `sync_subscription` à partir d'un abonnement relu chez Stripe. */
 export function subscriptionState(subscription: Stripe.Subscription) {

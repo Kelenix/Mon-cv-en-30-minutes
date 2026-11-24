@@ -97,6 +97,19 @@ export default async function proxy(
   const isAdmin = isAdminEmail(claims?.email);
   const locale = localeOfPath(pathname) ?? routing.defaultLocale;
 
+  // Connexion Google interrompue sans destination connue (invitation expirée ou invalide) :
+  // Supabase renvoie l'erreur sur l'accueil ; la page de connexion l'explique.
+  if (
+    searchParams.has("error_code") &&
+    pathname === localizedPath(locale, "/")
+  ) {
+    return redirectKeepingCookies(
+      request,
+      response,
+      `${localizedPath(locale, "/connexion")}?erreur=google`,
+    );
+  }
+
   // Un administrateur n'a pas d'espace « Mon compte » : tout passe par l'administration.
   if (isAdmin && isAccountSpacePath(pathname)) {
     return redirectKeepingCookies(request, response, "/admin");

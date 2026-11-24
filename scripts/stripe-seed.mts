@@ -1,5 +1,7 @@
-// Crée ou met à jour, dans Stripe, les produits, les prix (repérés par leur clé : `credits_15`,
-// `pro_month`…) et le portail client (docs/architecture.md §8). Rejouable, sans aucun paiement.
+// Crée ou met à jour, dans Stripe, les produits, les prix (repérés par leur clé :
+// `moncv_credits_15`, `moncv_pro_month`…) et le portail client (docs/architecture.md §8).
+// Rejouable, sans aucun paiement. Le compte Stripe sert aussi à d'autres produits (ADR-042) :
+// seuls les objets marqués `app: moncv` sont créés ou modifiés.
 // Mode test : `npm run stripe:seed` (clé lue dans `.env.local`).
 // Mode réel, à la mise en production : `npm run stripe:seed -- --live`, avec la clé sk_live_… et
 // l'adresse https du site données dans l'environnement, jamais dans `.env.local`
@@ -14,6 +16,8 @@ import {
   CV_PRO_PRICE_CENTS,
   PLAN_TIERS,
   PLANS,
+  STRIPE_APP,
+  stripeLookupKey,
   subscriptionLookupKey,
 } from "../src/features/plans/catalog.ts";
 
@@ -76,22 +80,28 @@ const PRODUCTS: ProductSpec[] = [
   })),
 ];
 
-const existing = await stripe.products.list({ limit: 100, active: true });
+const existing = await stripe.products
+  .list({ limit: 100, active: true })
+  .autoPagingToArray({ limit: 10_000 });
 const productIds: Record<string, string> = {};
 const priceIds: Record<string, string> = {};
 
 for (const spec of PRODUCTS) {
   const product =
-    existing.data.find((item) => item.metadata.app_key === spec.appKey) ??
+    existing.find(
+      (item) =>
+        item.metadata.app === STRIPE_APP &&
+        item.metadata.app_key === spec.appKey,
+    ) ??
     (await stripe.products.create({
       name: spec.name,
-      metadata: { app_key: spec.appKey },
+      metadata: { app: STRIPE_APP, app_key: spec.appKey },
     }));
   productIds[spec.appKey] = product.id;
 
   for (const price of spec.prices) {
     const { data } = await stripe.prices.list({
-      lookup_keys: [price.lookupKey],
+      lookup_keys: [stripeLookupKey(price.lookupKey)],
       active: true,
     });
     const current = data[0];
@@ -108,7 +118,7 @@ for (const spec of PRODUCTS) {
       currency: "eur",
       unit_amount: price.cents,
       tax_behavior: "inclusive",
-      lookup_key: price.lookupKey,
+      lookup_key: stripeLookupKey(price.lookupKey),
       transfer_lookup_key: true,
       ...(price.interval ? { recurring: { interval: price.interval } } : {}),
     });
@@ -156,16 +166,19 @@ const portal = {
   },
 };
 
-const { data: configurations } = await stripe.billingPortal.configurations.list(
-  { is_default: true, limit: 1 },
-);
-if (configurations[0]) {
-  await stripe.billingPortal.configurations.update(
-    configurations[0].id,
-    portal,
-  );
+// Portail propre à l'application : celui par défaut du compte appartient aux autres produits.
+const configuration = (
+  await stripe.billingPortal.configurations
+    .list({ active: true, limit: 100 })
+    .autoPagingToArray({ limit: 1_000 })
+).find((item) => item.metadata?.app === STRIPE_APP);
+if (configuration) {
+  await stripe.billingPortal.configurations.update(configuration.id, portal);
 } else {
-  await stripe.billingPortal.configurations.create(portal);
+  await stripe.billingPortal.configurations.create({
+    ...portal,
+    metadata: { app: STRIPE_APP },
+  });
 }
 
 console.log(

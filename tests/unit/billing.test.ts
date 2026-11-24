@@ -4,12 +4,14 @@ import {
   checkoutLookupKey,
   checkoutParams,
   customerIdOf,
+  isAppSubscription,
   subscriptionState,
 } from "@/features/billing/stripe-mapping";
 import {
   parseSubscriptionLookupKey,
   productCredits,
   purchasePriceCents,
+  stripeLookupKey,
   subscriptionLookupKey,
 } from "@/features/plans/catalog";
 
@@ -26,14 +28,21 @@ const BASE = {
 };
 
 describe("catalogue des prix Stripe", () => {
-  it("désigne chaque prix par une clé lisible", () => {
+  it("désigne chaque prix par une clé lisible, préfixée chez Stripe (ADR-042)", () => {
     expect(subscriptionLookupKey("pro", "year")).toBe("pro_year");
-    expect(parseSubscriptionLookupKey("premium_month")).toEqual({
+    expect(stripeLookupKey("credits_15")).toBe("moncv_credits_15");
+    expect(parseSubscriptionLookupKey("moncv_premium_month")).toEqual({
       tier: "premium",
       interval: "month",
     });
-    expect(parseSubscriptionLookupKey("credits_5")).toBeNull();
+    expect(parseSubscriptionLookupKey("moncv_credits_5")).toBeNull();
     expect(parseSubscriptionLookupKey(null)).toBeNull();
+  });
+
+  it("ne reconnaît pas les prix des autres produits du compte Stripe", () => {
+    expect(parseSubscriptionLookupKey("premium_month")).toBeNull();
+    expect(parseSubscriptionLookupKey("autre_pro_month")).toBeNull();
+    expect(parseSubscriptionLookupKey("moncv_pro_month_v2")).toBeNull();
   });
 
   it("donne crédits et prix de chaque produit", () => {
@@ -59,7 +68,7 @@ describe("session de paiement", () => {
       custom_text: {
         terms_of_service_acceptance: { message: BASE.termsMessage },
       },
-      metadata: { user_id: "user-1", product: "credits_15" },
+      metadata: { app: "moncv", user_id: "user-1", product: "credits_15" },
       invoice_creation: { enabled: true },
     });
   });
@@ -68,6 +77,7 @@ describe("session de paiement", () => {
     const item = { kind: "cvPro" as const, cvId: "cv-1" };
     expect(checkoutLookupKey(item)).toBe("cv_pro");
     expect(checkoutParams({ ...BASE, item }).metadata).toEqual({
+      app: "moncv",
       user_id: "user-1",
       product: "cv_pro",
       cv_id: "cv-1",
@@ -79,7 +89,7 @@ describe("session de paiement", () => {
     expect(checkoutLookupKey(item)).toBe("ads_removal");
     expect(checkoutParams({ ...BASE, item })).toMatchObject({
       mode: "payment",
-      metadata: { user_id: "user-1", product: "ads_removal" },
+      metadata: { app: "moncv", user_id: "user-1", product: "ads_removal" },
     });
   });
 
@@ -93,6 +103,7 @@ describe("session de paiement", () => {
     expect(checkoutLookupKey(item)).toBe("pro_month");
     expect(checkoutParams({ ...BASE, item })).toMatchObject({
       mode: "subscription",
+      metadata: { app: "moncv", user_id: "user-1" },
       subscription_data: {
         metadata: { user_id: "user-1" },
         trial_period_days: 3,
@@ -110,7 +121,7 @@ describe("session de paiement", () => {
 
 function subscription(
   overrides: Partial<Stripe.Subscription> = {},
-  lookupKey = "pro_month",
+  lookupKey = "moncv_pro_month",
 ) {
   return {
     id: "sub_1",
@@ -157,6 +168,12 @@ describe("état d'un abonnement relu chez Stripe", () => {
       subscriptionState(subscription({ cancel_at: 1_800_000_000 }))
         ?.p_cancel_at_period_end,
     ).toBe(true);
+  });
+
+  it("distingue les abonnements des autres produits du compte Stripe (ADR-042)", () => {
+    expect(isAppSubscription(subscription())).toBe(true);
+    expect(isAppSubscription(subscription({}, "pro_month"))).toBe(false);
+    expect(subscriptionState(subscription({}, "pro_month"))).toBeNull();
   });
 
   it("ignore un prix ou un état inconnus", () => {

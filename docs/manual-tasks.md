@@ -39,6 +39,17 @@
   mesure, payante (environ 0,35 $) : `npm run eval:ai`.
 
 ## Tâche 4 ⏱ : Ouvrir le compte Stripe
+- **Avancement (24/11/2026)** : compte existant « Kelenix Teck » (Italie), déjà activé et partagé
+  avec d'autres produits (ADR-042).
+  - **Mode test configuré** :
+    - clé dans `.env.local` ;
+    - produits, prix et portail « moncv » créés ;
+    - secret du webhook local ajouté ;
+    - achat de test vérifié, crédits ajoutés.
+  - **Reste à faire à la mise en ligne (étape 8 de `docs/deployment.md`)** :
+    - choisir le libellé bancaire vu par les clients (actuellement « CODECRAFTEUR FORMATION ») ;
+    - vérifier le réglage des impayés ;
+    - en mode réel : produits, webhook et clés.
 - **Pourquoi** : vendre crédits, abonnements, CV Pro et retrait des publicités.
 - **Quand** : création du compte avant l'Inc-6 (les clés de **test** sont disponibles dès
   l'inscription). L'activation complète (vérification d'identité, plusieurs jours) n'est requise
@@ -70,6 +81,15 @@
   production.
 
 ## Tâche 5 : Créer les identifiants Google OAuth
+- **Avancement (24/11/2026)** :
+  - Projet Google Cloud `mon-cv-en-30-secondes` créé, avec un écran de consentement externe en
+    mode test et un client Web.
+  - Identifiants placés dans `supabase/.env` ; Google activé dans `supabase/config.toml` et dans
+    `.env.local`.
+  - Connexion avec Google réussie en local : compte créé, arrivée sur l'espace attendu.
+  - **Reste à faire** : avec le domaine, ajouter les adresses de production, compléter le
+    Branding, publier l'application et remplir `deploy/.env` (étape 8 de `docs/deployment.md`).
+    D'ici là, seuls les utilisateurs tests déclarés peuvent se connecter avec Google.
 - **Pourquoi** : bouton « Continuer avec Google ».
 - **Quand** : avant l'Inc-2 pour tester ce bouton en local, sinon avant la mise en production.
   La connexion par e-mail fonctionne en local sans ce compte.
@@ -122,6 +142,18 @@
   montre pas d'erreur SMTP.
 
 ## Tâche 7 : Fournir les informations légales du vendeur
+- **Avancement (24/11/2026)** : raison sociale, e-mail de contact et prénom du directeur de la
+  publication fournis ; hébergeur renseigné. Ces valeurs sont placées dans `.env.local` et
+  s'affichent sur les pages légales.
+  - **Reste à fournir** :
+    - statut juridique (et capital pour une société) ;
+    - numéro d'immatriculation (SIRET ou RCS) ;
+    - adresse du siège ;
+    - nom complet du directeur de la publication ;
+    - médiateur de la consommation ;
+    - numéro de TVA, s'il y en a un.
+  - **Hébergeur** : Hostinger ne publie pas de numéro de téléphone (support par chat). Le demander
+    au support, sinon la page de contact sert de moyen de joindre l'hébergeur.
 - **Pourquoi** : mentions légales, CGV, politique de confidentialité et factures sont obligatoires
   pour vendre en ligne.
 - **Quand** : avant l'Inc-6.

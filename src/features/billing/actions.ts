@@ -30,7 +30,7 @@ import {
   checkoutParams,
   type ReturnTo,
 } from "./stripe-mapping";
-import { getStripe, priceIdFor } from "./stripe";
+import { getStripe, portalConfigurationFor, priceIdFor } from "./stripe";
 import { getCurrentSubscription } from "./subscription";
 
 // Paiements (docs/system-design.md §3) : session Stripe Checkout et portail client. Les droits
@@ -190,6 +190,7 @@ export async function openBillingPortal(
 
   try {
     const session = await stripe.billingPortal.sessions.create({
+      configuration: await portalConfigurationFor(stripe),
       customer: profile.stripe_customer_id,
       locale: parsedLocale.data,
       return_url: `${env.NEXT_PUBLIC_SITE_URL}${localizedPath(parsedLocale.data, "/compte/credits")}`,

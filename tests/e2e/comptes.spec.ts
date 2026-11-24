@@ -103,6 +103,24 @@ test.describe("Connexion par code", () => {
     await expect(page.getByText(MESSAGES.en.auth.linkInvalid)).toBeVisible();
   });
 
+  test("une connexion Google refusée ou expirée revient à la connexion avec une explication", async ({
+    page,
+  }) => {
+    // Refus chez Google : retour sur /auth/callback sans code.
+    await page.goto(
+      "/auth/callback?next=%2Fen%2Faccount&error=access_denied&error_code=access_denied",
+    );
+    await expect(page).toHaveURL(/\/en\/sign-in\?erreur=google$/);
+    await expect(page.getByText(MESSAGES.en.auth.googleFailed)).toBeVisible();
+
+    // Invitation expirée : Supabase renvoie l'erreur sur l'accueil du site.
+    await page.goto(
+      "/fr?error=invalid_request&error_code=bad_oauth_state&error_description=OAuth+state+has+expired",
+    );
+    await expect(page).toHaveURL(/\/fr\/connexion\?erreur=google$/);
+    await expect(page.getByText(fr.auth.googleFailed)).toBeVisible();
+  });
+
   test("une redirection vers un autre site est ignorée", async ({ page }) => {
     await page.goto("/fr/connexion?next=https%3A%2F%2Fexemple.test%2Fvol");
     await signInWithCode(page, uniqueEmail());

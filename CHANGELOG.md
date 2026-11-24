@@ -13,6 +13,12 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ### Modifié
 
+- Paiements : le compte Stripe peut servir à d'autres produits (ADR-042). Les clés de prix sont
+  préfixées `moncv_`, le portail client est propre à l'application et le webhook ignore les
+  événements des autres produits. Relancer `npm run stripe:seed` après la mise à jour.
+- Connexion avec Google activée sur Supabase local (identifiants dans `supabase/.env`).
+- Connexion Google interrompue (invitation expirée ou invalide) : la page de connexion affiche
+  « La connexion avec Google n'a pas abouti » au lieu d'un retour muet sur l'accueil.
 - Consigne de rédaction du CV : l'IA ne calcule plus de durée d'expérience à partir des dates.
   Elle ne connaît pas la date du jour, donc ses calculs pouvaient être faux. Elle n'ajoute plus
   non plus la langue des réponses aux langues parlées.

@@ -109,6 +109,24 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 24/11/2026 — **Tâches 4 et 5 (mode test)**.
+  - **Stripe** : compte « Kelenix Teck », partagé avec d'autres produits (ADR-042).
+    - Le code ne touche plus qu'aux objets marqués `moncv` : clés de prix préfixées, portail
+      dédié, webhook qui ignore les autres produits.
+    - Achat d'un pack vérifié en local : paiement, webhook, crédits.
+  - **Google OAuth** : projet `mon-cv-en-30-secondes`, client Web, Supabase local configuré ;
+    connexion avec Google réussie en local. Un échec de connexion Google (invitation expirée)
+    mène maintenant à la page de connexion avec une explication, au lieu de l'accueil (test
+    e2e).
+  - **Reste pour la mise en ligne** : libellé bancaire, réglage des impayés, mode réel ;
+    publication de l'application Google avec le domaine.
+
+- 24/11/2026 — **Tâche 7 commencée** : raison sociale, e-mail de contact, prénom du directeur de
+  la publication et hébergeur sont dans `.env.local` et affichés sur les pages légales.
+  - Reste à fournir : statut juridique, immatriculation, adresse du siège, nom complet du
+    directeur de la publication, médiateur de la consommation, TVA s'il y a lieu.
+  - Les mêmes valeurs iront dans `deploy/.env` sur le serveur (tâche 9).
+
 - 24/11/2026 — **Création de CV mesurée avec l'IA réelle** (ADR-041, 0,72 $ approuvés) :
   - jeu de 20 profils de référence créé ; mesure lancée par `npm run eval:ai`, jamais en CI ;
   - P95 de 5,9 s, 20 générations réussies sur 20 ; aucune entreprise, date, diplôme ou

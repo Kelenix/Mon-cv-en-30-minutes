@@ -68,7 +68,7 @@ export const CREDIT_PACKS = [
 export const CV_PRO_PRICE_CENTS = 499;
 export const ADS_REMOVAL_PRICE_CENTS = 299;
 
-/** Produits vendus à l'unité ; leur identifiant est aussi la clé du prix Stripe (lookup key). */
+/** Produits vendus à l'unité ; leur identifiant, préfixé, est la clé du prix Stripe. */
 export const PURCHASE_PRODUCTS = [
   "credits_5",
   "credits_15",
@@ -90,7 +90,7 @@ export function productCredits(product: PurchaseProduct): number {
   return CREDIT_PACKS.find((pack) => pack.id === product)?.credits ?? 0;
 }
 
-/** Clé du prix Stripe d'une formule (« pro_month », « premium_year »…). */
+/** Clé d'une formule dans l'application (« pro_month », « premium_year »…). */
 export function subscriptionLookupKey(
   tier: PlanTier,
   interval: BillingInterval,
@@ -98,11 +98,25 @@ export function subscriptionLookupKey(
   return `${tier}_${interval}`;
 }
 
+/**
+ * Marque des objets Stripe de l'application : le compte Stripe sert aussi à d'autres produits
+ * (ADR-042). Préfixe les clés de prix et repère produits, portail et sessions de paiement.
+ */
+export const STRIPE_APP = "moncv";
+
+/** Clé du prix chez Stripe (« moncv_credits_15 », « moncv_pro_month »…). */
+export function stripeLookupKey(key: string) {
+  return `${STRIPE_APP}_${key}`;
+}
+
+/** Formule d'un prix Stripe ; `null` pour un pack ou le prix d'un autre produit du compte. */
 export function parseSubscriptionLookupKey(
   key: string | null | undefined,
 ): { tier: PlanTier; interval: BillingInterval } | null {
-  const [tier, interval] = (key ?? "").split("_");
-  return PLAN_TIERS.includes(tier as PlanTier) &&
+  const [app, tier, interval, ...rest] = (key ?? "").split("_");
+  return app === STRIPE_APP &&
+    rest.length === 0 &&
+    PLAN_TIERS.includes(tier as PlanTier) &&
     BILLING_INTERVALS.includes(interval as BillingInterval)
     ? { tier: tier as PlanTier, interval: interval as BillingInterval }
     : null;

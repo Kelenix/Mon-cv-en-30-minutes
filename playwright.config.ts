@@ -36,9 +36,14 @@ export default defineConfig({
   webServer: {
     // En CI, le build de production est testé ; en local, le serveur de développement suffit.
     command: isCi ? `npm run start -- -p ${PORT}` : `npm run dev -- -p ${PORT}`,
-    // IA toujours simulée pendant les tests, même avec une clé dans `.env.local` : résultats
-    // stables et aucun coût.
-    env: { AI_SIMULATION: "true" },
+    // Mêmes conditions qu'en CI, quelles que soient les clés de `.env.local` : IA simulée
+    // (résultats stables, aucun coût), sans Stripe ni connexion Google.
+    env: {
+      AI_SIMULATION: "true",
+      STRIPE_SECRET_KEY: "",
+      STRIPE_WEBHOOK_SECRET: "",
+      GOOGLE_AUTH_ENABLED: "false",
+    },
     url: `http://localhost:${PORT}/fr`,
     reuseExistingServer: !isCi,
     timeout: 120_000,

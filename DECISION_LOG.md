@@ -6,6 +6,44 @@
 
 ---
 
+## ADR-042 — Compte Stripe partagé avec d'autres produits (tâche 4)
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté (choix de l'utilisateur : compte existant, déjà activé, plutôt qu'un compte
+  dédié à activer)
+- **Contexte** :
+  - Le compte Stripe retenu, « Kelenix Teck » (Italie, nom commercial Kelenix Tech), sert déjà à
+    d'autres produits, avec de vrais paiements.
+  - Le code supposait un compte réservé à l'application :
+    - le script remplaçait le portail client par défaut du compte ;
+    - il prenait des clés de prix génériques comme `pro_month` ;
+    - le webhook traitait tous les événements, alors qu'un événement d'un autre produit
+      déclenchait une erreur 500 et des relances pendant 3 jours, ou ajoutait une facture aux
+      revenus de l'administration.
+- **Décision** :
+  - Marque `moncv` (`STRIPE_APP`) sur les objets de l'application :
+    - clés de prix préfixées (`moncv_credits_15`, `moncv_pro_month`…) ;
+    - produits et portail client marqués `app: moncv` ;
+    - `app: moncv` dans les métadonnées des sessions de paiement.
+  - Le script ne crée ou ne modifie que ces objets. Le portail client de l'application est
+    distinct, et `openBillingPortal` le désigne explicitement.
+  - Le webhook ignore, avec une réponse 200 :
+    - une session de paiement sans la marque ;
+    - un abonnement ou une facture dont le prix n'a pas le préfixe.
+- **Alternatives écartées** :
+  - Compte Stripe dédié : il demande une nouvelle activation (identité, IBAN), refusée par
+    l'utilisateur. Un compte « Mon CV en 30 Secondes » non activé a été créé puis laissé de côté.
+  - Variable d'environnement pour l'identifiant du portail : une étape manuelle de plus.
+- **Conséquences** :
+  - Le paiement affiche « Kelenix Tech », et le relevé bancaire des clients montre le libellé du
+    compte (« CODECRAFTEUR FORMATION ») : à revoir avant la mise en ligne.
+  - Les réglages du compte (relances, e-mails) valent pour tous ses produits.
+  - Le mode test a été vérifié de bout en bout : achat d'un pack avec la carte 4242, puis
+    crédits ajoutés par le webhook.
+- **Impact** : financier (moyen : libellé bancaire), technique (faible).
+
+---
+
 ## ADR-041 — Mesure de la génération de CV avec l'IA réelle (US-11 c.4 et c.5)
 
 - **Date** : 24/11/2026

@@ -207,20 +207,30 @@ téléchargement du PDF.
    $env:STRIPE_SECRET_KEY = "sk_live_..."; $env:NEXT_PUBLIC_SITE_URL = "https://ton-domaine.fr"; npm run stripe:seed -- --live
    ```
 
-   Ça crée les produits, les prix et le portail client du mode réel, sans aucun paiement. Ferme
-   ensuite PowerShell : la clé disparaît avec la session. Puis, dans le tableau de bord Stripe
-   (mode réel) :
+   Ça crée les produits, les prix et le portail client du mode réel, sans aucun paiement. Le
+   compte Stripe (Kelenix Teck) sert aussi à d'autres produits : le script ne crée ou ne modifie
+   que les objets marqués `moncv` et laisse le portail par défaut du compte intact (ADR-042).
+   Ferme ensuite PowerShell : la clé disparaît avec la session. Puis, dans le tableau de bord
+   Stripe (mode réel) :
 
    - **Développeurs → Webhooks → Ajouter une destination** :
      `https://ton-domaine.fr/api/stripe/webhook`, avec les événements
      `checkout.session.completed`, `checkout.session.async_payment_succeeded`,
-     `customer.subscription.*` et `invoice.paid` ;
+     `customer.subscription.*` et `invoice.paid`. Les événements des autres produits du compte
+     sont acceptés puis ignorés ;
    - copie son secret dans `STRIPE_WEBHOOK_SECRET` (`deploy/.env`) ;
-   - refais les réglages de la tâche 4 (CGV, annulation après échec des relances).
+   - vérifie le réglage du compte **Billing → Abonnements et e-mails → paiements non réussis** :
+     après la dernière relance, « annuler l'abonnement » ou « marquer comme impayé » (jamais
+     « laisser en retard », qui garderait l'accès). Ce réglage vaut pour tous les produits du
+     compte.
 
-2. **Google** (facultatif, tâche 5) : dans le client OAuth, ajoute l'origine
-   `https://ton-domaine.fr` et l'URI de redirection `https://api.ton-domaine.fr/auth/v1/callback`.
-   Dans `deploy/.env` : `GOOGLE_AUTH_ENABLED=true`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`.
+2. **Google** (facultatif, tâche 5) : dans le client OAuth du projet Google Cloud
+   `mon-cv-en-30-secondes`, ajoute l'origine `https://ton-domaine.fr` et l'URI de redirection
+   `https://api.ton-domaine.fr/auth/v1/callback`. Dans **Branding**, renseigne la page d'accueil,
+   les liens de confidentialité et des CGV, et le domaine autorisé, puis **Audience → Publier
+   l'application** (sinon seuls les utilisateurs tests peuvent se connecter). Dans `deploy/.env` :
+   `GOOGLE_AUTH_ENABLED=true`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (les mêmes que dans
+   `supabase/.env`).
 
 3. Relance `deploy/scripts/deploy.sh` pour prendre en compte les nouvelles valeurs.
 
