@@ -69,7 +69,7 @@ Fichiers (dossier `deploy/`) :
    - **Clé SSH** : ajoute la clé publique de l'étape 2. Si tu choisis un mot de passe root à la
      place, garde-le dans ton gestionnaire de mots de passe.
 3. Note l'**adresse IP** du VPS (tableau de bord hPanel → VPS → Vue d'ensemble).
-4. Achète le domaine (Hostinger ou un autre registraire) s'il n'est pas déjà à toi.
+4. Achète le domaine **cv30secondes.com** (ADR-043), chez Hostinger ou un autre registraire.
 
 ## 4. Étape 2 : clé SSH de ton ordinateur
 
@@ -120,7 +120,7 @@ l'adresse IP du VPS (et les mêmes en **AAAA** si le VPS a une adresse IPv6) :
 | `api` | A | ADRESSE_IP |
 
 Supprime les anciens enregistrements A ou CNAME de ces noms (page de parking). La propagation prend
-de quelques minutes à quelques heures. Vérification : `nslookup api.ton-domaine.fr` renvoie
+de quelques minutes à quelques heures. Vérification : `nslookup api.cv30secondes.com` renvoie
 l'adresse du VPS.
 
 ## 7. Étape 5 : récupérer le code sur le serveur
@@ -153,8 +153,8 @@ base, secret JWT et clés Supabase, sel des adresses IP, jeton des tâches. Comp
 
 | Variables | Valeur |
 |-----------|--------|
-| `DOMAIN`, `SUPABASE_DOMAIN`, `ACME_EMAIL` | `ton-domaine.fr`, `api.ton-domaine.fr`, ton adresse e-mail |
-| `SMTP_PASSWORD`, `SMTP_SENDER_EMAIL` | Clé d'API Resend et adresse d'expédition (tâche 6) ; hôte, port et identifiant Resend déjà remplis |
+| `ACME_EMAIL` | Ton adresse e-mail ; `DOMAIN`, `SUPABASE_DOMAIN` et `SMTP_SENDER_EMAIL` sont déjà remplis pour `cv30secondes.com` |
+| `SMTP_PASSWORD` | Clé d'API Resend (tâche 6) ; hôte, port et identifiant Resend déjà remplis |
 | `ANTHROPIC_API_KEY` | Clé Anthropic (tâche 3) |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Clés du **mode réel** (étape 8) |
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Clés Cloudflare Turnstile (tâche 16) |
@@ -181,7 +181,7 @@ l'API et Caddy (qui obtient les certificats HTTPS), applique les migrations, dé
 vérifie :
 
 ```text
-Vérification de https://ton-domaine.fr :
+Vérification de https://cv30secondes.com :
   ✔ Sonde du site (200)
   ✔ Accueil (200)
   ✔ Tarifs (200)
@@ -196,7 +196,7 @@ Vérification de https://ton-domaine.fr :
 Si le site refuse de démarrer, `docker compose logs app` (dans `/opt/mon-cv/deploy`) liste les
 variables manquantes.
 
-Puis ouvre `https://ton-domaine.fr` : connexion avec un code reçu par e-mail, création d'un CV,
+Puis ouvre `https://cv30secondes.com` : connexion avec un code reçu par e-mail, création d'un CV,
 téléchargement du PDF.
 
 ## 10. Étape 8 : brancher les services externes
@@ -204,7 +204,7 @@ téléchargement du PDF.
 1. **Stripe (mode réel)**, depuis ton ordinateur, à la racine du projet, dans PowerShell :
 
    ```powershell
-   $env:STRIPE_SECRET_KEY = "sk_live_..."; $env:NEXT_PUBLIC_SITE_URL = "https://ton-domaine.fr"; npm run stripe:seed -- --live
+   $env:STRIPE_SECRET_KEY = "sk_live_..."; $env:NEXT_PUBLIC_SITE_URL = "https://cv30secondes.com"; npm run stripe:seed -- --live
    ```
 
    Ça crée les produits, les prix et le portail client du mode réel, sans aucun paiement. Le
@@ -214,7 +214,7 @@ téléchargement du PDF.
    Stripe (mode réel) :
 
    - **Développeurs → Webhooks → Ajouter une destination** :
-     `https://ton-domaine.fr/api/stripe/webhook`, avec les événements
+     `https://cv30secondes.com/api/stripe/webhook`, avec les événements
      `checkout.session.completed`, `checkout.session.async_payment_succeeded`,
      `customer.subscription.*` et `invoice.paid`. Les événements des autres produits du compte
      sont acceptés puis ignorés ;
@@ -225,8 +225,8 @@ téléchargement du PDF.
      compte.
 
 2. **Google** (facultatif, tâche 5) : dans le client OAuth du projet Google Cloud
-   `mon-cv-en-30-secondes`, ajoute l'origine `https://ton-domaine.fr` et l'URI de redirection
-   `https://api.ton-domaine.fr/auth/v1/callback`. Dans **Branding**, renseigne la page d'accueil,
+   `mon-cv-en-30-secondes`, ajoute l'origine `https://cv30secondes.com` et l'URI de redirection
+   `https://api.cv30secondes.com/auth/v1/callback`. Dans **Branding**, renseigne la page d'accueil,
    les liens de confidentialité et des CGV, et le domaine autorisé, puis **Audience → Publier
    l'application** (sinon seuls les utilisateurs tests peuvent se connecter). Dans `deploy/.env` :
    `GOOGLE_AUTH_ENABLED=true`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (les mêmes que dans
@@ -269,7 +269,7 @@ se termine par « Version … en ligne ».
 
 ## 12. Étape 10 : surveillance
 
-- Crée une sonde gratuite (par exemple UptimeRobot) sur `https://ton-domaine.fr/api/health`, avec
+- Crée une sonde gratuite (par exemple UptimeRobot) sur `https://cv30secondes.com/api/health`, avec
   alerte par e-mail.
 - Les fins de certificat sont gérées par Caddy, rien à faire.
 - Une fois en ligne, refais la mesure Lighthouse sur le domaine (performance ≥ 90 attendue sur
@@ -323,7 +323,7 @@ demande (`cat /var/run/reboot-required` existe) : tous les services repartent se
 
 ## 15. Espace d'administration
 
-`https://ton-domaine.fr/admin`, après connexion avec une adresse de `ADMIN_EMAILS` : vue
+`https://cv30secondes.com/admin`, après connexion avec une adresse de `ADMIN_EMAILS` : vue
 d'ensemble, utilisateurs (fiche, crédits offerts, suspension, suppression), revenus et moyens de
 paiement, IA, provenance des visiteurs, état du système (services, tâches de la nuit,
 sauvegardes, mémoire, disque) et journal des actions. Détail : ADR-040.

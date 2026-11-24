@@ -9,7 +9,8 @@
 - **Dernière mise à jour** : 24/11/2026
 - **Santé** : 🟢 OK
 - **Prochaine action** : côté utilisateur, mise en ligne en suivant `docs/deployment.md`
-  (tâche 9, après les tâches 4, 6, 7, 16 et 17), puis tâches 14 et 15. Ensuite, sur le domaine :
+  (tâche 9, après les tâches 4, 7, 16 et 17 : acheter `cv30secondes.com`, terminer Resend
+  avec la tâche 6, puis `deploy.sh`), puis tâches 14 et 15. Ensuite, sur le domaine :
   mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle des outils IA
   (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà mesurée, ADR-041), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
   que la tâche 12 n'est pas faite.
@@ -108,6 +109,10 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 24/11/2026 — **Domaine choisi : cv30secondes.com** (ADR-043), libre à cette date, à acheter
+  à l'étape 1 de la mise en ligne. Il est prérempli dans `deploy/.env.example` (site, API,
+  adresse d'expédition) et reporté dans `docs/deployment.md` et `docs/manual-tasks.md`.
 
 - 24/11/2026 — **Tâche 6 commencée** : compte Resend créé. Le domaine n'est pas encore acheté ;
   sa vérification chez Resend et la clé d'envoi suivront l'achat du domaine (étape 1 de la mise

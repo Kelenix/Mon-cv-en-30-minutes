@@ -6,6 +6,36 @@
 
 ---
 
+## ADR-043 — Nom de domaine : cv30secondes.com
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté (choix de l'utilisateur sur proposition)
+- **Contexte** :
+  - Le domaine manquait pour terminer Resend (tâche 6), publier la connexion Google (tâche 5),
+    donner l'adresse des CGV à Stripe et mettre le site en ligne (tâche 9).
+  - Le site parle 5 langues sous un seul domaine (`/fr`, `/en`, `/it`, `/es`, `/de`), et le nom
+    de la marque est traduit dans chacune.
+  - Le 24/11/2026, d'après les registres officiels : `cv30secondes.com` est libre, tandis que
+    `cv30.com` et `cv30.app` sont pris. `cv30.app` est CV30, une plateforme d'emploi roumaine.
+- **Décision** : `cv30secondes.com`, avec l'API sous `api.cv30secondes.com` et les e-mails
+  envoyés depuis `no-reply@cv30secondes.com`. Ces valeurs sont préremplies dans
+  `deploy/.env.example`, donc dans `deploy/.env` créé par `generate-secrets.sh`.
+- **Alternatives écartées** :
+  - `cv30s.com`, `cv30sec.com` : trop proches de la marque CV30 ; « 30s » se lit « thirties »
+    en anglais.
+  - `moncv30.com` : plus court, mais « mon » ne parle qu'aux francophones.
+  - Un `.fr` : il fait « site français » auprès des visiteurs des quatre autres langues.
+- **Conséquences** :
+  - Le domaine est à acheter à l'étape 1 de `docs/deployment.md`, tant qu'il est libre.
+  - Aucune recherche de marque déposée n'a été faite : un passage sur TMview avant l'achat est
+    prudent.
+  - « CV30SECONDES.COM » tient dans le libellé bancaire Stripe (22 caractères), mais ce réglage
+    du compte partagé vaut pour tous ses produits (ADR-042).
+- **Impact** : métier (marque, faible), technique (aucun : le code lit le domaine dans
+  l'environnement).
+
+---
+
 ## ADR-042 — Compte Stripe partagé avec d'autres produits (tâche 4)
 
 - **Date** : 24/11/2026

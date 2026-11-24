@@ -47,7 +47,9 @@
     - secret du webhook local ajouté ;
     - achat de test vérifié, crédits ajoutés.
   - **Reste à faire à la mise en ligne (étape 8 de `docs/deployment.md`)** :
-    - choisir le libellé bancaire vu par les clients (actuellement « CODECRAFTEUR FORMATION ») ;
+    - choisir le libellé bancaire vu par les clients (actuellement « CODECRAFTEUR FORMATION ») :
+      « CV30SECONDES.COM » tient dans les 22 caractères permis, mais ce réglage du compte vaut
+      aussi pour ses autres produits ;
     - vérifier le réglage des impayés ;
     - en mode réel : produits, webhook et clés.
 - **Pourquoi** : vendre crédits, abonnements, CV Pro et retrait des publicités.
@@ -62,7 +64,7 @@
        `.env.local` (`STRIPE_SECRET_KEY`), puis lancer `npm run stripe:seed` (produits, prix et
        portail client).
      - **Paramètres → Informations publiques** : renseigner l'adresse des CGV
-       (`https://<domaine>/fr/cgv`) ; Stripe l'exige pour faire accepter les conditions au
+       (`https://cv30secondes.com/fr/cgv`) ; Stripe l'exige pour faire accepter les conditions au
        paiement.
      - **Paramètres → Facturation → Abonnements** : en cas d'échec de paiement après les
        relances, **annuler l'abonnement**.
@@ -71,7 +73,7 @@
        `docker compose --env-file .env.local up stripe` pendant les tests (Docker suffit).
   4. À la mise en production : produits, prix et portail du mode réel avec
      `npm run stripe:seed -- --live`, réglages ci-dessus refaits en mode réel, webhook
-     `https://<domaine>/api/stripe/webhook` (avec l'événement `invoice.paid` pour les revenus
+     `https://cv30secondes.com/api/stripe/webhook` (avec l'événement `invoice.paid` pour les revenus
      des abonnements) ; clés du mode réel dans `deploy/.env` sur le
      serveur (`docs/deployment.md`, étape 8).
 - **Coût** : commission par transaction (environ 1,5 % + 0,25 € par carte UE ; vérifier la grille
@@ -99,9 +101,9 @@
      e-mail d'assistance, logo facultatif ; champs d'application `openid`, `email` et `profile`
      uniquement.
   3. **Identifiants → Créer des identifiants → ID client OAuth**, type **Application Web** :
-     - Origines JavaScript autorisées : `http://localhost:3000`, puis `https://<domaine>`.
+     - Origines JavaScript autorisées : `http://localhost:3000`, puis `https://cv30secondes.com`.
      - URI de redirection autorisés : `http://127.0.0.1:54321/auth/v1/callback` (Supabase local),
-       puis `https://api.<domaine>/auth/v1/callback` (serveur).
+       puis `https://api.cv30secondes.com/auth/v1/callback` (serveur).
   4. Copier l'ID client et le code secret dans un fichier `supabase/.env` (jamais versionné) :
      `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID=…` et `SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET=…`.
   5. Dans `supabase/config.toml`, section `[auth.external.google]`, passer `enabled = true`, puis
@@ -124,7 +126,7 @@
   et ceux du site sont seulement journalisés.
 - **Étapes** :
   1. Créer un compte sur https://resend.com.
-  2. **Domains → Add Domain** : saisir le domaine du site et choisir la région **Ireland
+  2. **Domains → Add Domain** : saisir `cv30secondes.com` et choisir la région **Ireland
      (eu-west-1)**, pour un envoi depuis l'Union européenne.
   3. Créer dans la zone DNS du domaine (hPanel → Domaines → DNS) les enregistrements affichés
      par Resend (MX et TXT pour l'envoi, TXT DKIM `resend._domainkey`, DMARC conseillé), puis
@@ -133,7 +135,8 @@
   4. **API Keys → Create API Key** : nom « VPS », permission **Sending access**, limitée au
      domaine du site ; copier la clé (`re_…`), elle ne s'affiche qu'une fois.
   5. Dans `deploy/.env` sur le serveur (hôte `smtp.resend.com`, port 465 et identifiant `resend`
-     sont déjà remplis) : `SMTP_PASSWORD` = la clé, `SMTP_SENDER_EMAIL=no-reply@<domaine>`.
+     sont déjà remplis) : `SMTP_PASSWORD` = la clé, `SMTP_SENDER_EMAIL` est déjà
+     `no-reply@cv30secondes.com`.
   6. `deploy/scripts/deploy.sh`.
 - **Coût** : l'offre gratuite permet 3 000 e-mails par mois et **100 par jour au plus** : elle
   suffit pour les essais (mettre alors `AUTH_EMAILS_PER_HOUR=10`), mais au-delà de 100 connexions
@@ -194,7 +197,7 @@
 - **Pourquoi** : mise en ligne (ADR-038). Tout est prêt dans `deploy/` et a été répété en
   local ; il reste ce qui demande tes comptes et ton serveur.
 - **Quand** : maintenant, une fois les tâches 4, 7, 16 et 17 faites (5 et 10 peuvent suivre).
-  Le domaine s'achète à l'étape 1 ; la tâche 6 (Resend) se termine juste après, avant
+  Le domaine **cv30secondes.com** (ADR-043) s'achète à l'étape 1 ; la tâche 6 (Resend) se termine juste après, avant
   `deploy.sh`.
 - **Étapes** : suivre `docs/deployment.md`, étapes 1 à 8 : commander le VPS (Ubuntu 24.04,
   centre de données dans l'UE) et le domaine, clé SSH, `setup-vps.sh`, DNS (`@`, `www`, `api`),
@@ -251,7 +254,7 @@
   5. Dans `deploy/.env` sur le serveur : `ADS_MODE=google`, `ADS_PUBLISHER_ID=pub-…`,
      `ADS_NETWORK_CODE=…` et, pour vendre le retrait des publicités, `ADS_REMOVAL_ENABLED=true` ;
      puis `deploy/scripts/deploy.sh`.
-  6. Vérifier que `https://<domaine>/ads.txt` affiche la ligne `google.com, pub-…`.
+  6. Vérifier que `https://cv30secondes.com/ads.txt` affiche la ligne `google.com, pub-…`.
 - **Coût** : gratuit (rémunération par Google).
 - **Vérification** : bandeau de Google à la première visite (Accepter / Refuser), annonces en
   bas de l'accueil et dans « Mes CV » sans abonnement, aucune annonce avec un abonnement,
@@ -288,7 +291,7 @@
   (les sauvegardes de la nuit restent sur le serveur).
 - **Quand** : dès la mise en ligne.
 - **Étapes** :
-  1. Créer une sonde gratuite (ex. UptimeRobot) sur `https://<domaine>/api/health`, avec alerte
+  1. Créer une sonde gratuite (ex. UptimeRobot) sur `https://cv30secondes.com/api/health`, avec alerte
      par e-mail.
   2. Activer les sauvegardes automatiques du VPS dans hPanel.
   3. Une fois par semaine, copier la dernière sauvegarde dans un dossier chiffré de ton
@@ -306,7 +309,7 @@
 - **Étapes** :
   1. Créer un compte gratuit sur https://dash.cloudflare.com (le domaine n'a pas besoin d'être
      géré par Cloudflare).
-  2. **Turnstile → Add widget** : nom « Mon CV en 30 Secondes », nom d'hôte : le domaine du site
+  2. **Turnstile → Add widget** : nom « Mon CV en 30 Secondes », nom d'hôte : `cv30secondes.com`
      (ajouter aussi `localhost` pour des essais), mode **Managed**, réponse à la question de
      pré-autorisation : **No**.
   3. Copier la **Site Key** dans `TURNSTILE_SITE_KEY` et la **Secret Key** dans
@@ -316,7 +319,7 @@
   seconde environ et le code arrive ; Cloudflare → Turnstile → Analytics compte les vérifications.
 
 ## Tâche 17 : Déclarer les administrateurs
-- **Pourquoi** : l'espace d'administration (`https://<domaine>/admin`, ADR-040) n'est ouvert
+- **Pourquoi** : l'espace d'administration (`https://cv30secondes.com/admin`, ADR-040) n'est ouvert
   qu'aux adresses déclarées sur le serveur.
 - **Quand** : à la mise en ligne.
 - **Étapes** :
