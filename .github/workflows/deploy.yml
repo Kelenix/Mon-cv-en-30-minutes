@@ -1,0 +1,44 @@
+name: Déploiement
+
+# Mise en ligne sur le VPS après une CI verte sur main, ou à la demande (onglet Actions).
+# Inactif tant que la variable DEPLOY_ENABLED n'est pas à true (docs/deployment.md, étape 9).
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploiement-production
+  cancel-in-progress: false
+
+jobs:
+  vps:
+    name: Mise en ligne sur le VPS
+    if: >-
+      vars.DEPLOY_ENABLED == 'true' &&
+      ((github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Accès SSH au serveur
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519
+      - name: Déploiement de la version vérifiée
+        # La clé ne peut lancer que deploy/scripts/deploy.sh (commande imposée sur le serveur),
+        # avec le commit en paramètre.
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: ssh -o BatchMode=yes "deploy@$VPS_HOST" "$SHA"

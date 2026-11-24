@@ -731,5 +731,15 @@
       "text": "Test ad: a Google interstitial will appear here once ads are enabled.",
       "close": "Close and continue"
     }
+  },
+  "retentionEmail": {
+    "subject": "Your {brandName} account will be deleted on {date}",
+    "title": "Your account will soon be deleted",
+    "greeting": "Hi {firstName},",
+    "greetingNoName": "Hi,",
+    "body": "Your {brandName} account has not been used for almost three years. It will be deleted on {date}, along with your CVs and all generated content.",
+    "keep": "To keep it, simply sign in before that date.",
+    "cta": "Sign in",
+    "footer": "If you don't sign in by then, the deletion will be permanent and your credits will be lost."
   }
 }

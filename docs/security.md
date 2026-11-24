@@ -1,7 +1,7 @@
 # Sécurité — Mon CV en 30 Secondes (version Web)
 
 > Rôle : security-engineer. Mis à jour à chaque incrément qui touche l'authentification, les
-> données, les paiements ou un service tiers. Dernière revue : Inc-12 (finitions, CSP), 24/11/2026.
+> données, les paiements ou un service tiers. Dernière revue : Inc-13 (production sur VPS, rétention des comptes, revue finale), 24/11/2026.
 
 ## 1. Ce qui est protégé
 
@@ -16,6 +16,8 @@
 | Clé de l'API Anthropic | Variables d'environnement du serveur | Facturation à l'usage |
 | Abonnements, achats, événements Stripe | `subscriptions`, `purchases`, `stripe_events` | Argent |
 | Clés Stripe (secrète, webhooks) | Variables d'environnement du serveur | Paiements, remboursements |
+| Configuration du serveur (`deploy/.env` : mot de passe de la base, secret JWT, toutes les clés) | VPS, droits 600, utilisateur `deploy` | Accès complet aux données et aux services |
+| Sauvegardes de la base | `/var/backups/mon-cv` (droits 700/600), copies hors serveur | Toutes les données personnelles |
 
 ## 2. Menaces et parades en place (Inc-2)
 
@@ -67,6 +69,15 @@
 | Clickjacking, détection de type, fuite de référent | En-têtes : `frame-ancestors 'none'`, HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy` | `next.config.ts` |
 | Script ou ressource venant d'un autre domaine (XSS, injection) | Content-Security-Policy : site et Supabase seulement, aucun cadre ni objet, `base-uri 'self'`, formulaires vers le site, Supabase et Google ; `https:` ouvert seulement en mode `ADS_MODE=google` (ADR-037) | `tests/e2e/audit.spec.ts` (aucune ressource refusée) |
 | Balise injectée par les données structurées | JSON produit par le serveur à partir du catalogue, sans donnée saisie ; `<` échappé | Revue de code |
+| Accès direct à la base ou à l'administration depuis Internet | Seuls SSH, 80 et 443 ouverts (pare-feu) ; PostgreSQL sur un réseau Docker sans le site ni accès extérieur ; Studio lié à `127.0.0.1`, par tunnel SSH seulement | `deploy/docker-compose.yml`, répétition locale (ADR-038) |
+| Appels directs à l'API Supabase (inscription en rafale, lecture de données) contournant le site | `api.domaine` n'accepte sans clé que la connexion Google ; le reste exige la clé du serveur, jamais envoyée au navigateur ; RLS et privilèges en plus | `deploy/scripts/smoke-test.sh` (401 sans clé, 401 sans session) |
+| Tâche planifiée déclenchée par un tiers | `/api/cron/*` fermé au public par Caddy (404) ; jeton `CRON_SECRET` comparé en temps constant (401) | `tests/e2e/exploitation.spec.ts`, `smoke-test.sh` |
+| Usurpation de l'adresse IP (plafond de CV gratuits) | Caddy réécrit `X-Real-IP` avec l'adresse de la connexion | `deploy/Caddyfile` |
+| Secret dans l'image ou les journaux du déploiement | Le build ne reçoit que des valeurs publiques ; secrets donnés au démarrage ; `.env*` exclus de l'image (`.dockerignore`) | Image inspectée (aucun fichier `.env`) |
+| Mise en ligne d'une version cassée ou mal configurée | Variables validées au démarrage (`instrumentation.ts`), sonde de santé, vérifications après déploiement, retour automatique à l'image précédente | Répétition locale (variable manquante → retour) |
+| Accès SSH par force brute | Clés uniquement (mot de passe désactivé), fail2ban ; clé GitHub limitée par commande imposée à `deploy.sh`, version validée | `deploy/scripts/setup-vps.sh` |
+| Faille d'un composant du serveur | Mises à jour de sécurité Ubuntu automatiques ; images à version fixée, mises à jour par commit (`docs/deployment.md` §13) | Revue |
+| Compte inactif conservé indéfiniment (RGPD) | Avertissement à 3 ans moins 30 jours, suppression 30 jours après, jamais pour un abonné ; fonctions réservées au serveur ; prénom échappé dans l'e-mail | `tests/db/retention.test.ts`, `tests/unit/retention-email.test.ts` |
 
 ## 3. Points résiduels
 
@@ -75,8 +86,11 @@
 | Un scanner de liens de messagerie peut ouvrir le lien de l'e-mail avant l'utilisateur et l'invalider | Faible | Le code à 6 chiffres reste utilisable ; message clair si le lien a expiré |
 | CSP avec `'unsafe-inline'` pour les scripts (pages générées à l'avance, sans nonce) | Faible | React échappe tout contenu ; aucune donnée saisie insérée en HTML brut (ADR-037) |
 | En mode `ADS_MODE=google`, scripts, images, connexions et cadres ouverts à tout domaine HTTPS | Moyen | Exigé par Ad Manager et son bandeau ; à resserrer avec la liste des domaines observés une fois les annonces en ligne (tâche 10) |
-| Les limites locales de Supabase Auth sont relevées pour les tests | Faible | Valeurs par défaut conservées en production (tâche 2) |
-| SMTP par défaut de Supabase inadapté à la production | Moyen | Fournisseur dédié (tâche 6, R15) |
+| Toutes les requêtes d'authentification viennent du serveur du site : les limites par IP de GoTrue sont relevées et agissent comme limites globales | Faible | E-mails limités par heure (`AUTH_EMAILS_PER_HOUR`) et par adresse (1 par minute) ; plafonds du site en plus |
+| SMTP : e-mails de connexion indispensables | Moyen | Fournisseur dédié et domaine authentifié (tâche 6, R15) |
+| Base, sauvegardes et site sur un même VPS : la perte du serveur perd les sauvegardes locales | Moyen | Sauvegardes Hostinger et copie hors serveur (tâche 15) |
+| Exploitation du serveur (mises à jour des images Supabase, Caddy, Node) à la charge de l'exploitant | Moyen | Procédure dans `docs/deployment.md` §13 ; vérifier les avis de sécurité une fois par mois |
+| Clés Supabase en HS256 : `getClaims` vérifie le jeton auprès de l'authentification à chaque requête | Faible | Appel interne au VPS (quelques millisecondes) |
 | 4 vulnérabilités modérées dans la CLI shadcn (outil de développement) | Faible | Hors production ; la CI audite les dépendances de production |
 | Plafond de CV gratuits par IP inactif sans `IP_HASH_SALT` | Faible | Sel obligatoire en production (le démarrage échoue sinon) |
 | Deux souscriptions lancées en même temps sur un compte : deux abonnements chez Stripe | Faible | Contrôle avant paiement ; résiliation par le portail (ADR-029) |

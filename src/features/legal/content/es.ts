@@ -25,7 +25,7 @@ export const es: LegalContent = {
           title: "Alojamiento",
           paragraphs: [
             "El sitio está alojado por {hosting}.",
-            "Los datos de las cuentas se almacenan en la Unión Europea a través de nuestro proveedor Supabase.",
+            "Los datos de las cuentas se almacenan en el mismo servidor, situado en la Unión Europea.",
           ],
         },
         {
@@ -181,7 +181,7 @@ export const es: LegalContent = {
         {
           title: "Destinatarios y encargados del tratamiento",
           paragraphs: [
-            "Sus datos nunca se venden. Los tratan, por cuenta nuestra: Supabase (alojamiento de los datos, Unión Europea), Vercel (alojamiento del sitio), Anthropic (tratamiento de los textos mediante inteligencia artificial para generar los contenidos que usted solicita), Stripe (pagos), nuestro proveedor de envío de correos electrónicos y, únicamente con su consentimiento previo, Google (publicidad).",
+            "Sus datos nunca se venden. Los tratan, por cuenta nuestra: Hostinger (alojamiento del sitio y de los datos, Unión Europea), Anthropic (tratamiento de los textos mediante inteligencia artificial para generar los contenidos que usted solicita), Stripe (pagos), Resend (envío de correos electrónicos) y, únicamente con su consentimiento previo, Google (publicidad).",
           ],
         },
         {

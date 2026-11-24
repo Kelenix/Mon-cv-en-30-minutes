@@ -25,7 +25,7 @@ export const en: LegalContent = {
           title: "Hosting",
           paragraphs: [
             "The website is hosted by {hosting}.",
-            "Account data is stored in the European Union by our service provider Supabase.",
+            "Account data is stored on the same server, located in the European Union.",
           ],
         },
         {
@@ -181,7 +181,7 @@ export const en: LegalContent = {
         {
           title: "Recipients and processors",
           paragraphs: [
-            "Your data is never sold. It is processed on our behalf by: Supabase (data hosting, European Union), Vercel (website hosting), Anthropic (artificial intelligence processing of text to produce the content you request), Stripe (payments), our email delivery provider and, only with your consent, Google (advertising).",
+            "Your data is never sold. It is processed on our behalf by: Hostinger (website and data hosting, European Union), Anthropic (artificial intelligence processing of text to produce the content you request), Stripe (payments), Resend (email delivery) and, only with your consent, Google (advertising).",
           ],
         },
         {

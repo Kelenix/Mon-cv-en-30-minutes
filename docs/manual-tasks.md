@@ -17,22 +17,10 @@
   vérifier les conditions de licence).
 - **Vérification** : `docker info` répond sans erreur.
 
-## Tâche 2 : Créer le projet Supabase en ligne
-- **Pourquoi** : base de données et authentification du site en production. En développement,
-  Supabase tourne en local dans Docker Desktop : aucun compte n'est nécessaire.
-- **Quand** : avant la mise en production (Inc-13).
-- **Étapes** :
-  1. Créer un compte sur https://supabase.com puis **New project**.
-  2. Choisir une **région européenne** (ex. Paris ou Francfort).
-  3. Noter le mot de passe de la base dans votre gestionnaire de mots de passe.
-  4. Un pas-à-pas fourni à l'Inc-13 expliquera où reporter les clés (variables Vercel) et la
-     configuration de l'authentification, à reprendre de `supabase/config.toml` : adresses de
-     retour `https://<domaine>/auth/**`, modèle d'e-mail `supabase/templates/sign-in-code.html`
-     (« Confirm signup » et « Magic Link ») et son objet, code à 6 chiffres. La commande
-     `npx supabase config push` peut envoyer cette configuration au projet en ligne.
-- **Coût** : plan Pro (environ 25 $/mois) au lancement, car le plan Free se met en pause après
-  7 jours d'inactivité.
-- **Vérification** : le site en ligne se connecte à la base (Inc-13).
+## Tâche 2 ✅ : Supabase en ligne (sans objet depuis le 24/11/2026)
+- **Remplacée** : la base et l'authentification tournent sur le VPS, avec le site (ADR-038).
+  Aucun compte Supabase n'est nécessaire ; leur configuration est dans `deploy/`
+  (`docs/deployment.md`).
 
 ## Tâche 3 : Créer une clé API Anthropic
 - **Pourquoi** : génération des CV, lettres, versions LinkedIn et entretiens.
@@ -42,8 +30,8 @@
   2. **Fixer une limite de dépenses mensuelle** (Settings → Limits).
   3. Créer une clé API et la placer dans `.env.local` : `ANTHROPIC_API_KEY=...` (le modèle se
      règle avec `ANTHROPIC_MODEL`, `claude-opus-5-5` par défaut). Redémarrer `npm run dev`.
-  4. En production, ajouter aussi `IP_HASH_SALT` (32 caractères minimum, ex.
-     `openssl rand -hex 32`) : sans ces deux variables, le site refuse de démarrer.
+  4. En production, la clé va dans `deploy/.env` sur le serveur (`IP_HASH_SALT` y est généré
+     par `generate-secrets.sh`) : sans elle, le site refuse de démarrer.
 - **Coût** : à l'usage (voir la question Q4 du plan).
 - **Vérification** : un CV généré en local est reformulé (et non plus une simple copie des
   réponses, comme le fait l'IA simulée) ; je mesurerai alors la durée et la fidélité sur 20
@@ -69,10 +57,10 @@
      - Webhooks en local : `docker compose --env-file .env.local run --rm stripe listen
        --print-secret` affiche le secret à copier dans `STRIPE_WEBHOOK_SECRET`, puis
        `docker compose --env-file .env.local up stripe` pendant les tests (Docker suffit).
-  4. Avant la mise en production (Inc-13) : refaire ces réglages en mode réel, et créer le point
-     de terminaison `https://<domaine>/api/stripe/webhook` avec les événements
-     `checkout.session.completed`, `checkout.session.async_payment_succeeded` et
-     `customer.subscription.*` ; son secret va dans les variables de Vercel.
+  4. À la mise en production : produits, prix et portail du mode réel avec
+     `npm run stripe:seed -- --live`, réglages ci-dessus refaits en mode réel, webhook
+     `https://<domaine>/api/stripe/webhook` ; clés du mode réel dans `deploy/.env` sur le
+     serveur (`docs/deployment.md`, étape 8).
 - **Coût** : commission par transaction (environ 1,5 % + 0,25 € par carte UE ; vérifier la grille
   en vigueur).
 - **Vérification** : un achat de pack avec la carte de test `4242 4242 4242 4242` crédite le
@@ -89,27 +77,47 @@
      e-mail d'assistance, logo facultatif ; champs d'application `openid`, `email` et `profile`
      uniquement.
   3. **Identifiants → Créer des identifiants → ID client OAuth**, type **Application Web** :
-     - Origines JavaScript autorisées : `http://localhost:3000` (puis le domaine du site à
-       l'Inc-13).
-     - URI de redirection autorisés : `http://127.0.0.1:54321/auth/v1/callback` (Supabase local)
-       et, plus tard, `https://<référence-du-projet>.supabase.co/auth/v1/callback` (tâche 2).
+     - Origines JavaScript autorisées : `http://localhost:3000`, puis `https://<domaine>`.
+     - URI de redirection autorisés : `http://127.0.0.1:54321/auth/v1/callback` (Supabase local),
+       puis `https://api.<domaine>/auth/v1/callback` (serveur).
   4. Copier l'ID client et le code secret dans un fichier `supabase/.env` (jamais versionné) :
      `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID=…` et `SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET=…`.
   5. Dans `supabase/config.toml`, section `[auth.external.google]`, passer `enabled = true`, puis
      `npm run db:stop` et `npm run db:start`.
   6. Dans `.env.local`, mettre `GOOGLE_AUTH_ENABLED=true` et relancer `npm run dev`.
+  7. En production : `GOOGLE_AUTH_ENABLED=true`, `GOOGLE_CLIENT_ID` et `GOOGLE_CLIENT_SECRET` dans
+     `deploy/.env`, puis `deploy/scripts/deploy.sh`.
 - **Coût** : gratuit.
 - **Vérification** : connexion Google réussie en local.
 
-## Tâche 6 : Configurer un fournisseur d'e-mails (SMTP)
-- **Pourquoi** : le serveur d'e-mails par défaut de Supabase est réservé aux tests et très limité
-  en volume ; les e-mails de connexion ne partiraient pas en production. Le même fournisseur
-  envoie les avertissements avant suppression des comptes inactifs (US-40).
-- **Quand** : avant la mise en production (Inc-13). Pas nécessaire en développement : en local,
-  les e-mails sont capturés par Mailpit (inclus dans Supabase local, dans Docker).
-- **Étapes** : un pas-à-pas sera fourni à l'Inc-13 (ex. Resend, puis Supabase → Auth → SMTP).
-- **Coût** : palier gratuit, puis payant selon le volume.
-- **Vérification** : un e-mail de connexion arrive en moins d'une minute.
+## Tâche 6 : Configurer Resend pour les e-mails
+- **Pourquoi** : envoyer les codes de connexion et les avertissements avant suppression des
+  comptes inactifs (US-40). Le fournisseur choisi est **Resend**, utilisé en SMTP par
+  l'authentification et par le site.
+- **Quand** : avant la mise en production, une fois le domaine acheté. Pas nécessaire en
+  développement : en local, les e-mails de connexion sont capturés par Mailpit (Supabase local)
+  et ceux du site sont seulement journalisés.
+- **Étapes** :
+  1. Créer un compte sur https://resend.com.
+  2. **Domains → Add Domain** : saisir le domaine du site et choisir la région **Ireland
+     (eu-west-1)**, pour un envoi depuis l'Union européenne.
+  3. Créer dans la zone DNS du domaine (hPanel → Domaines → DNS) les enregistrements affichés
+     par Resend (MX et TXT pour l'envoi, TXT DKIM `resend._domainkey`, DMARC conseillé), puis
+     **Verify** et attendre « Verified ». Sans cette étape, les e-mails sont refusés ou finissent
+     en indésirables.
+  4. **API Keys → Create API Key** : nom « VPS », permission **Sending access**, limitée au
+     domaine du site ; copier la clé (`re_…`), elle ne s'affiche qu'une fois.
+  5. Dans `deploy/.env` sur le serveur (hôte `smtp.resend.com`, port 465 et identifiant `resend`
+     sont déjà remplis) : `SMTP_PASSWORD` = la clé, `SMTP_SENDER_EMAIL=no-reply@<domaine>`.
+  6. `deploy/scripts/deploy.sh`.
+- **Coût** : l'offre gratuite permet 3 000 e-mails par mois et **100 par jour au plus** : elle
+  suffit pour les essais (mettre alors `AUTH_EMAILS_PER_HOUR=10`), mais au-delà de 100 connexions
+  par jour, les codes ne partent plus jusqu'au lendemain. Pour le lancement, l'offre **Pro**
+  (environ 20 $/mois pour 50 000 e-mails, à vérifier sur resend.com/pricing) est recommandée,
+  avec `AUTH_EMAILS_PER_HOUR=200`.
+- **Vérification** : un code de connexion arrive en moins d'une minute, hors indésirables ; il
+  apparaît dans Resend → **Emails** avec l'état « Delivered » ; `docker compose logs auth` ne
+  montre pas d'erreur SMTP.
 
 ## Tâche 7 : Fournir les informations légales du vendeur
 - **Pourquoi** : mentions légales, CGV, politique de confidentialité et factures sont obligatoires
@@ -119,8 +127,10 @@
   1. Réunir : raison sociale ou nom, statut juridique, SIRET, adresse, e-mail de contact, numéro de
      TVA s'il y a lieu, directeur de la publication, hébergeur (nom, adresse, téléphone) et
      **médiateur de la consommation** (adhésion obligatoire pour vendre à des particuliers en
-     France). Ces valeurs vont dans les variables `LEGAL_*` décrites dans `.env.example` ; en
-     production, le site refuse de se construire si l'une d'elles manque.
+     France). Ces valeurs vont dans les variables `LEGAL_*` de `deploy/.env` sur le serveur ; en
+     production, le site refuse de démarrer si l'une d'elles manque. Hébergeur :
+     Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre, et le
+     téléphone indiqué sur hostinger.fr.
   2. Faire relire les CGV et la politique de confidentialité par un juriste avant le lancement,
      **dans chacune des 5 langues** et pour chaque pays où vous vendez (Italie, Espagne,
      Allemagne… ont leurs propres règles de protection du consommateur). Les textes sont dans
@@ -143,17 +153,22 @@
 - **Coût** : aucun.
 - **Vérification** : les fichiers s'affichent sur fond blanc sans damier.
 
-## Tâche 9 : Créer le projet Vercel et le domaine
-- **Pourquoi** : mise en ligne.
-- **Quand** : Inc-13.
-- **Étapes** : un pas-à-pas sera fourni à l'Inc-13.
-- **Coût** : plan Pro (environ 20 $/mois) au lancement, car le plan Hobby interdit l'usage
-  commercial ; domaine environ 10 à 15 €/an.
-- **Vérification** : le site répond sur le domaine en HTTPS.
+## Tâche 9 : Mettre le site en ligne sur le VPS Hostinger
+- **Pourquoi** : mise en ligne (ADR-038). Tout est prêt dans `deploy/` et a été répété en
+  local ; il reste ce qui demande tes comptes et ton serveur.
+- **Quand** : maintenant, une fois les tâches 3, 4, 6 et 7 faites (5 et 10 peuvent suivre).
+- **Étapes** : suivre `docs/deployment.md`, étapes 1 à 8 : commander le VPS (Ubuntu 24.04,
+  centre de données dans l'UE) et le domaine, clé SSH, `setup-vps.sh`, DNS (`@`, `www`, `api`),
+  clé de lecture du dépôt, `deploy/.env`, `deploy.sh`, puis Stripe et Google.
+- **Coût** : VPS KVM 2 recommandé (KVM 1 suffit pour démarrer), selon la durée d'engagement ;
+  domaine environ 10 à 15 €/an. Vérifier les prix sur hostinger.fr.
+- **Vérification** : `deploy.sh` se termine par « Version … en ligne », le site répond en HTTPS
+  sur le domaine, la connexion par code fonctionne.
 
 ## Tâche 11 ✅ : Créer le dépôt GitHub (dépôt relié le 23/11/2026 ; CI à vérifier au prochain envoi)
-- **Pourquoi** : héberger le code et faire tourner l'intégration continue (GitHub Actions) ; Vercel
-  déploiera depuis ce dépôt.
+- **Pourquoi** : héberger le code et faire tourner l'intégration continue (GitHub Actions) ; le
+  serveur récupère le code depuis ce dépôt. Envoyer `main` avant la mise en ligne
+  (`git push origin main`).
 - **Quand** : pendant l'Inc-0, pour voir la CI au vert. En attendant, les mêmes vérifications
   tournent en local.
 - **Étapes** :
@@ -194,9 +209,9 @@
   4. Dans AdSense ou Ad Manager, **Confidentialité et messages → Message RGPD** : bouton
      « Refuser » activé (au même niveau qu'« Accepter »), langues FR, EN, IT, ES, DE, lien vers
      la page Cookies du site, durée du choix de **6 mois** si l'option existe ; publier le message.
-  5. Dans Vercel (variables de production) : `ADS_MODE=google`,
-     `ADS_PUBLISHER_ID=pub-…`, `ADS_NETWORK_CODE=…` et, pour vendre le retrait des
-     publicités, `ADS_REMOVAL_ENABLED=true` ; redéployer.
+  5. Dans `deploy/.env` sur le serveur : `ADS_MODE=google`, `ADS_PUBLISHER_ID=pub-…`,
+     `ADS_NETWORK_CODE=…` et, pour vendre le retrait des publicités, `ADS_REMOVAL_ENABLED=true` ;
+     puis `deploy/scripts/deploy.sh`.
   6. Vérifier que `https://<domaine>/ads.txt` affiche la ligne `google.com, pub-…`.
 - **Coût** : gratuit (rémunération par Google).
 - **Vérification** : bandeau de Google à la première visite (Accepter / Refuser), annonces en
@@ -216,3 +231,29 @@
 - **Coût** : gratuit.
 - **Vérification** : le sitemap apparaît « Réussi » avec 30 adresses (6 pages dans 5 langues) ;
   dans les jours qui suivent, l'accueil et les tarifs apparaissent dans « Pages » comme indexés.
+
+## Tâche 14 : Activer le déploiement automatique
+- **Pourquoi** : chaque envoi sur `main` dont la CI est verte est mis en ligne sans commande
+  (`.github/workflows/deploy.yml`), avec retour automatique en cas d'échec.
+- **Quand** : après la première mise en ligne (tâche 9). Facultatif : `deploy/scripts/deploy.sh`
+  sur le serveur fait la même chose à la main.
+- **Étapes** : `docs/deployment.md`, étape 9 (clé SSH limitée au déploiement, environnement
+  GitHub `production` avec `VPS_HOST`, `VPS_SSH_KEY` et `VPS_KNOWN_HOSTS`, variable
+  `DEPLOY_ENABLED=true`).
+- **Coût** : gratuit.
+- **Vérification** : onglet **Actions**, « Déploiement » lancé à la main sur `main` : vert, et le
+  journal se termine par « Version … en ligne ».
+
+## Tâche 15 : Surveillance et sauvegardes hors du serveur
+- **Pourquoi** : être prévenu si le site tombe, et ne pas perdre les données si le VPS est perdu
+  (les sauvegardes de la nuit restent sur le serveur).
+- **Quand** : dès la mise en ligne.
+- **Étapes** :
+  1. Créer une sonde gratuite (ex. UptimeRobot) sur `https://<domaine>/api/health`, avec alerte
+     par e-mail.
+  2. Activer les sauvegardes automatiques du VPS dans hPanel.
+  3. Une fois par semaine, copier la dernière sauvegarde dans un dossier chiffré de ton
+     ordinateur (`docs/deployment.md` §14).
+- **Coût** : gratuit, ou option de sauvegarde Hostinger selon la formule.
+- **Vérification** : la sonde est « Up » ; une sauvegarde de moins de 8 jours existe hors du
+  serveur.

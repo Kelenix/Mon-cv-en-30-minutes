@@ -1,0 +1,228 @@
+# Production sur le VPS (ADR-038, docs/deployment.md) : site Next.js, Supabase (base,
+# authentification, API) et proxy HTTPS Caddy, seul service exposé (ports 80 et 443).
+# Variables : deploy/.env (modèle : deploy/.env.example). Commandes : deploy/scripts/.
+name: mon-cv
+
+x-service: &service
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options: { max-size: 10m, max-file: "5" }
+
+# Valeurs publiques du site : données au build (pages générées à l'avance) et au démarrage.
+x-app-public: &app-public
+  NEXT_PUBLIC_SITE_URL: https://${DOMAIN}
+  NEXT_PUBLIC_SUPABASE_URL: https://${SUPABASE_DOMAIN}
+  GOOGLE_AUTH_ENABLED: ${GOOGLE_AUTH_ENABLED:-false}
+  ADS_MODE: ${ADS_MODE:-off}
+  ADS_PUBLISHER_ID: ${ADS_PUBLISHER_ID:-}
+  ADS_NETWORK_CODE: ${ADS_NETWORK_CODE:-}
+  ADS_REMOVAL_ENABLED: ${ADS_REMOVAL_ENABLED:-false}
+  LEGAL_COMPANY_NAME: ${LEGAL_COMPANY_NAME:-}
+  LEGAL_FORM: ${LEGAL_FORM:-}
+  LEGAL_REGISTRATION: ${LEGAL_REGISTRATION:-}
+  LEGAL_ADDRESS: ${LEGAL_ADDRESS:-}
+  LEGAL_EMAIL: ${LEGAL_EMAIL:-}
+  LEGAL_PUBLISHER: ${LEGAL_PUBLISHER:-}
+  LEGAL_VAT_NUMBER: ${LEGAL_VAT_NUMBER:-}
+  LEGAL_HOSTING: ${LEGAL_HOSTING:-}
+  LEGAL_MEDIATOR: ${LEGAL_MEDIATOR:-}
+
+# Objet des e-mails de connexion (même texte que supabase/config.toml).
+x-sign-in-subject: &sign-in-subject '{{ if eq .Data.locale "fr" }}Ton code de connexion : {{ .Token }}{{ else if eq .Data.locale "it" }}Il tuo codice di accesso: {{ .Token }}{{ else if eq .Data.locale "es" }}Tu código de acceso: {{ .Token }}{{ else if eq .Data.locale "de" }}Dein Anmeldecode: {{ .Token }}{{ else }}Your sign-in code: {{ .Token }}{{ end }}'
+
+services:
+  caddy:
+    <<: *service
+    image: caddy:2.11.9-alpine
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    environment:
+      DOMAIN: ${DOMAIN:?DOMAIN manquant dans deploy/.env}
+      SUPABASE_DOMAIN: ${SUPABASE_DOMAIN:?SUPABASE_DOMAIN manquant dans deploy/.env}
+      ACME_EMAIL: ${ACME_EMAIL:?ACME_EMAIL manquant dans deploy/.env}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:?lancer deploy/scripts/generate-secrets.sh}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY:?lancer deploy/scripts/generate-secrets.sh}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../supabase/templates:/srv/templates:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      edge:
+        # Le site joint l'API Supabase par son adresse publique, sans sortir du serveur.
+        aliases:
+          - ${SUPABASE_DOMAIN}
+      backend: {}
+
+  app:
+    <<: *service
+    image: mon-cv-app:${APP_TAG:-current}
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args: *app-public
+    environment:
+      <<: *app-public
+      APP_ENV: production
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${SUPABASE_ANON_KEY}
+      SUPABASE_SECRET_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
+      IP_HASH_SALT: ${IP_HASH_SALT:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_SENDER_EMAIL: ${SMTP_SENDER_EMAIL:-}
+      SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-Mon CV en 30 Secondes}
+      CRON_SECRET: ${CRON_SECRET:-}
+    networks: [edge]
+
+  db:
+    <<: *service
+    image: public.ecr.aws/supabase/postgres:17.12.0.000
+    environment:
+      POSTGRES_HOST: /var/run/postgresql
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?lancer deploy/scripts/generate-secrets.sh}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./supabase/roles.sql:/etc/postgresql.schema.sql:ro
+    healthcheck:
+      test: [CMD, pg_isready, -U, postgres, -h, localhost]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks: [backend]
+
+  auth:
+    <<: *service
+    image: public.ecr.aws/supabase/gotrue:v2.198.0
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      GOTRUE_API_HOST: 0.0.0.0
+      GOTRUE_API_PORT: 9999
+      API_EXTERNAL_URL: https://${SUPABASE_DOMAIN}/auth/v1
+      GOTRUE_DB_DRIVER: postgres
+      GOTRUE_DB_DATABASE_URL: postgres://supabase_auth_admin:${POSTGRES_PASSWORD}@db:5432/postgres
+      GOTRUE_SITE_URL: https://${DOMAIN}
+      GOTRUE_URI_ALLOW_LIST: https://${DOMAIN}/auth/**
+      GOTRUE_DISABLE_SIGNUP: "false"
+      GOTRUE_JWT_SECRET: ${JWT_SECRET:?lancer deploy/scripts/generate-secrets.sh}
+      GOTRUE_JWT_EXP: 3600
+      GOTRUE_JWT_AUD: authenticated
+      GOTRUE_JWT_DEFAULT_GROUP_NAME: authenticated
+      GOTRUE_JWT_ADMIN_ROLES: service_role
+      GOTRUE_SECURITY_REFRESH_TOKEN_ROTATION_ENABLED: "true"
+      GOTRUE_SECURITY_REFRESH_TOKEN_REUSE_INTERVAL: 10
+      GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
+      GOTRUE_EXTERNAL_PHONE_ENABLED: "false"
+      GOTRUE_EXTERNAL_ANONYMOUS_USERS_ENABLED: "false"
+      GOTRUE_MAILER_AUTOCONFIRM: "true"
+      GOTRUE_MAILER_SECURE_EMAIL_CHANGE_ENABLED: "true"
+      GOTRUE_MAILER_OTP_LENGTH: 6
+      GOTRUE_MAILER_OTP_EXP: 3600
+      GOTRUE_MAILER_TEMPLATES_CONFIRMATION: http://caddy:8088/sign-in-code.html
+      GOTRUE_MAILER_TEMPLATES_MAGIC_LINK: http://caddy:8088/sign-in-code.html
+      GOTRUE_MAILER_SUBJECTS_CONFIRMATION: *sign-in-subject
+      GOTRUE_MAILER_SUBJECTS_MAGIC_LINK: *sign-in-subject
+      GOTRUE_MAILER_URLPATHS_CONFIRMATION: https://${SUPABASE_DOMAIN}/auth/v1/verify
+      GOTRUE_MAILER_URLPATHS_INVITE: https://${SUPABASE_DOMAIN}/auth/v1/verify
+      GOTRUE_MAILER_URLPATHS_RECOVERY: https://${SUPABASE_DOMAIN}/auth/v1/verify
+      GOTRUE_MAILER_URLPATHS_EMAIL_CHANGE: https://${SUPABASE_DOMAIN}/auth/v1/verify
+      GOTRUE_SMTP_HOST: ${SMTP_HOST:-}
+      GOTRUE_SMTP_PORT: ${SMTP_PORT:-465}
+      GOTRUE_SMTP_USER: ${SMTP_USER:-}
+      GOTRUE_SMTP_PASS: ${SMTP_PASSWORD:-}
+      GOTRUE_SMTP_ADMIN_EMAIL: ${SMTP_SENDER_EMAIL:-}
+      GOTRUE_SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-Mon CV en 30 Secondes}
+      # Un e-mail par adresse et par minute, comme le bouton « Renvoyer le code ».
+      GOTRUE_SMTP_MAX_FREQUENCY: 60s
+      # Limites (supabase/config.toml) : les appels viennent tous du serveur du site, d'où des
+      # plafonds par adresse élevés ; e-mails de connexion par heure, à adapter au fournisseur SMTP.
+      GOTRUE_RATE_LIMIT_EMAIL_SENT: ${AUTH_EMAILS_PER_HOUR:-200}
+      GOTRUE_RATE_LIMIT_OTP: 1000
+      GOTRUE_RATE_LIMIT_VERIFY: 1000
+      GOTRUE_RATE_LIMIT_TOKEN_REFRESH: 3000
+      GOTRUE_EXTERNAL_GOOGLE_ENABLED: ${GOOGLE_AUTH_ENABLED:-false}
+      GOTRUE_EXTERNAL_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOTRUE_EXTERNAL_GOOGLE_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOTRUE_EXTERNAL_GOOGLE_REDIRECT_URI: https://${SUPABASE_DOMAIN}/auth/v1/callback
+    healthcheck:
+      test:
+        [CMD, wget, --quiet, --tries=1, --spider, http://localhost:9999/health]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks: [backend]
+
+  rest:
+    <<: *service
+    image: public.ecr.aws/supabase/postgrest:v16.5
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      PGRST_DB_URI: postgres://authenticator:${POSTGRES_PASSWORD}@db:5432/postgres
+      PGRST_DB_SCHEMAS: public,graphql_public
+      PGRST_DB_EXTRA_SEARCH_PATH: public,extensions
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_DB_MAX_ROWS: 1000
+      PGRST_JWT_SECRET: ${JWT_SECRET}
+    networks: [backend]
+
+  # Administration (Supabase Studio), démarrée à la demande et joignable par un tunnel SSH
+  # seulement : `docker compose --profile admin up -d` (docs/deployment.md).
+  meta:
+    <<: *service
+    image: public.ecr.aws/supabase/postgres-meta:v0.100.0
+    profiles: [admin]
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      PG_META_PORT: 8080
+      PG_META_DB_HOST: db
+      PG_META_DB_PORT: 5432
+      PG_META_DB_NAME: postgres
+      PG_META_DB_USER: postgres
+      PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD}
+    networks: [backend]
+
+  studio:
+    <<: *service
+    image: public.ecr.aws/supabase/studio:2026.11.16-sha-51bd16d
+    profiles: [admin]
+    depends_on: [meta]
+    ports:
+      - 127.0.0.1:54323:3000
+    environment:
+      HOSTNAME: 0.0.0.0
+      STUDIO_PG_META_URL: http://meta:8080
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SUPABASE_URL: http://caddy:8000
+      SUPABASE_PUBLIC_URL: https://${SUPABASE_DOMAIN}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      AUTH_JWT_SECRET: ${JWT_SECRET}
+      DEFAULT_ORGANIZATION_NAME: Mon CV en 30 Secondes
+      DEFAULT_PROJECT_NAME: Production
+      PGRST_DB_SCHEMAS: public,graphql_public
+      NEXT_PUBLIC_ENABLE_LOGS: "false"
+    networks: [backend]
+
+networks:
+  edge: {}
+  backend: {}
+
+volumes:
+  db_data: {}
+  caddy_data: {}
+  caddy_config: {}

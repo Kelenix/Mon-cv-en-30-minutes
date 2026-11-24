@@ -1,0 +1,65 @@
+# Proxy HTTPS du VPS (ADR-038) : certificats Let's Encrypt obtenus et renouvelés automatiquement,
+# HTTP/2 et HTTP/3, redirection de HTTP vers HTTPS. Variables : deploy/.env.
+{
+	email {$ACME_EMAIL}
+}
+
+# Site public.
+{$DOMAIN} {
+	encode zstd gzip
+	# Tâches planifiées : appelées depuis le conteneur du site uniquement (deploy/scripts).
+	respond /api/cron/* 404
+	reverse_proxy app:3000 {
+		# Adresse réelle du visiteur (plafond de CV gratuits par IP), non falsifiable.
+		header_up X-Real-IP {remote_host}
+	}
+}
+
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
+}
+
+# API Supabase. Seules les étapes de la connexion Google (et le lien de vérification) sont
+# ouvertes au navigateur ; le reste exige une clé que seul le serveur du site possède.
+{$SUPABASE_DOMAIN} {
+	@public path /auth/v1/authorize /auth/v1/callback /auth/v1/verify
+	@server {
+		header apikey {$SUPABASE_ANON_KEY}
+		header apikey {$SUPABASE_SERVICE_ROLE_KEY}
+	}
+
+	handle @public {
+		uri strip_prefix /auth/v1
+		reverse_proxy auth:9999
+	}
+	handle @server {
+		handle_path /auth/v1/* {
+			reverse_proxy auth:9999
+		}
+		handle_path /rest/v1/* {
+			reverse_proxy rest:3000
+		}
+		handle {
+			respond 404
+		}
+	}
+	handle {
+		respond 401
+	}
+}
+
+# Passerelles internes, sur le réseau Docker seulement (jamais publiées) : modèles des e-mails de
+# connexion pour l'authentification, et API de Supabase Studio (administration).
+:8088 {
+	root * /srv/templates
+	file_server
+}
+
+:8000 {
+	handle_path /auth/v1/* {
+		reverse_proxy auth:9999
+	}
+	handle_path /rest/v1/* {
+		reverse_proxy rest:3000
+	}
+}

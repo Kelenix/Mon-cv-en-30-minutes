@@ -49,6 +49,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Serveur autonome pour l'image Docker du VPS (deploy/Dockerfile, ADR-038).
+  output: "standalone",
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,

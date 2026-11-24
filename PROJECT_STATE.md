@@ -5,18 +5,16 @@
 
 ## Snapshot
 
-- **Phase courante** : 4 — Implémentation (Inc-12 terminé ; annonces réelles en attente de la tâche 10, Stripe réel de la tâche 4)
+- **Phase courante** : 6 — Mise en production (Inc-13 prêt et répété en local ; mise en ligne sur le VPS par l'utilisateur, tâche 9)
 - **Dernière mise à jour** : 24/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : Inc-13 (mise en production et passation ; mesure Lighthouse à refaire sur le
-  domaine). En attente côté utilisateur : tâches 2, 6, 7 et 9 pour la mise en ligne,
-  tâche 4 (clés Stripe de test) pour vérifier les paiements avec Stripe, tâche 3 (clé Anthropic)
-  pour mesurer la qualité réelle de l'IA (jeu de référence, NFR-02). Noms de marque traduits utilisés tels que
-  proposés tant que la tâche 12 n'est pas faite.
-- **Git** : Inc-0 sur `feat/inc-0-socle` (7e76fa6), Inc-1 sur `feat/inc-1-vitrine` (0d56467),
-  Inc-2 commité sur `main` (5643827 ; la branche `feat/inc-2-comptes` a été renommée `main`).
-  Dépôt GitHub relié (`origin`, tâche 11) : `origin/main` contient l'Inc-1, l'Inc-2 n'est pas
-  encore poussé.
+- **Prochaine action** : côté utilisateur, mise en ligne en suivant `docs/deployment.md`
+  (tâche 9, après les tâches 3, 4, 6 et 7), puis tâches 14 et 15. Ensuite, sur le domaine :
+  mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle de l'IA (NFR-02,
+  jeu de référence), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
+  que la tâche 12 n'est pas faite.
+- **Git** : `main` jusqu'à l'Inc-12 (ee79947), identique à `origin/main` ; Inc-13 pas encore
+  commité. Le serveur récupère le code depuis GitHub : envoyer `main` avant chaque mise en ligne.
 
 ## Avancement par phase
 
@@ -26,11 +24,11 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | 🔄 en cours | Inc-0 ✅ à Inc-12 ✅ (jalons M2, M4, M5 en simulation ; M3 en attente des clés Stripe) |
-| 5 — Qualité                 | ⬜ à faire | |
-| 6 — Mise en production      | ⬜ à faire | |
-| 7 — Documentation           | ⬜ à faire | |
-| 8 — Maintenance             | ⬜ à faire | |
+| 4 — Implémentation          | ✅ fait | Inc-0 à Inc-13 (jalons M2, M4, M5 en simulation ; M3 en attente des clés Stripe) |
+| 5 — Qualité                 | ✅ fait | En continu ; revue de sécurité finale à l'Inc-13 (`docs/security.md`) |
+| 6 — Mise en production      | 🔄 prêt | Tout est prêt et répété en local (ADR-038) ; mise en ligne : tâche 9 |
+| 7 — Documentation           | ✅ fait | README, `docs/deployment.md`, architecture, sécurité, tâches manuelles |
+| 8 — Maintenance             | ⏸️ en attente | Après la mise en ligne : exploitation selon `docs/deployment.md` §13 à §17 |
 
 > États : ⬜ à faire · 🔄 en cours · ✅ fait · ⏸️ en attente (raison)
 
@@ -54,7 +52,7 @@ Taille relative : S / M / L / XL.
 | Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ✅ (bannière et publicité native de la liste à l'Inc-11) |
 | Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ✅ en simulation (annonces Google réelles : tâche 10, après la mise en ligne) |
 | Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ✅ (Lighthouse local : performance 90 et 91, SEO 100 ; à remesurer sur le domaine à l'Inc-13) |
-| Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 2, 4, 6, 7, 9 | M | M6 | ⬜ |
+| Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 3, 4, 6, 7, 9 | M | M6 | ✅ préparé et répété en local (VPS Hostinger, ADR-038) ; mise en ligne : tâche 9 |
 
 ## Jalons (chacun démontrable et testable)
 
@@ -79,7 +77,8 @@ Inc-1 peut avancer en parallèle d'Inc-2 ; Inc-7 à Inc-10 sont indépendants en
 | 4 — Compte Stripe (clés de test) | Inc-6 | Clés de test disponibles dès l'inscription ; l'activation complète ne bloque qu'Inc-13 |
 | 5 — Google OAuth | Bouton Google en local (Inc-2) | Non bloquant : la connexion par e-mail fonctionne |
 | 8 — Logo et illustrations | Finition d'Inc-1 | Non bloquant : logotype typographique en attendant |
-| 2, 6, 7, 9 — Supabase en ligne, SMTP, infos légales, Vercel | Inc-13 | — |
+| 3, 4, 6, 7, 9 — clé Anthropic, Stripe réel, SMTP, infos légales, VPS et domaine | Mise en ligne | Pas-à-pas : `docs/deployment.md` |
+| 14, 15 — déploiement automatique, surveillance et sauvegardes hors serveur | Exploitation | Après la mise en ligne |
 | 10 — Comptes publicitaires | Activation réelle des pubs | Après la mise en ligne |
 | 13 — Search Console et Bing | Suivi du référencement | Après la mise en ligne |
 
@@ -108,6 +107,16 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 24/11/2026 — **Inc-13 préparé** (demande : tout sur un VPS Hostinger) : `deploy/` avec Docker
+  Compose (Caddy en HTTPS automatique, site Next.js autonome, PostgreSQL, authentification et API
+  Supabase aux versions locales, Studio par tunnel SSH), scripts de préparation du serveur,
+  secrets, déploiement avec vérifications et retour automatique, migrations, retour arrière,
+  sauvegarde, restauration ; déploiement GitHub Actions après une CI verte (inactif tant que
+  `DEPLOY_ENABLED` manque) ; US-40 (avertissement puis suppression des comptes inactifs) ;
+  pages légales mises à jour (Hostinger) ; `docs/deployment.md` ; tâches 9, 14, 15 ; revue de
+  sécurité finale. Répétition complète en local réussie (ADR-038). Vérifié : lint, types,
+  format, tests unitaires, base, build, bout en bout, ShellCheck.
 
 - 24/11/2026 — **Inc-12 terminé** : référencement (Open Graph et image de partage par langue,
   données structurées, robots.txt, sitemap multilingue, `hreflang` à une seule source, pages

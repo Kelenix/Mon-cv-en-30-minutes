@@ -731,5 +731,15 @@
       "text": "Annonce de test : un interstitiel Google s'affichera ici une fois les publicités activées.",
       "close": "Fermer et continuer"
     }
+  },
+  "retentionEmail": {
+    "subject": "Ton compte {brandName} sera supprimé le {date}",
+    "title": "Ton compte va bientôt être supprimé",
+    "greeting": "Bonjour {firstName},",
+    "greetingNoName": "Bonjour,",
+    "body": "Ton compte {brandName} n'a pas été utilisé depuis près de trois ans. Il sera supprimé le {date}, avec tes CV et tous les contenus générés.",
+    "keep": "Pour le garder, il suffit de te connecter avant cette date.",
+    "cta": "Me connecter",
+    "footer": "Sans connexion d'ici là, la suppression sera définitive et tes crédits seront perdus."
   }
 }

@@ -96,9 +96,16 @@ src/core/           configuration (variables d'environnement validées), format 
 src/proxy.ts        langue, préfixe d'adresse, session et pages privées
 messages/           textes de l'interface : fr.json (référence), en, it, es, de
 supabase/           configuration, migrations et modèle d'e-mail de connexion
+deploy/             production sur le VPS : Docker Compose, Caddy, image du site, scripts
 tests/              tests unitaires (unit/), de la base (db/) et de bout en bout (e2e/)
 docs/               produit, architecture, données, design, risques, tâches manuelles
 ```
+
+## Mise en production
+
+Le site et sa base tournent sur un VPS Hostinger, dans Docker (ADR-038). Pas-à-pas complet,
+exploitation, sauvegardes et retour arrière : [`docs/deployment.md`](docs/deployment.md). Une
+fois activé, chaque envoi sur `main` dont la CI est verte est mis en ligne automatiquement.
 
 ## Ajouter ou modifier un texte
 
@@ -113,4 +120,5 @@ docs/               produit, architecture, données, design, risques, tâches ma
 - Données : [`docs/data-model.md`](docs/data-model.md)
 - Design : [`docs/design/design-system.md`](docs/design/design-system.md), [`docs/design/flows.md`](docs/design/flows.md)
 - Décisions : [`DECISION_LOG.md`](DECISION_LOG.md) · Risques : [`docs/risks.md`](docs/risks.md)
+- Sécurité : [`docs/security.md`](docs/security.md) · Mise en production et exploitation : [`docs/deployment.md`](docs/deployment.md)
 - **Tâches à faire par le propriétaire du projet** : [`docs/manual-tasks.md`](docs/manual-tasks.md)

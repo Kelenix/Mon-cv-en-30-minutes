@@ -731,5 +731,15 @@
       "text": "Testanzeige: Hier erscheint ein Google-Interstitial, sobald die Werbung aktiviert ist.",
       "close": "Schließen und weiter"
     }
+  },
+  "retentionEmail": {
+    "subject": "Dein Konto bei {brandName} wird am {date} gelöscht",
+    "title": "Dein Konto wird bald gelöscht",
+    "greeting": "Hallo {firstName},",
+    "greetingNoName": "Hallo,",
+    "body": "Dein Konto bei {brandName} wurde seit fast drei Jahren nicht genutzt. Es wird am {date} gelöscht, zusammen mit deinen Lebensläufen und allen erstellten Inhalten.",
+    "keep": "Um es zu behalten, melde dich einfach vor diesem Datum an.",
+    "cta": "Anmelden",
+    "footer": "Wenn du dich bis dahin nicht anmeldest, ist die Löschung endgültig und deine Credits verfallen."
   }
 }

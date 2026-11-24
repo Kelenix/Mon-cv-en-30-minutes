@@ -14,14 +14,21 @@ const optionalText = z.preprocess(
 /**
  * Exigées en production : informations du vendeur (US-38, le numéro de TVA reste facultatif),
  * clé de l'IA (sans elle, l'IA est simulée : développement et tests), sel de hachage des
- * adresses IP (plafond de CV gratuits, H27) et clés Stripe (sans elles, le paiement est
- * indisponible : message « Le paiement est momentanément indisponible »).
+ * adresses IP (plafond de CV gratuits, H27), clés Stripe (sans elles, le paiement est
+ * indisponible : message « Le paiement est momentanément indisponible »), serveur d'e-mails et
+ * secret de la tâche quotidienne de rétention (sans SMTP, les e-mails sont seulement
+ * journalisés : développement et tests).
  */
 const REQUIRED_IN_PRODUCTION = [
   "ANTHROPIC_API_KEY",
   "IP_HASH_SALT",
   "STRIPE_SECRET_KEY",
   "STRIPE_WEBHOOK_SECRET",
+  "SMTP_HOST",
+  "SMTP_USER",
+  "SMTP_PASSWORD",
+  "SMTP_SENDER_EMAIL",
+  "CRON_SECRET",
   "LEGAL_COMPANY_NAME",
   "LEGAL_FORM",
   "LEGAL_REGISTRATION",
@@ -35,7 +42,8 @@ const REQUIRED_IN_PRODUCTION = [
 const envSchema = z
   .object({
     NEXT_PUBLIC_SITE_URL: z.url(),
-    VERCEL_ENV: z.enum(["production", "preview", "development"]).optional(),
+    // Site public : variables de production exigées (fichier du serveur, docs/deployment.md).
+    APP_ENV: z.enum(["production", "development"]).optional(),
     NEXT_PUBLIC_SUPABASE_URL: z.url(),
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.string().min(1),
     SUPABASE_SECRET_KEY: z.string().min(1),
@@ -55,6 +63,17 @@ const envSchema = z
     STRIPE_SECRET_KEY: optionalText,
     STRIPE_WEBHOOK_SECRET: optionalText,
     IP_HASH_SALT: optionalText.refine((value) => !value || value.length >= 32, {
+      error: "32 caractères minimum",
+    }),
+    // E-mails envoyés par le site (avertissement avant suppression, US-40).
+    SMTP_HOST: optionalText,
+    SMTP_PORT: z.coerce.number().int().positive().default(465),
+    SMTP_USER: optionalText,
+    SMTP_PASSWORD: optionalText,
+    SMTP_SENDER_EMAIL: optionalText.pipe(z.email().optional()),
+    SMTP_SENDER_NAME: z.string().trim().min(1).default("Mon CV en 30 Secondes"),
+    // Jeton des tâches planifiées (`/api/cron/*`).
+    CRON_SECRET: optionalText.refine((value) => !value || value.length >= 32, {
       error: "32 caractères minimum",
     }),
     LEGAL_COMPANY_NAME: optionalText,
@@ -80,7 +99,7 @@ const envSchema = z
         }
       }
     }
-    if (values.VERCEL_ENV !== "production") return;
+    if (values.APP_ENV !== "production") return;
     for (const key of REQUIRED_IN_PRODUCTION) {
       if (!values[key]) {
         context.addIssue({

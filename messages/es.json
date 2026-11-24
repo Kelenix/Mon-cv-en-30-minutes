@@ -731,5 +731,15 @@
       "text": "Anuncio de prueba: aquí aparecerá un intersticial de Google cuando se active la publicidad.",
       "close": "Cerrar y continuar"
     }
+  },
+  "retentionEmail": {
+    "subject": "Tu cuenta de {brandName} se eliminará el {date}",
+    "title": "Tu cuenta se eliminará pronto",
+    "greeting": "Hola, {firstName}:",
+    "greetingNoName": "Hola:",
+    "body": "Tu cuenta de {brandName} lleva casi tres años sin usarse. Se eliminará el {date}, junto con tus CV y todos los contenidos generados.",
+    "keep": "Para conservarla, basta con iniciar sesión antes de esa fecha.",
+    "cta": "Iniciar sesión",
+    "footer": "Si no inicias sesión antes de esa fecha, la eliminación será definitiva y perderás tus créditos."
   }
 }

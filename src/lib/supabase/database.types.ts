@@ -240,6 +240,11 @@ isOneToOne: true
               "created": boolean,"operation_id": string,"status": Database["public"]['Enums']["ai_operation_status"],"was_free": boolean
             }[]
                            },
+"claim_retention_warnings":
+{ Args: { "p_limit"?: number }; Returns: {
+              "email": string,"first_name": string,"locale": Database["public"]['Enums']["app_locale"],"user_id": string
+            }[]
+                           },
 "complete_ai_operation":
 { Args: { "p_cache_read_tokens": number,"p_cost_usd_micros": number,"p_cv_id"?: string,"p_duration_ms": number,"p_input"?: Json,"p_input_tokens": number,"p_kind"?: Database["public"]['Enums']["generation_kind"],"p_language"?: Database["public"]['Enums']["app_locale"],"p_model": string,"p_operation_id": string,"p_output"?: Json,"p_output_tokens": number }; Returns: string
                            },
@@ -268,6 +273,11 @@ isOneToOne: true
                            },
 "refund_operation":
 { Args: { "p_operation_id": string }; Returns: number
+                           },
+"retention_deletions_due":
+{ Args: { "p_limit"?: number }; Returns: {
+              "stripe_customer_id": string,"user_id": string
+            }[]
                            },
 "rewarded_credits_today":
 { Args: { "p_user_id": string }; Returns: number

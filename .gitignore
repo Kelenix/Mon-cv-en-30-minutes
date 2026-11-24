@@ -45,3 +45,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Journal des versions mises en ligne sur le VPS (deploy/scripts/deploy.sh)
+deploy/.deployments

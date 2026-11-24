@@ -1,6 +1,9 @@
-// Crée ou met à jour, dans Stripe en MODE TEST, les produits, les prix (repérés par leur clé :
-// `credits_15`, `pro_month`…) et le portail client (docs/architecture.md §8). Rejouable.
-// Lancement : `npm run stripe:seed` (clé lue dans `.env.local`).
+// Crée ou met à jour, dans Stripe, les produits, les prix (repérés par leur clé : `credits_15`,
+// `pro_month`…) et le portail client (docs/architecture.md §8). Rejouable, sans aucun paiement.
+// Mode test : `npm run stripe:seed` (clé lue dans `.env.local`).
+// Mode réel, à la mise en production : `npm run stripe:seed -- --live`, avec la clé sk_live_… et
+// l'adresse https du site données dans l'environnement, jamais dans `.env.local`
+// (docs/deployment.md, étape 8).
 
 import { existsSync } from "node:fs";
 import Stripe from "stripe";
@@ -14,16 +17,25 @@ import {
   subscriptionLookupKey,
 } from "../src/features/plans/catalog.ts";
 
-if (existsSync(".env.local")) process.loadEnvFile(".env.local");
+const live = process.argv.includes("--live");
+if (!live && existsSync(".env.local")) process.loadEnvFile(".env.local");
 
 const key = process.env.STRIPE_SECRET_KEY ?? "";
-if (!key.startsWith("sk_test_")) {
+if (!key.startsWith(live ? "sk_live_" : "sk_test_")) {
   console.error(
-    "STRIPE_SECRET_KEY doit être une clé de TEST (sk_test_…) : ce script ne touche jamais au mode réel.",
+    live
+      ? "--live : STRIPE_SECRET_KEY doit être la clé secrète du mode réel (sk_live_…)."
+      : "STRIPE_SECRET_KEY doit être une clé de TEST (sk_test_…) ; mode réel : --live.",
   );
   process.exit(1);
 }
 const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+if (live && !site.startsWith("https://")) {
+  console.error(
+    "--live : NEXT_PUBLIC_SITE_URL doit être l'adresse https du site.",
+  );
+  process.exit(1);
+}
 const stripe = new Stripe(key);
 
 type ProductSpec = {
@@ -156,4 +168,6 @@ if (configurations[0]) {
   await stripe.billingPortal.configurations.create(portal);
 }
 
-console.log("Stripe (mode test) prêt : produits, prix et portail client.");
+console.log(
+  `Stripe (mode ${live ? "réel" : "test"}) prêt : produits, prix et portail client.`,
+);

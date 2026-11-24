@@ -32,6 +32,9 @@ jobs:
       - run: npm run test
       - name: Audit des dépendances de production
         run: npm audit --omit=dev --audit-level=high
+      - name: Scripts du serveur (ShellCheck)
+        working-directory: deploy/scripts
+        run: shellcheck -x *.sh
       - name: Build
         run: npm run build
         env:

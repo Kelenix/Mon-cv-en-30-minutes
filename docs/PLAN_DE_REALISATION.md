@@ -73,9 +73,9 @@ US-41, US-42).
 ## 4. Architecture cible (résumé, détaillée en phase 3)
 
 ```
-Navigateur ──► Next.js (App Router, TypeScript) hébergé sur Vercel
+Navigateur ──► Next.js (App Router, TypeScript) sur un VPS Hostinger (ADR-038)
                  │  Server Actions / Route Handlers : validation Zod, droits vérifiés côté serveur
-                 ├──► Supabase (Postgres + Auth, RLS sur toutes les tables, région UE)
+                 ├──► Supabase sur le même VPS (Postgres + Auth, RLS sur toutes les tables, UE)
                  ├──► API Claude (Anthropic, Claude Opus 5.5) : génération, sorties structurées validées
                  ├──► Stripe : Checkout, portail client, webhooks signés
                  └──► Exports PDF (@react-pdf/renderer) et DOCX (docx) générés côté serveur
@@ -131,7 +131,7 @@ QA (13), revue de code (15) et sécurité (09) interviennent sur chaque incréme
 | 3 Architecture & design (03, 04, 05, 06) | Architecture, modèle de données + RLS, design system | `docs/architecture.md`, `docs/data-model.md` |
 | 4 Implémentation (07, 08, 09) | Inc-0 → Inc-12 | Code + tests par incrément |
 | 5 Qualité (13, 15, 11) | En continu | Tests verts, revues |
-| 6 Production (12, 16, 10) | Inc-13 | Déploiement Vercel, CI/CD |
+| 6 Production (12, 16, 10) | Inc-13 | Déploiement sur VPS Hostinger (ADR-038), CI/CD |
 | 7 Documentation (14, 18) | Au fil de l'eau, finalisée en fin de projet | README, docs, `CHANGELOG.md` |
 | 8 Maintenance (17) | Passation | Plan de suivi, dette technique |
 
@@ -148,11 +148,11 @@ QA (13), revue de code (15) et sécurité (09) interviennent sur chaque incréme
 | Fraude sur la vidéo récompensée (signal envoyé par le navigateur) | Haute × faible | Plafond quotidien, jeton à usage unique émis par le serveur. |
 | Abus du CV gratuit (comptes multiples) | Moyenne × moyen | Compte requis avant génération (Q3), e-mail vérifié, limite par adresse IP. |
 | Non-conformité (RGPD, cookies publicitaires, rétractation, résiliation en ligne, promesses de prix) | Moyenne × fort | Bandeau de consentement certifié, pages légales, case de renonciation, portail de résiliation, corrections C2 et C3. |
-| Hébergement : le plan Hobby de Vercel interdit l'usage commercial ; Supabase Free se met en pause après 7 jours d'inactivité | Certaine × moyen | Passage aux plans payants au lancement (§8). |
+| Hébergement auto-géré sur un VPS (décision de l'utilisateur, ADR-038) | Moyenne × fort | Déploiement avec retour automatique, sauvegardes testées, copie hors serveur, mises à jour automatiques (`docs/deployment.md`). |
 | Comptes publicitaires non approuvés au lancement (trafic requis) | Haute × faible | Code prêt et activé par configuration dès l'approbation. |
 | L'IA invente des expériences | Moyenne × fort | Consignes strictes, sortie structurée validée, modification manuelle toujours possible. |
 | Injection de consignes via le texte d'une annonce | Moyenne × moyen | Annonce traitée comme une donnée, sortie structurée, aucun outil exposé au modèle. |
-| E-mails de connexion non délivrés (SMTP Supabase par défaut très limité) | Haute × moyen | Fournisseur SMTP dédié (tâche manuelle). |
+| E-mails de connexion non délivrés (SMTP Supabase par défaut très limité) | Haute × moyen | Resend, domaine vérifié (tâche manuelle 6). |
 | Webhooks de paiement en double ou dans le désordre | Moyenne × fort | Journal d'idempotence, mises à jour tolérantes à l'ordre. |
 
 ---
@@ -163,8 +163,7 @@ Ordres de grandeur à vérifier sur les sites des fournisseurs avant engagement.
 
 | Poste | Pendant le développement | Au lancement commercial |
 |-------|--------------------------|-------------------------|
-| Hébergement Vercel | Hobby, gratuit | **Pro, environ 20 $/mois** (Hobby interdit l'usage commercial) |
-| Base Supabase | Free, gratuit | **Pro, environ 25 $/mois** (Free se met en pause après 7 jours d'inactivité) |
+| Hébergement du site et de la base | Docker Desktop, gratuit | **VPS Hostinger** (KVM 2 recommandé, KVM 1 pour démarrer), prix selon la durée d'engagement (ADR-038) ; domaine environ 10 à 15 €/an |
 | IA Claude | À l'usage, quelques dollars | À l'usage, voir Q4 |
 | Paiement | Mode test, gratuit | Commission par transaction, voir Q1 |
 | E-mails d'authentification | Palier gratuit | Palier gratuit puis payant selon le volume |
@@ -182,12 +181,12 @@ Celles marquées ⏱ prennent du temps côté fournisseur : à lancer tôt.
 3. Créer une clé API Anthropic et fixer une limite de dépenses.
 4. ⏱ Ouvrir et faire valider le compte du prestataire de paiement (selon Q1).
 5. Créer les identifiants Google OAuth (connexion « Continuer avec Google »).
-6. Configurer un fournisseur SMTP pour les e-mails de connexion.
+6. Configurer Resend pour les e-mails de connexion (SMTP).
 7. Fournir les informations légales du vendeur (raison sociale, SIRET, adresse, contact,
    directeur de la publication) et faire relire CGV et politique de confidentialité par un juriste.
 8. Fournir le logo et les illustrations en fichiers séparés (SVG ou PNG transparent). Les kits
    fournis sont des planches composites dont le fond en damier est incrusté dans l'image.
-9. Créer le projet Vercel, le domaine et les variables d'environnement (en Inc-13).
+9. Commander le VPS Hostinger et le domaine, puis suivre `docs/deployment.md` (en Inc-13).
 10. ⏱ Demander l'approbation AdSense / Ad Manager une fois le site en ligne (Inc-11).
 
 ---

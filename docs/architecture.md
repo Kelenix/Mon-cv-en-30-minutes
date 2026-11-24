@@ -10,15 +10,16 @@
 
 ```mermaid
 flowchart LR
-  U[Navigateur] -->|HTTPS| N[Next.js 16 sur Vercel<br/>Server Components, Server Actions,<br/>Route Handlers]
-  N -->|client utilisateur, RLS| S[(Supabase Postgres + Auth<br/>région UE)]
+  U[Navigateur] -->|HTTPS| X[Caddy sur le VPS Hostinger<br/>ADR-038]
+  X --> N[Next.js 16<br/>Server Components, Server Actions,<br/>Route Handlers]
+  N -->|client utilisateur, RLS| S[(Supabase Postgres + Auth<br/>sur le même VPS, UE)]
   N -->|client admin, fonctions SQL privilégiées| S
   N -->|SDK officiel| A[API Claude<br/>Claude Opus 5.5]
   N -->|Checkout, portail| P[Stripe]
   P -->|webhooks signés| N
   C[pg_cron : remise mensuelle des crédits] --> S
-  V[Vercel Cron : rétention des comptes] --> N
-  N -->|SMTP| M[E-mails : Mailpit en local,<br/>fournisseur SMTP en production]
+  V[cron du VPS : rétention des comptes, sauvegarde] --> N
+  N -->|SMTP| M[E-mails : Mailpit en local,<br/>Resend en production]
   U -.->|après consentement, Inc-11| G[Google Ad Manager / AdSense]
 ```
 
@@ -46,7 +47,7 @@ Versions relevées sur le registre npm le 23/11/2026, épinglées dans `package.
 | Notifications | `sonner` | 2.0.x |
 | Tests | Vitest, Playwright | 5.1.x, 1.65.x |
 | Qualité | ESLint (configuration Next.js), Prettier, simple-git-hooks + lint-staged, @axe-core/playwright | 9.39.5 (ADR-020), 3.10.1 |
-| Hébergement | Vercel ; Supabase (UE) | — |
+| Hébergement | VPS Hostinger (UE), Docker Compose : Caddy, Next.js autonome, Supabase auto-hébergé (ADR-038) | Caddy 2.11.9, Node 24.22.3, images Supabase de la CLI 3.2.0 |
 
 Écarts assumés par rapport à la stack par défaut (ADR-009) : pas de bibliothèque de formulaires
 (Server Actions + `useActionState` + Zod suffisent) ; TanStack Query limité aux besoins réels
@@ -150,9 +151,10 @@ Composants serveur par défaut ; composants client seulement pour l'interactivit
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Serveur | Paiements, vérification des webhooks |
 | `CRON_SECRET` | Serveur | Protection de `/api/cron/*` |
 | `IP_HASH_SALT` | Serveur | Hachage des adresses IP (H27) |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Serveur | E-mails d'avertissement de rétention |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_SENDER_EMAIL`, `SMTP_SENDER_NAME` | Serveur | E-mails d'avertissement de rétention (même SMTP que l'authentification) |
+| `APP_ENV` | Serveur | `production` sur le VPS : variables de production exigées dès le démarrage |
 | `ADS_ENABLED`, `ADS_REMOVAL_ENABLED`, identifiants des blocs publicitaires | Client + serveur | Inc-11 |
-| `LEGAL_*` (raison sociale, SIRET, adresse…) | Build | Pages légales ; le build de production échoue si une valeur manque (US-38) |
+| `LEGAL_*` (raison sociale, SIRET, adresse…) | Build et serveur | Pages légales ; le site de production refuse de démarrer si une valeur manque (US-38) |
 
 Les noms exacts des clés Supabase sont confirmés par `supabase status` à l'Inc-0. `core/env.ts`
 valide toutes les variables au démarrage et refuse de démarrer si une variable requise manque.
@@ -228,10 +230,12 @@ Flux détaillés : `docs/system-design.md` §3.
 | Tâche | Mécanisme | Fréquence | Idempotence |
 |-------|-----------|-----------|-------------|
 | Remise mensuelle des crédits inclus (US-23) | `pg_cron` → fonction SQL `run_monthly_grants()` | Toutes les heures | Date de prochaine remise stockée par abonnement |
-| Rétention : avertissement à 3 ans − 30 jours, suppression à 3 ans (US-40) | Vercel Cron → `/api/cron/retention` (protégé par `CRON_SECRET`) | Une fois par jour | Date d'envoi de l'avertissement stockée ; suppression conditionnée |
+| Rétention : avertissement à 3 ans − 30 jours, suppression 30 jours après (US-40) | cron du VPS → `deploy/scripts/cron-retention.sh` → `POST /api/cron/retention` depuis le conteneur du site (protégé par `CRON_SECRET`, fermé au public par Caddy) | Chaque nuit, 4 h 30 UTC | Comptes réservés atomiquement par `claim_retention_warnings` ; suppression par `retention_deletions_due` |
+| Sauvegarde des données | cron du VPS → `deploy/scripts/backup.sh` | Chaque nuit, 3 h 15 UTC | Fichier horodaté, gardé 14 jours |
 
 La rétention passe par Next.js car elle envoie des e-mails et supprime des comptes via l'API
-d'administration de Supabase. En local, elle se lance avec `npm run cron:retention`.
+d'administration de Supabase. En local : `curl -X POST -H "Authorization: Bearer $CRON_SECRET"
+http://localhost:3000/api/cron/retention` (sans SMTP, les e-mails sont seulement journalisés).
 
 ---
 
@@ -295,7 +299,8 @@ Vidéo récompensée : jeton à usage unique émis par le serveur, plafond quoti
 
 **GitHub Actions** sur chaque push et pull request : installation, lint, vérification des types,
 tests unitaires, démarrage de Supabase local puis tests d'intégration et RLS, build, tests de bout
-en bout (IA et Stripe simulés).
+en bout (IA et Stripe simulés), analyse des scripts du serveur (ShellCheck). Après une CI verte
+sur `main`, `deploy.yml` met en ligne sur le VPS (section 17).
 
 ---
 
@@ -328,3 +333,15 @@ en bout (IA et Stripe simulés).
 | E-mails | Code de connexion : modèles Supabase avec un bloc par langue, sélectionné par la langue enregistrée dans les métadonnées du compte ; e-mails de rétention : messages de l'application |
 | Stripe | Checkout et portail ouverts avec `locale` = langue de l'utilisateur ; noms de produits neutres (« Pro », « Premium », « CV Pro », « 15 credits ») et texte d'accompagnement traduit |
 | Pages légales | Une version par langue, ton formel ; relecture juridique par langue (tâche manuelle 7) |
+
+---
+
+## 17. Production (ADR-038)
+
+Un seul VPS Hostinger (Ubuntu 24.04, centre de données dans l'UE), tout dans Docker Compose
+(`deploy/`) : Caddy (seul service publié, HTTPS automatique), le site (image construite sur le
+serveur, `output: "standalone"`), PostgreSQL avec `pg_cron`, GoTrue et PostgREST aux versions de
+Supabase en local, Studio à la demande par tunnel SSH. `api.domaine` n'ouvre au navigateur que la
+connexion Google ; le reste exige la clé du serveur. Déploiement, retour arrière, sauvegardes et
+exploitation : `docs/deployment.md`.
+

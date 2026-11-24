@@ -1,0 +1,15 @@
+# Contexte de l'image du site (deploy/Dockerfile) : sources seulement, sans secrets ni artefacts.
+.git
+.github
+.claude
+.next
+node_modules
+playwright-report
+test-results
+coverage
+tests
+docs
+.env*
+deploy/.env
+*.png
+*.tsbuildinfo

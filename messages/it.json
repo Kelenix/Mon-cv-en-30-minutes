@@ -731,5 +731,15 @@
       "text": "Annuncio di prova: qui comparirà un interstitial Google quando la pubblicità sarà attivata.",
       "close": "Chiudi e continua"
     }
+  },
+  "retentionEmail": {
+    "subject": "Il tuo account {brandName} sarà eliminato il {date}",
+    "title": "Il tuo account sta per essere eliminato",
+    "greeting": "Ciao {firstName},",
+    "greetingNoName": "Ciao,",
+    "body": "Il tuo account {brandName} non viene utilizzato da quasi tre anni. Sarà eliminato il {date}, insieme ai tuoi CV e a tutti i contenuti generati.",
+    "keep": "Per conservarlo, basta accedere prima di questa data.",
+    "cta": "Accedi",
+    "footer": "Se non accedi entro questa data, l'eliminazione sarà definitiva e i tuoi crediti andranno persi."
   }
 }

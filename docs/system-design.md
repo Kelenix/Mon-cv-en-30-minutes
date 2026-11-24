@@ -273,15 +273,15 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-  participant V as Vercel Cron (quotidien)
+  participant V as cron du VPS (chaque nuit)
   participant N as /api/cron/retention
   participant DB as Supabase
   participant M as SMTP
-  V->>N: GET + CRON_SECRET
-  N->>DB: Comptes sans abonnement actif, dernière activité < aujourd'hui − 3 ans + 30 j, non avertis
-  N->>M: E-mail d'avertissement ; enregistre la date d'envoi
-  N->>DB: Comptes avertis depuis ≥ 30 j et toujours inactifs
-  N->>DB: auth.admin.deleteUser (cascade)
+  V->>N: POST + CRON_SECRET, depuis le conteneur du site (ADR-038)
+  N->>DB: retention_deletions_due : avertis depuis ≥ 30 j, toujours inactifs, sans abonnement
+  N->>DB: client Stripe supprimé, puis auth.admin.deleteUser (cascade, comme US-06)
+  N->>DB: claim_retention_warnings : sans abonnement, inactifs depuis 3 ans − 30 j, réservés une fois
+  N->>M: E-mail d'avertissement dans la langue du compte (échec : réservation annulée)
 ```
 
 ---

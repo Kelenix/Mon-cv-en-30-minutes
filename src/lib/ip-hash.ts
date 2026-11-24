@@ -5,8 +5,8 @@ import { env } from "@/core/env";
 
 /**
  * Adresse IP du visiteur, hachée avec un sel secret (H27) : jamais stockée en clair. `null` sans
- * sel (développement local) ou sans adresse connue. Sur Vercel, `x-real-ip` est fixée par la
- * plateforme (non falsifiable par le client).
+ * sel (développement local) ou sans adresse connue. En production, `x-real-ip` est réécrite par
+ * le proxy Caddy avec l'adresse de la connexion (non falsifiable par le client, deploy/Caddyfile).
  */
 export async function hashClientIp(): Promise<string | null> {
   if (!env.IP_HASH_SALT) return null;

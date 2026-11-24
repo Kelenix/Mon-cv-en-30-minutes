@@ -8,13 +8,12 @@ import {
   validationError,
 } from "@/core/action-result";
 import { localizedPath, safeNextPath } from "@/features/auth/paths";
-import { getStripe } from "@/features/billing/stripe";
 import { getCurrentUserId } from "@/features/auth/session";
 import { localeSchema } from "@/i18n/locale-schema";
 import type { AppLocale } from "@/i18n/routing";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProfile, updateOwnProfile } from "./data/profile-repository";
+import { eraseAccount } from "./erase-account";
 import { deleteAccountSchema, profileSchema, welcomeSchema } from "./schemas";
 
 // Profil et suppression du compte (US-04 c.2, US-05, US-06, US-41 c.2). Chaque action revérifie
@@ -85,29 +84,7 @@ export async function saveLocalePreference(value: string) {
   await saveLocale(supabase, parsed.data);
 }
 
-/**
- * Résilie immédiatement tout abonnement en supprimant le client Stripe (US-06 c.2) ; seules les
- * factures restent chez Stripe (obligation légale). Faux si Stripe n'a pas pu le faire.
- */
-async function deleteStripeCustomer(customerId: string | null) {
-  if (!customerId) return true;
-  const stripe = getStripe();
-  if (!stripe) return false;
-  try {
-    await stripe.customers.del(customerId);
-    return true;
-  } catch (error) {
-    // Client déjà supprimé chez Stripe : rien à résilier.
-    if ((error as { code?: string }).code === "resource_missing") return true;
-    console.error("Résiliation Stripe impossible", (error as Error).message);
-    return false;
-  }
-}
-
-/**
- * Suppression définitive : abonnement résilié, puis compte d'authentification supprimé, et avec
- * lui, en cascade, toutes les données de l'utilisateur.
- */
+/** Suppression définitive du compte connecté (US-06). */
 export async function deleteAccount(
   formData: FormData,
 ): Promise<ActionResult<never>> {
@@ -119,15 +96,8 @@ export async function deleteAccount(
   if (!userId) return fail("UNAUTHENTICATED");
 
   const profile = await getOwnProfile(await createClient(), userId);
-  if (!(await deleteStripeCustomer(profile.stripe_customer_id))) {
-    return fail("PAYMENT_ERROR");
-  }
-
-  const { error } = await createAdminClient().auth.admin.deleteUser(userId);
-  if (error) {
-    console.error("Suppression du compte impossible", error.code);
-    return fail("INTERNAL");
-  }
+  const result = await eraseAccount(userId, profile.stripe_customer_id);
+  if (result !== "ok") return fail(result);
 
   const supabase = await createClient();
   await supabase.auth.signOut({ scope: "local" });

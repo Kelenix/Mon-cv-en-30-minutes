@@ -6,6 +6,78 @@
 
 ---
 
+## ADR-038 — Hébergement sur un VPS Hostinger et rétention des comptes (Inc-13)
+
+- **Date** : 24/11/2026
+- **Statut** : Accepté (remplace l'hébergement Vercel et Supabase Cloud prévu par le plan et
+  ADR-009 ; le Vercel Cron d'ADR-014 devient une tâche planifiée du serveur)
+- **Décideur** : l'utilisateur (« tout doit être mis en ligne sur un VPS Hostinger ») ;
+  réalisation : Claude (rôles : DevOps, sécurité, release, backend)
+- **Contexte** : mise en production (Inc-13) sur un seul VPS, sans Vercel ni Supabase Cloud ;
+  US-40 (suppression des comptes inactifs) restait à réaliser.
+- **Décision** :
+  - **Tout dans Docker Compose** (`deploy/docker-compose.yml`) : Caddy (HTTPS Let's Encrypt
+    automatique, HTTP/2 et HTTP/3, seul service publié), le site Next.js en serveur autonome
+    (`output: "standalone"`), et les services Supabase nécessaires : PostgreSQL avec
+    `pg_cron`, authentification (GoTrue), API (PostgREST). Images aux **versions exactes de
+    Supabase en local** (CLI 3.2.0), pour que la production se comporte comme les tests.
+    Studio et postgres-meta à la demande (profil `admin`), joignables par tunnel SSH seulement.
+    Ni stockage, ni temps réel, ni fonctions : le projet ne les utilise pas.
+  - **Pas de Kong** : Caddy fait la passerelle. `api.domaine` n'ouvre au navigateur que
+    `/auth/v1/authorize`, `/callback` et `/verify` (connexion Google). Le reste exige l'en-tête
+    `apikey` du serveur : tous les appels à Supabase partent du serveur du site, donc les clés
+    ne quittent jamais le serveur. Le site joint l'API par son adresse publique, via un alias
+    réseau Docker vers Caddy, sans sortir du VPS. La base n'est sur aucun réseau du site.
+  - **Clés Supabase** : JWT HS256 (`anon`, `service_role`) signées par
+    `deploy/scripts/generate-secrets.sh` avec un secret aléatoire.
+  - **Image du site construite sur le VPS** : elle ne reçoit au build que des valeurs
+    publiques (adresses, publicités, informations légales). Les secrets ne sont donnés qu'au
+    démarrage. `APP_ENV=production` (remplace `VERCEL_ENV`) rend les variables de production
+    obligatoires, vérifiées dès le démarrage par `src/instrumentation.ts`.
+  - **Déploiement** : `deploy/scripts/deploy.sh` (code, image, migrations versionnées
+    appliquées une à une en transaction, journal compatible avec la CLI Supabase, nouveau site,
+    vérifications, retour automatique à l'image précédente si le site ne démarre pas). GitHub
+    Actions le lance après une CI verte sur `main`, par une clé SSH limitée à cette commande ;
+    inactif tant que `DEPLOY_ENABLED` n'est pas défini. Retour arrière manuel : `rollback.sh`
+    (5 dernières images gardées).
+  - **Tâches de la nuit** (cron du serveur) : sauvegarde des données (`pg_dump` données seules,
+    14 jours, la structure venant des migrations) ; rétention US-40 par
+    `POST /api/cron/retention`, appelé depuis le conteneur du site avec `CRON_SECRET`, adresse
+    fermée au public par Caddy.
+  - **US-40** : deux fonctions SQL réservées au serveur. La première réserve atomiquement les
+    comptes à avertir (3 ans moins 30 jours sans activité, sans abonnement actif) : aucun
+    double envoi, même relancée. La seconde liste les comptes avertis depuis 30 jours. E-mail
+    dans la langue du compte, envoyé par nodemailer avec le même SMTP que l'authentification
+    (Resend, choix de l'utilisateur, région d'envoi dans l'UE) ;
+    nouvel essai le lendemain si l'envoi échoue. Suppression mise en commun avec US-06
+    (`eraseAccount`). 200 comptes au plus par passage.
+  - **Stripe** : `npm run stripe:seed -- --live` crée produits, prix et portail en mode réel ;
+    la clé est donnée dans l'environnement, jamais dans `.env.local`.
+- **Alternatives écartées** :
+  - Supabase Cloud pour la base, VPS pour le site : contraire à la demande ; une dépendance et
+    un abonnement de plus.
+  - Installation Supabase officielle complète (Kong, stockage, temps réel, journaux, pooler) :
+    plus de mémoire et de surface d'attaque pour des services inutilisés.
+  - Build en CI et image poussée sur un registre : les valeurs publiques du build devraient
+    être dupliquées dans GitHub ; le build sur le VPS lit la même configuration que l'exécution.
+  - Coolify, Dokploy ou CapRover : une couche d'administration de plus à maintenir et
+    sécuriser, pour un seul site.
+  - Sauvegarde physique du volume : arrêt de la base chaque nuit.
+- **Conséquences** :
+  - Coût d'hébergement réduit à celui du VPS. En contrepartie, l'exploitant gère les mises à
+    jour des images, les sauvegardes hors du serveur et la surveillance (`docs/deployment.md`).
+  - Répétition complète en local sur Docker Desktop (domaine `localhost`) : 9 migrations, HTTPS,
+    8 vérifications vertes, connexion par code reçu par e-mail, profil et compte, Studio,
+    avertissement de rétention unique puis suppression, sauvegarde puis restauration, retour
+    arrière, retour automatique quand une variable manque.
+  - Les migrations doivent rester compatibles avec la version précédente du site : le retour
+    arrière ne les défait pas.
+  - Mesure Lighthouse à refaire sur le domaine : pas de CDN ; HTTP/2 et HTTP/3, compression
+    zstd/gzip par Caddy.
+- **Impact** : technique (fort), coût (baisse), exploitation (charge reportée sur l'exploitant).
+
+---
+
 ## ADR-037 — Référencement, politique de sécurité du contenu et performance (Inc-12)
 
 - **Date** : 24/11/2026
@@ -822,7 +894,7 @@
 ## ADR-014 — Tâches planifiées : pg_cron et Vercel Cron
 
 - **Date** : 23/11/2026
-- **Statut** : Accepté
+- **Statut** : Accepté ; Vercel Cron remplacé par le cron du VPS (ADR-038)
 - **Décideur** : Claude (rôle : solution-architect)
 - **Contexte** : remise mensuelle des crédits (y compris en annuel) et rétention des comptes.
 - **Décision** : `pg_cron` toutes les heures pour `run_monthly_grants()` (SQL pur, identique en

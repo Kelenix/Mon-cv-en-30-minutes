@@ -4,6 +4,24 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Inc-13 : mise en production
+
+- Mise en ligne sur un VPS Hostinger, tout dans Docker : site, base de données et
+  authentification Supabase, HTTPS automatique (Caddy) ; pas-à-pas complet dans
+  `docs/deployment.md`.
+- Déploiement en une commande, ou automatique après une CI verte sur `main`, avec vérifications
+  et retour automatique à la version précédente en cas d'échec ; retour arrière en une minute.
+- Sauvegarde des données chaque nuit (14 jours) et restauration testée ; administration de la
+  base par tunnel SSH.
+- Suppression des comptes inactifs depuis 3 ans (US-40) : e-mail d'avertissement 30 jours avant,
+  dans la langue du compte, annulée par une simple connexion ; jamais pour un abonné.
+
+### Modifié — Inc-13
+
+- Politique de confidentialité et mentions légales : Hostinger héberge le site et les données,
+  dans l'Union européenne, et Resend envoie les e-mails (5 langues).
+- Le site de production refuse de démarrer si une variable obligatoire manque, et l'indique.
+
 ### Ajouté — Inc-12 : finitions
 
 - Référencement : aperçu de partage illustré dans chaque langue, données structurées (site,
