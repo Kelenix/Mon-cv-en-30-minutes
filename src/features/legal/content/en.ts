@@ -172,7 +172,8 @@ export const en: LegalContent = {
             "Providing the service and managing your account, credits and subscriptions: performance of the contract.",
             "Invoicing and accounting obligations: legal obligation.",
             "Abuse prevention and monitoring of service costs: legitimate interest.",
-            "Internal visit statistics (referring site or campaign, country), anonymous, without cookies and not linked to your account: legitimate interest.",
+            "Internal visit and origin statistics (referring site or campaign, country, number of sign-ups, CVs and purchases per origin), anonymous and not linked to your account: legitimate interest.",
+            "Referrals: the link between your account and your referrer's, to give each of you the promised credits: performance of the contract. Your referrer only sees the number of accounts created with their link, never your identity.",
             "Personalised advertising for users without a subscription: consent, which you can withdraw at any time.",
           ],
         },
@@ -181,7 +182,7 @@ export const en: LegalContent = {
           paragraphs: [
             "Account data, CVs and generated content are kept until the account is deleted, or for three years of inactivity; you will be notified by email thirty days before automatic deletion.",
             "The hashed IP address is erased after thirty days, and technical payment events after ninety days. Invoices are kept by Stripe for the period required by law.",
-            "After an account is deleted, only the amount and date of payments and the cost of operations are kept, with no link to you, for accounting and statistics. Visit statistics are kept for twenty-five months.",
+            "After an account is deleted, only the amount and date of payments and the cost of operations are kept, with no link to you, for accounting and statistics. Visit statistics are kept for twenty-five months; the origin of a payment is erased as soon as it is counted, after two days at the latest.",
             "Before you create your account, your answers to the five questions are stored only in your browser, then erased as soon as your CV is saved.",
           ],
         },
@@ -239,6 +240,13 @@ export const en: LegalContent = {
           title: "Strictly necessary cookies",
           paragraphs: [
             "These cookies are essential for the website to work and do not require consent: your account login session, remembering your chosen language (for up to one year), security.",
+          ],
+        },
+        {
+          title: "Audience measurement and invitation cookies",
+          paragraphs: [
+            "The “cv30_arrivee” cookie keeps, for 30 days, the site or campaign you came from, to count sign-ups, CVs and purchases per origin anonymously. It is only read by our website, is only used for these statistics and is never linked to your account: it is exempt from consent. It is not set if your browser sends a “Do Not Track” or “Global Privacy Control” signal.",
+            "The “cv30_parrain” cookie is only set if you accept an invitation: it keeps it for 30 days, while you create your account, and is then erased.",
           ],
         },
         {

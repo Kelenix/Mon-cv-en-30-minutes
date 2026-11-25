@@ -172,7 +172,8 @@ export const it: LegalContent = {
             "Fornire il servizio, gestire il Suo account, i Suoi crediti e i Suoi abbonamenti: esecuzione del contratto.",
             "Fatturazione e obblighi contabili: obbligo di legge.",
             "Prevenzione degli abusi e monitoraggio dei costi del servizio: legittimo interesse.",
-            "Statistiche interne sulle visite (sito o campagna di provenienza, paese), anonime, senza cookie e senza collegamento al Suo account: legittimo interesse.",
+            "Statistiche interne sulle visite e sulla provenienza (sito o campagna di provenienza, paese, numero di iscrizioni, CV e acquisti per provenienza), anonime e senza collegamento al Suo account: legittimo interesse.",
+            "Inviti: collegamento tra il Suo account e quello di chi La ha invitata, per accreditare a ciascuno i crediti promessi: esecuzione del contratto. Chi La ha invitata vede solo il numero di account creati con il suo link, mai la Sua identità.",
             "Pubblicità personalizzata per gli utenti senza abbonamento: consenso, che può revocare in qualsiasi momento.",
           ],
         },
@@ -181,7 +182,7 @@ export const it: LegalContent = {
           paragraphs: [
             "I dati dell'account, i CV e i contenuti generati sono conservati fino alla cancellazione dell'account, oppure per tre anni di inattività; un'e-mail La avvisa trenta giorni prima della cancellazione automatica.",
             "L'indirizzo IP sottoposto a hash viene cancellato dopo trenta giorni; gli eventi tecnici di pagamento dopo novanta giorni. Le fatture sono conservate da Stripe per la durata prevista dalla legge.",
-            "Dopo la cancellazione di un account, vengono conservati solo l'importo e la data dei pagamenti e il costo delle operazioni, senza alcun collegamento con Lei, a fini contabili e statistici. Le statistiche sulle visite sono conservate per venticinque mesi.",
+            "Dopo la cancellazione di un account, vengono conservati solo l'importo e la data dei pagamenti e il costo delle operazioni, senza alcun collegamento con Lei, a fini contabili e statistici. Le statistiche sulle visite sono conservate per venticinque mesi; la provenienza di un pagamento viene cancellata appena è conteggiato, al più tardi dopo due giorni.",
             "Prima della creazione del Suo account, le Sue risposte alle cinque domande sono salvate esclusivamente nel Suo browser e vengono cancellate non appena il Suo CV viene salvato.",
           ],
         },
@@ -239,6 +240,13 @@ export const it: LegalContent = {
           title: "Cookie strettamente necessari",
           paragraphs: [
             "Questi cookie sono indispensabili al funzionamento del sito e non richiedono il consenso: sessione di accesso al Suo account, memorizzazione della lingua scelta (per un massimo di un anno), sicurezza.",
+          ],
+        },
+        {
+          title: "Cookie di misurazione dell'audience e di invito",
+          paragraphs: [
+            "Il cookie «cv30_arrivee» conserva per 30 giorni il sito o la campagna da cui è arrivato, per contare in modo anonimo iscrizioni, CV e acquisti per provenienza. È letto solo dal nostro sito, serve solo a queste statistiche e non è mai collegato al Suo account: è esente dal consenso. Non viene installato se il Suo browser invia il segnale «Do Not Track» o «Global Privacy Control».",
+            "Il cookie «cv30_parrain» viene installato solo se accetta un invito: lo conserva per 30 giorni, il tempo di creare il Suo account, poi viene cancellato.",
           ],
         },
         {

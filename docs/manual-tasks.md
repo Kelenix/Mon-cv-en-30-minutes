@@ -421,3 +421,25 @@
 - **Coût** : gratuit.
 - **Vérification** : `/admin` affiche la vue d'ensemble ; avec un autre compte, la page est
   introuvable.
+
+## Tâche 18 : Faire connaître le site (acquisition)
+- **Pourquoi** : le site est prêt ; il faut maintenant des visiteurs. Plan complet, chiffres et
+  calendrier : `docs/acquisition.md` (ADR-052).
+- **Quand** : dès maintenant, puis chaque semaine.
+- **Une fois** :
+  1. Créer les comptes de la marque, avec le même nom partout : TikTok, Instagram, YouTube,
+     page LinkedIn, page Facebook (1 h).
+  2. Inscrire le site dans les annuaires avec les textes du kit de lancement (environ 15 sites,
+     3 h). Le kit est préparé par Claude dans `docs/launch-kit/`.
+  3. Lancer sur Product Hunt un mardi, mercredi ou jeudi, en prévenant ton réseau la veille.
+  4. Ouvrir un profil Trustpilot, puis demander un avis aux premiers utilisateurs contents.
+- **Chaque semaine** :
+  - 3 vidéos courtes avec les scripts fournis : ta voix ou ton visage marchent mieux qu'une
+    publicité (2 h) ;
+  - 2 posts LinkedIn personnels qui racontent la construction du site (1 h) ;
+  - 3 partages utiles dans des groupes qui l'autorisent : aider d'abord, le lien ensuite (1 h) ;
+  - 10 e-mails de partenariat (missions locales, écoles, associations) avec le modèle fourni,
+    relance à 7 jours (1 h).
+- **Coût** : gratuit. Aucune publicité payante pour l'instant (ADR-052).
+- **Vérification** : le tableau « Provenance » de l'administration montre des visites, des
+  comptes et des achats par canal.

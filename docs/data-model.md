@@ -182,6 +182,27 @@ CV lui appartienne. Jamais envoyée à l'IA.
 
 Purgée après 90 jours.
 
+### `referrals` (u) — parrainage (ADR-052)
+| Colonne | Type | Contraintes |
+|---------|------|-------------|
+| `referee_id` | uuid | PK, FK `profiles` `on delete cascade` (un parrain au plus par compte) |
+| `referrer_id` | uuid | not null, FK `profiles` `on delete cascade`, différent de `referee_id` |
+| `created_at` | timestamptz | not null |
+| `rewarded_at` | timestamptz | null (premier CV du filleul) |
+| `referrer_rewarded` | boolean | not null (faux au-delà du plafond mensuel) |
+
+RLS : le parrain lit ses lignes (sans l'identité des filleuls) ; écriture par les seules fonctions
+`attach_referral` et `reward_referral`. Profils : `referral_code` (8 caractères, unique, créé à
+la demande par `ensure_referral_code`), `free_letter_used_at` (lettre offerte) et
+`first_sign_in_at` (inscription comptée une fois), aucun modifiable par le compte.
+
+### `acquisition_counts` et `acquisition_checkouts` — provenance (ADR-052)
+Compteurs par jour, canal, source et évènement (`signup`, `cv`, `trial`, `purchase`), avec le
+montant des achats, gardés 25 mois ; aucun lien avec un compte. `acquisition_checkouts` garde la
+provenance d'un paiement le temps qu'il soit confirmé (2 jours au plus). Aucun privilège pour les
+visiteurs ni les comptes ; écriture par `record_acquisition` et `record_acquisition_checkout`,
+lecture par `admin_acquisition`.
+
 ### `reward_tokens` — vidéos récompensées (Inc-11)
 | Colonne | Type | Contraintes |
 |---------|------|-------------|
@@ -286,6 +307,7 @@ Les contraintes `unique` (`stripe_checkout_session_id`, `provider_subscription_i
 | Inc-10 | `cv_history` | Remplacement d'un CV permis au-delà du plafond (ancien abonné Pro) |
 | Inc-9 | `interview` | Coût nul accepté par `begin_ai_operation`, `complete_interview_feedback`, correction directe limitée à LinkedIn et lettre |
 | Inc-11 | `ads` | `reward_tokens`, `rewarded_credits_today`, `issue_reward_token`, `redeem_reward_token`, purge dans `run_daily_maintenance` |
+| Acquisition | `acquisition` | `acquisition_counts`, `acquisition_checkouts`, `referrals`, colonnes de profil (`first_sign_in_at`, `free_letter_used_at`, `referral_code`), raison `referral`, fonctions de parrainage et de provenance, `admin_acquisition`, purges dans `run_daily_maintenance` (ADR-052) |
 
 Chaque migration est rejouable depuis zéro (`npm run db:reset`) et vérifiée en CI.
 

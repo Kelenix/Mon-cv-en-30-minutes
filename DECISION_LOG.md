@@ -6,6 +6,64 @@
 
 ---
 
+## ADR-052 — Plan d'acquisition : mesure par canal, lettre offerte, parrainage, contenus
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté. Les 4 choix de l'utilisateur sont pris parmi les options présentées.
+- **Décideurs** : l'utilisateur (offre et budget) et Claude (rôles : produit, SEO, sécurité).
+- **Contexte** : le site est en ligne ; il faut maintenant des utilisateurs. Plan complet,
+  mots-clés et calendrier : `docs/acquisition.md`.
+- **Décisions de l'utilisateur** :
+  - parrainage : 5 crédits pour le parrain et 5 pour le filleul, quand le filleul crée son
+    premier CV ;
+  - une lettre de motivation offerte par compte, sans formule ;
+  - aucune publicité payante pour l'instant, avec une proposition chiffrée vers la semaine 8 ;
+  - France d'abord, les autres langues selon les résultats de Search Console.
+- **Décisions de Claude** :
+  - **Mesure par canal sans recoupement avec les comptes** :
+    - un cookie propriétaire `cv30_arrivee` garde le canal et la source de la première arrivée,
+      pendant 30 jours ;
+    - il ne sert qu'à des compteurs par jour, canal et source : inscriptions, CV créés, essais
+      et achats ;
+    - la source n'est jamais enregistrée sur le compte. Pour un paiement, elle est gardée le
+      temps du paiement, puis effacée dès qu'il est compté (2 jours au plus) ;
+    - c'est le cadre de la mesure d'audience exemptée de consentement par la CNIL, déclaré dans
+      la page Cookies.
+  - **Parrainage** :
+    - le lien d'invitation ouvre une page dédiée. Le cookie `cv30_parrain` n'est posé que quand
+      le visiteur accepte l'invitation, car c'est le service qu'il demande ;
+    - garde-fous :
+      - récompense seulement pour un compte neuf ;
+      - jamais pour soi-même ;
+      - plafond de 20 filleuls récompensés par mois et par parrain ;
+      - versée une seule fois, au premier CV créé.
+  - **Lettre offerte** :
+    - même fonctionnement que le premier CV gratuit, avec la date d'usage sur le profil ;
+    - les plafonds IA par minute et la protection anti-robots restent en place.
+- **Alternatives écartées** :
+  - garder la source sur le compte : recoupement avec un fichier client, donc hors exemption ;
+  - outil d'analyse tiers : cookies tiers et bandeau de consentement ;
+  - publicité payante dès maintenant : on ne sait pas encore ce que rapporte un visiteur.
+- **Mise en œuvre (25/11/2026)** :
+  - rubrique « Conseils » : 22 articles en français. Le premier sert de modèle ; les 21 autres
+    sont rédigés par trois agents, avec les faits vérifiés sur les sites officiels. Un test
+    unitaire contrôle les longueurs Google, l'absence de tiret long et les liens internes ;
+  - l'article Parcoursup propose de créer son CV, pas de faire rédiger la lettre par l'IA :
+    Parcoursup demande de ne pas utiliser ce type d'outil ;
+  - test ATS gratuit dans les 5 langues : sans IA ni stockage, 30 analyses par heure et par
+    adresse IP ;
+  - `llms.txt` pour les assistants IA ; kit de lancement dans `docs/launch-kit/` ;
+  - à revoir plus tard : pour la Suisse romande, le modèle « européen » serait peut-être plus
+    parlant que « Lebenslauf » en tête des modèles conseillés (ADR-050).
+- **Conséquences** :
+  - un achat dont le paiement dure plus de 2 jours n'est pas attribué ;
+  - un visiteur qui refuse les cookies est compté en « direct » ;
+  - les pages Cookies et Confidentialité sont complétées dans les 5 langues.
+- **Impact** : métier (élevé), financier (5 crédits par parrainage ; une lettre offerte coûte
+  quelques centimes d'IA), légal (moyen, couvert par l'exemption CNIL).
+
+---
+
 ## ADR-051 — Mesure des outils IA avec l'IA réelle (US-25 à US-30, NFR-02)
 
 - **Date** : 25/11/2026

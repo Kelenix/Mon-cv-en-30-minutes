@@ -27,6 +27,8 @@
   --accent: #e6f0ff;
   --accent-foreground: #0b1f3a;
   --success: #1b7f3b;
+  /* Avertissement lisible sur fond blanc (contraste 5:1) : le jaune de la marque ne l'est pas. */
+  --warning: #b45309;
   --destructive: #c62828;
   --border: #d6e2f5;
   --input: #7a8ca8;
@@ -63,6 +65,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-success: var(--success);
+  --color-warning: var(--warning);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
   --color-input: var(--input);

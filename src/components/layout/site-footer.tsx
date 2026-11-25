@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import logoBadgeFr from "@/assets/brand/logo-badge-fr.png";
+import { GUIDE_LOCALES } from "@/features/guides/catalog";
 import { Link } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import { LanguageSwitcher } from "./language-switcher";
@@ -9,6 +10,8 @@ import { LanguageSwitcher } from "./language-switcher";
 const FOOTER_LINKS = [
   { href: "/tarifs", label: "pricing" },
   { href: "/modeles", label: "templates" },
+  { href: "/conseils", label: "guides" },
+  { href: "/test-cv-ats", label: "atsCheck" },
   { href: "/mentions-legales", label: "legalNotice" },
   { href: "/cgv", label: "terms" },
   { href: "/confidentialite", label: "privacy" },
@@ -37,7 +40,11 @@ export function SiteFooter({ cookieChoices }: { cookieChoices?: ReactNode }) {
         <div className="flex flex-col gap-4 md:mr-auto">
           <nav aria-label={t("nav.legal")}>
             <ul className="flex flex-wrap gap-x-6 gap-y-2">
-              {FOOTER_LINKS.map((link) => (
+              {FOOTER_LINKS.filter(
+                // Rubrique « Conseils » : seulement dans les langues qui ont des articles.
+                (link) =>
+                  link.href !== "/conseils" || GUIDE_LOCALES.includes(locale),
+              ).map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

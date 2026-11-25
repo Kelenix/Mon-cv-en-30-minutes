@@ -228,7 +228,7 @@ export function InterviewTool({
                       !answers.some((value) => value.trim())
                     }
                     aria-busy={review.pending || undefined}
-                    className="justify-self-start"
+                    className="h-auto min-h-13 max-w-full justify-self-start py-3 text-center whitespace-normal"
                   >
                     <MessageSquareTextIcon aria-hidden="true" />
                     {review.pending ? t("reviewPending") : t("review")}

@@ -48,3 +48,6 @@ next-env.d.ts
 
 # Journal des versions mises en ligne sur le VPS (deploy/scripts/deploy.sh)
 deploy/.deployments
+
+# Vidéos de démonstration (scripts/demo-video.mjs) : fichiers lourds, gardés en local.
+docs/launch-kit/videos/

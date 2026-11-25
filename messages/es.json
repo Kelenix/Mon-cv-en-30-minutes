@@ -37,7 +37,9 @@
     "myCvs": "Mis CV",
     "admin": "Administración",
     "menu": "Menú",
-    "templates": "Plantillas de CV"
+    "templates": "Plantillas de CV",
+    "guides": "Consejos",
+    "atsCheck": "Test ATS gratis"
   },
   "home": {
     "eyebrow": "Optimizado para el software de selección (ATS)",
@@ -208,6 +210,130 @@
     "intro": "Un CV no se presenta igual en Madrid, en Berlín o en Nueva York. Elige el país de destino: las plantillas que se usan allí aparecen primero. Tu contenido no cambia y puedes cambiar de plantilla cuando quieras.",
     "choose": "Elige una plantilla y responde a 5 preguntas: tu CV se creará con ella."
   },
+  "guides": {
+    "nav": "Consejos",
+    "metaTitle": "Consejos para tu CV y carta de presentación",
+    "metaDescription": "Ejemplos de cartas de presentación y de CV, con consejos por situación, profesión y país para tu candidatura.",
+    "title": "Consejos para tu CV y tu carta de presentación",
+    "intro": "Ejemplos completos y consejos concretos, por situación, profesión y país. Lee, adapta y crea tu CV en 30 segundos.",
+    "categories": {
+      "letter": "Cartas de presentación",
+      "cv": "CV por situación y profesión",
+      "country": "CV por país"
+    },
+    "breadcrumb": "Ruta de navegación",
+    "home": "Inicio",
+    "updated": "Actualizado el {date}",
+    "toc": "Índice",
+    "related": "Lee también",
+    "faq": "Preguntas frecuentes",
+    "tip": "Consejo",
+    "copyExample": "Copiar el ejemplo",
+    "cta": {
+      "letterTitle": "Tu carta en 30 segundos",
+      "letterText": "Responde a 5 preguntas para crear tu CV gratis y la IA redacta tu carta a partir de tu CV, sin inventar nada. La primera carta es gratis.",
+      "cvTitle": "Tu CV listo en 30 segundos",
+      "cvText": "Responde a 5 preguntas: la IA da formato a tu CV sin inventar nada. Gratis, sin tarjeta bancaria.",
+      "button": "Crear mi CV gratis"
+    }
+  },
+  "atsCheck": {
+    "metaTitle": "Test ATS gratis para tu CV",
+    "metaDescription": "Comprueba gratis si tu CV es legible para los programas de selección (ATS): nota sobre 100 y puntos que corregir, sin registro.",
+    "title": "Test ATS gratis: ¿pueden leer tu CV los programas de selección?",
+    "intro": "Muchas empresas filtran las candidaturas con un programa (ATS). Sube tu CV en PDF: obtienes una nota sobre 100 y la lista de puntos que corregir.",
+    "privacy": "Tu archivo se lee durante el análisis y después se olvida: no se guarda ni se envía a una IA. No hace falta cuenta.",
+    "choose": "Elegir mi CV (PDF)",
+    "hint": "o suéltalo aquí · PDF de 5 MB como máximo",
+    "analyzing": "Analizando…",
+    "again": "Probar otro CV",
+    "score": "Puntuación ATS",
+    "scoreValue": "{score}/100",
+    "verdict": {
+      "good": "Los programas de selección leen bien tu CV.",
+      "ok": "Tu CV es legible, pero algunas correcciones mejorarían tus posibilidades.",
+      "low": "Los programas de selección podrían leer mal tu CV: corrige primero los puntos en rojo."
+    },
+    "status": {
+      "pass": "Correcto",
+      "warn": "Mejorable",
+      "fail": "Por corregir"
+    },
+    "errors": {
+      "NOT_PDF": "Este archivo no es un PDF. Guarda tu CV en formato PDF y vuelve a intentarlo.",
+      "TOO_LARGE": "Este archivo supera los 5 MB. Guarda tu CV en un PDF más ligero.",
+      "UNREADABLE": "No se ha podido leer este PDF: quizá esté protegido con contraseña o dañado.",
+      "RATE_LIMITED": "Has hecho muchas pruebas en poco tiempo. Vuelve a intentarlo dentro de una hora.",
+      "generic": "El análisis no ha terminado. Vuelve a intentarlo en un momento."
+    },
+    "checks": {
+      "readable": {
+        "pass": "Un programa puede leer el texto de tu CV.",
+        "fail": "No hay texto legible: tu CV parece una imagen o un escaneo. Un programa de selección no leerá nada, así que créalo de nuevo con texto real."
+      },
+      "email": {
+        "pass": "Correo electrónico encontrado.",
+        "fail": "No se ha encontrado ningún correo: añádelo arriba en tu CV, como texto (no en una imagen)."
+      },
+      "phone": {
+        "pass": "Número de teléfono encontrado.",
+        "warn": "No se ha encontrado ningún teléfono: añádelo para que puedan llamarte."
+      },
+      "experience": {
+        "pass": "Sección «Experiencia» encontrada.",
+        "fail": "No se encuentra la sección «Experiencia»: usa un título sencillo, como «Experiencia laboral»."
+      },
+      "education": {
+        "pass": "Sección «Formación» encontrada.",
+        "fail": "No se encuentra la sección «Formación»: usa un título sencillo, como «Formación»."
+      },
+      "skills": {
+        "pass": "Sección «Competencias» encontrada.",
+        "warn": "No hay sección «Competencias»: añádela con las palabras clave de tu profesión."
+      },
+      "length": {
+        "pass": "Extensión adecuada ({words} palabras).",
+        "warn": "Extensión mejorable ({words} palabras): apunta a entre 200 y 900 palabras.",
+        "fail": "Extensión inadecuada ({words} palabras): apunta a entre 200 y 900 palabras."
+      },
+      "pages": {
+        "pass": "{pages, plural, one {# página} other {# páginas}}: perfecto.",
+        "warn": "3 páginas: es largo, intenta que quepa en 2 páginas.",
+        "fail": "{pages} páginas: demasiado largo, apunta a 1 o 2 páginas."
+      },
+      "dates": {
+        "pass": "Fechas encontradas en tu trayectoria.",
+        "warn": "Pocas fechas: indica el inicio y el fin de cada experiencia y formación."
+      },
+      "results": {
+        "pass": "Las cifras destacan tus logros.",
+        "warn": "Ningún resultado en cifras: cuando puedas, añade números reales (clientes, proyectos, porcentajes)."
+      },
+      "characters": {
+        "pass": "Ningún carácter ilegible.",
+        "warn": "Algunos caracteres son ilegibles (iconos o fuentes decorativas): usa una fuente estándar."
+      }
+    },
+    "aboutTitle": "¿Qué es un ATS?",
+    "aboutText": "Un ATS (Applicant Tracking System) es el programa que recibe las candidaturas en muchas empresas y agencias de selección. Lee el texto de tu CV, lo guarda en una ficha y ayuda al reclutador a encontrar los perfiles que encajan con la oferta. Si lee mal tu CV, tu candidatura puede pasar desapercibida.",
+    "checksTitle": "Qué comprueba el test",
+    "checksText": "El test lee tu CV como lo haría un programa: ¿el texto es legible, se encuentran tus datos de contacto, las secciones principales tienen títulos claros, la extensión y las fechas son adecuadas? No juzga el contenido de tu trayectoria.",
+    "tipsTitle": "Cómo mejorar tu puntuación",
+    "tip1": "Guarda tu CV en PDF desde tu procesador de textos: nunca como foto ni escaneo.",
+    "tip2": "Usa títulos sencillos: «Experiencia laboral», «Formación», «Competencias».",
+    "tip3": "Pon tus datos de contacto como texto en la parte superior, no en un encabezado de imagen.",
+    "tip4": "Retoma las palabras clave de la oferta que de verdad corresponden a tu trayectoria.",
+    "tip5": "Elige una fuente estándar y un diseño sobrio, en una o dos páginas.",
+    "faqTitle": "Preguntas frecuentes",
+    "q1": "¿El test es realmente gratis?",
+    "a1": "Sí, sin registro. Solo se limita el número de análisis por hora, para evitar abusos.",
+    "q2": "¿Se guarda mi CV?",
+    "a2": "No. El archivo se lee durante el análisis y después se olvida: no se guarda ni se envía a una IA.",
+    "q3": "¿Un CV a dos columnas funciona con un ATS?",
+    "a3": "A menudo sí, pero algunos programas mezclan las columnas. Un diseño a una columna, con títulos sencillos, es lo más seguro.",
+    "q4": "¿Una buena nota garantiza una entrevista?",
+    "a4": "No: el test comprueba que tu CV sea legible, no que tu perfil encaje con el puesto. Adapta también tu CV a cada oferta."
+  },
   "auth": {
     "metaTitle": "Iniciar sesión",
     "title": "Inicia sesión para guardar tu CV",
@@ -293,6 +419,29 @@
     "noPlan": "Sin suscripción",
     "totalCredits": "Saldo total",
     "manageCredits": "Créditos, plan y compras"
+  },
+  "invitation": {
+    "metaTitle": "Invitación",
+    "title": "Un amigo te regala {credits} créditos",
+    "subtitle": "Crea tu CV gratis en 30 segundos. Cuando tu primer CV esté listo, cada uno recibe {credits} créditos para adaptarlo a una oferta, escribir una carta o preparar una entrevista.",
+    "accept": "Aceptar y crear mi CV",
+    "cookieNote": "Al aceptar, la invitación se guarda 30 días en una cookie, el tiempo de crear tu cuenta.",
+    "signedIn": "Ya tienes una cuenta: las invitaciones son solo para cuentas nuevas. Puedes invitar a tus amigos desde tu espacio.",
+    "account": "Ir a mi espacio",
+    "unknownTitle": "Invitación no encontrada",
+    "unknown": "Este enlace de invitación ya no es válido, pero puedes crear tu CV gratis en 30 segundos.",
+    "create": "Crear mi CV gratis"
+  },
+  "referral": {
+    "title": "Invita a tus amigos: {credits} créditos cada uno",
+    "text": "Envía tu enlace a alguien que busca trabajo. Cuando su primer CV esté listo, cada uno recibe {credits} créditos.",
+    "copy": "Copiar el enlace",
+    "whatsapp": "WhatsApp",
+    "email": "Correo",
+    "share": "Compartir",
+    "emailSubject": "Tu CV listo en 30 segundos",
+    "message": "Hago mi CV con esta web: es gratis y está listo en 30 segundos. Con mi enlace recibes {credits} créditos de regalo.",
+    "stats": "{invited, plural, =0 {Ningún amigo registrado todavía} one {# amigo registrado con tu enlace} other {# amigos registrados con tu enlace}} · {credits, plural, =0 {ningún crédito ganado} one {# crédito ganado} other {# créditos ganados}}"
   },
   "errors": {
     "UNAUTHENTICATED": "Tu sesión ha caducado. Vuelve a iniciar sesión para continuar.",
@@ -761,6 +910,7 @@
       "postingHint": "Pega la oferta para una carta que responda a lo que se espera del puesto.",
       "language": "Idioma de la carta",
       "generate": "Redactar mi carta ({cost, plural, one {# crédito} other {# créditos}})",
+      "generateOffered": "Redactar mi carta (gratis)",
       "resultTitle": "Tu carta",
       "letter": "Carta de presentación",
       "copy": "Copiar la carta",

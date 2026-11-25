@@ -37,7 +37,9 @@
     "myCvs": "My CVs",
     "admin": "Administration",
     "menu": "Menu",
-    "templates": "CV templates"
+    "templates": "CV templates",
+    "guides": "Guides",
+    "atsCheck": "Free ATS check"
   },
   "home": {
     "eyebrow": "Built for applicant tracking systems (ATS)",
@@ -208,6 +210,130 @@
     "intro": "A CV isn't presented the same way in Paris, Berlin or New York. Choose your target country and the templates expected there appear first. Your content stays the same, and you can switch templates at any time.",
     "choose": "Pick a template, then answer 5 questions: your CV will be created with it."
   },
+  "guides": {
+    "nav": "Guides",
+    "metaTitle": "CV and cover letter guides",
+    "metaDescription": "Cover letter and CV examples, with advice by situation, job and country to help your application succeed.",
+    "title": "Guides for your CV and cover letter",
+    "intro": "Complete examples and practical advice, by situation, job and country. Read, adapt, then create your CV in 30 seconds.",
+    "categories": {
+      "letter": "Cover letters",
+      "cv": "CVs by situation and job",
+      "country": "CVs by country"
+    },
+    "breadcrumb": "Breadcrumb",
+    "home": "Home",
+    "updated": "Updated on {date}",
+    "toc": "Contents",
+    "related": "Read next",
+    "faq": "Frequently asked questions",
+    "tip": "Tip",
+    "copyExample": "Copy the example",
+    "cta": {
+      "letterTitle": "Your cover letter in 30 seconds",
+      "letterText": "Answer 5 questions to create your free CV, then the AI writes your letter from your CV, without making anything up. Your first letter is free.",
+      "cvTitle": "Your CV ready in 30 seconds",
+      "cvText": "Answer 5 questions: the AI formats your CV without making anything up. Free, no credit card needed.",
+      "button": "Create my CV for free"
+    }
+  },
+  "atsCheck": {
+    "metaTitle": "Free ATS check for your CV",
+    "metaDescription": "Check for free whether your CV can be read by applicant tracking systems (ATS): a score out of 100 and what to fix, no sign-up.",
+    "title": "Free ATS check: can recruiters' software read your CV?",
+    "intro": "Many companies sort applications with software (an ATS). Upload your CV as a PDF: you get a score out of 100 and a list of points to fix.",
+    "privacy": "Your file is read during the analysis, then forgotten: it is neither stored nor sent to an AI. No account needed.",
+    "choose": "Choose my CV (PDF)",
+    "hint": "or drop it here · PDF up to 5 MB",
+    "analyzing": "Analysing…",
+    "again": "Check another CV",
+    "score": "ATS score",
+    "scoreValue": "{score}/100",
+    "verdict": {
+      "good": "Your CV is easy for recruitment software to read.",
+      "ok": "Your CV is readable, but a few fixes would improve your chances.",
+      "low": "Recruitment software may misread your CV: fix the points in red first."
+    },
+    "status": {
+      "pass": "Passed",
+      "warn": "To improve",
+      "fail": "To fix"
+    },
+    "errors": {
+      "NOT_PDF": "This file is not a PDF. Save your CV as a PDF, then try again.",
+      "TOO_LARGE": "This file is larger than 5 MB. Save your CV as a lighter PDF.",
+      "UNREADABLE": "This PDF could not be read: it may be password-protected or damaged.",
+      "RATE_LIMITED": "You have run many checks in a short time. Try again in an hour.",
+      "generic": "The analysis did not complete. Try again in a moment."
+    },
+    "checks": {
+      "readable": {
+        "pass": "Your CV's text can be read by software.",
+        "fail": "No readable text: your CV seems to be an image or a scan. Recruitment software will read nothing, so recreate it with real text."
+      },
+      "email": {
+        "pass": "Email address found.",
+        "fail": "No email address found: add it at the top of your CV, as text (not in an image)."
+      },
+      "phone": {
+        "pass": "Phone number found.",
+        "warn": "No phone number found: add it so recruiters can call you back."
+      },
+      "experience": {
+        "pass": "“Experience” section found.",
+        "fail": "No “Experience” section found: use a simple heading such as “Work experience”."
+      },
+      "education": {
+        "pass": "“Education” section found.",
+        "fail": "No “Education” section found: use a simple heading such as “Education”."
+      },
+      "skills": {
+        "pass": "“Skills” section found.",
+        "warn": "No “Skills” section: add one with the keywords of your job."
+      },
+      "length": {
+        "pass": "Good length ({words} words).",
+        "warn": "Length to review ({words} words): aim for 200 to 900 words.",
+        "fail": "Unsuitable length ({words} words): aim for 200 to 900 words."
+      },
+      "pages": {
+        "pass": "{pages, plural, one {# page} other {# pages}}: perfect.",
+        "warn": "3 pages: that's long, try to fit it on 2 pages.",
+        "fail": "{pages} pages: far too long, aim for 1 or 2 pages."
+      },
+      "dates": {
+        "pass": "Dates found in your history.",
+        "warn": "Few dates: give the start and end of each job and course."
+      },
+      "results": {
+        "pass": "Figures highlight your achievements.",
+        "warn": "No figures: when you can, add real numbers (clients, projects, percentages)."
+      },
+      "characters": {
+        "pass": "No unreadable characters.",
+        "warn": "Some characters cannot be read (icons or decorative fonts): use a standard font."
+      }
+    },
+    "aboutTitle": "What is an ATS?",
+    "aboutText": "An ATS (Applicant Tracking System) is the software that receives applications at many companies and recruitment agencies. It reads the text of your CV, files it in a profile and helps the recruiter find candidates who match the job. If it misreads your CV, your application can go unnoticed.",
+    "checksTitle": "What the check looks at",
+    "checksText": "The check reads your CV the way software would: is the text readable, are your contact details found, do the main sections have clear headings, are the length and dates suitable? It does not judge the content of your experience.",
+    "tipsTitle": "How to improve your score",
+    "tip1": "Save your CV as a PDF from your word processor: never as a photo or scan.",
+    "tip2": "Keep simple headings: “Work experience”, “Education”, “Skills”.",
+    "tip3": "Put your contact details as text at the top of the page, not in an image header.",
+    "tip4": "Reuse the keywords from the job ad that truly match your experience.",
+    "tip5": "Choose a standard font and a clean layout, on one or two pages.",
+    "faqTitle": "Frequently asked questions",
+    "q1": "Is the check really free?",
+    "a1": "Yes, with no sign-up. Only the number of checks per hour is limited, to prevent abuse.",
+    "q2": "Is my CV stored?",
+    "a2": "No. The file is read during the analysis, then forgotten: it is neither stored nor sent to an AI.",
+    "q3": "Does a two-column CV work with an ATS?",
+    "a3": "Often yes, but some software mixes up the columns. A single-column layout with simple headings is the safest.",
+    "q4": "Does a good score guarantee an interview?",
+    "a4": "No: the check makes sure your CV is readable, not that your profile matches the job. Tailor your CV to each job ad too."
+  },
   "auth": {
     "metaTitle": "Sign in",
     "title": "Sign in to save your CV",
@@ -293,6 +419,29 @@
     "noPlan": "No subscription",
     "totalCredits": "Total balance",
     "manageCredits": "Credits, plan and purchases"
+  },
+  "invitation": {
+    "metaTitle": "Invitation",
+    "title": "A friend is giving you {credits} credits",
+    "subtitle": "Create your CV for free in 30 seconds. When your first CV is ready, you each get {credits} credits to tailor it to a job ad, write a cover letter or prepare for an interview.",
+    "accept": "Accept and create my CV",
+    "cookieNote": "When you accept, the invitation is kept in a cookie for 30 days, while you create your account.",
+    "signedIn": "You already have an account: invitations are for new accounts only. You can invite your friends from your account.",
+    "account": "Go to my account",
+    "unknownTitle": "Invitation not found",
+    "unknown": "This invitation link is no longer valid, but you can still create your CV for free in 30 seconds.",
+    "create": "Create my CV for free"
+  },
+  "referral": {
+    "title": "Invite your friends: {credits} credits each",
+    "text": "Send your link to someone who is looking for a job. When their first CV is ready, you each get {credits} credits.",
+    "copy": "Copy link",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "share": "Share",
+    "emailSubject": "Your CV ready in 30 seconds",
+    "message": "I make my CV with this site: it's free and ready in 30 seconds. With my link, you get {credits} free credits.",
+    "stats": "{invited, plural, =0 {No friends signed up yet} one {# friend signed up with your link} other {# friends signed up with your link}} · {credits, plural, =0 {no credits earned} one {# credit earned} other {# credits earned}}"
   },
   "errors": {
     "UNAUTHENTICATED": "Your session has expired. Sign in again to continue.",
@@ -761,6 +910,7 @@
       "postingHint": "Paste the posting to get a letter that matches what the employer is looking for.",
       "language": "Language of the letter",
       "generate": "Write my letter ({cost, plural, one {# credit} other {# credits}})",
+      "generateOffered": "Write my letter (free)",
       "resultTitle": "Your letter",
       "letter": "Cover letter",
       "copy": "Copy the letter",

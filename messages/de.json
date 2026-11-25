@@ -37,7 +37,9 @@
     "myCvs": "Lebensläufe",
     "admin": "Verwaltung",
     "menu": "Menü",
-    "templates": "Lebenslauf-Vorlagen"
+    "templates": "Lebenslauf-Vorlagen",
+    "guides": "Ratgeber",
+    "atsCheck": "Kostenloser ATS-Check"
   },
   "home": {
     "eyebrow": "Optimiert für Bewerbermanagementsysteme (ATS)",
@@ -208,6 +210,130 @@
     "intro": "Ein Lebenslauf sieht in Berlin anders aus als in Paris oder New York. Wähle dein Zielland: Die dort üblichen Vorlagen erscheinen zuerst. Dein Inhalt bleibt gleich, und du kannst die Vorlage jederzeit wechseln.",
     "choose": "Wähle eine Vorlage und beantworte dann 5 Fragen: Dein Lebenslauf wird mit dieser Vorlage erstellt."
   },
+  "guides": {
+    "nav": "Ratgeber",
+    "metaTitle": "Ratgeber für Lebenslauf und Anschreiben",
+    "metaDescription": "Beispiele für Anschreiben und Lebensläufe, mit Tipps nach Situation, Beruf und Land für deine Bewerbung.",
+    "title": "Ratgeber für deinen Lebenslauf und dein Anschreiben",
+    "intro": "Vollständige Beispiele und konkrete Tipps nach Situation, Beruf und Land. Lies, passe an und erstelle dann deinen Lebenslauf in 30 Sekunden.",
+    "categories": {
+      "letter": "Anschreiben",
+      "cv": "Lebenslauf nach Situation und Beruf",
+      "country": "Lebenslauf nach Land"
+    },
+    "breadcrumb": "Brotkrümelnavigation",
+    "home": "Startseite",
+    "updated": "Aktualisiert am {date}",
+    "toc": "Inhalt",
+    "related": "Weiterlesen",
+    "faq": "Häufige Fragen",
+    "tip": "Tipp",
+    "copyExample": "Kopieren: Beispiel",
+    "cta": {
+      "letterTitle": "Dein Anschreiben in 30 Sekunden",
+      "letterText": "Beantworte 5 Fragen, um deinen Lebenslauf kostenlos zu erstellen. Dann schreibt die KI dein Anschreiben auf Grundlage deines Lebenslaufs, ohne etwas zu erfinden. Dein erstes Anschreiben ist geschenkt.",
+      "cvTitle": "Dein Lebenslauf in 30 Sekunden",
+      "cvText": "Beantworte 5 Fragen: Die KI gestaltet deinen Lebenslauf, ohne etwas zu erfinden. Kostenlos, ohne Kreditkarte.",
+      "button": "Lebenslauf kostenlos erstellen"
+    }
+  },
+  "atsCheck": {
+    "metaTitle": "Kostenloser ATS-Check für deinen Lebenslauf",
+    "metaDescription": "Prüfe kostenlos, ob Bewerbermanagement-Systeme (ATS) deinen Lebenslauf lesen können: Punktzahl von 100 und Verbesserungen, ohne Anmeldung.",
+    "title": "Kostenloser ATS-Check: Kann Recruiting-Software deinen Lebenslauf lesen?",
+    "intro": "Viele Unternehmen sortieren Bewerbungen mit einer Software (ATS). Lade deinen Lebenslauf als PDF hoch: Du erhältst eine Punktzahl von 100 und eine Liste der Punkte, die du verbessern solltest.",
+    "privacy": "Deine Datei wird nur für die Analyse gelesen und danach vergessen: Sie wird weder gespeichert noch an eine KI gesendet. Kein Konto nötig.",
+    "choose": "Meinen Lebenslauf wählen (PDF)",
+    "hint": "oder hier ablegen · PDF bis 5 MB",
+    "analyzing": "Analyse läuft…",
+    "again": "Anderen Lebenslauf prüfen",
+    "score": "ATS-Punktzahl",
+    "scoreValue": "{score}/100",
+    "verdict": {
+      "good": "Recruiting-Software kann deinen Lebenslauf gut lesen.",
+      "ok": "Dein Lebenslauf ist lesbar, aber einige Korrekturen würden deine Chancen erhöhen.",
+      "low": "Recruiting-Software könnte deinen Lebenslauf falsch lesen: Korrigiere zuerst die roten Punkte."
+    },
+    "status": {
+      "pass": "Bestanden",
+      "warn": "Verbesserbar",
+      "fail": "Korrigieren"
+    },
+    "errors": {
+      "NOT_PDF": "Diese Datei ist kein PDF. Speichere deinen Lebenslauf als PDF und versuche es erneut.",
+      "TOO_LARGE": "Diese Datei ist größer als 5 MB. Speichere deinen Lebenslauf als kleineres PDF.",
+      "UNREADABLE": "Dieses PDF konnte nicht gelesen werden: Es ist vielleicht passwortgeschützt oder beschädigt.",
+      "RATE_LIMITED": "Du hast in kurzer Zeit viele Prüfungen gemacht. Versuche es in einer Stunde erneut.",
+      "generic": "Die Analyse ist fehlgeschlagen. Versuche es gleich noch einmal."
+    },
+    "checks": {
+      "readable": {
+        "pass": "Der Text deines Lebenslaufs ist maschinenlesbar.",
+        "fail": "Kein lesbarer Text: Dein Lebenslauf scheint ein Bild oder Scan zu sein. Recruiting-Software liest davon nichts, erstelle ihn mit echtem Text neu."
+      },
+      "email": {
+        "pass": "E-Mail-Adresse gefunden.",
+        "fail": "Keine E-Mail-Adresse gefunden: Füge sie oben in deinem Lebenslauf als Text ein (nicht in einem Bild)."
+      },
+      "phone": {
+        "pass": "Telefonnummer gefunden.",
+        "warn": "Keine Telefonnummer gefunden: Füge sie hinzu, damit man dich zurückrufen kann."
+      },
+      "experience": {
+        "pass": "Abschnitt „Berufserfahrung“ gefunden.",
+        "fail": "Kein Abschnitt „Berufserfahrung“ gefunden: Verwende eine einfache Überschrift wie „Berufserfahrung“."
+      },
+      "education": {
+        "pass": "Abschnitt „Ausbildung“ gefunden.",
+        "fail": "Kein Abschnitt „Ausbildung“ gefunden: Verwende eine einfache Überschrift wie „Ausbildung“."
+      },
+      "skills": {
+        "pass": "Abschnitt „Kenntnisse“ gefunden.",
+        "warn": "Kein Abschnitt „Kenntnisse“: Füge ihn mit den Schlüsselbegriffen deines Berufs hinzu."
+      },
+      "length": {
+        "pass": "Passende Länge ({words} Wörter).",
+        "warn": "Länge prüfen ({words} Wörter): Ziel sind 200 bis 900 Wörter.",
+        "fail": "Ungeeignete Länge ({words} Wörter): Ziel sind 200 bis 900 Wörter."
+      },
+      "pages": {
+        "pass": "{pages, plural, one {# Seite} other {# Seiten}}: perfekt.",
+        "warn": "3 Seiten: Das ist lang, versuche es auf 2 Seiten zu kürzen.",
+        "fail": "{pages} Seiten: viel zu lang, Ziel sind 1 oder 2 Seiten."
+      },
+      "dates": {
+        "pass": "Daten in deinem Werdegang gefunden.",
+        "warn": "Wenige Daten: Gib Beginn und Ende jeder Station und Ausbildung an."
+      },
+      "results": {
+        "pass": "Zahlen heben deine Erfolge hervor.",
+        "warn": "Keine Zahlen: Füge, wenn möglich, echte Zahlen hinzu (Kunden, Projekte, Prozente)."
+      },
+      "characters": {
+        "pass": "Keine unlesbaren Zeichen.",
+        "warn": "Einige Zeichen sind unlesbar (Symbole oder dekorative Schrift): Verwende eine Standardschrift."
+      }
+    },
+    "aboutTitle": "Was ist ein ATS?",
+    "aboutText": "Ein ATS (Applicant Tracking System, Bewerbermanagement-System) ist die Software, die in vielen Unternehmen und Personalagenturen Bewerbungen empfängt. Sie liest den Text deines Lebenslaufs, legt ihn in einem Profil ab und hilft der Personalabteilung, passende Profile zu finden. Liest sie deinen Lebenslauf falsch, kann deine Bewerbung übersehen werden.",
+    "checksTitle": "Was der Check prüft",
+    "checksText": "Der Check liest deinen Lebenslauf wie eine Software: Ist der Text lesbar, werden deine Kontaktdaten gefunden, haben die Hauptabschnitte klare Überschriften, passen Länge und Daten? Den Inhalt deines Werdegangs bewertet er nicht.",
+    "tipsTitle": "So verbesserst du deine Punktzahl",
+    "tip1": "Speichere deinen Lebenslauf aus deinem Textprogramm als PDF: nie als Foto oder Scan.",
+    "tip2": "Verwende einfache Überschriften: „Berufserfahrung“, „Ausbildung“, „Kenntnisse“.",
+    "tip3": "Setze deine Kontaktdaten als Text oben auf die Seite, nicht in eine Kopfzeile als Bild.",
+    "tip4": "Übernimm die Schlüsselbegriffe der Anzeige, die wirklich zu deinem Werdegang passen.",
+    "tip5": "Wähle eine Standardschrift und ein schlichtes Layout auf ein oder zwei Seiten.",
+    "faqTitle": "Häufige Fragen",
+    "q1": "Ist der Check wirklich kostenlos?",
+    "a1": "Ja, ohne Anmeldung. Nur die Zahl der Prüfungen pro Stunde ist begrenzt, um Missbrauch zu verhindern.",
+    "q2": "Wird mein Lebenslauf gespeichert?",
+    "a2": "Nein. Die Datei wird nur für die Analyse gelesen und danach vergessen: Sie wird weder gespeichert noch an eine KI gesendet.",
+    "q3": "Funktioniert ein zweispaltiger Lebenslauf mit einem ATS?",
+    "a3": "Oft ja, aber manche Programme vermischen die Spalten. Ein einspaltiges Layout mit einfachen Überschriften ist am sichersten.",
+    "q4": "Garantiert eine gute Punktzahl ein Vorstellungsgespräch?",
+    "a4": "Nein: Der Check prüft, ob dein Lebenslauf lesbar ist, nicht ob dein Profil zur Stelle passt. Passe deinen Lebenslauf auch an jede Anzeige an."
+  },
   "auth": {
     "metaTitle": "Anmelden",
     "title": "Melde dich an, um deinen Lebenslauf zu speichern",
@@ -293,6 +419,29 @@
     "noPlan": "Kein Abo",
     "totalCredits": "Gesamtguthaben",
     "manageCredits": "Credits, Abo und Käufe"
+  },
+  "invitation": {
+    "metaTitle": "Einladung",
+    "title": "Ein Freund schenkt dir {credits} Credits",
+    "subtitle": "Erstelle deinen Lebenslauf kostenlos in 30 Sekunden. Sobald dein erster Lebenslauf fertig ist, erhaltet ihr beide je {credits} Credits: zum Anpassen an eine Stellenanzeige, für ein Anschreiben oder zur Vorbereitung auf ein Vorstellungsgespräch.",
+    "accept": "Annehmen und Lebenslauf erstellen",
+    "cookieNote": "Wenn du annimmst, wird die Einladung 30 Tage lang in einem Cookie gespeichert, bis du dein Konto erstellt hast.",
+    "signedIn": "Du hast bereits ein Konto: Einladungen gelten nur für neue Konten. Du kannst deine Freunde über dein Konto einladen.",
+    "account": "Zu meinem Konto",
+    "unknownTitle": "Einladung nicht gefunden",
+    "unknown": "Dieser Einladungslink ist nicht mehr gültig, aber du kannst deinen Lebenslauf trotzdem kostenlos in 30 Sekunden erstellen.",
+    "create": "Lebenslauf kostenlos erstellen"
+  },
+  "referral": {
+    "title": "Lade deine Freunde ein: je {credits} Credits",
+    "text": "Schick deinen Link an jemanden, der Arbeit sucht. Sobald sein erster Lebenslauf fertig ist, erhaltet ihr beide je {credits} Credits.",
+    "copy": "Kopieren: Einladungslink",
+    "whatsapp": "WhatsApp",
+    "email": "E-Mail",
+    "share": "Teilen",
+    "emailSubject": "Dein Lebenslauf in 30 Sekunden",
+    "message": "Ich erstelle meinen Lebenslauf mit dieser Seite: kostenlos und in 30 Sekunden fertig. Mit meinem Link bekommst du {credits} Credits geschenkt.",
+    "stats": "{invited, plural, =0 {Noch keine Freunde angemeldet} one {# Freund mit deinem Link angemeldet} other {# Freunde mit deinem Link angemeldet}} · {credits, plural, =0 {keine Credits verdient} one {# Credit verdient} other {# Credits verdient}}"
   },
   "errors": {
     "UNAUTHENTICATED": "Deine Sitzung ist abgelaufen. Melde dich erneut an, um fortzufahren.",
@@ -761,6 +910,7 @@
       "postingHint": "Füge die Anzeige ein, damit das Anschreiben auf die Anforderungen der Stelle eingeht.",
       "language": "Sprache des Anschreibens",
       "generate": "Anschreiben erstellen ({cost, plural, one {# Credit} other {# Credits}})",
+      "generateOffered": "Anschreiben erstellen (geschenkt)",
       "resultTitle": "Dein Anschreiben",
       "letter": "Anschreiben",
       "copy": "Anschreiben kopieren",

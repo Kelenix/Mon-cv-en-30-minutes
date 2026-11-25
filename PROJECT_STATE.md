@@ -19,7 +19,11 @@
     identifiant `pub-…` ; Claude active alors `ADS_MODE=adsense` sur le serveur ;
   - faire valider par un juriste la case de renonciation au droit de rétractation (tâche 12) ;
   - dans quelques jours : vérifier dans Search Console que l'accueil et les tarifs sont
-    indexés (tâche 13).
+    indexés (tâche 13), puis soumettre de nouveau le plan du site (rubrique « Conseils ») ;
+  - acquisition (tâche 18, `docs/acquisition.md`) : comptes de la marque, annuaires et Product
+    Hunt avec le kit `docs/launch-kit/`, puis vidéos, LinkedIn et partenariats chaque semaine.
+    Côté Claude : point du lundi (tableau « Provenance »), 2 articles par semaine, traduction des
+    articles qui marchent.
 - **Git** : **toute mise en ligne passe par GitHub** (choix de l'utilisateur). Envoi sur `main`,
   CI, puis workflow « Déploiement » qui lance `deploy.sh` sur le KVM 2. Le serveur lit `origin`
   sur GitHub avec sa clé en lecture seule.
@@ -114,6 +118,25 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 25/11/2026 — **Plan d'acquisition mis en place (ADR-052, `docs/acquisition.md`)**, sur la
+  demande « met tous les stratégies en place ». Les 4 choix de l'utilisateur : 5 crédits chacun
+  au parrainage, une lettre offerte, aucune publicité payante pour l'instant, France d'abord.
+  - Étude de mots-clés (Ubersuggest, France) : la lettre de motivation est la plus grande porte
+    d'entrée (165 000 recherches par mois, longue traîne facile).
+  - Mesure par canal : visites, comptes, CV, essais et achats par source, en compteurs anonymes
+    (tableau « Provenance » de l'administration).
+  - Parrainage : lien personnel dans le compte et sous chaque CV, page d'invitation, 5 crédits
+    chacun au premier CV du filleul, plafond de 20 par mois.
+  - Lettre de motivation offerte, une par compte.
+  - Rubrique « Conseils » : 22 articles en français (8 lettres, 8 CV, 6 pays), exemples
+    copiables, données structurées, plan du site. Faits vérifiés sur les sites officiels
+    (Parcoursup, Onisep, service-public.fr, EURES, quebec.ca, Arbeitsagentur, gov.uk).
+  - Test ATS gratuit, sans compte ni IA, dans les 5 langues ; `llms.txt` pour les assistants IA.
+  - Kit de lancement (`docs/launch-kit/`) : textes, annuaires, Product Hunt, 30 scripts de
+    vidéos, posts LinkedIn, communautés, partenariats, calendrier de 12 semaines.
+  - Constat en local : la compilation locale produit une erreur d'hydratation React (#418) sur
+    toutes les pages, y compris avec la version déjà en ligne ; le site en ligne n'en a pas. Ce
+    n'est donc pas une régression ; à suivre si elle apparaît en ligne.
 - 25/11/2026 — **Outils IA mesurés avec l'IA réelle (ADR-051)**. Mesure lancée sur le « passe
   à la suite » de l'utilisateur, plafonnée à environ 2 $ ; coût réel 0,79 $.
   - 6 cas (FR, EN, IT, ES, et un CV allemand rédigé en anglais), 7 outils chacun, 42 appels.

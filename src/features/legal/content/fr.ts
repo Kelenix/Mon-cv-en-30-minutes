@@ -172,7 +172,8 @@ export const fr: LegalContent = {
             "Fournir le service, gérer votre compte, vos crédits et vos abonnements : exécution du contrat.",
             "Facturation et obligations comptables : obligation légale.",
             "Prévention des abus et suivi des coûts du service : intérêt légitime.",
-            "Statistiques internes de fréquentation (site ou campagne d'origine, pays), anonymes, sans cookie et sans lien avec votre compte : intérêt légitime.",
+            "Statistiques internes de fréquentation et de provenance (site ou campagne d'origine, pays, nombre d'inscriptions, de CV et d'achats par provenance), anonymes et sans lien avec votre compte : intérêt légitime.",
+            "Parrainage : lien entre votre compte et celui de votre parrain, pour verser les crédits promis à chacun : exécution du contrat. Votre parrain voit seulement le nombre de comptes créés avec son lien, jamais votre identité.",
             "Publicités personnalisées pour les utilisateurs sans abonnement : consentement, que vous pouvez retirer à tout moment.",
           ],
         },
@@ -181,7 +182,7 @@ export const fr: LegalContent = {
           paragraphs: [
             "Les données du compte, les CV et les contenus générés sont conservés jusqu'à la suppression du compte, ou pendant trois ans d'inactivité ; un e-mail vous prévient trente jours avant la suppression automatique.",
             "L'adresse IP hachée est effacée après trente jours ; les événements de paiement techniques après quatre-vingt-dix jours. Les factures sont conservées par Stripe pendant la durée imposée par la loi.",
-            "Après la suppression d'un compte, seuls le montant et la date des paiements et le coût des opérations sont gardés, sans aucun lien avec vous, pour la comptabilité et les statistiques. Les statistiques de fréquentation sont gardées vingt-cinq mois.",
+            "Après la suppression d'un compte, seuls le montant et la date des paiements et le coût des opérations sont gardés, sans aucun lien avec vous, pour la comptabilité et les statistiques. Les statistiques de fréquentation sont gardées vingt-cinq mois ; la provenance d'un paiement est effacée dès qu'il est compté, au plus tard après deux jours.",
             "Avant la création de votre compte, vos réponses aux cinq questions sont enregistrées uniquement dans votre navigateur, puis effacées dès que votre CV est enregistré.",
           ],
         },
@@ -238,6 +239,13 @@ export const fr: LegalContent = {
           title: "Cookies strictement nécessaires",
           paragraphs: [
             "Ces cookies sont indispensables au fonctionnement du site et ne demandent pas de consentement : session de connexion à votre compte, mémorisation de la langue choisie (au plus un an), sécurité.",
+          ],
+        },
+        {
+          title: "Cookies de mesure d'audience et d'invitation",
+          paragraphs: [
+            "Le cookie « cv30_arrivee » garde pendant 30 jours le site ou la campagne d'où vous êtes arrivé, pour compter de façon anonyme les inscriptions, les CV et les achats par provenance. Il n'est lu que par notre site, ne sert qu'à ces statistiques et n'est jamais relié à votre compte : il est dispensé de consentement. Il n'est pas déposé si votre navigateur envoie le signal « Do Not Track » ou « Global Privacy Control ».",
+            "Le cookie « cv30_parrain » n'est déposé que si vous acceptez une invitation : il la garde 30 jours, le temps de créer votre compte, puis il est effacé.",
           ],
         },
         {

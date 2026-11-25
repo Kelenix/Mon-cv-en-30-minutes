@@ -165,7 +165,7 @@ export function AdaptTool({
                 size="lg"
                 disabled={!hydrated || tool.pending}
                 aria-busy={tool.pending || undefined}
-                className="justify-self-start"
+                className="h-auto min-h-13 max-w-full justify-self-start py-3 text-center whitespace-normal"
               >
                 <SparklesIcon aria-hidden="true" />
                 {tool.pending

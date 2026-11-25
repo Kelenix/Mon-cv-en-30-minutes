@@ -172,7 +172,8 @@ export const es: LegalContent = {
             "Prestar el servicio y gestionar su cuenta, sus créditos y sus suscripciones: ejecución del contrato.",
             "Facturación y obligaciones contables: cumplimiento de una obligación legal.",
             "Prevención de abusos y seguimiento de los costes del servicio: interés legítimo.",
-            "Estadísticas internas de visitas (sitio o campaña de procedencia, país), anónimas, sin cookies y sin vínculo con su cuenta: interés legítimo.",
+            "Estadísticas internas de visitas y de procedencia (sitio o campaña de procedencia, país, número de registros, CV y compras por procedencia), anónimas y sin vínculo con su cuenta: interés legítimo.",
+            "Invitaciones: vínculo entre su cuenta y la de la persona que le invitó, para abonar a cada uno los créditos prometidos: ejecución del contrato. Esa persona solo ve el número de cuentas creadas con su enlace, nunca su identidad.",
             "Publicidad personalizada para los usuarios sin suscripción: consentimiento, que puede retirar en cualquier momento.",
           ],
         },
@@ -181,7 +182,7 @@ export const es: LegalContent = {
           paragraphs: [
             "Los datos de la cuenta, los CV y los contenidos generados se conservan hasta la eliminación de la cuenta o durante tres años de inactividad; recibirá un aviso por correo electrónico treinta días antes de la eliminación automática.",
             "La dirección IP con hash se borra a los treinta días, y los eventos técnicos de pago, a los noventa días. Stripe conserva las facturas durante el plazo exigido por la ley.",
-            "Tras la eliminación de una cuenta, solo se conservan el importe y la fecha de los pagos y el coste de las operaciones, sin ningún vínculo con usted, con fines contables y estadísticos. Las estadísticas de visitas se conservan veinticinco meses.",
+            "Tras la eliminación de una cuenta, solo se conservan el importe y la fecha de los pagos y el coste de las operaciones, sin ningún vínculo con usted, con fines contables y estadísticos. Las estadísticas de visitas se conservan veinticinco meses; la procedencia de un pago se borra en cuanto se contabiliza, a más tardar a los dos días.",
             "Antes de crear su cuenta, sus respuestas a las cinco preguntas se guardan únicamente en su navegador y se borran en cuanto se guarda su CV.",
           ],
         },
@@ -239,6 +240,13 @@ export const es: LegalContent = {
           title: "Cookies estrictamente necesarias",
           paragraphs: [
             "Estas cookies son imprescindibles para el funcionamiento del sitio y no requieren consentimiento: sesión de acceso a su cuenta, memorización del idioma elegido (durante un año como máximo) y seguridad.",
+          ],
+        },
+        {
+          title: "Cookies de medición de audiencia y de invitación",
+          paragraphs: [
+            "La cookie «cv30_arrivee» guarda durante 30 días el sitio o la campaña de la que procede, para contar de forma anónima los registros, los CV y las compras por procedencia. Solo la lee nuestro sitio, solo sirve para estas estadísticas y nunca se vincula a su cuenta: está exenta de consentimiento. No se instala si su navegador envía la señal «Do Not Track» o «Global Privacy Control».",
+            "La cookie «cv30_parrain» solo se instala si acepta una invitación: la guarda 30 días, el tiempo de crear su cuenta, y después se borra.",
           ],
         },
         {

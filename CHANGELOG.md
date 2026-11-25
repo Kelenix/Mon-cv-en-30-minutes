@@ -4,6 +4,21 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Acquisition (ADR-052)
+
+- Provenance des comptes, des CV, des essais et des achats par source, en compteurs anonymes :
+  tableau « Ce que rapporte chaque source » dans l'administration.
+- Parrainage : lien personnel (espace compte et page du CV), page d'invitation, 5 crédits pour
+  le parrain et le filleul au premier CV du filleul.
+- Première lettre de motivation offerte à chaque compte.
+- Rubrique « Conseils » : 22 articles en français (lettres, CV par situation, CV par pays), avec
+  exemples à copier, sommaire, articles liés et données structurées.
+- Test ATS gratuit : note sur 100 et points à corriger pour un CV en PDF, sans compte ni IA,
+  dans les 5 langues.
+- `llms.txt` qui décrit le site aux assistants IA ; nouvelles pages au plan du site.
+- Pages Cookies et Confidentialité complétées (cookies de provenance et d'invitation,
+  parrainage) dans les 5 langues.
+
 ### Ajouté — Mesure des outils IA
 
 - `tests/eval/cv-tools.eval.ts` : amélioration, accroches, adaptation, LinkedIn, lettre et

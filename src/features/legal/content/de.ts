@@ -172,7 +172,8 @@ export const de: LegalContent = {
             "Bereitstellung des Dienstes, Verwaltung Ihres Kontos, Ihrer Credits und Ihrer Abonnements: Vertragserfüllung.",
             "Rechnungsstellung und buchhalterische Pflichten: rechtliche Verpflichtung.",
             "Verhinderung von Missbrauch und Überwachung der Kosten des Dienstes: berechtigtes Interesse.",
-            "Interne Besuchsstatistiken (verweisende Website oder Kampagne, Land), anonym, ohne Cookies und ohne Verbindung zu Ihrem Konto: berechtigtes Interesse.",
+            "Interne Besuchs- und Herkunftsstatistiken (verweisende Website oder Kampagne, Land, Anzahl der Registrierungen, Lebensläufe und Käufe je Herkunft), anonym und ohne Verbindung zu Ihrem Konto: berechtigtes Interesse.",
+            "Empfehlungen: Verbindung zwischen Ihrem Konto und dem der Person, die Sie eingeladen hat, um beiden die versprochenen Credits gutzuschreiben: Vertragserfüllung. Diese Person sieht nur die Anzahl der mit ihrem Link erstellten Konten, nie Ihre Identität.",
             "Personalisierte Werbung für Nutzer ohne Abonnement: Einwilligung, die Sie jederzeit widerrufen können.",
           ],
         },
@@ -181,7 +182,7 @@ export const de: LegalContent = {
           paragraphs: [
             "Die Kontodaten, die Lebensläufe und die erstellten Inhalte werden bis zur Löschung des Kontos bzw. bis zum Ablauf von drei Jahren Inaktivität gespeichert; Sie werden dreißig Tage vor der automatischen Löschung per E-Mail benachrichtigt.",
             "Die gehashte IP-Adresse wird nach dreißig Tagen gelöscht, technische Zahlungsereignisse nach neunzig Tagen. Rechnungen werden von Stripe für die gesetzlich vorgeschriebene Dauer aufbewahrt.",
-            "Nach der Löschung eines Kontos werden nur Betrag und Datum der Zahlungen sowie die Kosten der Vorgänge ohne jeden Bezug zu Ihnen für Buchhaltung und Statistik aufbewahrt. Besuchsstatistiken werden fünfundzwanzig Monate aufbewahrt.",
+            "Nach der Löschung eines Kontos werden nur Betrag und Datum der Zahlungen sowie die Kosten der Vorgänge ohne jeden Bezug zu Ihnen für Buchhaltung und Statistik aufbewahrt. Besuchsstatistiken werden fünfundzwanzig Monate aufbewahrt; die Herkunft einer Zahlung wird gelöscht, sobald sie gezählt ist, spätestens nach zwei Tagen.",
             "Vor der Erstellung Ihres Kontos werden Ihre Antworten auf die fünf Fragen ausschließlich in Ihrem Browser gespeichert und gelöscht, sobald Ihr Lebenslauf gespeichert ist.",
           ],
         },
@@ -239,6 +240,13 @@ export const de: LegalContent = {
           title: "Unbedingt erforderliche Cookies",
           paragraphs: [
             "Diese Cookies sind für das Funktionieren der Website unerlässlich und erfordern keine Einwilligung: Anmeldesitzung für Ihr Konto, Speicherung der gewählten Sprache (höchstens ein Jahr), Sicherheit.",
+          ],
+        },
+        {
+          title: "Cookies zur Reichweitenmessung und für Einladungen",
+          paragraphs: [
+            "Das Cookie „cv30_arrivee“ speichert 30 Tage lang die Website oder Kampagne, über die Sie gekommen sind, um Registrierungen, Lebensläufe und Käufe je Herkunft anonym zu zählen. Es wird nur von unserer Website gelesen, dient nur diesen Statistiken und wird nie mit Ihrem Konto verknüpft: Es ist einwilligungsfrei. Es wird nicht gesetzt, wenn Ihr Browser das Signal „Do Not Track“ oder „Global Privacy Control“ sendet.",
+            "Das Cookie „cv30_parrain“ wird nur gesetzt, wenn Sie eine Einladung annehmen: Es speichert sie 30 Tage lang, bis Sie Ihr Konto erstellt haben, und wird dann gelöscht.",
           ],
         },
         {

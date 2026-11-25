@@ -37,7 +37,9 @@
     "myCvs": "I miei CV",
     "admin": "Amministrazione",
     "menu": "Menu",
-    "templates": "Modelli di CV"
+    "templates": "Modelli di CV",
+    "guides": "Consigli",
+    "atsCheck": "Test ATS gratuito"
   },
   "home": {
     "eyebrow": "Ottimizzato per i software di selezione (ATS)",
@@ -208,6 +210,130 @@
     "intro": "Un CV non si presenta allo stesso modo a Roma, a Berlino o a New York. Scegli il paese di destinazione: i modelli che vi si usano compaiono per primi. Il contenuto resta lo stesso e puoi cambiare modello in qualsiasi momento.",
     "choose": "Scegli un modello, poi rispondi a 5 domande: il tuo CV sarà creato con quel modello."
   },
+  "guides": {
+    "nav": "Consigli",
+    "metaTitle": "Consigli per CV e lettera di presentazione",
+    "metaDescription": "Esempi di lettere di presentazione e di CV, con consigli per situazione, professione e paese per la tua candidatura.",
+    "title": "Consigli per il tuo CV e la tua lettera di presentazione",
+    "intro": "Esempi completi e consigli concreti, per situazione, professione e paese. Leggi, adatta e poi crea il tuo CV in 30 secondi.",
+    "categories": {
+      "letter": "Lettere di presentazione",
+      "cv": "CV per situazione e professione",
+      "country": "CV per paese"
+    },
+    "breadcrumb": "Percorso",
+    "home": "Home",
+    "updated": "Aggiornato il {date}",
+    "toc": "Indice",
+    "related": "Leggi anche",
+    "faq": "Domande frequenti",
+    "tip": "Consiglio",
+    "copyExample": "Copia l'esempio",
+    "cta": {
+      "letterTitle": "La tua lettera in 30 secondi",
+      "letterText": "Rispondi a 5 domande per creare il tuo CV gratis, poi l'IA scrive la lettera a partire dal tuo CV, senza inventare nulla. La prima lettera è in regalo.",
+      "cvTitle": "Il tuo CV pronto in 30 secondi",
+      "cvText": "Rispondi a 5 domande: l'IA impagina il tuo CV senza inventare nulla. Gratis, senza carta di credito.",
+      "button": "Crea il mio CV gratis"
+    }
+  },
+  "atsCheck": {
+    "metaTitle": "Test ATS gratuito del tuo CV",
+    "metaDescription": "Verifica gratis se il tuo CV è leggibile dai software di selezione (ATS): punteggio su 100 e punti da correggere, senza registrazione.",
+    "title": "Test ATS gratuito: il tuo CV è leggibile dai selezionatori?",
+    "intro": "Molte aziende filtrano le candidature con un software (ATS). Carica il tuo CV in PDF: ottieni un punteggio su 100 e l'elenco dei punti da correggere.",
+    "privacy": "Il tuo file viene letto per l'analisi e poi dimenticato: non viene salvato né inviato a un'IA. Non serve un account.",
+    "choose": "Scegli il mio CV (PDF)",
+    "hint": "o trascinalo qui · PDF fino a 5 MB",
+    "analyzing": "Analisi in corso…",
+    "again": "Prova un altro CV",
+    "score": "Punteggio ATS",
+    "scoreValue": "{score}/100",
+    "verdict": {
+      "good": "Il tuo CV è ben leggibile dai software di selezione.",
+      "ok": "Il tuo CV è leggibile, ma qualche correzione aumenterebbe le tue possibilità.",
+      "low": "I software di selezione rischiano di leggere male il tuo CV: correggi prima i punti in rosso."
+    },
+    "status": {
+      "pass": "Superato",
+      "warn": "Da migliorare",
+      "fail": "Da correggere"
+    },
+    "errors": {
+      "NOT_PDF": "Questo file non è un PDF. Salva il tuo CV in formato PDF e riprova.",
+      "TOO_LARGE": "Questo file supera i 5 MB. Salva il tuo CV in un PDF più leggero.",
+      "UNREADABLE": "Non è stato possibile leggere questo PDF: forse è protetto da password o danneggiato.",
+      "RATE_LIMITED": "Hai fatto molti test in poco tempo. Riprova tra un'ora.",
+      "generic": "L'analisi non è andata a buon fine. Riprova tra poco."
+    },
+    "checks": {
+      "readable": {
+        "pass": "Il testo del tuo CV è leggibile da un software.",
+        "fail": "Nessun testo leggibile: il tuo CV sembra un'immagine o una scansione. Un software di selezione non leggerà nulla, ricrealo con del vero testo."
+      },
+      "email": {
+        "pass": "Indirizzo e-mail trovato.",
+        "fail": "Nessun indirizzo e-mail trovato: aggiungilo in alto nel CV, come testo (non in un'immagine)."
+      },
+      "phone": {
+        "pass": "Numero di telefono trovato.",
+        "warn": "Nessun numero di telefono trovato: aggiungilo per poter essere ricontattato."
+      },
+      "experience": {
+        "pass": "Sezione «Esperienza» trovata.",
+        "fail": "Sezione «Esperienza» non trovata: usa un titolo semplice, come «Esperienza professionale»."
+      },
+      "education": {
+        "pass": "Sezione «Istruzione» trovata.",
+        "fail": "Sezione «Istruzione» non trovata: usa un titolo semplice, come «Istruzione e formazione»."
+      },
+      "skills": {
+        "pass": "Sezione «Competenze» trovata.",
+        "warn": "Nessuna sezione «Competenze»: aggiungila con le parole chiave del tuo mestiere."
+      },
+      "length": {
+        "pass": "Lunghezza adeguata ({words} parole).",
+        "warn": "Lunghezza da rivedere ({words} parole): punta a 200-900 parole.",
+        "fail": "Lunghezza inadeguata ({words} parole): punta a 200-900 parole."
+      },
+      "pages": {
+        "pass": "{pages, plural, one {# pagina} other {# pagine}}: perfetto.",
+        "warn": "3 pagine: è lungo, prova a stare in 2 pagine.",
+        "fail": "{pages} pagine: troppo lungo, punta a 1 o 2 pagine."
+      },
+      "dates": {
+        "pass": "Date trovate nel tuo percorso.",
+        "warn": "Poche date: indica inizio e fine di ogni esperienza e formazione."
+      },
+      "results": {
+        "pass": "Risultati in cifre valorizzano il tuo percorso.",
+        "warn": "Nessun risultato in cifre: quando possibile, aggiungi numeri reali (clienti, progetti, percentuali)."
+      },
+      "characters": {
+        "pass": "Nessun carattere illeggibile.",
+        "warn": "Alcuni caratteri sono illeggibili (icone o font decorativi): preferisci un font standard."
+      }
+    },
+    "aboutTitle": "Che cos'è un ATS?",
+    "aboutText": "Un ATS (Applicant Tracking System) è il software che riceve le candidature in molte aziende e agenzie di selezione. Legge il testo del tuo CV, lo archivia in una scheda e aiuta il selezionatore a trovare i profili adatti all'offerta. Se legge male il tuo CV, la tua candidatura può passare inosservata.",
+    "checksTitle": "Cosa verifica il test",
+    "checksText": "Il test legge il tuo CV come farebbe un software: il testo è leggibile, i tuoi contatti vengono trovati, le sezioni principali hanno titoli chiari, lunghezza e date sono adeguate? Non giudica il contenuto del tuo percorso.",
+    "tipsTitle": "Come migliorare il tuo punteggio",
+    "tip1": "Salva il CV in PDF dal tuo programma di videoscrittura: mai come foto o scansione.",
+    "tip2": "Usa titoli semplici: «Esperienza professionale», «Istruzione», «Competenze».",
+    "tip3": "Metti i tuoi contatti come testo in alto nella pagina, non in un'intestazione in immagine.",
+    "tip4": "Riprendi le parole chiave dell'offerta che corrispondono davvero al tuo percorso.",
+    "tip5": "Preferisci un font standard e un'impaginazione sobria, su una o due pagine.",
+    "faqTitle": "Domande frequenti",
+    "q1": "Il test è davvero gratuito?",
+    "a1": "Sì, senza registrazione. È limitato solo il numero di analisi all'ora, per evitare abusi.",
+    "q2": "Il mio CV viene salvato?",
+    "a2": "No. Il file viene letto per l'analisi e poi dimenticato: non viene salvato né inviato a un'IA.",
+    "q3": "Un CV su due colonne funziona con un ATS?",
+    "a3": "Spesso sì, ma alcuni software mescolano le colonne. Un'impaginazione su una colonna, con titoli semplici, resta la più sicura.",
+    "q4": "Un buon punteggio garantisce un colloquio?",
+    "a4": "No: il test verifica che il CV sia leggibile, non che il tuo profilo corrisponda al ruolo. Adatta anche il CV a ogni offerta."
+  },
   "auth": {
     "metaTitle": "Accesso",
     "title": "Accedi per salvare il tuo CV",
@@ -293,6 +419,29 @@
     "noPlan": "Nessun abbonamento",
     "totalCredits": "Saldo totale",
     "manageCredits": "Crediti, piano e acquisti"
+  },
+  "invitation": {
+    "metaTitle": "Invito",
+    "title": "Un amico ti regala {credits} crediti",
+    "subtitle": "Crea il tuo CV gratis in 30 secondi. Quando il tuo primo CV è pronto, ricevete entrambi {credits} crediti per adattarlo a un annuncio, scrivere una lettera o prepararti a un colloquio.",
+    "accept": "Accetta e crea il mio CV",
+    "cookieNote": "Accettando, l'invito viene conservato per 30 giorni in un cookie, il tempo di creare il tuo account.",
+    "signedIn": "Hai già un account: gli inviti sono riservati ai nuovi account. Puoi invitare i tuoi amici dal tuo spazio.",
+    "account": "Vai al mio spazio",
+    "unknownTitle": "Invito non trovato",
+    "unknown": "Questo link di invito non è più valido, ma puoi comunque creare il tuo CV gratis in 30 secondi.",
+    "create": "Crea il mio CV gratis"
+  },
+  "referral": {
+    "title": "Invita i tuoi amici: {credits} crediti a testa",
+    "text": "Invia il tuo link a chi cerca lavoro. Quando il suo primo CV è pronto, ricevete entrambi {credits} crediti.",
+    "copy": "Copia il link",
+    "whatsapp": "WhatsApp",
+    "email": "E-mail",
+    "share": "Condividi",
+    "emailSubject": "Il tuo CV pronto in 30 secondi",
+    "message": "Faccio il mio CV con questo sito: è gratis e pronto in 30 secondi. Con il mio link ricevi {credits} crediti in regalo.",
+    "stats": "{invited, plural, =0 {Ancora nessun amico iscritto} one {# amico iscritto con il tuo link} other {# amici iscritti con il tuo link}} · {credits, plural, =0 {nessun credito guadagnato} one {# credito guadagnato} other {# crediti guadagnati}}"
   },
   "errors": {
     "UNAUTHENTICATED": "La tua sessione è scaduta. Accedi di nuovo per continuare.",
@@ -761,6 +910,7 @@
       "postingHint": "Incolla l'annuncio per una lettera che risponda ai requisiti del ruolo.",
       "language": "Lingua della lettera",
       "generate": "Scrivi la mia lettera ({cost, plural, one {# credito} other {# crediti}})",
+      "generateOffered": "Scrivi la mia lettera (in regalo)",
       "resultTitle": "La tua lettera",
       "letter": "Lettera di presentazione",
       "copy": "Copia la lettera",
