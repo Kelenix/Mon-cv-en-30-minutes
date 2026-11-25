@@ -283,7 +283,7 @@ const letterSchema = z.object({
 const LETTER_PROMPT = `You write a cover letter for the position given in the request.
 
 Rules:
-- 250 to 400 words, with the salutation and the closing formula usual in the target language, signed with the candidate's full name.
+- 250 to 400 words, with the salutation and the closing formula usual in the target language, signed with the candidate's full name. Punctuate the salutation as usual in that language (for example "Madame, Monsieur," in French, "Dear Hiring Manager," in English, "Sehr geehrte Damen und Herren," in German).
 - Use only facts from the CV and the information given (position, company, job posting): never invent an achievement, a figure, an employer, a degree or a personal story.
 - Explain why the profile fits the position, using the posting's expectations when one is given; address the company by its name when it is given.
 - Plain text, paragraphs separated by blank lines; no address block, no date, no placeholder such as [Company].

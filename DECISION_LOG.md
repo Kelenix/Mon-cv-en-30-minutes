@@ -6,6 +6,41 @@
 
 ---
 
+## ADR-051 — Mesure des outils IA avec l'IA réelle (US-25 à US-30, NFR-02)
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté. Mesure payante lancée sur le « passe à la suite » de l'utilisateur,
+  après l'annonce de son coût (3 à 5 $), plafonnée à environ 2 $ ; coût réel 0,79 $.
+- **Décideur** : Claude (rôles : QA, ingénieur IA)
+- **Contexte** : la création de CV était mesurée (ADR-041), pas les outils : amélioration,
+  accroches, adaptation, LinkedIn, lettre et entretien (US-25 c.3, US-27 c.3 et c.5, US-29 c.2,
+  NFR-02).
+- **Décision** :
+  - `tests/eval/cv-tools.eval.ts`, jamais en CI : 6 CV fixes en 4 langues, dont un CV allemand
+    rédigé en anglais et deux annonces avec une consigne cachée, 7 outils par CV.
+  - Contrôles automatiques :
+    - chiffres absents des sources ;
+    - expériences ou compétences ajoutées ;
+    - mot témoin de la consigne cachée ;
+    - tirets longs ;
+    - nombre de mots de la lettre ;
+    - nombre de questions et de retours ;
+    - P95 sous 45 s.
+  - Rapport relu à la main (`test-results/ai-eval/cv-tools.json`).
+- **Résultats** :
+  - 42 appels, aucun échec ni écart.
+  - P95 : adaptation 4,5 s, lettre 9,3 s, entretien 11,7 s.
+  - La relecture a trouvé un défaut du nettoyage des tirets (ADR-049) : il retirait les
+    virgules de fin de ligne, comme celle de « Madame, Monsieur, ». Corrigé et couvert par un
+    test unitaire.
+- **Alternatives écartées** : mesurer sur les 20 profils de l'ADR-041 (coût quadruplé pour peu
+  d'information de plus : les outils travaillent sur un CV déjà structuré).
+- **Conséquences** : NFR-02 tenu pour tous les outils ; la mesure se relance après une
+  modification d'une consigne (`npx vitest run --project eval tests/eval/cv-tools.eval.ts`).
+- **Impact** : qualité (élevé), financier (0,79 $).
+
+---
+
 ## ADR-050 — Modèles de CV par pays, photo facultative et vitrine (Inc-15)
 
 - **Date** : 25/11/2026

@@ -15,8 +15,6 @@
 - **Prochaine action** : sauvegardes hors du serveur (tâche 15, étapes 2 et 3, dans hPanel).
   Ensuite, sur le domaine :
   - un premier achat réel de bout en bout (paiement, webhook, crédits) ;
-  - qualité réelle des outils IA (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà
-    mesurée, ADR-041) ;
   - tâche 10 : l'utilisateur garde un seul compte AdSense qui accepte les sites et donne son
     identifiant `pub-…` ; Claude active alors `ADS_MODE=adsense` sur le serveur ;
   - faire valider par un juriste la case de renonciation au droit de rétractation (tâche 12) ;
@@ -115,6 +113,21 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Outils IA mesurés avec l'IA réelle (ADR-051)**. Mesure lancée sur le « passe
+  à la suite » de l'utilisateur, plafonnée à environ 2 $ ; coût réel 0,79 $.
+  - 6 cas (FR, EN, IT, ES, et un CV allemand rédigé en anglais), 7 outils chacun, 42 appels.
+  - Aucun échec et aucun écart :
+    - pas de chiffre inventé, pas de compétence ajoutée à l'adaptation ;
+    - consignes cachées des annonces ignorées ;
+    - lettres de 250 à 400 mots ;
+    - 8 questions d'entretien, un retour par réponse.
+  - P95 : adaptation 4,5 s, lettre 9,3 s, entretien 11,7 s (NFR-02 : < 45 s). US-25 c.3, US-27
+    c.3 et c.5, US-29 c.2 validés.
+  - Correction trouvée à la relecture : le nettoyage des tirets (ADR-049) retirait aussi les
+    virgules de fin de ligne (« Madame, Monsieur, », « Cordialement, »). Il ne touche plus
+    qu'aux tirets ; la consigne de la lettre précise la ponctuation de la formule d'appel.
+  - **c34e906 en ligne** : plus aucun incident CSP sur l'accueil, les modèles et la création.
 
 - 25/11/2026 — **Inc-15 en ligne** (`e6d0e0b`, CI et déploiement verts ; migrations appliquées,
   RLS active sur `cv_photos`). **Lighthouse sur le domaine (NFR-01 atteint)**, mobile,

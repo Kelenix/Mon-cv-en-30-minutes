@@ -4,6 +4,12 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Mesure des outils IA
+
+- `tests/eval/cv-tools.eval.ts` : amélioration, accroches, adaptation, LinkedIn, lettre et
+  entretien mesurés avec l'IA réelle (payant, jamais en CI). Résultat : aucun écart, P95 de 4,5
+  à 11,7 s (ADR-051).
+
 ### Ajouté — Modèles de CV par pays (Inc-15)
 
 - Six modèles de CV, choisis dans l'aperçu et enregistrés aussitôt (ADR-050) :
@@ -46,6 +52,9 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ### Corrigé
 
+- Textes générés : le nettoyage des tirets ne retire plus les virgules de fin de ligne
+  (« Madame, Monsieur, », « Cordialement, ») ; la lettre ponctue sa formule d'appel selon
+  l'usage de la langue.
 - Plus de violation de la politique de sécurité (CSP) signalée par le navigateur sur l'accueil,
   la page des modèles et la création de CV : Zod n'essaie plus `new Function` (mode
   `jitless`).

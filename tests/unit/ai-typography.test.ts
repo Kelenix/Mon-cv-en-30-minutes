@@ -27,9 +27,14 @@ describe("withoutDashes", () => {
     expect(withoutDashes("Résultat — .")).toBe("Résultat.");
   });
 
-  it("laisse intact un texte sans tiret long", () => {
-    const text = "Développeur full-stack, React et Node.js (3 ans).";
-    expect(withoutDashes(text)).toBe(text);
+  it("laisse intact un texte sans tiret long, virgules de fin de ligne comprises", () => {
+    for (const text of [
+      "Développeur full-stack, React et Node.js (3 ans).",
+      "Madame, Monsieur,\n\nJe vous écris…\n\nCordialement,\nAwa Diallo",
+      "Dear Hiring Manager,",
+    ]) {
+      expect(withoutDashes(text)).toBe(text);
+    }
   });
 
   it("nettoie toute une sortie structurée", () => {

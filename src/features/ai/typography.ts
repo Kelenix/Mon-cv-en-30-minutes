@@ -5,7 +5,10 @@ export const NO_DASH_RULE = `Typography: never use em dashes (—) or en dashes 
 
 const DASH = "[–—]";
 
-/** Remplace les tirets longs d'un texte par la ponctuation qu'écrirait une personne. */
+/**
+ * Remplace les tirets longs d'un texte par la ponctuation qu'écrirait une personne, sans jamais
+ * toucher au reste (la virgule de « Madame, Monsieur, » reste).
+ */
 export function withoutDashes(text: string) {
   return (
     text
@@ -13,11 +16,10 @@ export function withoutDashes(text: string) {
       .replace(new RegExp(`(\\d)[ \\t]*${DASH}[ \\t]*(\\d)`, "g"), "$1-$2")
       // Tiret en début de ligne (liste) : supprimé.
       .replace(new RegExp(`^[ \\t]*${DASH}[ \\t]*`, "gm"), "")
+      // Tiret en fin de ligne ou devant une ponctuation : supprimé.
+      .replace(new RegExp(`[ \\t]*${DASH}[ \\t]*(?=$|[.,;:!?)])`, "gm"), "")
       // Incise ou ajout : virgule.
       .replace(new RegExp(`[ \\t]*${DASH}[ \\t]*`, "g"), ", ")
-      // Virgule devant une autre ponctuation ou en fin de ligne : retirée.
-      .replace(/,[ \t]*([.,;:!?)])/g, "$1")
-      .replace(/,[ \t]*$/gm, "")
   );
 }
 
