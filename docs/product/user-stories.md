@@ -44,7 +44,7 @@ Elles complètent H1–H17 du plan et sont consignées dans `DECISION_LOG.md` (A
 | H31 | Nom de marque traduit par langue (validé par l'utilisateur le 25/11/2026, tâche manuelle 12, ADR-048) : FR « Mon CV en 30 Secondes », EN « My CV in 30 Seconds », IT « Il mio CV in 30 secondi », ES « Mi CV en 30 Segundos », DE « Mein Lebenslauf in 30 Sekunden ». Le filigrane du PDF est rédigé dans la langue du CV avec le nom de cette langue. |
 | H32 | Prix identiques en euros dans toutes les langues, formatés selon la langue (« 6,99 € », « €6.99 »). |
 | H33 | Ton familier dans toutes les langues de l'interface (tu, you, tu, tú, du) ; ton formel dans les pages légales. |
-| H34 | **Compatibilité ATS** (rappel de l'utilisateur, ADR-025) : tout CV généré et exporté doit pouvoir être lu par les logiciels de recrutement qui filtrent les candidatures. Mise en page sur une colonne ; rubriques aux intitulés standard (Expérience professionnelle, Formation, Compétences, Langues), traduits dans la langue du CV ; texte réel et sélectionnable (jamais d'image ni de texte dans des formes) ; pas de tableau ni de zone de texte pour le contenu ; coordonnées dans le corps du document, pas seulement dans l'en-tête ou le pied de page ; polices standard ; dates dans un format homogène ; le filigrane (US-16) reste une ligne de texte séparée du contenu. |
+| H34 | **Compatibilité ATS** (rappel de l'utilisateur, ADR-025 ; depuis l'Inc-15, garantie par les modèles marqués « ATS », les autres modèles le signalent, ADR-050) : tout CV généré et exporté doit pouvoir être lu par les logiciels de recrutement qui filtrent les candidatures. Mise en page sur une colonne ; rubriques aux intitulés standard (Expérience professionnelle, Formation, Compétences, Langues), traduits dans la langue du CV ; texte réel et sélectionnable (jamais d'image ni de texte dans des formes) ; pas de tableau ni de zone de texte pour le contenu ; coordonnées dans le corps du document, pas seulement dans l'en-tête ou le pied de page ; polices standard ; dates dans un format homogène ; le filigrane (US-16) reste une ligne de texte séparée du contenu. |
 
 ---
 
@@ -654,6 +654,54 @@ ADR-018, H30 · Must · Lot MVP (CV, Inc-4) et V1 (outils, Inc-7 à 9) · Valeur
 4. **Alors** lettre, LinkedIn, entretien et adaptation sont générés par défaut dans la langue du
    CV, avec un sélecteur pour en changer avant chaque génération.
 5. **Alors** le coût en crédits ne dépend pas de la langue.
+
+#### US-43 — Choisir le modèle de mon CV
+**En tant qu'**utilisateur, **je veux** choisir la mise en page de mon CV parmi plusieurs modèles
+**afin de** présenter mon parcours comme on l'attend dans le pays visé.
+ADR-050 (demande de l'utilisateur du 25/11/2026) · Must · Inc-15 · Valeur haute · L
+
+1. **Alors** six modèles sont proposés : ATS classique, format européen, ATS moderne,
+   Lebenslauf, moderne et élégant, chacun avec une miniature, une description et ses badges
+   (gratuit ou avec une formule, compatible ATS, photo facultative).
+2. **Quand** je choisis un modèle dans l'aperçu, **alors** il est enregistré aussitôt et le
+   contenu ne change pas ; je peux changer de modèle à tout moment.
+3. **Alors** ATS classique et format européen se téléchargent pour tous ; les autres demandent un
+   abonnement ou CV Pro. Sans ce droit, le modèle s'essaie avec un aperçu du PDF marqué
+   « Aperçu », et son téléchargement est refusé par le serveur.
+4. **Alors** les modèles « ATS » restent sur une colonne (H34) ; les autres signalent qu'ils sont
+   moins bien lus par certains logiciels de recrutement. Le DOCX reste un document Word simple.
+
+#### US-44 — Voir les modèles adaptés au pays visé
+**En tant qu'**utilisateur, **je veux** indiquer le pays où je postule **afin que** les modèles
+attendus dans ce pays me soient proposés en premier.
+ADR-050 · Must · Inc-15 · Valeur haute · M
+
+1. **Alors** le pays visé se choisit avec la langue du CV (par défaut : la région du navigateur,
+   sinon la langue du site), puis dans la galerie des modèles, par continent.
+2. **Alors** les modèles adaptés au pays sont en tête, avec un badge, et un conseil indique la
+   place de la photo dans ce pays (courante, facultative, déconseillée).
+3. **Quand** un CV est créé, **alors** il reçoit le premier modèle adapté qu'il peut télécharger
+   (un modèle gratuit sans formule), ou le modèle choisi dans la vitrine.
+
+#### US-45 — Ajouter une photo à mon CV
+**En tant qu'**utilisateur, **je veux** ajouter une photo **afin de** suivre l'usage des pays où
+elle est attendue.
+ADR-050 · Should · Inc-15 · Valeur moyenne · M
+
+1. **Alors** un champ photo apparaît avec les modèles qui en prévoient une ; l'image est recadrée
+   au format portrait dans le navigateur, puis envoyée en JPEG (au plus 300 Ko).
+2. **Alors** la photo n'est visible que par son propriétaire et dans ses exports ; elle n'est
+   jamais envoyée à l'IA (RLS, `cv_photos`).
+3. **Alors** je peux la changer ou la retirer ; elle disparaît avec le CV et avec le compte.
+
+#### US-46 — Découvrir les modèles avant de créer mon CV
+**En tant que** visiteur, **je veux** voir les modèles par pays sur l'accueil et sur une page
+dédiée **afin de** choisir mon modèle avant de répondre aux questions.
+ADR-050 · Should · Inc-15 · Valeur moyenne · S
+
+1. **Alors** l'accueil montre la galerie par pays et un lien vers la page « Modèles de CV »
+   (5 langues, adresses traduites, dans le plan du site).
+2. **Quand** je choisis un modèle, **alors** il est gardé dans le brouillon et donné au CV créé.
 
 ---
 

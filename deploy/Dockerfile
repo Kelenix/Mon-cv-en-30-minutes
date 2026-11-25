@@ -43,6 +43,8 @@ ARG APP_VERSION
 ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 APP_VERSION=$APP_VERSION
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
+# Fichiers publics (miniatures des modèles de CV) : non inclus dans la sortie autonome.
+COPY --from=build --chown=node:node /app/public ./public
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \

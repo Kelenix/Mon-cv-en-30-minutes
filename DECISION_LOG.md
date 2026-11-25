@@ -6,6 +6,64 @@
 
 ---
 
+## ADR-050 — Modèles de CV par pays, photo facultative et vitrine (Inc-15)
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté. Demande de l'utilisateur, avec ses trois choix : photo facultative,
+  deux modèles gratuits et les autres payants, six modèles. Révise H34.
+- **Décideur** : l'utilisateur (périmètre et offre) ; Claude (rôles : architecte, design,
+  frontend, backend, sécurité)
+- **Contexte** : « il faut la possibilité de choisir le modèle de CV selon les pays, continents…
+  (qui peuvent même être visibles sur la page d'accueil) », captures de galeries d'un autre
+  service à l'appui. Le site ne produisait qu'une mise en page, sur une colonne.
+- **Décision** :
+  - **Six modèles dessinés pour le site**, inspirés des usages et sans copier ceux des
+    captures :
+    - ATS classique (gratuit, celui d'origine) ;
+    - format européen (gratuit, dates à gauche, photo) ;
+    - ATS moderne ;
+    - Lebenslauf (tableau, photo à droite) ;
+    - moderne (deux colonnes, photo ronde) ;
+    - élégant (Lora, en-tête centré).
+  - **Un rendu react-pdf par modèle** (`src/features/export/pdf/`), polices intégrées (Arimo,
+    Poppins, Lora). Le DOCX reste un document Word simple.
+  - **Aperçu fidèle = le vrai PDF**, ouvert dans un nouvel onglet (`apercu=1`, affiché dans le
+    navigateur). L'éditeur reste sur une colonne. Pas de second rendu HTML par modèle, qui
+    finirait par différer du PDF.
+  - **Droits** : `canDownloadTemplate` (gratuit, ou abonnement et CV Pro) vérifié par la route
+    d'export. Sans droit : PDF refusé (403), aperçu marqué « Aperçu » en travers des pages.
+  - **Pays** (`countries.ts`) : 44 pays sur 7 continents.
+    - Pour chaque pays, des modèles conseillés et la place de la photo (courante, facultative,
+      déconseillée).
+    - Pays par défaut : la région du navigateur, sinon la langue du site. Rien n'est envoyé.
+    - À la création, le CV reçoit le premier modèle conseillé qu'il peut télécharger, ou celui
+      choisi dans la vitrine.
+  - **Photo** : table `cv_photos` (bytea ≤ 300 Ko, RLS au propriétaire, suppression en cascade).
+    Elle est recadrée en JPEG 480 × 600 dans le navigateur, puis le serveur vérifie la
+    signature JPEG et la taille.
+    - Le stockage Supabase n'est pas déployé : l'ajouter au serveur partagé n'aurait servi qu'à
+      cette photo.
+    - La photo n'est jamais envoyée à l'IA. La politique de confidentialité est mise à jour.
+  - **Vitrine** : section de l'accueil et page « Modèles de CV », avec des adresses traduites
+    dans le plan du site.
+    - Miniatures WebP générées depuis le vrai PDF (`npm run templates:thumbnails`, unpdf et
+      @napi-rs/canvas en dépendance de développement), servies par `public/`.
+    - L'image Docker copie désormais `public/`.
+- **Alternatives écartées** :
+  - Aperçu HTML par modèle : deux rendus à garder identiques.
+  - Rendu du PDF en images côté serveur : dépendance native dans l'image.
+  - Stockage Supabase pour la photo.
+  - Annonces automatiques.
+- **Conséquences** :
+  - Les modèles à colonnes sont moins bien lus par certains logiciels de recrutement : c'est
+    signalé à l'utilisateur.
+  - Le contenu des CV reste un seul jeu de données ; changer de modèle est gratuit et immédiat.
+  - Base de données plus lourde avec les photos (environ 100 Ko par CV avec photo).
+- **Impact** : métier (élevé : nouvelle offre de modèles), technique (moyen), sécurité (photo
+  protégée par RLS).
+
+---
+
 ## ADR-049 — Aucun tiret cadratin ni demi-cadratin dans les CV et les textes
 
 - **Date** : 25/11/2026

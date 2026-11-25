@@ -8,6 +8,7 @@ import { LanguageSwitcher } from "./language-switcher";
 
 const FOOTER_LINKS = [
   { href: "/tarifs", label: "pricing" },
+  { href: "/modeles", label: "templates" },
   { href: "/mentions-legales", label: "legalNotice" },
   { href: "/cgv", label: "terms" },
   { href: "/confidentialite", label: "privacy" },

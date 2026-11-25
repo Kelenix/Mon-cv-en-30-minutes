@@ -36,7 +36,8 @@
     "createCv": "Crear mi CV",
     "myCvs": "Mis CV",
     "admin": "Administración",
-    "menu": "Menú"
+    "menu": "Menú",
+    "templates": "Plantillas de CV"
   },
   "home": {
     "eyebrow": "Optimizado para el software de selección (ATS)",
@@ -102,6 +103,11 @@
     "finalCta": {
       "title": "Tu CV está listo en segundos",
       "subtitle": "Gratis, sin tarjeta de crédito."
+    },
+    "templates": {
+      "title": "Una plantilla de CV para cada país",
+      "subtitle": "Elige el país de destino: te mostramos primero las plantillas que se usan allí, con o sin foto.",
+      "seeAll": "Ver todas las plantillas"
     }
   },
   "plans": {
@@ -194,6 +200,13 @@
         "interview": "Simular una entrevista"
       }
     }
+  },
+  "templatesPage": {
+    "metaTitle": "Plantillas de CV por país",
+    "metaDescription": "Seis plantillas de CV adaptadas a las costumbres de cada país: formato europeo, Lebenslauf alemán, plantillas compatibles con ATS, con o sin foto. Dos son gratuitas.",
+    "title": "Plantillas de CV por país",
+    "intro": "Un CV no se presenta igual en Madrid, en Berlín o en Nueva York. Elige el país de destino: las plantillas que se usan allí aparecen primero. Tu contenido no cambia y puedes cambiar de plantilla cuando quieras.",
+    "choose": "Elige una plantilla y responde a 5 preguntas: tu CV se creará con ella."
   },
   "auth": {
     "metaTitle": "Iniciar sesión",
@@ -504,7 +517,8 @@
     "upgradeText": "{count} créditos incluidos cada mes en lugar de {current}."
   },
   "cvDocument": {
-    "watermark": "Creado con {brand}"
+    "watermark": "Creado con {brand}",
+    "preview": "Vista previa"
   },
   "cvExport": {
     "pdf": "Descargar el PDF",
@@ -513,7 +527,69 @@
     "docxLockedLabel": "Formato DOCX: cómo desbloquearlo",
     "lockedTitle": "PDF sin marca de agua y DOCX",
     "lockedText": "Tu PDF gratuito lleva una discreta mención de nuestro sitio en el pie de página. El PDF sin marca de agua y el formato DOCX están incluidos en todas las suscripciones, o con CV Pro ({price}) para este CV.",
-    "seeOffers": "Ver los planes"
+    "seeOffers": "Ver los planes",
+    "pdfLocked": "PDF",
+    "pdfLockedLabel": "Descargar el PDF: cómo desbloquear esta plantilla",
+    "templateLockedTitle": "Plantilla incluida con un plan",
+    "templateLockedText": "Esta plantilla se descarga con una suscripción, o con CV Pro ({price}) para este CV. Puedes probarla con la vista previa o elegir una plantilla gratuita."
+  },
+  "cvTemplates": {
+    "label": "Plantilla",
+    "change": "Cambiar de plantilla",
+    "preview": "Vista previa del PDF",
+    "dialogTitle": "Elige tu plantilla",
+    "dialogText": "Tu contenido no cambia, solo el diseño. Puedes cambiarla cuando quieras.",
+    "close": "Cerrar",
+    "selected": "Elegida",
+    "error": "No se ha podido guardar la plantilla. Inténtalo de nuevo.",
+    "badges": {
+      "recommended": "Adecuada al país",
+      "free": "Gratis",
+      "included": "Con un plan",
+      "ats": "Compatible con ATS",
+      "photo": "Foto opcional"
+    },
+    "atsWarning": "Diseño en columnas: algunos programas de selección lo leen peor.",
+    "names": {
+      "ats-classique": "ATS clásica",
+      "europeen": "Formato europeo",
+      "ats-moderne": "ATS moderna",
+      "lebenslauf": "Lebenslauf",
+      "moderne": "Moderna",
+      "elegant": "Elegante"
+    },
+    "descriptions": {
+      "ats-classique": "Una columna sobria que el software de selección lee sin perder nada.",
+      "europeen": "Fechas a la izquierda y foto opcional, como es habitual en gran parte de Europa.",
+      "ats-moderne": "Una columna compatible con ATS, con un encabezado marcado y las fechas a la derecha.",
+      "lebenslauf": "El CV en tabla que se espera en Alemania, Austria y Suiza.",
+      "moderne": "Dos columnas y una foto, para destacar cuando tu CV lo lee una persona.",
+      "elegant": "Tipografía con serifa y encabezado centrado, para puestos de consultoría y dirección."
+    },
+    "countryLabel": "País de destino",
+    "countryHint": "Te propondremos las plantillas de CV adecuadas para este país.",
+    "photoAdvice": {
+      "common": "{country}: la foto en el CV es habitual.",
+      "optional": "{country}: la foto es opcional.",
+      "avoid": "{country}: mejor no poner foto."
+    },
+    "continents": {
+      "europe": "Europa",
+      "north-america": "América del Norte",
+      "latin-america": "América Latina",
+      "africa": "África",
+      "middle-east": "Oriente Medio",
+      "asia": "Asia",
+      "oceania": "Oceanía"
+    },
+    "photo": {
+      "add": "Añadir una foto",
+      "change": "Cambiar la foto",
+      "remove": "Quitar la foto",
+      "hint": "Recortada en formato vertical y visible solo en tu CV. JPEG, PNG o WebP.",
+      "error": "No se ha podido usar esta imagen. Prueba con otra foto.",
+      "alt": "Tu foto"
+    }
   },
   "billing": {
     "metaTitle": "Créditos y plan",

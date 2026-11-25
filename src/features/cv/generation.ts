@@ -22,6 +22,8 @@ import { getOwnProfile } from "@/features/profile/data/profile-repository";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { buildCvContent, clip } from "./content";
+import { type CountryCode, initialTemplate } from "./countries";
+import type { CvTemplate } from "./templates";
 import { listOwnCvs } from "./repository";
 import { CV_LIMITS, type CvAnswers, cvContentSchema } from "./schemas";
 import type { AppLocale } from "@/i18n/routing";
@@ -85,6 +87,8 @@ export async function generateCvForUser(
     requestId: string;
     answers: CvAnswers;
     language: AppLocale;
+    country?: CountryCode;
+    template?: CvTemplate;
     replaceCvId?: string;
     ipHash: string | null;
   },
@@ -190,6 +194,24 @@ export async function generateCvForUser(
         new AiError("AI_UNAVAILABLE", `complete_${code}`, usage),
       );
       return fail(code === "INTERNAL" ? "AI_UNAVAILABLE" : code);
+    }
+    if (input.country || input.template) {
+      // Modèle choisi dans la vitrine, sinon recommandé pour le pays visé (Inc-15) ; un échec
+      // garde le modèle par défaut.
+      const { error } = await admin
+        .from("cvs")
+        .update({
+          template:
+            input.template ??
+            (input.country &&
+              initialTemplate(
+                input.country,
+                planEntitlements(plan).exportsWithoutWatermark,
+              )),
+          target_country: input.country,
+        })
+        .eq("id", completed.data);
+      if (error) console.error("Modèle du CV non enregistré", error.message);
     }
     return ok({ cvId: completed.data, charged: !operation.was_free });
   } catch (error) {

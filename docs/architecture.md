@@ -246,7 +246,12 @@ http://localhost:3000/api/cron/retention` (sans SMTP, les e-mails sont seulement
   CV (client soumis à la RLS) et les droits ; applique le filigrane côté serveur.
 - PDF : `@react-pdf/renderer`, police Arimo intégrée (licence libre OFL, mêmes dimensions
   qu'Arial, ADR-028), texte sélectionnable, aucune césure automatique.
-- DOCX : `docx`.
+- **Modèles (Inc-15, ADR-050)** : un rendu par modèle dans `src/features/export/pdf/`, polices
+  Arimo, Poppins et Lora, photo facultative (`cv_photos`) pour les modèles qui en prévoient une.
+  Le modèle payant d'un compte sans droit : PDF refusé (403), aperçu `apercu=1` affiché dans le
+  navigateur et marqué « Aperçu ». Catalogue et règles par pays : `src/features/cv/templates.ts`
+  et `countries.ts` ; miniatures WebP dans `public/cv-templates/` (`npm run templates:thumbnails`).
+- DOCX : `docx`, toujours le document Word simple, quel que soit le modèle.
 - L'aperçu HTML et le PDF partagent le même schéma de CV et les mêmes constantes de mise en
   page (R09).
 

@@ -93,6 +93,7 @@ test.describe("audit final", () => {
     await audit(page, [
       "/fr",
       "/fr/tarifs",
+      "/fr/modeles-cv",
       "/fr/creer",
       "/fr/connexion",
       "/fr/cgv",

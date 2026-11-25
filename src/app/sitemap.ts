@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 const PUBLIC_PAGES: { pathname: StaticPathname; priority: number }[] = [
   { pathname: "/", priority: 1 },
   { pathname: "/tarifs", priority: 0.8 },
+  { pathname: "/modeles", priority: 0.8 },
   { pathname: "/mentions-legales", priority: 0.2 },
   { pathname: "/cgv", priority: 0.2 },
   { pathname: "/confidentialite", priority: 0.2 },

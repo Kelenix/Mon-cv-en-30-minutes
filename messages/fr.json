@@ -36,7 +36,8 @@
     "createCv": "Créer mon CV",
     "myCvs": "Mes CV",
     "admin": "Administration",
-    "menu": "Menu"
+    "menu": "Menu",
+    "templates": "Modèles de CV"
   },
   "home": {
     "eyebrow": "Optimisé pour les logiciels de recrutement (ATS)",
@@ -102,6 +103,11 @@
     "finalCta": {
       "title": "Ton CV est prêt en quelques secondes",
       "subtitle": "Gratuit, sans carte bancaire."
+    },
+    "templates": {
+      "title": "Un modèle de CV pour chaque pays",
+      "subtitle": "Choisis le pays visé : nous te montrons d'abord les modèles qui y sont attendus, avec ou sans photo.",
+      "seeAll": "Voir tous les modèles"
     }
   },
   "plans": {
@@ -194,6 +200,13 @@
         "interview": "Simuler un entretien"
       }
     }
+  },
+  "templatesPage": {
+    "metaTitle": "Modèles de CV par pays",
+    "metaDescription": "Six modèles de CV adaptés aux usages de chaque pays : format européen, Lebenslauf allemand, modèles compatibles ATS, avec ou sans photo. Deux sont gratuits.",
+    "title": "Modèles de CV par pays",
+    "intro": "Un CV ne se présente pas de la même façon à Paris, à Berlin ou à New York. Choisis le pays visé : les modèles qui y sont attendus apparaissent en premier. Ton contenu reste le même et tu peux changer de modèle à tout moment.",
+    "choose": "Choisis un modèle, puis réponds aux 5 questions : ton CV sera créé avec ce modèle."
   },
   "auth": {
     "metaTitle": "Connexion",
@@ -504,7 +517,8 @@
     "upgradeText": "{count} crédits inclus chaque mois au lieu de {current}."
   },
   "cvDocument": {
-    "watermark": "Créé avec {brand}"
+    "watermark": "Créé avec {brand}",
+    "preview": "Aperçu"
   },
   "cvExport": {
     "pdf": "Télécharger le PDF",
@@ -513,7 +527,69 @@
     "docxLockedLabel": "Format DOCX : comment le débloquer",
     "lockedTitle": "PDF sans filigrane et DOCX",
     "lockedText": "Ton PDF gratuit porte une discrète mention de notre site en pied de page. Le PDF sans filigrane et le format DOCX sont inclus dans tous les abonnements, ou avec CV Pro ({price}) pour ce CV.",
-    "seeOffers": "Voir les offres"
+    "seeOffers": "Voir les offres",
+    "pdfLocked": "PDF",
+    "pdfLockedLabel": "Télécharger le PDF : comment débloquer ce modèle",
+    "templateLockedTitle": "Modèle inclus avec une formule",
+    "templateLockedText": "Ce modèle se télécharge avec un abonnement, ou avec CV Pro ({price}) pour ce CV. Tu peux l'essayer avec l'aperçu, ou choisir un modèle gratuit."
+  },
+  "cvTemplates": {
+    "label": "Modèle",
+    "change": "Changer de modèle",
+    "preview": "Aperçu du PDF",
+    "dialogTitle": "Choisis ton modèle",
+    "dialogText": "Ton contenu ne change pas, seule la mise en page change. Tu peux en changer à tout moment.",
+    "close": "Fermer",
+    "selected": "Choisi",
+    "error": "Le modèle n'a pas pu être enregistré. Réessaie.",
+    "badges": {
+      "recommended": "Adapté au pays",
+      "free": "Gratuit",
+      "included": "Avec une formule",
+      "ats": "Compatible ATS",
+      "photo": "Photo facultative"
+    },
+    "atsWarning": "Mise en page en colonnes : certains logiciels de recrutement la lisent moins bien.",
+    "names": {
+      "ats-classique": "ATS classique",
+      "europeen": "Format européen",
+      "ats-moderne": "ATS moderne",
+      "lebenslauf": "Lebenslauf",
+      "moderne": "Moderne",
+      "elegant": "Élégant"
+    },
+    "descriptions": {
+      "ats-classique": "Une colonne sobre, lue sans perte par les logiciels de recrutement.",
+      "europeen": "Dates à gauche et photo facultative, comme dans une grande partie de l'Europe.",
+      "ats-moderne": "Une colonne compatible ATS, avec un en-tête affirmé et les dates à droite.",
+      "lebenslauf": "Le CV en tableau attendu en Allemagne, en Autriche et en Suisse.",
+      "moderne": "Deux colonnes et une photo, pour se démarquer quand c'est une personne qui lit.",
+      "elegant": "Police à empattements et en-tête centré, pour les postes de conseil et de direction."
+    },
+    "countryLabel": "Pays visé",
+    "countryHint": "Nous te proposerons les modèles de CV adaptés à ce pays.",
+    "photoAdvice": {
+      "common": "{country} : la photo est courante sur un CV.",
+      "optional": "{country} : la photo est facultative.",
+      "avoid": "{country} : mieux vaut ne pas mettre de photo."
+    },
+    "continents": {
+      "europe": "Europe",
+      "north-america": "Amérique du Nord",
+      "latin-america": "Amérique latine",
+      "africa": "Afrique",
+      "middle-east": "Moyen-Orient",
+      "asia": "Asie",
+      "oceania": "Océanie"
+    },
+    "photo": {
+      "add": "Ajouter une photo",
+      "change": "Changer la photo",
+      "remove": "Retirer la photo",
+      "hint": "Recadrée au format portrait et visible seulement sur ton CV. JPEG, PNG ou WebP.",
+      "error": "Cette image n'a pas pu être utilisée. Essaie une autre photo.",
+      "alt": "Ta photo"
+    }
   },
   "billing": {
     "metaTitle": "Crédits et formule",

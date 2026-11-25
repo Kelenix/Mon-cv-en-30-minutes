@@ -17,6 +17,8 @@ export type CvDocumentTexts = {
   titles: CvSectionTitles;
   /** Mention « Créé avec … » en pied de page ; absente pour un export sans filigrane. */
   watermark?: string;
+  /** Mention « Aperçu » en travers des pages : modèle payant essayé sans droit (ADR-050). */
+  preview?: string;
   /** Langue du CV (code BCP 47), pour les lecteurs d'écran et les logiciels de recrutement. */
   language: string;
 };

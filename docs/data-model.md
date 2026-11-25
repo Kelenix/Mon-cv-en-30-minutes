@@ -130,6 +130,19 @@ solde du portefeuille. Toute mise à jour d'une ligne est bloquée par un décle
 | `answers` | jsonb | not null, objet (`CvAnswers`) |
 | `content` | jsonb | not null, objet (`CvContent`), ≤ 64 Ko |
 | `pro_unlocked_at` | timestamptz | null (CV Pro acheté) |
+| `template` | text | not null, défaut `ats-classique`, un des 6 modèles (Inc-15, ADR-050) ; modifiable par le propriétaire |
+| `target_country` | text | null, code pays ISO à deux lettres (modèles recommandés) ; modifiable par le propriétaire |
+
+### `cv_photos` (u) — photo facultative d'un CV (Inc-15, US-45)
+| Colonne | Type | Contraintes |
+|---------|------|-------------|
+| `cv_id` | uuid | PK, FK `cvs` `on delete cascade` (une photo par CV) |
+| `user_id` | uuid | FK `profiles` `on delete cascade` |
+| `image` | bytea | not null, JPEG de 1 octet à 300 Ko (recadré dans le navigateur, contrôlé par le serveur) |
+| `updated_at` | timestamptz | not null |
+
+RLS : lecture, ajout, modification et suppression par le seul propriétaire ; un ajout exige que le
+CV lui appartienne. Jamais envoyée à l'IA.
 
 ### `generations` (u) — contenus générés conservés avec un CV (H20)
 | Colonne | Type | Contraintes |

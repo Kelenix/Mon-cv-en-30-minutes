@@ -39,6 +39,11 @@ export default defineConfig({
           testTimeout: 150_000,
         },
       },
+      // Fichiers générés (miniatures des modèles de CV : `npm run templates:thumbnails`).
+      {
+        extends: true,
+        test: { name: "assets", include: ["scripts/**/*.assets.ts"] },
+      },
     ],
   },
 });

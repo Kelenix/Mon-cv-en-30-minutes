@@ -10,6 +10,8 @@ import { InterstitialOnLeave } from "@/features/ads/presentation/interstitial";
 import { CvProOffer } from "@/features/billing/presentation/offers";
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
 import { getActivePlan } from "@/features/billing/subscription";
+import { defaultCountry, isCountry } from "@/features/cv/countries";
+import { hasOwnCvPhoto } from "@/features/cv/photo";
 import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
 import { CvWorkspace } from "@/features/cv/presentation/cv-workspace";
 import { UpsellCard } from "@/features/cv/presentation/upsell-card";
@@ -61,14 +63,16 @@ async function CvLoader({
     locale: cv.language,
     namespace: "cvSections",
   });
-  const [plan, summaries, audience, messages] = await Promise.all([
+  const [plan, summaries, audience, hasPhoto, messages] = await Promise.all([
     getActivePlan(),
     listGenerations(cv.id, "summary_variants"),
     getAdsAudience(),
+    hasOwnCvPhoto(cv.id),
     pickClientMessages([
       "ads",
       "cvEditor",
       "cvExport",
+      "cvTemplates",
       "cvTools",
       "creditsDialog",
       "upsell",
@@ -115,6 +119,13 @@ async function CvLoader({
             title={cv.title}
             language={cv.language}
             initialContent={cv.content}
+            initialTemplate={cv.template}
+            country={
+              isCountry(cv.targetCountry)
+                ? cv.targetCountry
+                : defaultCountry(cv.language)
+            }
+            hasPhoto={hasPhoto}
             exportUnlocked={exportUnlocked}
             summaryHistory={summaries.map(
               (generation) =>

@@ -4,6 +4,7 @@ import type { AppLocale } from "@/i18n/routing";
 import type { Database } from "@/lib/supabase/database.types";
 import { createClient } from "@/lib/supabase/server";
 import { type CvContent, cvContentSchema } from "./schemas";
+import { type CvTemplate, toTemplate } from "./templates";
 
 // Lecture des CV du compte connecté, par le client de l'utilisateur : la RLS limite tout à ses
 // propres CV (un CV d'un autre compte est simplement introuvable).
@@ -67,6 +68,10 @@ export type Cv = {
   content: CvContent;
   /** CV Pro acheté pour ce CV : exports sans filigrane et DOCX (US-17). */
   proUnlocked: boolean;
+  /** Modèle de mise en page (Inc-15). */
+  template: CvTemplate;
+  /** Pays visé (ISO 3166-1 alpha-2), pour les recommandations de modèle. */
+  targetCountry: string | null;
 };
 
 /** CV du compte connecté, lu une seule fois par requête (mise en page et page). */
@@ -75,7 +80,9 @@ export const getOwnCv = cache(async (id: string): Promise<Cv | null> => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cvs")
-    .select("id, title, language, content, pro_unlocked_at")
+    .select(
+      "id, title, language, content, pro_unlocked_at, template, target_country",
+    )
     .eq("id", id)
     .maybeSingle();
   if (error) throw error;
@@ -86,6 +93,8 @@ export const getOwnCv = cache(async (id: string): Promise<Cv | null> => {
     language: data.language,
     content: cvContentSchema.parse(data.content),
     proUnlocked: data.pro_unlocked_at !== null,
+    template: toTemplate(data.template),
+    targetCountry: data.target_country,
   };
 });
 

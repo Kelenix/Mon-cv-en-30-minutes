@@ -362,7 +362,8 @@ test.describe("Référencement (US-39)", () => {
       expect(sitemap).toContain(`${PRICING_PATHS[locale]}</loc>`);
       expect(sitemap).not.toContain(CREATE_PATHS[locale]);
     }
-    expect(sitemap).not.toMatch(/\/(compte|cv)\b/);
+    // Pages privées « /cv » et « /compte » (la page publique « /cv-templates » est permise).
+    expect(sitemap).not.toMatch(/\/(compte|cv)(\/|<)/);
   });
 
   test("les pages privées sont exclues de l'indexation", async ({ page }) => {

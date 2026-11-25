@@ -16,6 +16,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import type { ErrorCode, FieldErrors } from "@/core/action-result";
 import { Link, useRouter } from "@/i18n/navigation";
 import { generateCv } from "../actions";
+import { defaultCountry } from "../countries";
 import { clearDraft, useDraft } from "../draft";
 import type { CvSummary } from "../repository";
 import { cvAnswersSchema } from "../schemas";
@@ -68,6 +69,8 @@ export function GenerationScreen({
       requestId: crypto.randomUUID(),
       answers: draft.answers,
       language: draft.language ?? locale,
+      country: draft.country ?? defaultCountry(locale, navigator.languages),
+      template: draft.template,
       replaceCvId: replaceId,
     });
     if (result.ok) {

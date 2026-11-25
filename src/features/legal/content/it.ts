@@ -161,7 +161,7 @@ export const it: LegalContent = {
           title: "Dati trattati",
           paragraphs: [
             "Account: indirizzo e-mail, nome, cognome e, se li indica, telefono e città.",
-            "Contenuti: le Sue risposte alle domande, i Suoi CV e i contenuti generati (lettere, versioni LinkedIn, simulazioni di colloquio).",
+            "Contenuti: le Sue risposte alle domande, i Suoi CV, con la foto e il paese di destinazione se li indica (la foto non viene mai trasmessa all'intelligenza artificiale), e i contenuti generati (lettere, versioni LinkedIn, simulazioni di colloquio).",
             "Utilizzo: operazioni effettuate, crediti, piano e acquisti. I dati della carta di pagamento sono trattati esclusivamente da Stripe; conserviamo solo i riferimenti dei pagamenti.",
             "Dati tecnici: indirizzo IP in forma di hash (trasformato in modo irreversibile) per prevenire gli abusi, log tecnici, preferenza di lingua, paese dedotto dall'indirizzo IP al primo accesso (l'indirizzo stesso non viene conservato).",
           ],

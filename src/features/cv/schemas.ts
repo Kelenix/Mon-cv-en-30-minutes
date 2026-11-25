@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { localeSchema } from "@/i18n/locale-schema";
+import { countrySchema } from "./countries";
+import { cvTemplateSchema } from "./templates";
 
 // Schémas partagés du CV (docs/system-design.md §4) : utilisés par l'assistant, l'éditeur et
 // revalidés par les actions. Les messages sont des clés de traduction (`errors.fields`).
@@ -35,6 +37,10 @@ export const generateCvSchema = z.object({
   requestId: z.uuid(),
   answers: cvAnswersSchema,
   language: localeSchema,
+  /** Pays visé : modèle recommandé donné au CV (Inc-15). */
+  country: countrySchema.optional(),
+  /** Modèle choisi dans la vitrine ; sinon le recommandé pour le pays. */
+  template: cvTemplateSchema.optional(),
   replaceCvId: z.uuid().optional(),
 });
 

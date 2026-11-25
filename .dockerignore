@@ -8,6 +8,7 @@ playwright-report
 test-results
 coverage
 tests
+scripts
 docs
 assets-source
 .env*

@@ -10,11 +10,15 @@ export function exportFileName(fullName: string, extension: "pdf" | "docx") {
   return `${["CV", ...words].join("-")}.${extension}`;
 }
 
-export function attachmentHeader(fileName: string) {
+/** `inline` : affiché dans le navigateur (aperçu) ; `attachment` : téléchargé. */
+export function attachmentHeader(
+  fileName: string,
+  disposition: "attachment" | "inline" = "attachment",
+) {
   const ascii = fileName
     .normalize("NFD")
     .replace(/\p{M}/gu, "")
     .replace(/[^\x20-\x7e]|"/g, "_");
   const encoded = encodeURIComponent(fileName).replaceAll("'", "%27");
-  return `attachment; filename="${ascii}"; filename*=UTF-8''${encoded}`;
+  return `${disposition}; filename="${ascii}"; filename*=UTF-8''${encoded}`;
 }

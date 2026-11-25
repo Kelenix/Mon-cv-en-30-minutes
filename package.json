@@ -18,6 +18,7 @@
     "test:watch": "vitest --project unit",
     "test:e2e": "playwright test",
     "eval:ai": "vitest run --project eval",
+    "templates:thumbnails": "vitest run --project assets",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
@@ -43,6 +44,7 @@
     "@anthropic-ai/sdk": "1.6.0",
     "@base-ui/react": "1.9.0",
     "@expo-google-fonts/arimo": "0.4.3",
+    "@expo-google-fonts/lora": "0.4.2",
     "@expo-google-fonts/poppins": "^0.4.1",
     "@ip-location-db/dbip-country-mmdb": "2.3.2026060120",
     "@react-pdf/renderer": "4.9.0",
@@ -66,6 +68,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
+    "@napi-rs/canvas": "1.1.0",
     "@playwright/test": "1.65.1",
     "@tailwindcss/turbopack": "4.3.5",
     "@types/google-publisher-tag": "^1.20261109.1",

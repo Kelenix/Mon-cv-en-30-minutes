@@ -8,6 +8,8 @@ import type { AppLocale } from "@/i18n/routing";
 import { updateCv } from "../actions";
 import { type CvSectionTitles, cvToPlainText } from "../content";
 import { type CvContent, cvContentSchema } from "../schemas";
+import type { CountryCode } from "../countries";
+import { canDownloadTemplate, type CvTemplate } from "../templates";
 import {
   EducationEditor,
   ExperiencesEditor,
@@ -25,6 +27,7 @@ import {
 import { CopyButton, SaveIndicator, useAutosave } from "./editing";
 import { ExportButtons } from "./export-buttons";
 import { ImproveExperience, ImproveSummary } from "./improve-tools";
+import { TemplatePicker } from "./template-picker";
 
 type SectionKey = "header" | keyof CvSectionTitles;
 
@@ -111,6 +114,9 @@ export function CvWorkspace({
   title,
   language,
   initialContent,
+  initialTemplate,
+  country,
+  hasPhoto,
   sectionTitles,
   exportUnlocked,
   summaryHistory,
@@ -120,6 +126,12 @@ export function CvWorkspace({
   title: string;
   language: AppLocale;
   initialContent: CvContent;
+  /** Modèle de mise en page des exports (Inc-15). */
+  initialTemplate: CvTemplate;
+  /** Pays visé, pour les modèles recommandés. */
+  country: CountryCode;
+  /** Photo déjà posée sur ce CV (US-45). */
+  hasPhoto: boolean;
   sectionTitles: CvSectionTitles;
   /** PDF sans filigrane et DOCX autorisés (abonnement ou CV Pro). */
   exportUnlocked: boolean;
@@ -131,6 +143,7 @@ export function CvWorkspace({
   const t = useTranslations("cvEditor");
   const uiLocale = useLocale();
   const [content, setContent] = useState(initialContent);
+  const [template, setTemplate] = useState(initialTemplate);
   const [editing, setEditing] = useState<SectionKey | null>(null);
   // Exports et outils IA lisent le CV enregistré : inactifs tant qu'une modification attend.
   const { status, save, saved } = useAutosave(
@@ -158,10 +171,24 @@ export function CvWorkspace({
         <h1 className="w-full min-w-0 truncate text-lg font-bold sm:me-auto sm:w-auto md:text-xl">
           {title}
         </h1>
-        <ExportButtons cvId={cvId} unlocked={exportUnlocked} ready={saved} />
+        <ExportButtons
+          cvId={cvId}
+          unlocked={exportUnlocked}
+          templateLocked={!canDownloadTemplate(template, exportUnlocked)}
+          ready={saved}
+        />
         <CopyButton getText={() => cvToPlainText(content, sectionTitles)} />
         <SaveIndicator status={status} onRetry={() => save(content, 0)} />
       </div>
+
+      <TemplatePicker
+        cvId={cvId}
+        template={template}
+        onChange={setTemplate}
+        initialCountry={country}
+        hasPhoto={hasPhoto}
+        ready={saved}
+      />
 
       <article
         lang={language}

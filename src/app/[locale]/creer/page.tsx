@@ -17,7 +17,11 @@ export async function generateMetadata() {
 
 // Assistant des 5 questions (US-10) : page statique, réponses gardées dans le navigateur.
 export default async function CreatePage() {
-  const messages = await pickClientMessages(["wizard", "locales"]);
+  const messages = await pickClientMessages([
+    "wizard",
+    "locales",
+    "cvTemplates",
+  ]);
 
   return (
     <div className="container-page py-10 md:py-14">

@@ -91,16 +91,42 @@ isOneToOne: true
       referencedColumns: ["id"]
     }
                   ]
-                },"cvs": {
+                },"cv_photos": {
                   Row: {
-                    "answers": NonNullable<Json>,"content": NonNullable<Json>,"created_at": string,"id": string,"language": Database["public"]['Enums']["app_locale"],"operation_id": string | null,"pro_unlocked_at": string | null,"title": string,"updated_at": string,"user_id": string
+                    "cv_id": string,"image": string,"updated_at": string,"user_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "answers": NonNullable<Json>,"content": NonNullable<Json>,"created_at"?: string,"id"?: string,"language": Database["public"]['Enums']["app_locale"],"operation_id"?: string | null,"pro_unlocked_at"?: string | null,"title": string,"updated_at"?: string,"user_id": string
+                    "cv_id": string,"image": string,"updated_at"?: string,"user_id": string
                   }
                   Update: {
-                    "answers"?: NonNullable<Json>,"content"?: NonNullable<Json>,"created_at"?: string,"id"?: string,"language"?: Database["public"]['Enums']["app_locale"],"operation_id"?: string | null,"pro_unlocked_at"?: string | null,"title"?: string,"updated_at"?: string,"user_id"?: string
+                    "cv_id"?: string,"image"?: string,"updated_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "cv_photos_cv_id_fkey"
+      columns: ["cv_id"]
+isOneToOne: true
+      referencedRelation: "cvs"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "cv_photos_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"cvs": {
+                  Row: {
+                    "answers": NonNullable<Json>,"content": NonNullable<Json>,"created_at": string,"id": string,"language": Database["public"]['Enums']["app_locale"],"operation_id": string | null,"pro_unlocked_at": string | null,"target_country": string | null,"template": string,"title": string,"updated_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "answers": NonNullable<Json>,"content": NonNullable<Json>,"created_at"?: string,"id"?: string,"language": Database["public"]['Enums']["app_locale"],"operation_id"?: string | null,"pro_unlocked_at"?: string | null,"target_country"?: string | null,"template"?: string,"title": string,"updated_at"?: string,"user_id": string
+                  }
+                  Update: {
+                    "answers"?: NonNullable<Json>,"content"?: NonNullable<Json>,"created_at"?: string,"id"?: string,"language"?: Database["public"]['Enums']["app_locale"],"operation_id"?: string | null,"pro_unlocked_at"?: string | null,"target_country"?: string | null,"template"?: string,"title"?: string,"updated_at"?: string,"user_id"?: string
                   }
                   Relationships: [
                     {

@@ -36,7 +36,8 @@
     "createCv": "Create my CV",
     "myCvs": "My CVs",
     "admin": "Administration",
-    "menu": "Menu"
+    "menu": "Menu",
+    "templates": "CV templates"
   },
   "home": {
     "eyebrow": "Built for applicant tracking systems (ATS)",
@@ -102,6 +103,11 @@
     "finalCta": {
       "title": "Your CV is ready in seconds",
       "subtitle": "Free, no credit card needed."
+    },
+    "templates": {
+      "title": "A CV template for every country",
+      "subtitle": "Choose your target country: we show you first the templates expected there, with or without a photo.",
+      "seeAll": "See all templates"
     }
   },
   "plans": {
@@ -194,6 +200,13 @@
         "interview": "Run a mock interview"
       }
     }
+  },
+  "templatesPage": {
+    "metaTitle": "CV templates by country",
+    "metaDescription": "Six CV templates suited to each country's conventions: European format, German Lebenslauf, ATS-friendly templates, with or without a photo. Two are free.",
+    "title": "CV templates by country",
+    "intro": "A CV isn't presented the same way in Paris, Berlin or New York. Choose your target country and the templates expected there appear first. Your content stays the same, and you can switch templates at any time.",
+    "choose": "Pick a template, then answer 5 questions: your CV will be created with it."
   },
   "auth": {
     "metaTitle": "Sign in",
@@ -504,7 +517,8 @@
     "upgradeText": "{count} credits included every month instead of {current}."
   },
   "cvDocument": {
-    "watermark": "Created with {brand}"
+    "watermark": "Created with {brand}",
+    "preview": "Preview"
   },
   "cvExport": {
     "pdf": "Download PDF",
@@ -513,7 +527,69 @@
     "docxLockedLabel": "DOCX format: how to unlock it",
     "lockedTitle": "Watermark-free PDF and DOCX",
     "lockedText": "Your free PDF includes a discreet mention of our site in the footer. A watermark-free PDF and DOCX format are included with every subscription, or with CV Pro ({price}) for this CV.",
-    "seeOffers": "See plans"
+    "seeOffers": "See plans",
+    "pdfLocked": "PDF",
+    "pdfLockedLabel": "Download PDF: how to unlock this template",
+    "templateLockedTitle": "Template included with a plan",
+    "templateLockedText": "This template can be downloaded with a subscription, or with CV Pro ({price}) for this CV. You can try it with the preview, or choose a free template."
+  },
+  "cvTemplates": {
+    "label": "Template",
+    "change": "Change template",
+    "preview": "Preview PDF",
+    "dialogTitle": "Choose your template",
+    "dialogText": "Your content stays the same, only the layout changes. You can switch at any time.",
+    "close": "Close",
+    "selected": "Selected",
+    "error": "The template couldn't be saved. Please try again.",
+    "badges": {
+      "recommended": "Fits this country",
+      "free": "Free",
+      "included": "With a plan",
+      "ats": "ATS-friendly",
+      "photo": "Optional photo"
+    },
+    "atsWarning": "Column layout: some applicant tracking systems read it less well.",
+    "names": {
+      "ats-classique": "Classic ATS",
+      "europeen": "European format",
+      "ats-moderne": "Modern ATS",
+      "lebenslauf": "Lebenslauf",
+      "moderne": "Modern",
+      "elegant": "Elegant"
+    },
+    "descriptions": {
+      "ats-classique": "A clean single column that applicant tracking systems read without losing anything.",
+      "europeen": "Dates on the left and an optional photo, as is common across much of Europe.",
+      "ats-moderne": "An ATS-friendly single column with a bold header and dates on the right.",
+      "lebenslauf": "The tabular CV expected in Germany, Austria and Switzerland.",
+      "moderne": "Two columns and a photo, to stand out when a person reads your CV.",
+      "elegant": "A serif typeface and a centred header, for consulting and management roles."
+    },
+    "countryLabel": "Target country",
+    "countryHint": "We'll suggest the CV templates that suit this country.",
+    "photoAdvice": {
+      "common": "{country}: a photo is common on a CV.",
+      "optional": "{country}: a photo is optional.",
+      "avoid": "{country}: best to leave the photo out."
+    },
+    "continents": {
+      "europe": "Europe",
+      "north-america": "North America",
+      "latin-america": "Latin America",
+      "africa": "Africa",
+      "middle-east": "Middle East",
+      "asia": "Asia",
+      "oceania": "Oceania"
+    },
+    "photo": {
+      "add": "Add a photo",
+      "change": "Change photo",
+      "remove": "Remove photo",
+      "hint": "Cropped to portrait format and shown only on your CV. JPEG, PNG or WebP.",
+      "error": "This image couldn't be used. Try another photo.",
+      "alt": "Your photo"
+    }
   },
   "billing": {
     "metaTitle": "Credits and plan",

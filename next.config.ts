@@ -63,6 +63,8 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/cv/[id]/export": [
       "./node_modules/@expo-google-fonts/arimo/{400Regular,700Bold}/*.ttf",
+      "./node_modules/@expo-google-fonts/poppins/{400Regular,600SemiBold}/*.ttf",
+      "./node_modules/@expo-google-fonts/lora/{400Regular,400Regular_Italic,700Bold}/*.ttf",
     ],
     // Base des pays (DB-IP, CC BY 4.0), lue à l'exécution par le proxy et la connexion (ADR-040).
     "/**": [

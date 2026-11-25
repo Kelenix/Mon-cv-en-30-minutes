@@ -13,6 +13,7 @@
 | Clé secrète Supabase | Variables d'environnement du serveur | Contourne la RLS : accès à toute la base |
 | Soldes et journal des crédits | `credit_wallets`, `credit_ledger` | Argent : crédits payés |
 | Réponses aux questions et CV | `public.cvs`, brouillon dans le navigateur | Données personnelles (parcours, coordonnées) |
+| Photo facultative d'un CV (Inc-15) | `public.cv_photos` (JPEG ≤ 300 Ko, RLS au propriétaire, cascade avec le CV) | Donnée personnelle (image du visage) ; jamais envoyée à l'IA ; signature JPEG et taille vérifiées par le serveur (`tests/db/cv-photos.test.ts`) |
 | Clé de l'API Anthropic | Variables d'environnement du serveur | Facturation à l'usage |
 | Abonnements, achats, événements Stripe | `subscriptions`, `purchases`, `stripe_events` | Argent |
 | Clés Stripe (secrète, webhooks) | Variables d'environnement du serveur | Paiements, remboursements |

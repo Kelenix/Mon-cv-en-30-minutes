@@ -161,7 +161,7 @@ export const en: LegalContent = {
           title: "Data processed",
           paragraphs: [
             "Account: email address, first name, last name and, if you provide them, phone number and city.",
-            "Content: your answers to the questions, your CVs and the generated content (cover letters, LinkedIn versions, mock interviews).",
+            "Content: your answers to the questions, your CVs, with the photo and target country if you provide them (the photo is never sent to the artificial intelligence), and the generated content (cover letters, LinkedIn versions, mock interviews).",
             "Usage: operations performed, credits, plan and purchases. Bank card data is processed solely by Stripe; we only keep payment references.",
             "Technical: IP address in hashed form (irreversibly transformed) to prevent abuse, technical logs, language preference, country inferred from the IP address at first sign-in (the address itself is not kept).",
           ],

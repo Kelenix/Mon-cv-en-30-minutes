@@ -161,7 +161,7 @@ export const de: LegalContent = {
           title: "Verarbeitete Daten",
           paragraphs: [
             "Konto: E-Mail-Adresse, Vorname, Nachname sowie, sofern Sie diese angeben, Telefonnummer und Wohnort.",
-            "Inhalte: Ihre Antworten auf die Fragen, Ihre Lebensläufe und die erstellten Inhalte (Anschreiben, LinkedIn-Versionen, Simulationen von Vorstellungsgesprächen).",
+            "Inhalte: Ihre Antworten auf die Fragen, Ihre Lebensläufe, mit Foto und Zielland, sofern Sie diese angeben (das Foto wird nie an die künstliche Intelligenz übermittelt), und die erstellten Inhalte (Anschreiben, LinkedIn-Versionen, Simulationen von Vorstellungsgesprächen).",
             "Nutzung: durchgeführte Vorgänge, Credits, Tarif und Käufe. Kartendaten werden ausschließlich von Stripe verarbeitet; wir speichern nur die Zahlungsreferenzen.",
             "Technische Daten: IP-Adresse in gehashter (unumkehrbar umgewandelter) Form zur Verhinderung von Missbrauch, technische Protokolle, Spracheinstellung, aus der IP-Adresse bei der ersten Anmeldung abgeleitetes Land (die Adresse selbst wird nicht gespeichert).",
           ],

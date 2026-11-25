@@ -36,7 +36,8 @@
     "createCv": "Lebenslauf erstellen",
     "myCvs": "Lebensläufe",
     "admin": "Verwaltung",
-    "menu": "Menü"
+    "menu": "Menü",
+    "templates": "Lebenslauf-Vorlagen"
   },
   "home": {
     "eyebrow": "Optimiert für Bewerbermanagementsysteme (ATS)",
@@ -102,6 +103,11 @@
     "finalCta": {
       "title": "Dein Lebenslauf ist in Sekunden fertig",
       "subtitle": "Kostenlos, ohne Kreditkarte."
+    },
+    "templates": {
+      "title": "Eine Lebenslauf-Vorlage für jedes Land",
+      "subtitle": "Wähle dein Zielland: Wir zeigen dir zuerst die dort üblichen Vorlagen, mit oder ohne Foto.",
+      "seeAll": "Alle Vorlagen ansehen"
     }
   },
   "plans": {
@@ -194,6 +200,13 @@
         "interview": "Vorstellungsgespräch üben"
       }
     }
+  },
+  "templatesPage": {
+    "metaTitle": "Lebenslauf-Vorlagen nach Land",
+    "metaDescription": "Sechs Lebenslauf-Vorlagen für die Gepflogenheiten jedes Landes: europäisches Format, tabellarischer Lebenslauf, ATS-geeignete Vorlagen, mit oder ohne Foto. Zwei sind kostenlos.",
+    "title": "Lebenslauf-Vorlagen nach Land",
+    "intro": "Ein Lebenslauf sieht in Berlin anders aus als in Paris oder New York. Wähle dein Zielland: Die dort üblichen Vorlagen erscheinen zuerst. Dein Inhalt bleibt gleich, und du kannst die Vorlage jederzeit wechseln.",
+    "choose": "Wähle eine Vorlage und beantworte dann 5 Fragen: Dein Lebenslauf wird mit dieser Vorlage erstellt."
   },
   "auth": {
     "metaTitle": "Anmelden",
@@ -504,7 +517,8 @@
     "upgradeText": "{count} statt {current} Inklusiv-Credits pro Monat."
   },
   "cvDocument": {
-    "watermark": "Erstellt mit {brand}"
+    "watermark": "Erstellt mit {brand}",
+    "preview": "Vorschau"
   },
   "cvExport": {
     "pdf": "PDF herunterladen",
@@ -513,7 +527,69 @@
     "docxLockedLabel": "DOCX-Format: So schaltest du es frei",
     "lockedTitle": "PDF ohne Wasserzeichen und DOCX",
     "lockedText": "Dein kostenloses PDF enthält in der Fußzeile einen dezenten Hinweis auf unsere Website. Das PDF ohne Wasserzeichen und das DOCX-Format sind in allen Abos enthalten oder für diesen Lebenslauf mit CV Pro ({price}) erhältlich.",
-    "seeOffers": "Angebote ansehen"
+    "seeOffers": "Angebote ansehen",
+    "pdfLocked": "PDF",
+    "pdfLockedLabel": "PDF herunterladen: So schaltest du diese Vorlage frei",
+    "templateLockedTitle": "Vorlage mit Abo enthalten",
+    "templateLockedText": "Diese Vorlage kannst du mit einem Abo herunterladen oder mit CV Pro ({price}) für diesen Lebenslauf. Probiere sie in der Vorschau aus oder wähle eine kostenlose Vorlage."
+  },
+  "cvTemplates": {
+    "label": "Vorlage",
+    "change": "Vorlage ändern",
+    "preview": "PDF-Vorschau",
+    "dialogTitle": "Wähle deine Vorlage",
+    "dialogText": "Dein Inhalt bleibt gleich, nur das Layout ändert sich. Du kannst jederzeit wechseln.",
+    "close": "Schließen",
+    "selected": "Ausgewählt",
+    "error": "Die Vorlage konnte nicht gespeichert werden. Versuche es erneut.",
+    "badges": {
+      "recommended": "Passt zum Land",
+      "free": "Kostenlos",
+      "included": "Mit Abo",
+      "ats": "ATS-geeignet",
+      "photo": "Foto optional"
+    },
+    "atsWarning": "Spaltenlayout: Manche Bewerbermanagementsysteme lesen es schlechter.",
+    "names": {
+      "ats-classique": "ATS klassisch",
+      "europeen": "Europäisches Format",
+      "ats-moderne": "ATS modern",
+      "lebenslauf": "Tabellarisch",
+      "moderne": "Modern",
+      "elegant": "Elegant"
+    },
+    "descriptions": {
+      "ats-classique": "Eine schlichte Spalte, die Bewerbermanagementsysteme vollständig lesen.",
+      "europeen": "Daten links und optionales Foto, wie in weiten Teilen Europas üblich.",
+      "ats-moderne": "Eine ATS-geeignete Spalte mit markantem Kopfbereich und Daten rechts.",
+      "lebenslauf": "Der tabellarische Lebenslauf, der in Deutschland, Österreich und der Schweiz erwartet wird.",
+      "moderne": "Zwei Spalten und ein Foto, um aufzufallen, wenn ein Mensch deinen Lebenslauf liest.",
+      "elegant": "Serifenschrift und zentrierter Kopfbereich, für Beratungs- und Führungspositionen."
+    },
+    "countryLabel": "Zielland",
+    "countryHint": "Wir schlagen dir die passenden Lebenslauf-Vorlagen für dieses Land vor.",
+    "photoAdvice": {
+      "common": "{country}: Ein Foto im Lebenslauf ist üblich.",
+      "optional": "{country}: Ein Foto ist optional.",
+      "avoid": "{country}: Lieber kein Foto verwenden."
+    },
+    "continents": {
+      "europe": "Europa",
+      "north-america": "Nordamerika",
+      "latin-america": "Lateinamerika",
+      "africa": "Afrika",
+      "middle-east": "Naher Osten",
+      "asia": "Asien",
+      "oceania": "Ozeanien"
+    },
+    "photo": {
+      "add": "Foto hinzufügen",
+      "change": "Foto ändern",
+      "remove": "Foto entfernen",
+      "hint": "Im Hochformat zugeschnitten und nur in deinem Lebenslauf sichtbar. JPEG, PNG oder WebP.",
+      "error": "Dieses Bild konnte nicht verwendet werden. Versuche es mit einem anderen Foto.",
+      "alt": "Dein Foto"
+    }
   },
   "billing": {
     "metaTitle": "Credits und Abo",

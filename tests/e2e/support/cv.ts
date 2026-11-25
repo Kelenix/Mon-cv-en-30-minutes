@@ -17,11 +17,13 @@ export async function saveDraft(
   page: Page,
   answers: Partial<typeof ANSWERS> = {},
   language?: string,
+  country?: string,
 ) {
   const draft = JSON.stringify({
     answers: { ...ANSWERS, ...answers },
     step: 4,
     language,
+    country,
   });
   await page.evaluate(
     (value) => localStorage.setItem("mon-cv-30s:brouillon", value),

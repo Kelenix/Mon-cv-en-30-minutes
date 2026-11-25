@@ -2,7 +2,9 @@ import { useMemo, useSyncExternalStore } from "react";
 import { z } from "zod";
 import { localeSchema } from "@/i18n/locale-schema";
 import type { AppLocale } from "@/i18n/routing";
+import { type CountryCode, countrySchema } from "./countries";
 import { ANSWER_KEYS, ANSWER_MAX, type CvAnswers } from "./schemas";
+import { type CvTemplate, cvTemplateSchema } from "./templates";
 
 // Brouillon des 5 questions, gardé dans le navigateur (docs/architecture.md §6) : il survit au
 // rechargement, au retour en arrière et à la connexion (US-10 c.4) ; effacé une fois le CV
@@ -16,6 +18,10 @@ export type Draft = {
   step: number;
   /** Langue du CV choisie à la dernière question (défaut : langue de l'interface). */
   language?: AppLocale;
+  /** Pays visé, choisi à la dernière question (Inc-15). */
+  country?: CountryCode;
+  /** Modèle choisi dans la vitrine des modèles (Inc-15). */
+  template?: CvTemplate;
 };
 
 export const EMPTY_ANSWERS: CvAnswers = {
@@ -44,6 +50,8 @@ const draftSchema = z.object({
     .max(ANSWER_KEYS.length - 1)
     .catch(0),
   language: localeSchema.optional().catch(undefined),
+  country: countrySchema.optional().catch(undefined),
+  template: cvTemplateSchema.optional().catch(undefined),
 });
 
 function parseDraft(raw: string): Draft {

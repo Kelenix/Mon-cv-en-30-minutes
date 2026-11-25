@@ -12,7 +12,10 @@ import { getCurrentUser } from "@/features/auth/session";
 import { hashClientIp } from "@/lib/ip-hash";
 import { createClient } from "@/lib/supabase/server";
 import { generateCvForUser } from "./generation";
+import { countrySchema } from "./countries";
+import { deleteOwnCvPhoto, isJpeg, saveOwnCvPhoto } from "./photo";
 import { generateCvSchema, updateCvSchema } from "./schemas";
+import { CV_PHOTO, cvTemplateSchema } from "./templates";
 
 // Actions du CV (docs/system-design.md §3) : chaque action revérifie la session et revalide son
 // entrée côté serveur.
@@ -56,6 +59,80 @@ export async function updateCv(
     .maybeSingle();
   if (error) return fail("INTERNAL");
   return data ? ok({ updatedAt: data.updated_at }) : fail("NOT_FOUND");
+}
+
+/**
+ * Change le modèle de mise en page ou le pays visé (Inc-15), par le client soumis à la RLS. Tout
+ * modèle peut s'essayer ; le téléchargement d'un modèle payant est vérifié par la route d'export.
+ */
+export async function setCvLayout(
+  input: unknown,
+): Promise<ActionResult<{ saved: true }>> {
+  const parsed = z
+    .object({
+      cvId: z.uuid(),
+      template: cvTemplateSchema.optional(),
+      targetCountry: countrySchema.optional(),
+    })
+    .refine((value) => value.template || value.targetCountry)
+    .safeParse(input);
+  if (!parsed.success) return validationError(parsed.error);
+
+  const user = await getCurrentUser();
+  if (!user) return fail("UNAUTHENTICATED");
+
+  const { cvId, template, targetCountry } = parsed.data;
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("cvs")
+    .update({ template, target_country: targetCountry })
+    .eq("id", cvId)
+    .select("id")
+    .maybeSingle();
+  if (error) return fail("INTERNAL");
+  return data ? ok({ saved: true }) : fail("NOT_FOUND");
+}
+
+/**
+ * Pose ou remplace la photo d'un CV (US-45) : JPEG recadré dans le navigateur, contrôlé ici
+ * (format et taille), enregistré par le client soumis à la RLS.
+ */
+export async function setCvPhoto(
+  input: unknown,
+): Promise<ActionResult<{ saved: true }>> {
+  const parsed = z
+    .object({
+      cvId: z.uuid(),
+      image: z.base64().max(Math.ceil((CV_PHOTO.maxBytes * 4) / 3) + 4),
+    })
+    .safeParse(input);
+  if (!parsed.success) return validationError(parsed.error);
+
+  const user = await getCurrentUser();
+  if (!user) return fail("UNAUTHENTICATED");
+
+  const image = Buffer.from(parsed.data.image, "base64");
+  if (image.length > CV_PHOTO.maxBytes || !isJpeg(image)) {
+    return fail("VALIDATION_ERROR");
+  }
+  return (await saveOwnCvPhoto(user.id, parsed.data.cvId, image))
+    ? ok({ saved: true })
+    : fail("NOT_FOUND");
+}
+
+/** Retire la photo d'un CV (US-45 c.3). */
+export async function removeCvPhoto(
+  input: unknown,
+): Promise<ActionResult<{ removed: true }>> {
+  const parsed = z.object({ cvId: z.uuid() }).safeParse(input);
+  if (!parsed.success) return validationError(parsed.error);
+
+  const user = await getCurrentUser();
+  if (!user) return fail("UNAUTHENTICATED");
+
+  return (await deleteOwnCvPhoto(parsed.data.cvId))
+    ? ok({ removed: true })
+    : fail("INTERNAL");
 }
 
 /**

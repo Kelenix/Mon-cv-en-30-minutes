@@ -6,6 +6,7 @@ import { FeatureGrid } from "@/features/marketing/presentation/feature-grid";
 import { FinalCta } from "@/features/marketing/presentation/final-cta";
 import { Hero } from "@/features/marketing/presentation/hero";
 import { OffersOverview } from "@/features/marketing/presentation/offers-overview";
+import { TemplatesSection } from "@/features/marketing/presentation/templates-section";
 import { homeStructuredData } from "@/features/marketing/structured-data";
 import { AccountDeletedNotice } from "@/features/profile/presentation/account-deleted-notice";
 import { pageMetadata } from "@/i18n/metadata";
@@ -28,6 +29,7 @@ export default async function HomePage() {
       </Suspense>
       <Hero />
       <FeatureGrid />
+      <TemplatesSection />
       <OffersOverview />
       <FinalCta />
       <Suspense>

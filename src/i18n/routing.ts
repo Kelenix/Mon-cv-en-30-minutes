@@ -19,6 +19,13 @@ export const routing = defineRouting({
       es: "/precios",
       de: "/preise",
     },
+    "/modeles": {
+      fr: "/modeles-cv",
+      en: "/cv-templates",
+      it: "/modelli-cv",
+      es: "/plantillas-cv",
+      de: "/lebenslauf-vorlagen",
+    },
     "/creer": {
       fr: "/creer",
       en: "/create",

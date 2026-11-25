@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { defaultCountry } from "../countries";
 import { EMPTY_ANSWERS, saveDraft, useDraft } from "../draft";
 import {
   ANSWER_KEYS,
@@ -23,6 +24,7 @@ import {
   cvAnswersSchema,
   SHORT_ANSWERS_THRESHOLD,
 } from "../schemas";
+import { CountrySelect } from "./country-select";
 
 const LAST_STEP = ANSWER_KEYS.length - 1;
 
@@ -35,6 +37,7 @@ const LAST_STEP = ANSWER_KEYS.length - 1;
 export function CvWizard() {
   const t = useTranslations("wizard");
   const tLocales = useTranslations("locales");
+  const tTemplates = useTranslations("cvTemplates");
   const locale = useLocale();
   const router = useRouter();
   const draft = useDraft();
@@ -55,6 +58,7 @@ export function CvWizard() {
 
   const answers = draft?.answers ?? EMPTY_ANSWERS;
   const language = draft?.language ?? locale;
+  const country = draft?.country ?? defaultCountry(locale, navigator.languages);
   const key = ANSWER_KEYS[step];
   const value = answers[key];
   const jobMissing = !cvAnswersSchema.shape.job.safeParse(answers.job).success;
@@ -63,7 +67,14 @@ export function CvWizard() {
     0,
   );
   const update = (changes: Partial<NonNullable<typeof draft>>) =>
-    saveDraft({ answers, step, language, ...changes });
+    saveDraft({
+      answers,
+      step,
+      language,
+      country,
+      template: draft?.template,
+      ...changes,
+    });
 
   function generate() {
     if (jobMissing) return update({ step: 0 });
@@ -174,6 +185,20 @@ export function CvWizard() {
               </select>
               <p id="langue-cv-aide" className="text-sm text-muted-foreground">
                 {t("languageHint")}
+              </p>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="pays-cv" className="text-base">
+                {tTemplates("countryLabel")}
+              </Label>
+              <CountrySelect
+                id="pays-cv"
+                value={country}
+                onChange={(next) => update({ country: next })}
+                describedBy="pays-cv-aide"
+              />
+              <p id="pays-cv-aide" className="text-sm text-muted-foreground">
+                {tTemplates("countryHint")}
               </p>
             </div>
             {otherAnswersLength < SHORT_ANSWERS_THRESHOLD ? (

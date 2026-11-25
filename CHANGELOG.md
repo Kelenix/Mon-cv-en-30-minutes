@@ -4,6 +4,19 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Modèles de CV par pays (Inc-15)
+
+- Six modèles de CV, choisis dans l'aperçu et enregistrés aussitôt (ADR-050) :
+  - gratuits : ATS classique et format européen ;
+  - avec une formule ou CV Pro : ATS moderne, Lebenslauf, moderne et élégant.
+- Aperçu du PDF dans un nouvel onglet ; un modèle payant sans droit est marqué « Aperçu », et son
+  téléchargement est refusé.
+- Pays visé, choisi avec la langue du CV : modèles adaptés en tête, conseil sur la photo, modèle
+  conseillé attribué à la création.
+- Photo facultative pour les modèles qui en prévoient une : recadrée dans le navigateur,
+  visible seulement par son propriétaire, jamais envoyée à l'IA.
+- Vitrine des modèles sur l'accueil et page « Modèles de CV » dans les 5 langues.
+
 ### Ajouté — Publicités AdSense
 
 - Mode `ADS_MODE=adsense` (ADR-047) : bannière et annonce native en blocs AdSense, avec le même

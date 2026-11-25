@@ -65,6 +65,7 @@ Taille relative : S / M / L / XL.
 | Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ✅ (Lighthouse local : performance 90 et 91, SEO 100 ; mesure sur le domaine à faire) |
 | Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 3, 4, 6, 7, 9 | M | M6 | ✅ en ligne sur https://cv30secondes.com depuis le 25/11/2026 (KVM 2 partagé, ADR-044) ; déploiement par GitHub (tâche 14) |
 | Inc-14 | Espace d'administration (demande de l'utilisateur) | — | Inc-13 | L | — | ✅ (ADR-040) |
+| Inc-15 | Modèles de CV par pays, photo, vitrine (demande de l'utilisateur) | US-43 à US-46 | Inc-14 | XL | — | ✅ (ADR-050) |
 
 ## Jalons (chacun démontrable et testable)
 
@@ -115,6 +116,23 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Inc-15 : modèles de CV par pays (ADR-050, US-43 à US-46)**. Choix de
+  l'utilisateur : photo facultative, deux modèles gratuits et les autres payants, six modèles.
+  - Modèles : ATS classique et format européen (gratuits), ATS moderne, Lebenslauf, moderne,
+    élégant. Un rendu PDF par modèle. Choix dans l'aperçu, enregistré aussitôt. Modèle payant
+    sans droit : aperçu marqué « Aperçu », téléchargement refusé par le serveur.
+  - Pays visé (44 pays, 7 continents) : choisi avec la langue du CV, modèles adaptés en tête,
+    conseil sur la photo, modèle attribué à la création selon les droits.
+  - Photo : table `cv_photos` (RLS, 300 Ko, cascade), recadrée dans le navigateur, jamais
+    envoyée à l'IA ; politique de confidentialité mise à jour en 5 langues.
+  - Vitrine : section de l'accueil et page « Modèles de CV » (adresses traduites, plan du
+    site). Le modèle choisi est donné au CV créé. Miniatures générées depuis le vrai PDF.
+  - Vérifié :
+    - lint, types, 179 tests unitaires, 5 tests de base sur les photos et le modèle ;
+    - tests e2e des modèles, de la vitrine, de l'audit et de la création ;
+    - 6 modèles rendus et contrôlés à l'œil ;
+    - largeur de 375 px sous Linux sur les pages de la vitrine.
 
 - 25/11/2026 — **Plus de tirets longs, « ça sent l'IA » (demande de l'utilisateur, ADR-049)**.
   - CV : virgule entre poste et entreprise, et entre diplôme et école ; trait d'union simple
