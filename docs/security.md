@@ -68,7 +68,7 @@
 | Consigne cachée dans une réponse d'entretien | Questions et réponses encadrées, échappées et déclarées comme données ; retour gardé seulement pour les questions répondues | `tests/unit/cv-tools.test.ts` |
 | Nouveau CV hors formule (requête forgée) | `applyAdaptation` en mode `new` refusé (`FORBIDDEN`) sans Pro ni Premium | Revue de code |
 | Clickjacking, détection de type, fuite de référent | En-têtes : `frame-ancestors 'none'`, HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy` | `next.config.ts` |
-| Script ou ressource venant d'un autre domaine (XSS, injection) | Content-Security-Policy : site et Supabase seulement (plus `challenges.cloudflare.com` pour Turnstile), aucun autre cadre ni objet, `base-uri 'self'`, formulaires vers le site, Supabase et Google ; `https:` ouvert seulement en mode `ADS_MODE=google` (ADR-037) | `tests/e2e/audit.spec.ts` (aucune ressource refusée) |
+| Script ou ressource venant d'un autre domaine (XSS, injection) | Content-Security-Policy : site et Supabase seulement (plus `challenges.cloudflare.com` pour Turnstile), aucun autre cadre ni objet, `base-uri 'self'`, formulaires vers le site, Supabase et Google ; `https:` ouvert seulement en mode `ADS_MODE=adsense` ou `google` (ADR-037, ADR-047) | `tests/e2e/audit.spec.ts` (aucune ressource refusée) |
 | Balise injectée par les données structurées | JSON produit par le serveur à partir du catalogue, sans donnée saisie ; `<` échappé | Revue de code |
 | Accès direct à la base ou à l'administration depuis Internet | Seuls SSH, 80 et 443 ouverts (pare-feu) ; PostgreSQL sur un réseau Docker sans le site ni accès extérieur ; Studio lié à `127.0.0.1`, par tunnel SSH seulement | `deploy/docker-compose.yml`, répétition locale (ADR-038) |
 | Appels directs à l'API Supabase (inscription en rafale, lecture de données) contournant le site | `api.domaine` n'accepte sans clé que la connexion Google ; le reste exige la clé du serveur, jamais envoyée au navigateur ; RLS et privilèges en plus | `deploy/scripts/smoke-test.sh` (401 sans clé, 401 sans session) |
@@ -89,7 +89,7 @@
 |-------|--------|-------|
 | Un scanner de liens de messagerie peut ouvrir le lien de l'e-mail avant l'utilisateur et l'invalider | Faible | Le code à 6 chiffres reste utilisable ; message clair si le lien a expiré |
 | CSP avec `'unsafe-inline'` pour les scripts (pages générées à l'avance, sans nonce) | Faible | React échappe tout contenu ; aucune donnée saisie insérée en HTML brut (ADR-037) |
-| En mode `ADS_MODE=google`, scripts, images, connexions et cadres ouverts à tout domaine HTTPS | Moyen | Exigé par Ad Manager et son bandeau ; à resserrer avec la liste des domaines observés une fois les annonces en ligne (tâche 10) |
+| En mode `ADS_MODE=adsense` ou `google`, scripts, images, connexions et cadres ouverts à tout domaine HTTPS | Moyen | Exigé par AdSense, Ad Manager et leur bandeau ; à resserrer avec la liste des domaines observés une fois les annonces en ligne (tâche 10) |
 | Toutes les requêtes d'authentification viennent du serveur du site : les limites par IP de GoTrue sont relevées et agissent comme limites globales | Faible | Plafonds par IP et par adresse e-mail calculés par le site, Turnstile (ADR-039) |
 | Robot capable de résoudre Turnstile avec de nombreuses adresses IP | Faible | Plafond horaire global d'e-mails, 3 CV gratuits par IP et par jour, limites de l'IA par minute ; surveiller Resend et le coût de l'IA |
 | SMTP : e-mails de connexion indispensables | Moyen | Fournisseur dédié et domaine authentifié (tâche 6, R15) |

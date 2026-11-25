@@ -12,7 +12,7 @@ import { env } from "@/core/env";
 import { getCurrentUser } from "@/features/auth/session";
 import { getActivePlan } from "@/features/billing/subscription";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { DAILY_REWARDED_CREDITS } from "./config";
+import { DAILY_REWARDED_CREDITS, hasAccountFormats } from "./config";
 
 // Annonces liées au compte (docs/system-design.md §3) : jeton de vidéo récompensée émis et
 // échangé par le serveur (US-35), interstitiel noté comme vu (US-34).
@@ -29,7 +29,7 @@ export async function issueRewardToken(): Promise<
 > {
   const user = await getCurrentUser();
   if (!user) return fail("UNAUTHENTICATED");
-  if (env.ADS_MODE === "off" || (await getActivePlan()) !== null) {
+  if (!hasAccountFormats(env.ADS_MODE) || (await getActivePlan()) !== null) {
     return fail("FORBIDDEN");
   }
   const { data, error } = await createAdminClient().rpc("issue_reward_token", {

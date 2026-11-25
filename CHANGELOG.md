@@ -4,6 +4,13 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ## [Non publié]
 
+### Ajouté — Publicités AdSense
+
+- Mode `ADS_MODE=adsense` (ADR-047) : bannière et annonce native en blocs AdSense, avec le même
+  bandeau de consentement de Google et les mêmes pages qu'avec Ad Manager. Sans vidéo
+  récompensée ni interstitiel, réservés à Ad Manager. `ads.txt` servi dès l'identifiant
+  d'éditeur connu, pour l'examen du site.
+
 ### Ajouté — Mesure de l'IA réelle
 
 - Jeu de 20 profils de référence et mesure de la création de CV avec l'IA réelle

@@ -18,8 +18,9 @@
   - un premier achat réel de bout en bout (paiement, webhook, crédits) ;
   - qualité réelle des outils IA (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà
     mesurée, ADR-041) ;
-  - tâches 10 et 12. Les noms de marque traduits restent ceux proposés tant que la tâche 12
-    n'est pas faite ;
+  - tâche 10 : l'utilisateur garde un seul compte AdSense qui accepte les sites et donne son
+    identifiant `pub-…` ; Claude active alors `ADS_MODE=adsense` sur le serveur ;
+  - tâche 12. Les noms de marque traduits restent ceux proposés tant qu'elle n'est pas faite ;
   - dans quelques jours : vérifier dans Search Console que l'accueil et les tarifs sont
     indexés (tâche 13).
 - **Git** : **toute mise en ligne passe par GitHub** (choix de l'utilisateur). Envoi sur `main`,
@@ -60,7 +61,7 @@ Taille relative : S / M / L / XL.
 | Inc-8 | LinkedIn + lettre de motivation | US-28, 29 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-9 | Simulation d'entretien | US-30 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ✅ (bannière et publicité native de la liste à l'Inc-11) |
-| Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ✅ en simulation (annonces Google réelles : tâche 10, possible maintenant que le site est en ligne) |
+| Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ✅ en simulation ; mode AdSense prêt (bannière et native, ADR-047), activation : tâche 10 |
 | Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ✅ (Lighthouse local : performance 90 et 91, SEO 100 ; mesure sur le domaine à faire) |
 | Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 3, 4, 6, 7, 9 | M | M6 | ✅ en ligne sur https://cv30secondes.com depuis le 25/11/2026 (KVM 2 partagé, ADR-044) ; déploiement par GitHub (tâche 14) |
 | Inc-14 | Espace d'administration (demande de l'utilisateur) | — | Inc-13 | L | — | ✅ (ADR-040) |
@@ -86,7 +87,7 @@ jusqu'au bout : mise en ligne le 25/11/2026.
 |-----------------------------------------|------|----------|
 | 1 à 9, 11, 13, 14, 16, 17 | ✅ faites | Outils, clé Anthropic, Stripe réel, Google, Resend, infos légales, logo, VPS et domaine, GitHub, moteurs de recherche, déploiement automatique, Turnstile, administrateurs (tâche 2 sans objet) |
 | 15 — Surveillance et sauvegardes hors du serveur | 🔄 | Surveillance faite ; sauvegardes hPanel et copie hebdomadaire à faire |
-| 10 — Comptes publicitaires | ⬜ | Annonces réelles ; possible maintenant que le site est en ligne |
+| 10 — Comptes publicitaires | 🔄 | Site prêt pour AdSense (ADR-047) ; bloqué côté comptes : un seul compte AdSense à garder, qui accepte les sites |
 | 12 — Noms de marque et relecture des traductions | ⬜ | Noms proposés utilisés en attendant |
 
 Risques : `docs/risks.md` (aucun 🔴).
@@ -115,6 +116,17 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Tâche 10 : publicités par AdSense (ADR-047, choix de l'utilisateur)**.
+  - Constat : Ad Manager sans inscription en libre-service ; comptes AdSense de l'utilisateur
+    limités à YouTube (sans « Sites ») ou non approuvés pour doublon.
+  - Nouveau mode `ADS_MODE=adsense` : bannière et native AdSense, même consentement, mêmes
+    pages ; vidéo récompensée et interstitiel retirés dans ce mode (Ad Manager seulement).
+    `ads.txt` servi dès l'identifiant d'éditeur connu.
+  - Vérifié : build en mode AdSense (bloc `adsbygoogle` sur l'accueil, aucun sur les tarifs,
+    `ads.txt`, CSP), Chromium (bandeau puis AdSense chargés, bloc traité), lint, types, tests
+    unitaires, e2e publicités, crédits et audit en simulation.
+  - Reste : comptes Google côté utilisateur (manual-tasks, tâche 10).
 
 - 25/11/2026 — **Tâche 13 faite (moteurs de recherche)**.
   - Google Search Console : propriété « Domaine » validée par un enregistrement TXT chez

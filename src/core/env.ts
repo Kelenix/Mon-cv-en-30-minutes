@@ -47,7 +47,8 @@ const envSchema = z
     SUPABASE_SECRET_KEY: z.string().min(1),
     GOOGLE_AUTH_ENABLED: z.stringbool().default(false),
     ADS_REMOVAL_ENABLED: z.stringbool().default(false),
-    ADS_MODE: z.enum(["off", "simulation", "google"]).default("off"),
+    // google : Ad Manager (tous les formats) ; adsense : bannière et native seulement (ADR-047).
+    ADS_MODE: z.enum(["off", "simulation", "adsense", "google"]).default("off"),
     ADS_PUBLISHER_ID: optionalText.refine(
       (value) => !value || /^pub-\d{10,20}$/.test(value),
       { error: "format pub-0000000000000000" },
@@ -55,6 +56,15 @@ const envSchema = z
     ADS_NETWORK_CODE: optionalText.refine(
       (value) => !value || /^\d{4,12}$/.test(value),
       { error: "code réseau Ad Manager (chiffres)" },
+    ),
+    // Blocs d'annonces AdSense : facultatifs pendant l'examen du site (ads.txt suffit).
+    ADS_SLOT_BANNER: optionalText.refine(
+      (value) => !value || /^\d{6,12}$/.test(value),
+      { error: "identifiant de bloc AdSense (chiffres)" },
+    ),
+    ADS_SLOT_NATIVE: optionalText.refine(
+      (value) => !value || /^\d{6,12}$/.test(value),
+      { error: "identifiant de bloc AdSense (chiffres)" },
     ),
     ANTHROPIC_API_KEY: optionalText,
     ANTHROPIC_MODEL: z.string().min(1).default("claude-opus-5-5"),
@@ -104,15 +114,19 @@ const envSchema = z
   })
   .superRefine((values, context) => {
     // Publicités Google : identifiants obligatoires (tâche manuelle 10).
-    if (values.ADS_MODE === "google") {
-      for (const key of ["ADS_PUBLISHER_ID", "ADS_NETWORK_CODE"] as const) {
-        if (!values[key]) {
-          context.addIssue({
-            code: "custom",
-            path: [key],
-            message: "obligatoire avec ADS_MODE=google",
-          });
-        }
+    const adsKeys = {
+      off: [],
+      simulation: [],
+      adsense: ["ADS_PUBLISHER_ID"],
+      google: ["ADS_PUBLISHER_ID", "ADS_NETWORK_CODE"],
+    } as const;
+    for (const key of adsKeys[values.ADS_MODE]) {
+      if (!values[key]) {
+        context.addIssue({
+          code: "custom",
+          path: [key],
+          message: `obligatoire avec ADS_MODE=${values.ADS_MODE}`,
+        });
       }
     }
     if (values.APP_ENV !== "production") return;

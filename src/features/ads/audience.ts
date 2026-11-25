@@ -6,7 +6,7 @@ import { getActivePlan } from "@/features/billing/subscription";
 import { planEntitlements } from "@/features/plans/entitlements";
 import { getOwnProfile } from "@/features/profile/data/profile-repository";
 import { createClient } from "@/lib/supabase/server";
-import type { AdsConfig } from "./config";
+import { type AdsConfig, hasAccountFormats } from "./config";
 
 // Qui voit quelles publicités (docs/architecture.md §11, H15, H26) : décidé par le serveur, aucun
 // script publicitaire n'est envoyé à un compte qui n'en voit pas.
@@ -28,6 +28,10 @@ export function adsConfig(): AdsConfig | null {
     mode: env.ADS_MODE,
     publisherId: env.ADS_PUBLISHER_ID ?? "",
     networkCode: env.ADS_NETWORK_CODE ?? "",
+    slots: {
+      banner: env.ADS_SLOT_BANNER ?? "",
+      native: env.ADS_SLOT_NATIVE ?? "",
+    },
   };
 }
 
@@ -45,10 +49,11 @@ export const getAdsAudience = cache(async (): Promise<AdsAudience> => {
     getOwnProfile(await createClient(), user.id),
   ]);
   const display = planEntitlements(plan).ads && !profile.ads_removed_at;
+  const accountFormats = hasAccountFormats(config.mode);
   return {
     config,
     display,
-    rewarded: plan === null,
-    interstitial: display && !profile.interstitial_shown_at,
+    rewarded: accountFormats && plan === null,
+    interstitial: accountFormats && display && !profile.interstitial_shown_at,
   };
 });

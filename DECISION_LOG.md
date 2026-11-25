@@ -6,6 +6,46 @@
 
 ---
 
+## ADR-047 — Publicités par AdSense en attendant Ad Manager (tâche 10)
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté (choix de l'utilisateur : « Passer à AdSense ») ; complète ADR-036
+- **Décideur** : Claude (rôles : architecte, frontend, sécurité) avec l'utilisateur
+- **Contexte** :
+  - Google Ad Manager n'a pas d'inscription en libre-service sur les comptes de l'utilisateur :
+    le bouton « Commencer » mène à un formulaire commercial.
+  - Ses comptes AdSense sont des comptes « YouTube », sans rubrique « Sites » ; un troisième
+    compte n'est pas approuvé pour cause de doublon (un seul compte AdSense par personne).
+  - Le site ne savait diffuser que par Ad Manager (ADR-036).
+- **Décision** :
+  - Nouveau mode `ADS_MODE=adsense`, à côté de `google` (Ad Manager), gardé tel quel.
+  - Bannière et native en blocs AdSense manuels (`ADS_SLOT_BANNER`, `ADS_SLOT_NATIVE`) :
+    - bannière en 320 × 50 sur mobile et 728 × 90 sur ordinateur, taille fixée en CSS ;
+    - native en annonce intégrée au contenu (« in-article »).
+  - Même audience et mêmes pages qu'avec Ad Manager (décidées par le serveur).
+  - Même bandeau de consentement certifié, chargé avant `adsbygoogle.js`. Le bandeau signale sa
+    présence, donc AdSense n'en charge pas un second.
+  - **Vidéo récompensée et interstitiel retirés en mode AdSense** (formats d'Ad Manager
+    seulement) : l'audience ne les propose pas et le serveur refuse le jeton de récompense.
+    Ils restent en simulation et avec Ad Manager.
+  - `ads.txt` est servi en mode AdSense dès l'identifiant d'éditeur connu : preuve de propriété
+    pour l'examen du site, avant même la création des blocs. Un bloc absent masque son
+    emplacement.
+- **Alternatives écartées** :
+  - Retirer tout le code Ad Manager : il est complet et testé, et redevient utile si l'accès
+    est obtenu (tous les formats).
+  - Annonces automatiques AdSense : elles placeraient des annonces hors des pages autorisées
+    (aperçu, paiement), contraire à ADR-036.
+- **Conséquences** :
+  - Le crédit gagné en regardant une vidéo n'existe plus en production tant qu'Ad Manager
+    n'est pas disponible.
+  - L'utilisateur doit d'abord disposer d'un compte AdSense qui accepte les sites (régler le
+    doublon), puis faire approuver cv30secondes.com (tâche 10).
+  - CSP ouverte en HTTPS en mode AdSense comme en mode Ad Manager (ADR-037).
+- **Impact** : métier (moyen : moins de formats publicitaires), technique (faible).
+
+---
+
 ## ADR-046 — Logo en badge et mascotte robot (tâche 8)
 
 - **Date** : 25/11/2026

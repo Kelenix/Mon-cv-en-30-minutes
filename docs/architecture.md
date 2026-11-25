@@ -259,8 +259,9 @@ abonnement ni retrait des pubs, consentement donné, page autorisée (jamais que
 génération, aperçu, export, paiement). Consentement via la plateforme de consentement certifiée
 de Google (« Confidentialité et messages »), chargée avant la bibliothèque Ad Manager (GPT).
 Vidéo récompensée : jeton à usage unique émis par le serveur, plafond quotidien. Modes
-`ADS_MODE` : `off`, `simulation` (aucun script externe), `google` (ADR-036). Code :
-`src/features/ads/` (audience côté serveur, actions, composants).
+`ADS_MODE` : `off`, `simulation` (aucun script externe), `adsense` (bannière et native
+AdSense, sans vidéo récompensée ni interstitiel, ADR-047), `google` (Ad Manager, tous les
+formats, ADR-036). Code : `src/features/ads/` (audience côté serveur, actions, composants).
 
 ---
 

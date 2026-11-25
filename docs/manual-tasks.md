@@ -260,30 +260,49 @@
 - **Vérification** : les noms validés sont reportés dans `docs/product/user-stories.md` (H31) ;
   chaque relecture est notée dans `PROJECT_STATE.md`.
 
-## Tâche 10 ⏱ : Comptes publicitaires (AdSense / Ad Manager)
-- **Pourquoi** : bannière, publicité native, interstitiel et vidéo récompensée.
-- **Quand** : une fois le site en ligne (l'approbation exige un site public).
+## Tâche 10 ⏱ : Comptes publicitaires (AdSense)
+- **Pourquoi** : bannière et publicité native (ADR-047). La vidéo récompensée et
+  l'interstitiel demandent Google Ad Manager (voir plus bas).
+- **Quand** : maintenant, le site est en ligne. L'examen de Google prend de quelques jours à
+  quelques semaines.
+- **État (25/11/2026)** : le site sait afficher les annonces AdSense (`ADS_MODE=adsense`).
+  Bloqué côté comptes Google :
+  - les comptes AdSense de l'utilisateur (« Lionel » et « LIONEL DJOUAKA KELEFACK ») sont
+    des comptes YouTube, sans rubrique « Sites » ;
+  - un troisième (« Lionel Brice ») n'est pas approuvé : Google demande de fermer le compte en
+    double (un seul compte AdSense par personne) ;
+  - Ad Manager n'a pas d'inscription en libre-service (formulaire commercial seulement).
 - **Étapes** :
-  1. Créer un compte **Google AdSense** avec l'adresse du site en ligne et attendre son
-     approbation ; noter l'**identifiant d'éditeur** (`pub-…`, menu Compte → Informations).
-  2. Ouvrir **Google Ad Manager** (offre gratuite, liée au compte AdSense) ; noter le **code
-     réseau** (Administration → Paramètres globaux).
-  3. Dans Ad Manager, **Inventaire → Blocs d'annonces**, créer exactement : `mon-cv-banniere`
-     (tailles 728 × 90 et 320 × 50), `mon-cv-native` (taille « fluide », format natif),
-     `mon-cv-interstitiel` (format hors page : interstitiel web) et
-     `mon-cv-video-recompensee` (format hors page : récompensé web, 1 récompense).
-  4. Dans AdSense ou Ad Manager, **Confidentialité et messages → Message RGPD** : bouton
-     « Refuser » activé (au même niveau qu'« Accepter »), langues FR, EN, IT, ES, DE, lien vers
-     la page Cookies du site, durée du choix de **6 mois** si l'option existe ; publier le message.
-  5. Dans `deploy/.env` sur le serveur : `ADS_MODE=google`, `ADS_PUBLISHER_ID=pub-…`,
-     `ADS_NETWORK_CODE=…` et, pour vendre le retrait des publicités, `ADS_REMOVAL_ENABLED=true` ;
-     puis `deploy/scripts/deploy.sh`.
-  6. Vérifier que `https://cv30secondes.com/ads.txt` affiche la ligne `google.com, pub-…`.
+  1. **Un seul compte AdSense** : choisir celui à garder (le compte YouTube actif, qui reçoit
+     des paiements, est le plus sûr) et fermer les doublons. Fermer un compte est définitif :
+     à faire par toi.
+  2. Dans le compte gardé : **Sites → Ajouter un site** → `cv30secondes.com`. Si la rubrique
+     « Sites » manque, passer par https://adsense.google.com/start avec ce même compte Google,
+     ou par l'aide AdSense.
+  3. Noter l'**identifiant d'éditeur** (`pub-…`) et l'envoyer à Claude. Claude l'ajoute dans le
+     `deploy/.env` du serveur (`ADS_MODE=adsense`, `ADS_PUBLISHER_ID=pub-…`, et
+     `ADS_REMOVAL_ENABLED=true` pour vendre le retrait des publicités), puis relance le
+     déploiement par GitHub. `https://cv30secondes.com/ads.txt` affiche alors la ligne
+     `google.com, pub-…`.
+  4. Dans AdSense, valider le site par la méthode **« Extrait ads.txt »**, puis **Demander un
+     examen**.
+  5. Une fois le site approuvé, **Annonces → Par bloc d'annonces** :
+     - `mon-cv-banniere` : annonce display ;
+     - `mon-cv-native` : annonce In-article.
+     Noter leurs identifiants (`data-ad-slot`) pour `ADS_SLOT_BANNER` et `ADS_SLOT_NATIVE`.
+     Laisser les **annonces automatiques désactivées** pour ce site (elles iraient sur l'aperçu
+     et le paiement).
+  6. **Confidentialité et messages → Message RGPD** : bouton « Refuser » au même niveau
+     qu'« Accepter », langues FR, EN, IT, ES, DE, lien vers la page Cookies du site, durée du
+     choix de **6 mois** si l'option existe ; publier le message.
+- **Plus tard, si Ad Manager devient accessible** : créer `mon-cv-banniere` (728 × 90 et
+  320 × 50), `mon-cv-native` (fluide), `mon-cv-interstitiel` (interstitiel web) et
+  `mon-cv-video-recompensee` (récompensé web, 1 récompense), puis `ADS_MODE=google` et
+  `ADS_NETWORK_CODE=…` : vidéo récompensée et interstitiel reviennent.
 - **Coût** : gratuit (rémunération par Google).
 - **Vérification** : bandeau de Google à la première visite (Accepter / Refuser), annonces en
   bas de l'accueil et dans « Mes CV » sans abonnement, aucune annonce avec un abonnement,
-  vidéo récompensée qui crédite 1 crédit, interstitiel une seule fois en quittant l'aperçu du
-  premier CV, « Gérer les cookies » qui rouvre le choix.
+  « Gérer les cookies » qui rouvre le choix, rapport AdSense qui compte des impressions.
 
 ## Tâche 13 ✅ : Déclarer le site aux moteurs de recherche
 - **Fait (25/11/2026)** :

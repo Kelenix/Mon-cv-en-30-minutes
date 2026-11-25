@@ -4,9 +4,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const isDev = process.env.NODE_ENV !== "production";
-// Annonces Google (Ad Manager, consentement) : origines nombreuses et variables, autorisées en
-// HTTPS dans ce seul mode (ADR-037).
-const googleAds = process.env.ADS_MODE === "google";
+// Annonces Google (AdSense ou Ad Manager, consentement) : origines nombreuses et variables,
+// autorisées en HTTPS dans ces seuls modes (ADR-037, ADR-047).
+const googleAds =
+  process.env.ADS_MODE === "adsense" || process.env.ADS_MODE === "google";
 const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 // Vérification anti-robot de la connexion (Cloudflare Turnstile, ADR-039), si configurée.
 const turnstile = process.env.TURNSTILE_SITE_KEY

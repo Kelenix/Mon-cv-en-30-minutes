@@ -2,8 +2,8 @@
 
 // Scripts Google, chargés à la demande et une seule fois, seulement sur les pages qui affichent une
 // annonce (docs/architecture.md §11) : d'abord le bandeau de consentement certifié
-// (« Confidentialité et messages », TCF), puis la bibliothèque Ad Manager (GPT), qui attend la
-// réponse du bandeau avant toute requête publicitaire.
+// (« Confidentialité et messages », TCF), puis la bibliothèque d'annonces (Ad Manager : GPT ;
+// AdSense : adsbygoogle, ADR-047), qui attend la réponse du bandeau avant toute requête.
 
 declare global {
   interface Window {
@@ -11,13 +11,15 @@ declare global {
       callbackQueue: (() => void)[];
       showRevocationMessage?: () => void;
     };
+    adsbygoogle?: object[];
   }
 }
 
-function addScript(src: string) {
+function addScript(src: string, crossOrigin?: "anonymous") {
   return new Promise<void>((resolve, reject) => {
     const script = document.createElement("script");
     script.async = true;
+    if (crossOrigin) script.crossOrigin = crossOrigin;
     script.src = src;
     script.onload = () => resolve();
     script.onerror = () => reject(new Error(src));
@@ -39,6 +41,7 @@ function signalConsentPresent() {
 
 let consent: Promise<void> | undefined;
 let gpt: Promise<void> | undefined;
+let adsense: Promise<void> | undefined;
 
 export function loadConsent(publisherId: string) {
   consent ??= (async () => {
@@ -62,6 +65,21 @@ export function loadGoogleAds(publisherId: string) {
     });
   })();
   return gpt;
+}
+
+/**
+ * Bandeau de consentement, puis AdSense ; le bandeau signale sa présence, donc AdSense n'en
+ * charge pas un second.
+ */
+export function loadAdSense(publisherId: string) {
+  adsense ??= (async () => {
+    await loadConsent(publisherId);
+    await addScript(
+      `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${publisherId}`,
+      "anonymous",
+    );
+  })();
+  return adsense;
 }
 
 /** « Gérer les cookies » : rouvre le choix dans le bandeau de Google (US-32 c.3). */

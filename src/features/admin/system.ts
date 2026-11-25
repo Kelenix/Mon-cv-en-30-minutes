@@ -151,6 +151,7 @@ function configurationChecks(): Check[] {
       detail: {
         off: "Désactivées",
         simulation: "Mode simulation",
+        adsense: "Google AdSense",
         google: "Google Ad Manager",
       }[env.ADS_MODE],
     },

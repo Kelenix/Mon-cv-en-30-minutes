@@ -56,9 +56,9 @@ export function ManageCookiesButton({ config }: { config: AdsConfig }) {
     <button
       type="button"
       onClick={() =>
-        config.mode === "google"
-          ? void showGoogleConsentChoices(config.publisherId)
-          : consentStore.manage()
+        config.mode === "simulation"
+          ? consentStore.manage()
+          : void showGoogleConsentChoices(config.publisherId)
       }
       className="inline-flex min-h-11 items-center text-sm text-foreground underline-offset-4 hover:underline"
     >

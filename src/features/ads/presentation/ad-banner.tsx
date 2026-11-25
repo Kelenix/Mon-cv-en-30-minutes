@@ -14,5 +14,7 @@ export async function AdBanner({
 }) {
   const { config, display } = await getAdsAudience();
   if (!config || !display) return null;
+  // AdSense : bloc pas encore créé (site en cours d'examen par Google).
+  if (config.mode === "adsense" && !config.slots[format]) return null;
   return <AdSlot config={config} format={format} className={className} />;
 }
