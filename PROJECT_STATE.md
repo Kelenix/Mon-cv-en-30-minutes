@@ -5,14 +5,21 @@
 
 ## Snapshot
 
-- **Phase courante** : 6 — Mise en production : **site en ligne sur https://cv30secondes.com** depuis le 25/11/2026, paiements Stripe en mode réel ouverts
+- **Phase courante** : 8 — Maintenance. La mise en production (phase 6) est terminée :
+  **site en ligne sur https://cv30secondes.com** depuis le 25/11/2026.
+  - Ce qui fonctionne en ligne : paiements Stripe en mode réel, connexion par e-mail et avec
+    Google (vérifiée par l'utilisateur), logo en badge et mascotte.
+  - Exploitation : déploiement par GitHub et surveillance toutes les 10 minutes.
 - **Dernière mise à jour** : 25/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : sauvegardes hors du serveur (tâche 15, étapes 2 et 3). Ensuite, sur le
-  domaine :
-  mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle des outils IA
-  (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà mesurée, ADR-041), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
-  que la tâche 12 n'est pas faite.
+- **Prochaine action** : sauvegardes hors du serveur (tâche 15, étapes 2 et 3, dans hPanel).
+  Ensuite, sur le domaine :
+  - mesure Lighthouse (NFR-01) ;
+  - un premier achat réel de bout en bout (paiement, webhook, crédits) ;
+  - qualité réelle des outils IA (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà
+    mesurée, ADR-041) ;
+  - tâches 10, 12 et 13. Les noms de marque traduits restent ceux proposés tant que la
+    tâche 12 n'est pas faite.
 - **Git** : **toute mise en ligne passe par GitHub** (choix de l'utilisateur). Envoi sur `main`,
   CI, puis workflow « Déploiement » qui lance `deploy.sh` sur le KVM 2. Le serveur lit `origin`
   sur GitHub avec sa clé en lecture seule.
@@ -25,11 +32,11 @@
 | 1 — Définition produit      | ✅ fait | 39 stories, matrice des droits, NFR, traçabilité (`docs/product/user-stories.md`) |
 | 2 — Planification           | ✅ fait | Jalons M0–M6, chemin critique, `docs/risks.md` (aucun 🔴) |
 | 3 — Architecture & design   | ✅ fait | `docs/architecture.md`, `docs/system-design.md`, `docs/data-model.md`, `docs/design/` ; ADR-009 à 017 |
-| 4 — Implémentation          | ✅ fait | Inc-0 à Inc-13 (jalons M2, M4, M5 en simulation ; M3 en attente des clés Stripe) |
-| 5 — Qualité                 | ✅ fait | En continu ; revue de sécurité finale à l'Inc-13 (`docs/security.md`) |
-| 6 — Mise en production      | 🔄 prêt | Tout est prêt et répété en local (ADR-038) ; mise en ligne : tâche 9 |
+| 4 — Implémentation          | ✅ fait | Inc-0 à Inc-14 ; jalons M0 à M6 atteints (publicités encore en simulation : tâche 10) |
+| 5 — Qualité                 | ✅ fait | En continu ; revue de sécurité finale à l'Inc-13 (`docs/security.md`) ; CI verte à chaque envoi |
+| 6 — Mise en production      | ✅ fait | En ligne le 25/11/2026 sur le KVM 2 partagé (ADR-044, ADR-045), Stripe réel, Google en production |
 | 7 — Documentation           | ✅ fait | README, `docs/deployment.md`, architecture, sécurité, tâches manuelles |
-| 8 — Maintenance             | ⏸️ en attente | Après la mise en ligne : exploitation selon `docs/deployment.md` §13 à §17 |
+| 8 — Maintenance             | 🔄 en cours | Déploiement par GitHub, surveillance toutes les 10 min ; reste les sauvegardes hors du serveur (tâche 15) ; exploitation selon `docs/deployment.md` §13 à §17 |
 
 > États : ⬜ à faire · 🔄 en cours · ✅ fait · ⏸️ en attente (raison)
 
@@ -46,43 +53,40 @@ Taille relative : S / M / L / XL.
 | Inc-3 | Crédits & droits | US-07, 08, 09 | Inc-2 | L | M2 | ✅ (US-07 c.2 → Inc-6 ; US-08 c.1, c.3, c.4 → Inc-4 ; US-09 c.2, c.4 → Inc-7) |
 | Inc-4 | Création de CV par IA | US-10 à 15, US-42 | Inc-3, clé Anthropic | L | M2 | ✅ (US-11 c.4 et c.5 mesurés avec l'IA réelle : P95 de 5,9 s, aucun fait inventé, ADR-041 ; US-15 c.3 → Inc-6) |
 | Inc-5 | Exports PDF / DOCX | US-16, 17 | Inc-4 | M | M2 | ✅ (US-17 c.1 vérifié avec un CV Pro posé en test ; achat et abonnements à l'Inc-6) |
-| Inc-6 | Paiements | US-18 à 23, US-38 (CGV) | Inc-3, Inc-5, clés Stripe test | XL | M3 | ✅ code et tests ; vérification avec Stripe réel dès la tâche 4 (US-38 c.3 : CGV déjà rédigées à l'Inc-1) |
+| Inc-6 | Paiements | US-18 à 23, US-38 (CGV) | Inc-3, Inc-5, clés Stripe test | XL | M3 | ✅ code et tests ; Stripe réel branché en ligne le 25/11/2026 (tâche 4) ; premier achat réel à faire (US-38 c.3 : CGV déjà rédigées à l'Inc-1) |
 | Inc-7 | Amélioration IA | US-25, 26, 27 | Inc-6 | L | M4 | ✅ (IA simulée ; US-25 c.3, US-27 c.5 et NFR-02 à mesurer avec la clé) |
 | Inc-8 | LinkedIn + lettre de motivation | US-28, 29 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-9 | Simulation d'entretien | US-30 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ✅ (bannière et publicité native de la liste à l'Inc-11) |
-| Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ✅ en simulation (annonces Google réelles : tâche 10, après la mise en ligne) |
-| Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ✅ (Lighthouse local : performance 90 et 91, SEO 100 ; à remesurer sur le domaine à l'Inc-13) |
-| Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 3, 4, 6, 7, 9 | M | M6 | ✅ préparé et répété en local (VPS Hostinger, ADR-038) ; mise en ligne : tâche 9 |
+| Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ✅ en simulation (annonces Google réelles : tâche 10, possible maintenant que le site est en ligne) |
+| Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ✅ (Lighthouse local : performance 90 et 91, SEO 100 ; mesure sur le domaine à faire) |
+| Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 3, 4, 6, 7, 9 | M | M6 | ✅ en ligne sur https://cv30secondes.com depuis le 25/11/2026 (KVM 2 partagé, ADR-044) ; déploiement par GitHub (tâche 14) |
 | Inc-14 | Espace d'administration (demande de l'utilisateur) | — | Inc-13 | L | — | ✅ (ADR-040) |
 
 ## Jalons (chacun démontrable et testable)
 
-| Jalon | Contenu | Démonstration |
-|-------|---------|---------------|
-| M0 — Squelette | Inc-0 | `npm run dev` affiche la page de base aux couleurs de la marque ; Supabase local tourne dans Docker ; CI verte (lint, types, tests, build) |
-| M1 — Vitrine | Inc-1 | Accueil, Tarifs et pages légales navigables, responsive, avec les vrais prix |
-| M2 — CV gratuit de bout en bout | Inc-2 à Inc-5 | Parcours §14 étapes 1 à 7 : questions → compte → génération → aperçu → copie / modification → PDF avec filigrane |
-| M3 — MVP monétisé | Inc-6 | Parcours §14 complet (étapes 1 à 9) en mode test Stripe : packs, CV Pro, formules, essai, portail, remise mensuelle |
-| M4 — Outils IA complets | Inc-7 à Inc-10 | Amélioration, adaptation + mots-clés, LinkedIn, lettre, entretien, historique |
-| M5 — Publicités | Inc-11 | Consentement, emplacements avec blocs de test Google, vidéo récompensée, retrait des pubs |
-| M6 — Prêt pour la production | Inc-12, Inc-13 | Site en ligne sur le domaine, CI/CD verte, revue de sécurité, documentation complète |
+| Jalon | Contenu | Démonstration | État |
+|-------|---------|---------------|------|
+| M0 — Squelette | Inc-0 | `npm run dev` affiche la page de base aux couleurs de la marque ; Supabase local tourne dans Docker ; CI verte (lint, types, tests, build) | ✅ |
+| M1 — Vitrine | Inc-1 | Accueil, Tarifs et pages légales navigables, responsive, avec les vrais prix | ✅ |
+| M2 — CV gratuit de bout en bout | Inc-2 à Inc-5 | Parcours §14 étapes 1 à 7 : questions → compte → génération → aperçu → copie / modification → PDF avec filigrane | ✅ |
+| M3 — MVP monétisé | Inc-6 | Parcours §14 complet (étapes 1 à 9) en mode test Stripe : packs, CV Pro, formules, essai, portail, remise mensuelle | ✅ (mode réel ouvert en ligne) |
+| M4 — Outils IA complets | Inc-7 à Inc-10 | Amélioration, adaptation + mots-clés, LinkedIn, lettre, entretien, historique | ✅ (qualité réelle à mesurer) |
+| M5 — Publicités | Inc-11 | Consentement, emplacements avec blocs de test Google, vidéo récompensée, retrait des pubs | ✅ en simulation (tâche 10) |
+| M6 — Prêt pour la production | Inc-12, Inc-13 | Site en ligne sur le domaine, CI/CD verte, revue de sécurité, documentation complète | ✅ le 25/11/2026 |
 
 ## Chemin critique et blocages
 
-Chemin critique : **Inc-0 → Inc-2 → Inc-3 → Inc-4 → Inc-5 → Inc-6 → Inc-13.**
-Inc-1 peut avancer en parallèle d'Inc-2 ; Inc-7 à Inc-10 sont indépendants entre eux.
+Chemin critique : **Inc-0 → Inc-2 → Inc-3 → Inc-4 → Inc-5 → Inc-6 → Inc-13**, parcouru
+jusqu'au bout : mise en ligne le 25/11/2026.
 
-| Tâche manuelle (`docs/manual-tasks.md`) | Bloque | Remarque |
-|-----------------------------------------|--------|----------|
-| 3 ✅ — Clé API Anthropic | — | Faite le 24/11/2026 ; IA réelle en local, tests toujours en IA simulée (`AI_SIMULATION`) |
-| 4 — Compte Stripe (clés de test) | Inc-6 | Clés de test disponibles dès l'inscription ; l'activation complète ne bloque qu'Inc-13 |
-| 5 — Google OAuth | Bouton Google en local (Inc-2) | Non bloquant : la connexion par e-mail fonctionne |
-| 8 — Logo et illustrations | Finition d'Inc-1 | Non bloquant : logotype typographique en attendant |
-| 3, 4, 6, 7, 9, 16 — clé Anthropic, Stripe réel, Resend, infos légales, VPS et domaine, Turnstile | Mise en ligne | Pas-à-pas : `docs/deployment.md` |
-| 14, 15 — déploiement automatique, surveillance et sauvegardes hors serveur | Exploitation | Après la mise en ligne |
-| 10 — Comptes publicitaires | Activation réelle des pubs | Après la mise en ligne |
-| 13 — Search Console et Bing | Suivi du référencement | Après la mise en ligne |
+| Tâche manuelle (`docs/manual-tasks.md`) | État | Remarque |
+|-----------------------------------------|------|----------|
+| 1 à 9, 11, 14, 16, 17 | ✅ faites | Outils, clé Anthropic, Stripe réel, Google, Resend, infos légales, logo, VPS et domaine, GitHub, déploiement automatique, Turnstile, administrateurs (tâche 2 sans objet) |
+| 15 — Surveillance et sauvegardes hors du serveur | 🔄 | Surveillance faite ; sauvegardes hPanel et copie hebdomadaire à faire |
+| 10 — Comptes publicitaires | ⬜ | Annonces réelles ; possible maintenant que le site est en ligne |
+| 12 — Noms de marque et relecture des traductions | ⬜ | Noms proposés utilisés en attendant |
+| 13 — Search Console et Bing | ⬜ | Suivi du référencement |
 
 Risques : `docs/risks.md` (aucun 🔴).
 
@@ -98,7 +102,8 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - [x] Q6 — App mobile / backend existant : aucun
 - [x] Q7 à Q10 — Multilingue : FR, EN, IT, ES, DE dès le lancement ; langue du CV au choix ;
   nom de marque traduit (ADR-018)
-- [ ] Noms de marque par langue à valider (tâche manuelle 12, avant l'Inc-1)
+- [ ] Noms de marque par langue à valider (tâche manuelle 12 ; noms proposés utilisés en
+  attendant)
 
 ## Blocages
 
@@ -109,6 +114,11 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Connexion vérifiée en production par l'utilisateur** après la correction de
+  la redirection (`f865ce1`, CI et déploiement GitHub verts). État du projet remis à jour :
+  phase 6 terminée, phase 8 (maintenance) en cours, tableaux des phases, des incréments, des
+  jalons et des tâches manuelles alignés sur la mise en ligne.
 
 - 25/11/2026 — **Correction : retour de connexion vers 0.0.0.0:3000** (signalé par l'utilisateur).
   En ligne, `/auth/callback` (Google) et `/auth/confirm` (lien de l'e-mail) redirigeaient vers
