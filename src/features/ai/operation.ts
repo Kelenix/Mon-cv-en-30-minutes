@@ -170,6 +170,28 @@ async function runAiOperation<T>({
   }
 }
 
+/** Fin réussie qui conserve le contenu avec le CV, le cas échéant. */
+function completeWithRecord<T>(
+  record?: (value: T) => GenerationRecord,
+): Complete<T> {
+  return (admin, operationId, value, usage) => {
+    const generation = record?.(value);
+    return admin.rpc("complete_ai_operation", {
+      p_operation_id: operationId,
+      ...usageParams(usage),
+      ...(generation
+        ? {
+            p_cv_id: generation.cvId,
+            p_kind: generation.kind,
+            p_language: generation.language,
+            p_input: generation.input ?? {},
+            p_output: generation.output,
+          }
+        : {}),
+    });
+  };
+}
+
 /** Opération payante : coût et crédits utilisables selon la formule (US-09). */
 export async function runPaidAiOperation<T>({
   user,
@@ -221,22 +243,37 @@ export async function runPaidAiOperation<T>({
     allowIncluded: charge.allowIncluded,
     rateLimit: planEntitlements(plan).aiOperationsPerMinute,
     execute,
-    complete: (admin, operationId, value, usage) => {
-      const generation = record?.(value);
-      return admin.rpc("complete_ai_operation", {
-        p_operation_id: operationId,
-        ...usageParams(usage),
-        ...(generation
-          ? {
-              p_cv_id: generation.cvId,
-              p_kind: generation.kind,
-              p_language: generation.language,
-              p_input: generation.input ?? {},
-              p_output: generation.output,
-            }
-          : {}),
-      });
-    },
+    complete: completeWithRecord(record),
+  });
+}
+
+/**
+ * Opération offerte, sans débit (lettre offerte, ADR-052) : le droit est vérifié par l'appelant,
+ * la limite par minute s'applique.
+ */
+export async function runOfferedAiOperation<T>({
+  user,
+  requestId,
+  operation,
+  execute,
+  record,
+}: {
+  user: CurrentUser;
+  requestId: string;
+  operation: Exclude<OperationKey, "generateCv">;
+  execute: () => Promise<{ value: T; usage: AiUsage }>;
+  record?: (value: T) => GenerationRecord;
+}): Promise<OperationResult<T>> {
+  const plan = await getActivePlan();
+  return runAiOperation({
+    user,
+    requestId,
+    kind: KINDS[operation],
+    cost: 0,
+    allowIncluded: false,
+    rateLimit: planEntitlements(plan).aiOperationsPerMinute,
+    execute,
+    complete: completeWithRecord(record),
   });
 }
 

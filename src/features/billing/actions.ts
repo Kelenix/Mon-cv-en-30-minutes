@@ -10,6 +10,7 @@ import {
   validationError,
 } from "@/core/action-result";
 import { env } from "@/core/env";
+import { rememberCheckout } from "@/features/acquisition/server";
 import { localizedPath } from "@/features/auth/paths";
 import { type CurrentUser, getCurrentUser } from "@/features/auth/session";
 import { getOwnCv } from "@/features/cv/repository";
@@ -163,6 +164,7 @@ export async function createCheckoutSession(
       }),
     );
     if (!session.url) throw new Error("Session Stripe sans adresse");
+    await rememberCheckout(session.id);
     return ok({ url: session.url });
   } catch (error) {
     console.error(

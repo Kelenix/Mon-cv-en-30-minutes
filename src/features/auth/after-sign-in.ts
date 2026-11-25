@@ -1,5 +1,6 @@
 import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { onFirstSignIn } from "@/features/acquisition/server";
 import { isAdminEmail } from "@/features/admin/admins";
 import type { AppLocale } from "@/i18n/routing";
 import { countryOf } from "@/lib/geo";
@@ -18,7 +19,7 @@ import {
  * (première connexion, US-04 c.2), sinon la page demandée ou l'espace compte. Un administrateur
  * arrive toujours dans l'administration, sans l'étape du prénom (ADR-040). À la première
  * connexion, le pays est déduit de l'adresse IP pour les statistiques ; l'adresse n'est pas
- * gardée.
+ * gardée. L'inscription est comptée pour sa provenance et rattachée à une invitation acceptée.
  */
 export async function afterSignInPath(
   supabase: SupabaseClient<Database>,
@@ -42,6 +43,18 @@ export async function afterSignInPath(
         .eq("id", profile.id)
         .is("signup_country", null);
     }
+  }
+
+  // Première connexion, notée une seule fois même en cas de double envoi (ADR-052).
+  if (profile) {
+    const { data: first } = await createAdminClient()
+      .from("profiles")
+      .update({ first_sign_in_at: new Date().toISOString() })
+      .eq("id", profile.id)
+      .is("first_sign_in_at", null)
+      .select("id")
+      .maybeSingle();
+    if (first) await onFirstSignIn(profile.id);
   }
 
   if (isAdmin) return adminDestination(safeNextPath(next));

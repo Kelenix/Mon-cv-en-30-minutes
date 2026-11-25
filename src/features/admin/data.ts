@@ -102,6 +102,16 @@ export async function getDaily(days: Period) {
   );
 }
 
+export type AcquisitionRow =
+  Database["public"]["Functions"]["admin_acquisition"]["Returns"][number];
+
+/** Visites, comptes, CV, essais et achats par source (ADR-052). */
+export async function getAcquisition(days: Period) {
+  return unwrap<AcquisitionRow[]>(
+    await createAdminClient().rpc("admin_acquisition", { p_days: days }),
+  );
+}
+
 /** Revenu mensuel récurrent des abonnements payants (annuels ramenés au mois), en centimes. */
 export function monthlyRecurringRevenue(summary: Summary) {
   return summary.subscriptions.byPlan

@@ -74,6 +74,15 @@ export async function grantPurchasedCredits(email: string, amount: number) {
   if (error) throw error;
 }
 
+/** Lettre offerte déjà utilisée (ADR-052), pour tester la lettre payante. */
+export async function useFreeLetter(email: string) {
+  const { error } = await admin
+    .from("profiles")
+    .update({ free_letter_used_at: new Date().toISOString() })
+    .eq("id", await userIdByEmail(email));
+  if (error) throw error;
+}
+
 /** CV posés directement en base (sans génération), du plus ancien au plus récent. */
 export async function createCvs(email: string, titles: string[]) {
   const userId = await userIdByEmail(email);

@@ -5,6 +5,7 @@ import {
   fail,
   ok,
 } from "@/core/action-result";
+import { onCvCreated } from "@/features/acquisition/server";
 import { AiError } from "@/features/ai/client";
 import { writeCv } from "@/features/ai/cv-writer";
 import type { CurrentUser } from "@/features/auth/session";
@@ -213,6 +214,7 @@ export async function generateCvForUser(
         .eq("id", completed.data);
       if (error) console.error("Modèle du CV non enregistré", error.message);
     }
+    if (!input.replaceCvId) await onCvCreated(user.id);
     return ok({ cvId: completed.data, charged: !operation.was_free });
   } catch (error) {
     const aiError =

@@ -7,7 +7,12 @@ import {
 import createMiddleware from "next-intl/middleware";
 import { env } from "@/core/env";
 import { isAdminEmail } from "@/features/admin/admins";
-import { recordVisit } from "@/features/admin/record-visit";
+import {
+  ACQUISITION_COOKIE_MAX_AGE,
+  ARRIVAL_COOKIE,
+  encodeArrival,
+} from "@/features/acquisition/cookies";
+import { arrivalOf, recordVisit } from "@/features/admin/record-visit";
 import {
   adminDestination,
   isAccountSpacePath,
@@ -89,8 +94,23 @@ export default async function proxy(
   const response = handleI18nRouting(request);
   if (response.headers.has("location")) return response;
 
-  // Provenance des visites : comptée après la réponse, sans la retarder.
-  event.waitUntil(recordVisit(request).catch(() => undefined));
+  // Provenance des visites : comptée après la réponse, sans la retarder. La première est gardée
+  // 30 jours pour compter inscriptions, CV et achats par source (ADR-052), sauf refus signalé
+  // par le navigateur (Do Not Track, Global Privacy Control).
+  const arrival = arrivalOf(request);
+  if (arrival) {
+    event.waitUntil(recordVisit(request, arrival).catch(() => undefined));
+    const optedOut =
+      request.headers.get("dnt") === "1" ||
+      request.headers.get("sec-gpc") === "1";
+    if (!optedOut && !request.cookies.has(ARRIVAL_COOKIE)) {
+      response.cookies.set(ARRIVAL_COOKIE, encodeArrival(arrival), {
+        ...supabaseCookieOptions,
+        maxAge: ACQUISITION_COOKIE_MAX_AGE,
+        path: "/",
+      });
+    }
+  }
 
   const claims = await readSession(request, response);
   const signedIn = Boolean(claims);

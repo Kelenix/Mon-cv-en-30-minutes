@@ -128,6 +128,15 @@ async function recordInvoice(
   check(error);
 }
 
+/** Paiement compté pour sa provenance, une seule fois (ADR-052) ; un échec ne bloque rien. */
+async function countCheckout(admin: Admin, session: Stripe.Checkout.Session) {
+  const { error } = await admin.rpc("record_acquisition_checkout", {
+    p_session_id: session.id,
+    p_amount_cents: session.amount_total ?? 0,
+  });
+  if (error) console.error("Provenance du paiement non comptée", error.code);
+}
+
 async function completeCheckout(
   admin: Admin,
   stripe: Stripe,
@@ -138,6 +147,7 @@ async function completeCheckout(
   if (session.mode === "subscription") {
     const id = customerIdOf(session.subscription);
     if (id) await syncSubscription(admin, stripe, id);
+    await countCheckout(admin, session);
     return;
   }
   // Paiement différé (virement…) : livré à l'événement `async_payment_succeeded`.
@@ -159,6 +169,7 @@ async function completeCheckout(
     p_cv_id: cvId || undefined,
   });
   check(error);
+  await countCheckout(admin, session);
 
   const intentId = customerIdOf(session.payment_intent);
   if (intentId) {

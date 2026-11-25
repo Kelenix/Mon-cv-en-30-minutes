@@ -2,14 +2,25 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Appear } from "@/components/layout/appear";
 import { requireAdmin } from "@/features/admin/access";
-import { getDaily, getSummary, parsePeriod } from "@/features/admin/data";
-import { formatNumber, formatShare } from "@/features/admin/format";
+import {
+  getAcquisition,
+  getDaily,
+  getSummary,
+  parsePeriod,
+} from "@/features/admin/data";
+import {
+  formatEuros,
+  formatNumber,
+  formatShare,
+} from "@/features/admin/format";
 import { countryName, label } from "@/features/admin/labels";
 import { BarList } from "@/features/admin/presentation/bar-list";
 import { PeriodTabs } from "@/features/admin/presentation/period-tabs";
 import { DashboardSkeleton } from "@/features/admin/presentation/skeleton";
 import { TimeChart } from "@/features/admin/presentation/time-chart";
 import {
+  DataTable,
+  Empty,
   PageHeader,
   Panel,
   PanelGrid,
@@ -26,7 +37,7 @@ export default function AudiencePage({
     <>
       <PageHeader
         title="Provenance"
-        description="D'où viennent les visiteurs et les nouveaux comptes. Visites comptées sans cookie ni adresse IP gardée."
+        description="D'où viennent les visiteurs, et ce que rapporte chaque source. Compteurs anonymes : ni adresse IP gardée, ni lien avec les comptes."
       />
       <Suspense fallback={<DashboardSkeleton />}>
         <Appear>
@@ -44,9 +55,10 @@ async function Audience({
 }) {
   await requireAdmin();
   const days = parsePeriod((await searchParams).jours);
-  const [summary, daily] = await Promise.all([
+  const [summary, daily, acquisition] = await Promise.all([
     getSummary(days),
     getDaily(days),
+    getAcquisition(days),
   ]);
   const { audience } = summary;
   const visits = daily.reduce((total, day) => total + day.visits, 0);
@@ -87,6 +99,52 @@ async function Audience({
           hint={`${formatNumber(methods.email)} par code e-mail`}
         />
       </StatGrid>
+
+      <Panel
+        title="Ce que rapporte chaque source"
+        description="Source de la première arrivée, gardée 30 jours : comptes, CV, essais et achats qui en découlent."
+      >
+        {acquisition.length === 0 ? (
+          <Empty>Aucune visite sur la période.</Empty>
+        ) : (
+          <DataTable
+            caption="Ce que rapporte chaque source"
+            head={[
+              "Source",
+              "Canal",
+              "Visites",
+              "Comptes",
+              "CV créés",
+              "Essais",
+              "Achats",
+              "Revenus",
+            ]}
+          >
+            {acquisition.map((row) => (
+              <tr key={`${row.channel}-${row.source}`}>
+                <td className="font-medium">{label("source", row.source)}</td>
+                <td className="whitespace-nowrap">
+                  {label("channel", row.channel)}
+                </td>
+                {[
+                  row.visits,
+                  row.signups,
+                  row.cvs,
+                  row.trials,
+                  row.purchases,
+                ].map((value, index) => (
+                  <td key={index} className="tabular-nums">
+                    {formatNumber(value)}
+                  </td>
+                ))}
+                <td className="tabular-nums">
+                  {formatEuros(row.revenue_cents)}
+                </td>
+              </tr>
+            ))}
+          </DataTable>
+        )}
+      </Panel>
 
       <PanelGrid>
         <Panel title="Visites par jour">

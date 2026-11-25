@@ -5,7 +5,35 @@ export type Database = {
   
   "public": {
           Tables: {
-            "admin_audit_log": {
+            "acquisition_checkouts": {
+                  Row: {
+                    "channel": string,"created_at": string,"source": string,"stripe_checkout_session_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "channel": string,"created_at"?: string,"source": string,"stripe_checkout_session_id": string
+                  }
+                  Update: {
+                    "channel"?: string,"created_at"?: string,"source"?: string,"stripe_checkout_session_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"acquisition_counts": {
+                  Row: {
+                    "amount_cents": number,"channel": string,"count": number,"day": string,"event": string,"source": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "amount_cents"?: number,"channel": string,"count"?: number,"day": string,"event": string,"source": string
+                  }
+                  Update: {
+                    "amount_cents"?: number,"channel"?: string,"count"?: number,"day"?: string,"event"?: string,"source"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"admin_audit_log": {
                   Row: {
                     "action": string,"admin_email": string,"created_at": string,"details": NonNullable<Json>,"id": number,"target_email": string | null,"target_user_id": string | null
                   }
@@ -191,14 +219,14 @@ isOneToOne: false
                   ]
                 },"profiles": {
                   Row: {
-                    "ads_removed_at": string | null,"city": string | null,"created_at": string,"first_name": string | null,"free_generation_used_at": string | null,"id": string,"interstitial_shown_at": string | null,"last_name": string | null,"last_seen_at": string,"locale": Database["public"]['Enums']["app_locale"],"phone": string | null,"retention_warning_sent_at": string | null,"signup_country": string | null,"stripe_customer_id": string | null,"trial_used_at": string | null,"updated_at": string
+                    "ads_removed_at": string | null,"city": string | null,"created_at": string,"first_name": string | null,"first_sign_in_at": string | null,"free_generation_used_at": string | null,"free_letter_used_at": string | null,"id": string,"interstitial_shown_at": string | null,"last_name": string | null,"last_seen_at": string,"locale": Database["public"]['Enums']["app_locale"],"phone": string | null,"referral_code": string | null,"retention_warning_sent_at": string | null,"signup_country": string | null,"stripe_customer_id": string | null,"trial_used_at": string | null,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "ads_removed_at"?: string | null,"city"?: string | null,"created_at"?: string,"first_name"?: string | null,"free_generation_used_at"?: string | null,"id": string,"interstitial_shown_at"?: string | null,"last_name"?: string | null,"last_seen_at"?: string,"locale"?: Database["public"]['Enums']["app_locale"],"phone"?: string | null,"retention_warning_sent_at"?: string | null,"signup_country"?: string | null,"stripe_customer_id"?: string | null,"trial_used_at"?: string | null,"updated_at"?: string
+                    "ads_removed_at"?: string | null,"city"?: string | null,"created_at"?: string,"first_name"?: string | null,"first_sign_in_at"?: string | null,"free_generation_used_at"?: string | null,"free_letter_used_at"?: string | null,"id": string,"interstitial_shown_at"?: string | null,"last_name"?: string | null,"last_seen_at"?: string,"locale"?: Database["public"]['Enums']["app_locale"],"phone"?: string | null,"referral_code"?: string | null,"retention_warning_sent_at"?: string | null,"signup_country"?: string | null,"stripe_customer_id"?: string | null,"trial_used_at"?: string | null,"updated_at"?: string
                   }
                   Update: {
-                    "ads_removed_at"?: string | null,"city"?: string | null,"created_at"?: string,"first_name"?: string | null,"free_generation_used_at"?: string | null,"id"?: string,"interstitial_shown_at"?: string | null,"last_name"?: string | null,"last_seen_at"?: string,"locale"?: Database["public"]['Enums']["app_locale"],"phone"?: string | null,"retention_warning_sent_at"?: string | null,"signup_country"?: string | null,"stripe_customer_id"?: string | null,"trial_used_at"?: string | null,"updated_at"?: string
+                    "ads_removed_at"?: string | null,"city"?: string | null,"created_at"?: string,"first_name"?: string | null,"first_sign_in_at"?: string | null,"free_generation_used_at"?: string | null,"free_letter_used_at"?: string | null,"id"?: string,"interstitial_shown_at"?: string | null,"last_name"?: string | null,"last_seen_at"?: string,"locale"?: Database["public"]['Enums']["app_locale"],"phone"?: string | null,"referral_code"?: string | null,"retention_warning_sent_at"?: string | null,"signup_country"?: string | null,"stripe_customer_id"?: string | null,"trial_used_at"?: string | null,"updated_at"?: string
                   }
                   Relationships: [
                     
@@ -242,6 +270,32 @@ isOneToOne: false
                   }
                   Relationships: [
                     
+                  ]
+                },"referrals": {
+                  Row: {
+                    "created_at": string,"referee_id": string,"referrer_id": string,"referrer_rewarded": boolean,"rewarded_at": string | null
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"referee_id": string,"referrer_id": string,"referrer_rewarded"?: boolean,"rewarded_at"?: string | null
+                  }
+                  Update: {
+                    "created_at"?: string,"referee_id"?: string,"referrer_id"?: string,"referrer_rewarded"?: boolean,"rewarded_at"?: string | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "referrals_referee_id_fkey"
+      columns: ["referee_id"]
+isOneToOne: true
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "referrals_referrer_id_fkey"
+      columns: ["referrer_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
                   ]
                 },"reward_tokens": {
                   Row: {
@@ -337,7 +391,12 @@ isOneToOne: true
             [_ in never]: never
           }
           Functions: {
-            "admin_daily":
+            "admin_acquisition":
+{ Args: { "p_days": number }; Returns: {
+              "channel": string,"cvs": number,"purchases": number,"revenue_cents": number,"signups": number,"source": string,"trials": number,"visits": number
+            }[]
+                           },
+"admin_daily":
 { Args: { "p_days": number }; Returns: {
               "ai_cost_micros": number,"ai_failed": number,"ai_operations": number,"cvs": number,"day": string,"revenue_cents": number,"signups": number,"visits": number
             }[]
@@ -355,6 +414,9 @@ isOneToOne: true
 { Args: { "p_limit": number,"p_offset": number,"p_plan": string,"p_search": string }; Returns: {
               "banned": boolean,"country": string,"created_at": string,"credits": number,"cvs": number,"email": string,"first_name": string,"id": string,"last_name": string,"last_seen_at": string,"locale": Database["public"]['Enums']["app_locale"],"plan": Database["public"]['Enums']["plan_tier"],"spent_cents": number,"subscription_status": Database["public"]['Enums']["subscription_status"],"total": number
             }[]
+                           },
+"attach_referral":
+{ Args: { "p_code": string,"p_referee_id": string }; Returns: boolean
                            },
 "begin_ai_operation":
 { Args: { "p_allow_included": boolean,"p_cost": number,"p_free_ip_limit": number,"p_ip_hash"?: string,"p_kind": Database["public"]['Enums']["ai_operation_kind"],"p_rate_limit": number,"p_request_id": string,"p_try_free": boolean,"p_user_id": string }; Returns: {
@@ -378,6 +440,9 @@ isOneToOne: true
 "consume_rate_limit":
 { Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
                            },
+"ensure_referral_code":
+{ Args: { "p_user_id": string }; Returns: string
+                           },
 "fail_ai_operation":
 { Args: { "p_cache_read_tokens"?: number,"p_cost_usd_micros"?: number,"p_duration_ms"?: number,"p_error_code": string,"p_input_tokens"?: number,"p_model"?: string,"p_operation_id": string,"p_output_tokens"?: number }; Returns: number
                            },
@@ -392,6 +457,12 @@ isOneToOne: true
 "issue_reward_token":
 { Args: { "p_daily_limit": number,"p_user_id": string }; Returns: string
                            },
+"record_acquisition":
+{ Args: { "p_amount_cents"?: number,"p_channel": string,"p_event": string,"p_source": string }; Returns: undefined
+                           },
+"record_acquisition_checkout":
+{ Args: { "p_amount_cents": number,"p_session_id": string }; Returns: undefined
+                           },
 "record_visit":
 { Args: { "p_channel": string,"p_country": string,"p_source": string }; Returns: undefined
                            },
@@ -405,6 +476,9 @@ isOneToOne: true
 { Args: { "p_limit"?: number }; Returns: {
               "stripe_customer_id": string,"user_id": string
             }[]
+                           },
+"reward_referral":
+{ Args: { "p_credits": number,"p_monthly_cap": number,"p_referee_id": string }; Returns: boolean
                            },
 "rewarded_credits_today":
 { Args: { "p_user_id": string }; Returns: number
@@ -433,7 +507,7 @@ isOneToOne: true
                            }
           }
           Enums: {
-            "ai_operation_kind": "generate_cv"|"improve_experience"|"improve_summary"|"adapt_to_job"|"linkedin"|"cover_letter"|"interview"|"interview_feedback","ai_operation_status": "pending"|"succeeded"|"failed","app_locale": "fr"|"en"|"it"|"es"|"de","billing_interval": "month"|"year","credit_bucket": "included"|"purchased","generation_kind": "summary_variants"|"job_adaptation"|"linkedin"|"cover_letter"|"interview","ledger_reason": "ai_operation"|"ai_refund"|"pack_purchase"|"rewarded_ad"|"trial_grant"|"monthly_grant"|"upgrade_grant"|"included_expiry"|"subscription_end"|"admin_grant","plan_tier": "essential"|"pro"|"premium","purchase_product": "credits_5"|"credits_15"|"credits_40"|"cv_pro"|"ads_removal","subscription_source": "stripe"|"app_store"|"play_store","subscription_status": "trialing"|"active"|"past_due"|"unpaid"|"canceled"|"incomplete"|"incomplete_expired"|"paused"
+            "ai_operation_kind": "generate_cv"|"improve_experience"|"improve_summary"|"adapt_to_job"|"linkedin"|"cover_letter"|"interview"|"interview_feedback","ai_operation_status": "pending"|"succeeded"|"failed","app_locale": "fr"|"en"|"it"|"es"|"de","billing_interval": "month"|"year","credit_bucket": "included"|"purchased","generation_kind": "summary_variants"|"job_adaptation"|"linkedin"|"cover_letter"|"interview","ledger_reason": "ai_operation"|"ai_refund"|"pack_purchase"|"rewarded_ad"|"trial_grant"|"monthly_grant"|"upgrade_grant"|"included_expiry"|"subscription_end"|"admin_grant"|"referral","plan_tier": "essential"|"pro"|"premium","purchase_product": "credits_5"|"credits_15"|"credits_40"|"cv_pro"|"ads_removal","subscription_source": "stripe"|"app_store"|"play_store","subscription_status": "trialing"|"active"|"past_due"|"unpaid"|"canceled"|"incomplete"|"incomplete_expired"|"paused"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -549,7 +623,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "ai_operation_kind": ["generate_cv", "improve_experience", "improve_summary", "adapt_to_job", "linkedin", "cover_letter", "interview", "interview_feedback"],"ai_operation_status": ["pending", "succeeded", "failed"],"app_locale": ["fr", "en", "it", "es", "de"],"billing_interval": ["month", "year"],"credit_bucket": ["included", "purchased"],"generation_kind": ["summary_variants", "job_adaptation", "linkedin", "cover_letter", "interview"],"ledger_reason": ["ai_operation", "ai_refund", "pack_purchase", "rewarded_ad", "trial_grant", "monthly_grant", "upgrade_grant", "included_expiry", "subscription_end", "admin_grant"],"plan_tier": ["essential", "pro", "premium"],"purchase_product": ["credits_5", "credits_15", "credits_40", "cv_pro", "ads_removal"],"subscription_source": ["stripe", "app_store", "play_store"],"subscription_status": ["trialing", "active", "past_due", "unpaid", "canceled", "incomplete", "incomplete_expired", "paused"]
+            "ai_operation_kind": ["generate_cv", "improve_experience", "improve_summary", "adapt_to_job", "linkedin", "cover_letter", "interview", "interview_feedback"],"ai_operation_status": ["pending", "succeeded", "failed"],"app_locale": ["fr", "en", "it", "es", "de"],"billing_interval": ["month", "year"],"credit_bucket": ["included", "purchased"],"generation_kind": ["summary_variants", "job_adaptation", "linkedin", "cover_letter", "interview"],"ledger_reason": ["ai_operation", "ai_refund", "pack_purchase", "rewarded_ad", "trial_grant", "monthly_grant", "upgrade_grant", "included_expiry", "subscription_end", "admin_grant", "referral"],"plan_tier": ["essential", "pro", "premium"],"purchase_product": ["credits_5", "credits_15", "credits_40", "cv_pro", "ads_removal"],"subscription_source": ["stripe", "app_store", "play_store"],"subscription_status": ["trialing", "active", "past_due", "unpaid", "canceled", "incomplete", "incomplete_expired", "paused"]
           }
         }
 } as const

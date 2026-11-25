@@ -15,6 +15,18 @@ import {
 } from "@/features/cv/presentation/generated-tools";
 import { getOwnCv, listGenerations } from "@/features/cv/repository";
 import { pickClientMessages } from "@/i18n/client-messages";
+import { createClient } from "@/lib/supabase/server";
+
+/** Lettre offerte encore disponible pour le compte (ADR-052). */
+async function hasFreeLetter() {
+  const { data } = await (
+    await createClient()
+  )
+    .from("profiles")
+    .select("free_letter_used_at")
+    .maybeSingle();
+  return Boolean(data) && !data?.free_letter_used_at;
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("cvTools.letter");
@@ -51,8 +63,9 @@ async function LetterLoader({
 
   if (!cv) return <CvNotFound heading="h2" />;
 
-  const [generations, messages] = await Promise.all([
+  const [generations, freeLetter, messages] = await Promise.all([
     listGenerations(cv.id, "cover_letter"),
+    hasFreeLetter(),
     pickClientMessages([
       "ads",
       "cvTools",
@@ -85,6 +98,7 @@ async function LetterLoader({
             cvId={cv.id}
             cvLanguage={cv.language}
             previous={previous}
+            freeLetter={freeLetter}
             topUp={<TopUpOptions returnTo={{ cvId: cv.id }} stacked />}
           />
         </div>

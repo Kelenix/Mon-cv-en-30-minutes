@@ -140,7 +140,8 @@ export function GenerateControls({
         size="lg"
         disabled={!hydrated || pending}
         aria-busy={pending || undefined}
-        className="justify-self-start"
+        // Libellé long (allemand, petit écran) : passe à la ligne plutôt que de déborder.
+        className="h-auto min-h-13 max-w-full justify-self-start py-3 text-center whitespace-normal"
       >
         <SparklesIcon aria-hidden="true" />
         {pending ? t("pending") : label}
@@ -406,15 +407,19 @@ export function LetterTool({
   cvId,
   cvLanguage,
   previous,
+  freeLetter = false,
   topUp,
 }: {
   cvId: string;
   cvLanguage: AppLocale;
   previous: Generated<LetterOutput>[];
+  /** Première lettre du compte, offerte (ADR-052). */
+  freeLetter?: boolean;
   topUp?: ReactNode;
 }) {
   const t = useTranslations("cvTools.letter");
   const tool = useAiTool(generateCoverLetter);
+  const [offered, setOffered] = useState(freeLetter);
   const [position, setPosition] = useState("");
   const [company, setCompany] = useState("");
   const [jobPosting, setJobPosting] = useState("");
@@ -437,13 +442,15 @@ export function LetterTool({
                 event.preventDefault();
                 tool.run(
                   { cvId, position, company, jobPosting, language },
-                  (result) =>
+                  (result) => {
+                    setOffered(false);
                     editor.add({
                       generationId: result.generationId,
                       language,
                       output: result.output,
                       label: titleLine(position.trim(), company.trim()),
-                    }),
+                    });
+                  },
                 );
               }}
             >
@@ -500,7 +507,11 @@ export function LetterTool({
                 onChange={setLanguage}
               />
               <GenerateControls
-                label={t("generate", { cost: OPERATION_COSTS.coverLetter })}
+                label={
+                  offered
+                    ? t("generateOffered")
+                    : t("generate", { cost: OPERATION_COSTS.coverLetter })
+                }
                 pending={tool.pending}
                 error={tool.error}
               />

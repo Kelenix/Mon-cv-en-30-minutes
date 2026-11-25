@@ -7,6 +7,9 @@ import { requireUser } from "@/features/auth/session";
 import { TopUpOptions } from "@/app/[locale]/_ui/top-up-options";
 import { getAdsAudience } from "@/features/ads/audience";
 import { InterstitialOnLeave } from "@/features/ads/presentation/interstitial";
+import { ReferralCard } from "@/features/acquisition/presentation/referral-card";
+import { getOwnReferral } from "@/features/acquisition/referrals";
+import { REFERRAL_CREDITS } from "@/features/acquisition/server";
 import { CvProOffer } from "@/features/billing/presentation/offers";
 import { PaymentReturn } from "@/features/billing/presentation/payment-return";
 import { getActivePlan } from "@/features/billing/subscription";
@@ -53,7 +56,7 @@ async function CvLoader({
 }: Omit<PageProps<"/[locale]/cv/[id]">, "children">) {
   const [{ id }, query] = await Promise.all([params, searchParams]);
   const locale = await getLocale();
-  await requireUser(locale, "/cv");
+  const user = await requireUser(locale, "/cv");
   const cv = await getOwnCv(id);
 
   if (!cv) return <CvNotFound />;
@@ -63,23 +66,26 @@ async function CvLoader({
     locale: cv.language,
     namespace: "cvSections",
   });
-  const [plan, summaries, audience, hasPhoto, messages] = await Promise.all([
-    getActivePlan(),
-    listGenerations(cv.id, "summary_variants"),
-    getAdsAudience(),
-    hasOwnCvPhoto(cv.id),
-    pickClientMessages([
-      "ads",
-      "cvEditor",
-      "cvExport",
-      "cvTemplates",
-      "cvTools",
-      "creditsDialog",
-      "upsell",
-      "billing",
-      "errors",
-    ]),
-  ]);
+  const [plan, summaries, audience, hasPhoto, referral, messages] =
+    await Promise.all([
+      getActivePlan(),
+      listGenerations(cv.id, "summary_variants"),
+      getAdsAudience(),
+      hasOwnCvPhoto(cv.id),
+      getOwnReferral(user.id, locale),
+      pickClientMessages([
+        "ads",
+        "cvEditor",
+        "cvExport",
+        "cvTemplates",
+        "cvTools",
+        "creditsDialog",
+        "upsell",
+        "billing",
+        "errors",
+        "referral",
+      ]),
+    ]);
   const exportUnlocked = canExportWithoutWatermark(plan, cv.proUnlocked);
   const nextPlan = plan ? NEXT_PLAN[plan] : null;
   // Colonne des offres seulement s'il y a quelque chose à proposer (sinon, pleine largeur).
@@ -161,6 +167,14 @@ async function CvLoader({
           </div>
         ) : null}
       </div>
+      {/* Après le CV : l'inviter à le faire connaître (parrainage, ADR-052). */}
+      {referral ? (
+        <ReferralCard
+          className="mt-6"
+          link={referral.link}
+          credits={REFERRAL_CREDITS}
+        />
+      ) : null}
     </NextIntlClientProvider>
   );
 }

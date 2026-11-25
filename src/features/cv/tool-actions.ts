@@ -21,6 +21,7 @@ import {
 import { AiError } from "@/features/ai/client";
 import {
   runFreeAiOperation,
+  runOfferedAiOperation,
   runPaidAiOperation,
   usageParams,
 } from "@/features/ai/operation";
@@ -301,6 +302,25 @@ export async function generateLinkedin(
   });
 }
 
+async function claimFreeLetter(userId: string) {
+  const { data } = await createAdminClient()
+    .from("profiles")
+    .update({ free_letter_used_at: new Date().toISOString() })
+    .eq("id", userId)
+    .is("free_letter_used_at", null)
+    .select("id")
+    .maybeSingle();
+  return Boolean(data);
+}
+
+async function releaseFreeLetter(userId: string) {
+  const { error } = await createAdminClient()
+    .from("profiles")
+    .update({ free_letter_used_at: null })
+    .eq("id", userId);
+  if (error) console.error("Lettre offerte non rendue", error.code);
+}
+
 /** Lettre de motivation (US-29), conservée avec le CV et modifiable (H20, H21). */
 export async function generateCoverLetter(
   input: unknown,
@@ -316,10 +336,10 @@ export async function generateCoverLetter(
   const company = parsed.data.company || undefined;
   const jobPosting = parsed.data.jobPosting || undefined;
 
-  const result = await runPaidAiOperation({
+  const operation = {
     user,
     requestId: parsed.data.requestId,
-    operation: "coverLetter",
+    operation: "coverLetter" as const,
     execute: async () => {
       const { output, usage } = await coverLetter(
         cv.content,
@@ -330,9 +350,9 @@ export async function generateCoverLetter(
       if (!letter) throw new AiError("AI_INVALID_OUTPUT", "empty", usage);
       return { value: { letter }, usage };
     },
-    record: (output) => ({
+    record: (output: LetterOutput) => ({
       cvId: cv.id,
-      kind: "cover_letter",
+      kind: "cover_letter" as const,
       language,
       input: {
         position,
@@ -341,7 +361,13 @@ export async function generateCoverLetter(
       },
       output,
     }),
-  });
+  };
+  // Première lettre du compte offerte (ADR-052) : réservée avant l'appel, rendue en cas d'échec.
+  const offered = await claimFreeLetter(user.id);
+  const result = offered
+    ? await runOfferedAiOperation(operation)
+    : await runPaidAiOperation(operation);
+  if (offered && !result.ok) await releaseFreeLetter(user.id);
   if (!result.ok) return result;
   refresh();
   return ok({

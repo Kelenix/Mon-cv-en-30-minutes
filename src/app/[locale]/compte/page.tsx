@@ -6,6 +6,9 @@ import { Suspense } from "react";
 import { Appear } from "@/components/layout/appear";
 import { SplitSkeleton } from "@/components/form/form-skeleton";
 import { SubmitButton } from "@/components/form/submit-button";
+import { ReferralCard } from "@/features/acquisition/presentation/referral-card";
+import { getOwnReferral } from "@/features/acquisition/referrals";
+import { REFERRAL_CREDITS } from "@/features/acquisition/server";
 import { signOut } from "@/features/auth/actions";
 import { requireUser } from "@/features/auth/session";
 import { PlanAndCredits } from "@/features/credits/presentation/plan-and-credits";
@@ -53,11 +56,18 @@ async function AccountContent() {
   const t = await getTranslations("account");
   const user = await requireUser(locale, "/compte");
   const profile = await getOwnProfile(await createClient(), user.id);
-  const [wallet, plan] = await Promise.all([
+  const [wallet, plan, referral] = await Promise.all([
     getCurrentWallet(),
     getActivePlan(),
+    getOwnReferral(user.id, locale),
   ]);
-  const messages = await pickClientMessages(["profile", "account", "errors"]);
+  const messages = await pickClientMessages([
+    "profile",
+    "account",
+    "errors",
+    "cvEditor",
+    "referral",
+  ]);
 
   return (
     <NextIntlClientProvider messages={messages}>
@@ -91,6 +101,15 @@ async function AccountContent() {
 
         <div className="grid gap-6 lg:gap-8">
           {wallet ? <PlanAndCredits wallet={wallet} plan={plan} /> : null}
+
+          {referral ? (
+            <ReferralCard
+              link={referral.link}
+              credits={REFERRAL_CREDITS}
+              invited={referral.invited}
+              creditsEarned={referral.creditsEarned}
+            />
+          ) : null}
 
           <form
             action={signOut}

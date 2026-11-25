@@ -67,6 +67,7 @@ const LABELS: Record<string, Record<string, string>> = {
     included_expiry: "Crédits inclus expirés",
     subscription_end: "Fins d'abonnement",
     admin_grant: "Offerts par l'administration",
+    referral: "Parrainage",
   },
   channel: {
     direct: "Accès direct",
@@ -77,6 +78,9 @@ const LABELS: Record<string, Record<string, string>> = {
   },
   source: {
     direct: "Accès direct",
+    inconnu: "Inconnue (sans cookie)",
+    parrainage: "Invitations (parrainage)",
+    partage: "Partages d'utilisateurs",
     google: "Google",
     bing: "Bing",
     duckduckgo: "DuckDuckGo",

@@ -4,7 +4,11 @@ import {
   MESSAGES,
   signUp,
 } from "./support/accounts";
-import { activateSubscription, grantPurchasedCredits } from "./support/admin";
+import {
+  activateSubscription,
+  grantPurchasedCredits,
+  useFreeLetter,
+} from "./support/admin";
 import { generate, saveDraft } from "./support/cv";
 
 // Version LinkedIn et lettre de motivation (Inc-8) : US-28, US-29, H20, H21, avec l'IA simulée.
@@ -99,7 +103,7 @@ test("version LinkedIn : générée, modifiée, conservée et copiable (US-28)",
   ).toBeVisible();
 });
 
-test("lettre de motivation : poste obligatoire, lettre modifiable, versions conservées (US-29)", async ({
+test("lettre de motivation : première offerte, poste obligatoire, lettre modifiable, versions conservées (US-29, ADR-052)", async ({
   page,
   context,
 }) => {
@@ -113,13 +117,17 @@ test("lettre de motivation : poste obligatoire, lettre modifiable, versions cons
   await expect(page).toHaveURL(new RegExp(`/fr/cv/${cvId}/lettre$`), {
     timeout: 20_000,
   });
+  // Première lettre du compte offerte, puis 2 crédits les suivantes.
+  const offered = page.getByRole("button", {
+    name: "Rédiger ma lettre (offerte)",
+  });
   const submit = page.getByRole("button", {
     name: "Rédiger ma lettre (2 crédits)",
   });
 
-  // Poste vide (des espaces) : refusé par le serveur, sans débit.
+  // Poste vide (des espaces) : refusé par le serveur, sans utiliser la lettre offerte.
   await page.getByLabel(fr.cvTools.letter.position).fill("  ");
-  await submit.click();
+  await offered.click();
   await expect(page.getByRole("main").getByRole("alert")).toHaveText(
     fr.errors.fields.required,
   );
@@ -128,7 +136,7 @@ test("lettre de motivation : poste obligatoire, lettre modifiable, versions cons
     .getByLabel(fr.cvTools.letter.position)
     .fill("Responsable comptable");
   await page.getByLabel(fr.cvTools.letter.company).fill("Cabinet Martin");
-  await submit.click();
+  await offered.click();
   const result = page.getByRole("region", {
     name: fr.cvTools.letter.resultTitle,
   });
@@ -136,7 +144,8 @@ test("lettre de motivation : poste obligatoire, lettre modifiable, versions cons
   await expect(letter).toHaveValue(/^Responsable comptable, Cabinet Martin/);
   await expect(letter).toHaveValue(/Awa Diallo$/);
   await expect(result.getByText(/^\d+ mots$/)).toBeVisible();
-  await expect(balance(page, 58)).toBeVisible();
+  await expect(balance(page, 60)).toBeVisible();
+  await expect(submit).toBeVisible();
   await expectNoAccessibilityViolations(page);
 
   // Correction enregistrée, puis copie.
@@ -158,6 +167,7 @@ test("lettre de motivation : poste obligatoire, lettre modifiable, versions cons
   await page.getByLabel(fr.cvTools.letter.company).fill("");
   await submit.click();
   await expect(letter).toHaveValue(/^Contrôleur de gestion/);
+  await expect(balance(page, 58)).toBeVisible();
   await page.reload();
   const versions = page.getByRole("region", {
     name: fr.cvTools.generated.historyTitle,
@@ -186,6 +196,7 @@ test("Essential : la lettre se paie en crédits achetés (US-09 c.2)", async ({
   await saveDraft(page);
   await generate(page);
   await activateSubscription(email, "essential");
+  await useFreeLetter(email);
 
   await page.getByRole("link", { name: fr.cvTools.tabs.letter }).click();
   await page.getByLabel(fr.cvTools.letter.position).fill("Comptable");
