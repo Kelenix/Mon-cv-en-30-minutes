@@ -18,8 +18,19 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
   (US-11 c.4 et c.5).
 - `AI_SIMULATION` : les tests de bout en bout restent sur l'IA simulée même avec une clé.
 
+### Modifié
+
+- Nom de marque italien : « Il mio CV in 30 secondi » au lieu de « Curriculum in 30 Secondi »
+  (logo, titre des pages, e-mail de connexion, filigrane des PDF ; ADR-048).
+
 ### Corrigé
 
+- Traductions relues (tâche 12) : anglais britannique, italien, espagnol et allemand plus
+  naturels, vocabulaire unifié, tutoiement constant. Mentions de connexion conformes au RGPD
+  (« tu confirmes avoir lu la politique de confidentialité ») et texte de l'historique clarifié
+  quand on garde plus de CV que la formule n'en permet.
+- Accueil en allemand sur mobile : le bouton de l'appel final (« Lebenslauf kostenlos
+  erstellen ») passe à la ligne au lieu de déborder de 2 px à 375 px.
 - Icône de l'onglet du navigateur : celle de Next.js (modèle de départ) est remplacée par
   l'icône du logo. Ajout de l'icône d'écran d'accueil iPhone.
 - Connexion par Google ou par le lien de l'e-mail, en ligne : le retour renvoyait vers

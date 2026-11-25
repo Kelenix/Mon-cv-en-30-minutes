@@ -26,7 +26,8 @@ export function FinalCta() {
           href="/creer"
           className={cn(
             buttonVariants({ size: "lg" }),
-            "bg-background text-primary-strong hover:bg-surface",
+            // Passe à la ligne si le texte est long (allemand à 375 px) plutôt que de déborder.
+            "h-auto min-h-13 max-w-full bg-background py-3 text-center whitespace-normal text-primary-strong hover:bg-surface",
           )}
         >
           {t("cta")}

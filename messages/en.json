@@ -7,7 +7,7 @@
   },
   "metadata": {
     "title": "My CV in 30 Seconds — Build your CV with AI",
-    "description": "Answer 5 questions and AI writes a professional CV for you in seconds. Start for free."
+    "description": "Answer 5 questions and AI will write a professional CV for you in seconds. Start for free."
   },
   "a11y": {
     "skipToContent": "Skip to content"
@@ -41,8 +41,8 @@
   "home": {
     "eyebrow": "Built for applicant tracking systems (ATS)",
     "title": "Your professional CV <highlight>in seconds</highlight>, ready to get past recruiters' filters.",
-    "subtitle": "Answer 5 questions: the AI writes a clear, well-structured CV that applicant tracking systems can read. Review it, fine-tune it, download it as a PDF.",
-    "illustrationAlt": "A candidate creates a CV on a laptop: the CV is approved in 30 seconds.",
+    "subtitle": "Answer 5 questions and AI writes a clear, well-structured CV that applicant tracking systems can read. Review it, fine-tune it and download it as a PDF.",
+    "illustrationAlt": "A candidate creates their CV on a laptop and it's approved in 30 seconds.",
     "cta": "Create my CV for free",
     "highlights": {
       "freeFirstCv": "First CV free",
@@ -57,19 +57,19 @@
       "items": {
         "creation": {
           "title": "AI CV builder",
-          "description": "Answer 5 questions: AI organises and writes your CV."
+          "description": "Answer 5 questions and AI organises and writes your CV."
         },
         "experiences": {
           "title": "Better experience descriptions",
           "description": "AI rewrites your experience and summary to make them stand out."
         },
         "adaptation": {
-          "title": "Tailored to each job ad",
-          "description": "Paste a job ad: your CV adapts to it and you see the missing keywords."
+          "title": "Tailored to each job posting",
+          "description": "Paste a job posting and your CV adapts to it, showing you the missing keywords."
         },
         "coverLetter": {
           "title": "Cover letters",
-          "description": "A tailored letter, based on your CV and the job you want."
+          "description": "A tailor-made letter based on your CV and the job you're applying for."
         },
         "linkedin": {
           "title": "LinkedIn version",
@@ -77,18 +77,18 @@
         },
         "interview": {
           "title": "Interview practice",
-          "description": "Practise common interview questions and get feedback."
+          "description": "Practise answering common interview questions and get tips."
         }
       }
     },
     "offers": {
-      "title": "Simple plans",
+      "title": "Simple pricing",
       "subtitle": "Start for free, then choose what you need.",
-      "seeAll": "See all pricing",
+      "seeAll": "See full pricing",
       "priceFrom": "From {price}",
       "free": {
         "name": "Free",
-        "description": "Your first complete CV and its PDF export with a watermark."
+        "description": "Your first complete CV, exported as a watermarked PDF."
       },
       "credits": {
         "name": "AI credits",
@@ -96,12 +96,12 @@
       },
       "cvPro": {
         "name": "CV Pro",
-        "description": "One CV in PDF and DOCX without a watermark, one-time payment."
+        "description": "One CV in PDF and DOCX with no watermark. One-time payment."
       }
     },
     "finalCta": {
       "title": "Your CV is ready in seconds",
-      "subtitle": "Free, no credit card."
+      "subtitle": "Free, no credit card needed."
     }
   },
   "plans": {
@@ -124,10 +124,10 @@
     "featureWithValue": "{feature}: {value}",
     "features": {
       "cvCreation": "CV creation and improvement",
-      "exportsWithoutWatermark": "PDF and DOCX export without watermark",
+      "exportsWithoutWatermark": "Watermark-free PDF and DOCX export",
       "linkedin": "LinkedIn version",
       "summaryVariants": "Summary variations",
-      "jobAdaptation": "CV tailored to a job ad",
+      "jobAdaptation": "CV tailored to a job posting",
       "missingKeywords": "Missing keyword analysis",
       "coverLetter": "Cover letters",
       "interview": "Interview practice",
@@ -137,13 +137,13 @@
     },
     "priority": {
       "standard": "Standard",
-      "priority": "Priority",
+      "priority": "High",
       "max": "Highest"
     }
   },
   "pricing": {
     "metaTitle": "Pricing",
-    "metaDescription": "Essential, Pro and Premium plans, AI credit packs and CV Pro. Prices include VAT, 3-day free trial of Pro.",
+    "metaDescription": "Essential, Pro and Premium plans, AI credit packs and CV Pro. Prices include VAT. 3-day free Pro trial.",
     "title": "Choose the plan that suits you",
     "subtitle": "Your first CV is free. Plans and credits unlock the advanced tools.",
     "startFree": "Create my CV for free",
@@ -153,8 +153,8 @@
       "yearly": "Yearly",
       "yearlyHint": "up to −{percent}%"
     },
-    "savings": "Save {percent}% compared with monthly",
-    "conditions": "{days}-day free trial of Pro, with {credits} credits. Renews automatically. Cancel anytime.",
+    "savings": "Save {percent}% compared with monthly billing",
+    "conditions": "{days}-day free Pro trial with {credits} credits. Renews automatically. Cancel anytime.",
     "pricesNote": "Prices in euros, VAT included.",
     "withoutSubscription": {
       "title": "No subscription",
@@ -164,7 +164,7 @@
       "oneTime": "One-time payment",
       "cvPro": {
         "title": "CV Pro",
-        "description": "Unlock one CV: PDF and DOCX export without watermark, for good."
+        "description": "Unlock one CV: watermark-free PDF and DOCX export, for good."
       },
       "adsRemoval": {
         "title": "Ad removal",
@@ -179,19 +179,19 @@
       "monthlyCredits": "AI credits per month"
     },
     "costs": {
-      "title": "Cost of AI operations",
-      "subtitle": "Your first CV is generated for free. If an operation fails, your credits are refunded.",
-      "operation": "Operation",
+      "title": "Cost of AI actions",
+      "subtitle": "Your first CV is generated for free. If an action fails, your credits are refunded.",
+      "operation": "Action",
       "cost": "Cost",
       "credits": "{count, plural, one {# credit} other {# credits}}",
       "items": {
         "generateCv": "Generate a CV",
-        "improveExperience": "Improve a work experience",
+        "improveExperience": "Improve an experience entry",
         "improveSummary": "Improve a summary",
-        "adaptToJob": "Tailor a CV to a job ad (with keyword analysis)",
+        "adaptToJob": "Tailor a CV to a job posting (with keyword analysis)",
         "coverLetter": "Generate a cover letter",
         "linkedin": "Create a LinkedIn version",
-        "interview": "Practise an interview"
+        "interview": "Run a mock interview"
       }
     }
   },
@@ -207,14 +207,14 @@
     "codeSent": "Code sent to {email}.",
     "codeLabel": "6-digit code",
     "verify": "Confirm",
-    "resend": "Resend the code",
-    "resendIn": "Resend the code ({seconds}s)",
+    "resend": "Resend code",
+    "resendIn": "Resend code ({seconds}s)",
     "changeEmail": "Use a different email",
     "answersKept": "Your answers are saved.",
     "benefits": {
       "saved": {
         "title": "Your CV, saved",
-        "text": "Find it, edit it and download it whenever you like, on all your devices."
+        "text": "Access, edit and download it whenever you like, on any device."
       },
       "tools": {
         "title": "All your tools in one place",
@@ -225,7 +225,7 @@
         "text": "Hosted in the European Union and never sold."
       }
     },
-    "terms": "By continuing, you accept the <terms>terms</terms> and the <privacy>privacy policy</privacy>.",
+    "terms": "By continuing, you agree to the <terms>terms</terms> and confirm that you have read the <privacy>privacy policy</privacy>.",
     "linkInvalid": "This sign-in link is no longer valid. Request a new code.",
     "googleFailed": "Signing in with Google didn't work. Try again or use your email."
   },
@@ -244,7 +244,7 @@
   },
   "credits": {
     "count": "{count, plural, one {# credit} other {# credits}}",
-    "balanceLabel": "{count, plural, one {credit} other {credits}}, see details",
+    "balanceLabel": "{count, plural, one {credit} other {credits}}, view details",
     "title": "Your credit balance",
     "included": "Included credits",
     "includedHint": "Renewed every month with your subscription.",
@@ -256,7 +256,7 @@
     "metaTitle": "My account",
     "title": "My account",
     "infoTitle": "My details",
-    "infoHint": "They're used in the header of your new CVs.",
+    "infoHint": "Used in the header of your new CVs.",
     "email": "Email",
     "emailHint": "Your sign-in address can't be changed.",
     "save": "Save",
@@ -266,7 +266,7 @@
     "delete": {
       "button": "Delete my account",
       "title": "Delete your account?",
-      "description": "This can't be undone. You will lose:",
+      "description": "This can't be undone. You'll lose:",
       "lossCvs": "your CVs and their generated content",
       "lossCredits": "your remaining credits",
       "lossSubscription": "your subscription, cancelled immediately with no refund",
@@ -286,8 +286,8 @@
     "FORBIDDEN": "You don't have access to this content.",
     "VALIDATION_ERROR": "Check the highlighted fields.",
     "NOT_FOUND": "This content couldn't be found.",
-    "RATE_LIMITED": "Too many requests in a row. Wait a moment before trying again.",
-    "BOT_CHECK_FAILED": "The anti-bot check didn't go through. Reload the page and try again.",
+    "RATE_LIMITED": "Too many requests in a short time. Wait a moment and try again.",
+    "BOT_CHECK_FAILED": "The anti-bot check failed. Reload the page and try again.",
     "INTERNAL": "Something went wrong. Try again in a moment.",
     "fields": {
       "required": "This field is required.",
@@ -300,10 +300,10 @@
       "tooShort": "This text is too short."
     },
     "INSUFFICIENT_CREDITS": "You don't have enough credits for this action.",
-    "CV_LIMIT_REACHED": "Your plan keeps a limited number of CVs: choose the one to replace.",
-    "FREE_LIMIT_REACHED": "The daily limit of free CVs has been reached from this connection. Try again tomorrow or see our plans.",
-    "AI_UNAVAILABLE": "The generation didn't go through. Your credits have been returned: try again.",
-    "AI_INVALID_OUTPUT": "The generation didn't go through. Your credits have been returned: try again.",
+    "CV_LIMIT_REACHED": "Your plan stores a limited number of CVs. Choose one to replace.",
+    "FREE_LIMIT_REACHED": "Today's free CV limit has been reached on this connection. Try again tomorrow or check out our plans.",
+    "AI_UNAVAILABLE": "The generation didn't go through. Your credits have been refunded, so you can try again.",
+    "AI_INVALID_OUTPUT": "The generation didn't go through. Your credits have been refunded, so you can try again.",
     "CONFLICT": "This action is no longer possible.",
     "PAYMENT_ERROR": "Payment is temporarily unavailable. Try again in a moment."
   },
@@ -319,12 +319,12 @@
   },
   "error": {
     "title": "Something went wrong",
-    "description": "Please try again in a moment.",
+    "description": "Try again in a moment.",
     "retry": "Try again"
   },
   "wizard": {
     "metaTitle": "Create my CV",
-    "metaDescription": "Answer 5 simple questions: AI writes your CV, ready for applicant tracking systems.",
+    "metaDescription": "Answer 5 simple questions and AI writes your CV, ready for applicant tracking systems.",
     "title": "Create your CV in 5 questions",
     "intro": "Answer simply, in your own words. AI writes and formats your CV.",
     "progress": "Question {current} of {total}",
@@ -334,13 +334,13 @@
     "notAnswered": "No answer yet",
     "counter": "{count, number} / {max, number}",
     "jobRequired": "Enter the job you're aiming for to continue.",
-    "shortAnswers": "Your answers are short: the more details you give (jobs, tasks, tools, degrees), the more accurate your CV will be.",
+    "shortAnswers": "Your answers are quite short. The more detail you give (jobs, tasks, tools, degrees), the more accurate your CV will be.",
     "languageLabel": "CV language",
-    "languageHint": "Your answers can be written in any language: the CV will be written in this one.",
+    "languageHint": "You can answer in any language: your CV will be written in this one.",
     "previous": "Previous",
     "next": "Next",
     "generate": "Generate my CV",
-    "freeHint": "Your first generation is free. Your answers stay saved on this device.",
+    "freeHint": "Generating your first CV is free. Your answers stay saved on this device.",
     "questions": {
       "job": {
         "title": "What job are you aiming for?",
@@ -348,23 +348,23 @@
         "example": "Front-end web developer"
       },
       "experiences": {
-        "title": "What is your work experience?",
-        "help": "Jobs, companies, dates and main tasks. Write freely: AI organizes everything.",
-        "example": "Web developer at Studio Lumière, Lyon, from 2021 to now: building websites for shops, integrating mockups, client follow-up.\n6-month internship at WebAgence in 2020: WordPress site maintenance."
+        "title": "What's your work experience?",
+        "help": "Jobs, companies, dates and main tasks. Write freely and AI will organise it all.",
+        "example": "Web developer at Studio Lumière, Lyon, 2021 to present: building websites for shops, implementing design mock-ups, client follow-up.\n6-month internship at WebAgence in 2020: WordPress website maintenance."
       },
       "skills": {
         "title": "What are your skills?",
-        "help": "Tools, software, languages, know-how and qualities. Separate them with commas or line breaks.",
+        "help": "Tools, software, languages, practical skills and personal qualities. Separate them with commas or new lines.",
         "example": "HTML, CSS, JavaScript, React, Figma, teamwork, fluent French"
       },
       "education": {
-        "title": "What is your education?",
+        "title": "What's your education?",
         "help": "Degrees, schools, years and certifications.",
         "example": "Bachelor's degree in Digital Media, University of Manchester, 2020\nA-levels, 2017"
       },
       "goal": {
         "title": "What is your career goal?",
-        "help": "What you're looking for: type of job, sector, contract, desired career path.",
+        "help": "What you're looking for: type of role, sector, contract, how you'd like your career to progress.",
         "example": "Join a product team to build accessible web applications, on a permanent contract in Manchester or remotely."
       }
     }
@@ -373,12 +373,12 @@
     "metaTitle": "Generating your CV",
     "title": "Your CV is being prepared",
     "steps": {
-      "analysis": "Analyzing your answers",
+      "analysis": "Analysing your answers",
       "writing": "Writing your CV",
       "formatting": "Formatting"
     },
     "wait": "Your CV will be ready in a few seconds.",
-    "noDraft": "Start by answering the questions: no answers were found on this device.",
+    "noDraft": "No answers were found on this device. Start by answering the questions.",
     "answerQuestions": "Answer the questions",
     "retry": "Try again",
     "editAnswers": "Edit my answers",
@@ -386,10 +386,10 @@
     "cancel": "Cancel",
     "replace": {
       "title": "Replace a CV?",
-      "description": "Your plan keeps {limit, plural, one {# CV} other {# CVs}}. The new CV will replace:",
+      "description": "Your plan lets you keep {limit, plural, one {# CV} other {# CVs}}. The new CV will replace:",
       "legend": "CV to replace",
       "updated": "Edited on {date}",
-      "proWarning": "Unlocked with CV Pro: this unlock will be lost.",
+      "proWarning": "Unlocked with CV Pro: you'll lose this unlock.",
       "confirm": "Replace and generate",
       "upgrade": "Upgrade to Pro to keep everything"
     }
@@ -399,11 +399,11 @@
     "sheetLabel": "CV preview",
     "headerLabel": "Header",
     "edit": "Edit: {section}",
-    "done": "Finish editing: {section}",
+    "done": "Done editing: {section}",
     "copy": "Copy text",
     "copyShort": "Copy",
     "copied": "Copied",
-    "copyFailed": "Couldn't copy: select the CV text to copy it.",
+    "copyFailed": "Couldn't copy. Select the CV text and copy it manually.",
     "counter": "{count, number} / {max, number}",
     "status": {
       "saving": "Saving…",
@@ -412,12 +412,12 @@
       "invalid": "Fix the highlighted field to save",
       "retry": "Try again"
     },
-    "moveUp": "Move up “{item}”",
-    "moveDown": "Move down “{item}”",
+    "moveUp": "Move “{item}” up",
+    "moveDown": "Move “{item}” down",
     "remove": "Delete “{item}”",
     "removeBullet": "Delete bullet point {number}",
     "untitled": "untitled item",
-    "addExperience": "Add an experience",
+    "addExperience": "Add experience",
     "addEducation": "Add education",
     "addLanguage": "Add a language",
     "addBullet": "Add a bullet point",
@@ -437,8 +437,8 @@
       "endDate": "End",
       "bullet": "Bullet point {number}",
       "skills": "Skills",
-      "degree": "Degree or training",
-      "school": "School or organization",
+      "degree": "Degree or course",
+      "school": "School or institution",
       "year": "Year",
       "details": "Details",
       "language": "Language",
@@ -446,7 +446,7 @@
     },
     "empty": {
       "summary": "Add a summary.",
-      "experiences": "Add an experience.",
+      "experiences": "Add your work experience.",
       "skills": "Add your skills.",
       "education": "Add your education.",
       "languages": "Add the languages you speak."
@@ -456,7 +456,7 @@
   },
   "cvSections": {
     "summary": "Profile",
-    "experiences": "Professional Experience",
+    "experiences": "Professional experience",
     "skills": "Skills",
     "education": "Education",
     "languages": "Languages"
@@ -471,20 +471,20 @@
     "loadMore": "Show more CVs ({shown} of {total})",
     "history": {
       "title": "Your history",
-      "count": "{count, plural, one {# CV kept} other {# CVs kept}}",
+      "count": "{count, plural, one {# CV saved} other {# CVs saved}}",
       "unlimited": "Your plan keeps all your CVs, with no limit.",
-      "limited": "Your plan keeps {limit} CV: to create a new one, you choose which one to replace.",
-      "kept": "You keep all your CVs. To create a new one, you choose which one to replace.",
-      "upgrade": "With Pro or Premium, keep all your CVs with no limit.",
+      "limited": "Your plan keeps {limit} CV. To create a new one, you'll choose which one to replace.",
+      "kept": "All your existing CVs are kept. To create a new one, you'll choose which one to replace.",
+      "upgrade": "Upgrade to Pro or Premium to keep all your CVs, with no limit.",
       "seeOffers": "See plans",
-      "contents": "Cover letters, LinkedIn versions, tailored versions and mock interviews stay with each CV."
+      "contents": "Cover letters, LinkedIn versions, tailored versions and mock interviews are stored with each CV."
     },
     "delete": {
       "short": "Delete",
       "button": "Delete “{title}”",
       "title": "Delete “{title}”?",
       "description": "The CV and its content (cover letters, LinkedIn versions, tailored versions, mock interviews) will be permanently deleted.",
-      "proLost": "The CV Pro unlock for this CV will be lost; the purchase remains visible in “Credits and plan”.",
+      "proLost": "You'll lose the CV Pro unlock for this CV; the purchase will still appear in “Credits and plan”.",
       "cancel": "Cancel",
       "confirm": "Delete permanently"
     }
@@ -493,10 +493,10 @@
     "title": "Take your CV further",
     "intro": "Your CV is ready. Advanced features help you land more interviews:",
     "features": {
-      "adapt": "Tailor your CV to each job offer",
+      "adapt": "Tailor your CV to each job posting",
       "letter": "Write your cover letter",
-      "linkedin": "Optimize your LinkedIn profile",
-      "interview": "Practice for your interview"
+      "linkedin": "Optimise your LinkedIn profile",
+      "interview": "Practise for your interviews"
     },
     "cta": "See plans",
     "close": "Close",
@@ -512,7 +512,7 @@
     "docxLocked": "DOCX",
     "docxLockedLabel": "DOCX format: how to unlock it",
     "lockedTitle": "Watermark-free PDF and DOCX",
-    "lockedText": "Your free PDF has a discreet mention of our site in the footer. The watermark-free PDF and the DOCX format are included in every subscription, or with CV Pro ({price}) for this CV.",
+    "lockedText": "Your free PDF includes a discreet mention of our site in the footer. A watermark-free PDF and DOCX format are included with every subscription, or with CV Pro ({price}) for this CV.",
     "seeOffers": "See plans"
   },
   "billing": {
@@ -530,7 +530,7 @@
       "renews": "Renews on {date}.",
       "ends": "Ends on {date}.",
       "trialEnds": "Free trial until {date}.",
-      "pastDue": "Payment pending: update your payment method to keep your plan.",
+      "pastDue": "Payment outstanding: update your payment method to keep your plan.",
       "manage": "Manage my subscription"
     },
     "credits": {
@@ -556,21 +556,21 @@
     "return": {
       "pending": "Payment received, updating your account…",
       "done": "Payment confirmed: your account is up to date.",
-      "slow": "Your payment has been received; your account will update in a few moments.",
+      "slow": "We've received your payment. Your account will update in a few moments.",
       "refresh": "Refresh",
-      "cancelled": "Payment cancelled: nothing was charged."
+      "cancelled": "Payment cancelled. You haven't been charged."
     },
     "checkout": {
       "subscribe": "Choose {plan}",
       "trial": "Try Pro free for {days} days",
-      "trialTerms": "{days} free days with {credits} credits, then a Pro subscription that renews automatically. Your card is required but nothing is charged during the trial; you can cancel at any time.",
-      "terms": "I accept the [terms of sale]({url}) and request immediate access to the service: I waive my right of withdrawal."
+      "trialTerms": "{days} days free with {credits} credits, then a Pro subscription that renews automatically. We'll ask for your card, but you won't be charged during the trial. You can cancel at any time.",
+      "terms": "I accept the [terms of sale]({url}) and request immediate access to the service. I waive my right of withdrawal."
     },
     "conflict": {
-      "subscribed": "You already have a subscription: change plans from “Manage my subscription” in Credits and plan.",
+      "subscribed": "You already have a subscription. To change plans, use “Manage my subscription” in Credits and plan.",
       "trialUsed": "The free trial has already been used on this account.",
       "cvUnlocked": "This CV is already unlocked.",
-      "adsRemoved": "Ads are already removed from your account."
+      "adsRemoved": "Ads have already been removed from your account."
     },
     "cvPro": {
       "title": "CV Pro — {price}",
@@ -582,22 +582,22 @@
       "title": "Ads",
       "hint": "Remove ads from your account for good, even after a subscription ends.",
       "remove": "Remove ads — {price}",
-      "removed": "Ads are removed from your account."
+      "removed": "Ads have been removed from your account."
     }
   },
   "creditsDialog": {
-    "title": "You're missing {missing, plural, one {# credit} other {# credits}}",
+    "title": "You need {missing, plural, one {# more credit} other {# more credits}}",
     "description": "{operation} costs {cost, plural, one {# credit} other {# credits}}. Your balance: {balance, plural, one {# credit} other {# credits}}.",
-    "purchasedOnly": "With Essential, this feature is paid with purchased credits. Top up to use it, or upgrade to Pro to pay with your included credits.",
+    "purchasedOnly": "On Essential, this feature uses purchased credits. Top up to use it, or upgrade to Pro to use your included credits.",
     "upgrade": "Upgrade to Pro",
     "cancel": "Cancel",
     "operations": {
       "generateCv": "Generating a CV",
-      "improveExperience": "Improving an experience",
+      "improveExperience": "Improving an experience entry",
       "improveSummary": "Improving the summary",
-      "adaptToJob": "Tailoring the CV to a job offer",
+      "adaptToJob": "Tailoring the CV to a job posting",
       "linkedin": "Creating a LinkedIn version",
-      "interview": "Simulating an interview",
+      "interview": "Running a mock interview",
       "coverLetter": "Writing a cover letter"
     }
   },
@@ -605,7 +605,7 @@
     "tabs": {
       "label": "CV tools",
       "preview": "Preview",
-      "adapt": "Tailor to a job offer",
+      "adapt": "Tailor to a job posting",
       "linkedin": "LinkedIn",
       "letter": "Cover letter",
       "interview": "Interview"
@@ -615,7 +615,7 @@
       "title": "Improved experience",
       "before": "Before",
       "after": "After",
-      "charged": "The credit is used whether you replace it or not.",
+      "charged": "The credit is used whether you replace the original or not.",
       "keep": "Keep the original",
       "replace": "Replace"
     },
@@ -628,28 +628,28 @@
       "cancel": "Cancel"
     },
     "adapt": {
-      "metaTitle": "Tailor to a job offer",
-      "title": "Tailor my CV to a job offer",
-      "intro": "Paste a job posting: AI highlights what matters for this job in “{title}”, without making anything up.",
+      "metaTitle": "Tailor to a job posting",
+      "title": "Tailor my CV to a job posting",
+      "intro": "Paste a job posting and AI will highlight what matters for this role in “{title}”, without making anything up.",
       "postingLabel": "Job posting text",
-      "postingHint": "Paste the full posting (tasks, profile sought, skills): 50 to 10,000 characters.",
+      "postingHint": "Paste the full posting (duties, required profile, skills): 50 to 10,000 characters.",
       "counter": "{count, number} / {max, number}",
       "languageLabel": "Language of the tailored CV",
       "submit": "Tailor — {cost, plural, one {# credit} other {# credits}}",
-      "pending": "Tailoring in progress…",
+      "pending": "Tailoring your CV…",
       "resultTitle": "Your tailored CV",
-      "missingTitle": "Keywords from the posting missing from your CV",
+      "missingTitle": "Keywords from the posting that are missing from your CV",
       "missingHint": "Only add them if they truly match your background.",
-      "noMissing": "Your CV already includes the posting's key keywords.",
+      "noMissing": "Your CV already includes the main keywords from the posting.",
       "apply": "Apply to this CV",
       "saveAsNew": "Save as a new CV",
-      "saveAsNewLocked": "With Pro or Premium, keep each tailored version as a new CV.",
+      "saveAsNewLocked": "With Pro or Premium, save each tailored version as a new CV.",
       "seeOffers": "See plans",
       "previewLabel": "Tailored CV preview",
-      "historyTitle": "Previous tailorings",
+      "historyTitle": "Previous tailored versions",
       "show": "Show",
       "newTitle": "{title} — tailored",
-      "empty": "Your adapted CV and the missing keywords will appear here."
+      "empty": "Your tailored CV and the missing keywords will appear here."
     },
     "generated": {
       "counter": "{count, number} / {max, number}",
@@ -661,11 +661,11 @@
     "linkedin": {
       "metaTitle": "LinkedIn version",
       "title": "My LinkedIn version",
-      "intro": "AI turns “{title}” into texts ready to paste on your LinkedIn profile: headline, About section and experiences, without making anything up.",
+      "intro": "AI turns “{title}” into text ready to paste into your LinkedIn profile (headline, About section and experience) without making anything up.",
       "language": "Language of the LinkedIn version",
       "generate": "Generate my LinkedIn version — {cost, plural, one {# credit} other {# credits}}",
       "regenerate": "Generate a new version — {cost, plural, one {# credit} other {# credits}}",
-      "resultTitle": "Your LinkedIn texts",
+      "resultTitle": "Your LinkedIn content",
       "headline": "Profile headline",
       "copyHeadline": "Copy the profile headline",
       "about": "About",
@@ -673,16 +673,16 @@
       "experiences": "Experience",
       "copyExperience": "Copy the description of “{name}”",
       "untitled": "Untitled experience",
-      "empty": "Your LinkedIn texts will appear here, ready to copy."
+      "empty": "Your LinkedIn content will appear here, ready to copy."
     },
     "letter": {
       "metaTitle": "Cover letter",
       "title": "My cover letter",
-      "intro": "Enter the job you want: AI writes a letter based on “{title}”, without making anything up.",
+      "intro": "Enter the job you're applying for and AI will write a letter based on “{title}”, without making anything up.",
       "position": "Target job",
       "company": "Company (optional)",
       "posting": "Job posting (optional)",
-      "postingHint": "Paste the posting for a letter that answers what the employer expects.",
+      "postingHint": "Paste the posting to get a letter that matches what the employer is looking for.",
       "language": "Language of the letter",
       "generate": "Write my letter — {cost, plural, one {# credit} other {# credits}}",
       "resultTitle": "Your letter",
@@ -693,33 +693,33 @@
     },
     "interview": {
       "metaTitle": "Mock interview",
-      "title": "Practise an interview",
-      "intro": "Enter the job you want: AI asks you 8 common questions tailored to “{title}”. Answer in writing, then get feedback on each answer.",
-      "empty": "Your 8 questions will appear here, with room to answer.",
+      "title": "Practise for an interview",
+      "intro": "Enter the job you're aiming for and AI will ask you 8 common questions tailored to “{title}”. Answer in writing, then get feedback on each answer.",
+      "empty": "Your 8 questions will appear here, with space for your answers.",
       "position": "Target job",
       "language": "Interview language",
       "start": "Start the mock interview — {cost, plural, one {# credit} other {# credits}}",
       "restart": "New mock interview — {cost, plural, one {# credit} other {# credits}}",
       "resultTitle": "Interview: {position}",
-      "answerHint": "Answer all or some of the questions in writing (up to 2,000 characters each), then ask for your feedback: it's free.",
-      "reviewedHint": "Your feedback, question by question. This mock interview stays available with your CV.",
+      "answerHint": "Answer as many questions as you like in writing (up to 2,000 characters each), then ask for feedback. It's free.",
+      "reviewedHint": "Your feedback, question by question. This mock interview stays saved with your CV.",
       "questionNumber": "Question {number}",
       "review": "Get my feedback — free",
       "reviewPending": "Reviewing your answers…",
-      "reviewFailed": "The feedback could not be produced. Nothing was charged: try again.",
+      "reviewFailed": "We couldn't generate your feedback and you haven't been charged. Try again.",
       "reviewed": "feedback received",
       "yourAnswer": "Your answer",
       "strengths": "Strengths",
-      "improvements": "To improve",
+      "improvements": "Areas to improve",
       "example": "Sample answer",
-      "unanswered": "No answer to this question."
+      "unanswered": "You didn't answer this question."
     }
   },
   "ads": {
     "label": "Advertisement",
     "consent": {
       "title": "Advertising cookies",
-      "text": "With your consent, our partner Google uses cookies to show you relevant ads. Without consent, ads stay non-personalised.",
+      "text": "With your consent, our partner Google uses cookies to show you relevant ads. Without it, ads remain non-personalised.",
       "more": "Learn more",
       "accept": "Accept",
       "refuse": "Decline",
@@ -737,10 +737,10 @@
       "done": "1 credit has been added to your balance.",
       "interrupted": "Ad interrupted: no credit added.",
       "unavailable": "No ad is available right now. Try again later.",
-      "limit": "You have earned your 3 credits from ads today. Come back tomorrow.",
-      "error": "The ad could not start. Try again.",
+      "limit": "You've already earned today's 3 credits from ads. Come back tomorrow.",
+      "error": "The ad couldn't start. Try again.",
       "dialogTitle": "Test ad",
-      "remaining": "{seconds, plural, =0 {A moment} one {# second} other {# seconds}} left before your credit.",
+      "remaining": "{seconds, plural, =0 {A few moments} one {# second} other {# seconds}} left until your credit.",
       "close": "Close"
     },
     "interstitial": {
@@ -751,12 +751,12 @@
   },
   "retentionEmail": {
     "subject": "Your {brandName} account will be deleted on {date}",
-    "title": "Your account will soon be deleted",
+    "title": "Your account will be deleted soon",
     "greeting": "Hi {firstName},",
     "greetingNoName": "Hi,",
-    "body": "Your {brandName} account has not been used for almost three years. It will be deleted on {date}, along with your CVs and all generated content.",
-    "keep": "To keep it, simply sign in before that date.",
+    "body": "Your {brandName} account hasn't been used in almost three years. It will be deleted on {date}, along with your CVs and all generated content.",
+    "keep": "To keep it, just sign in before then.",
     "cta": "Sign in",
-    "footer": "If you don't sign in by then, the deletion will be permanent and your credits will be lost."
+    "footer": "If you don't sign in by then, your account will be permanently deleted and you'll lose your credits."
   }
 }

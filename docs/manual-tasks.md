@@ -245,15 +245,38 @@
 - **Coût** : gratuit (les minutes de GitHub Actions incluses suffisent pour ce projet).
 - **Vérification** : l'onglet **Actions** du dépôt affiche un passage vert après le premier envoi.
 
-## Tâche 12 : Valider les noms de marque et faire relire les traductions
+## Tâche 12 ✅ : Valider les noms de marque et faire relire les traductions
+- **Fait (25/11/2026)** :
+  - **Noms validés par toi** (ADR-048) : FR « Mon CV en 30 Secondes », EN « My CV in 30
+    Seconds », IT « Il mio CV in 30 secondi » (au lieu de « Curriculum in 30 Secondi »), ES « Mi
+    CV en 30 Segundos », DE « Mein Lebenslauf in 30 Sekunden ».
+  - **Relecture des textes faite** par Claude, langue par langue (EN, IT, ES, DE), avec le
+    français comme référence :
+    - corrections : EN 119 textes (anglais britannique), IT 55, ES 72, DE 78 ;
+    - vocabulaire unifié (annonce d'emploi, crédits, retrait des publicités…) ;
+    - calques du français supprimés ; tutoiement constant dans chaque langue ;
+    - tests de parité des clés et des variables au vert.
+  - Deux textes de référence corrigés dans les 5 langues :
+    - « Tu gardes tous tes CV » : formulation ambiguë ;
+    - « tu acceptes la politique de confidentialité » : avec le RGPD, elle se lit, elle ne
+      s'accepte pas.
+  - **Disponibilité** : aucun domaine des noms traduits n'existe dans le DNS (`mycvin30seconds.com`,
+    `ilmiocvin30secondi.it`, `micven30segundos.es`, `meinlebenslaufin30sekunden.de`, etc.).
+    Aucun service ne porte exactement ces noms. En revanche, « CV in 30 seconds » est une
+    expression courante : difficile à déposer comme marque verbale. Un logo (marque
+    figurative) se protège plus facilement ; à voir avec un conseil en propriété
+    intellectuelle si tu veux protéger le nom.
+  - **À faire valider par un juriste** : la case de renonciation au droit de rétractation
+    (`billing.checkout.terms`). Le texte dit « je renonce » ; la loi (L221-28 du Code de la
+    consommation, § 356 BGB) demande un accord exprès et la reconnaissance de la perte du droit.
+  - Une relecture par des locuteurs natifs humains reste conseillée avant une campagne dans un
+    pays.
 - **Pourquoi** : le nom de marque change selon la langue (ADR-018) et les textes doivent sonner
   naturels pour des locuteurs natifs.
 - **Quand** : noms de marque avant l'Inc-1 (ils apparaissent sur l'accueil) ; relecture des
   textes à la fin de chaque jalon (M1, M3, M4, M6).
 - **Étapes** :
-  1. Valider ou corriger les noms proposés : FR « Mon CV en 30 Secondes », EN « My CV in 30
-     Seconds », IT « Curriculum in 30 Secondi », ES « Mi CV en 30 Segundos », DE « Mein Lebenslauf
-     in 30 Sekunden ».
+  1. Valider ou corriger les noms proposés (fait, voir ci-dessus).
   2. Vérifier leur disponibilité (marque, nom de domaine) si vous comptez les protéger.
   3. Faire relire `messages/en.json`, `it.json`, `es.json` et `de.json` par un locuteur natif.
 - **Coût** : selon les relecteurs ; dépôt de marque éventuel.

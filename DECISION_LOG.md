@@ -6,6 +6,26 @@
 
 ---
 
+## ADR-048 — Noms de marque validés ; italien « Il mio CV in 30 secondi » (tâche 12)
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté (choix de l'utilisateur) ; complète ADR-018 et ADR-023
+- **Décideur** : l'utilisateur, sur proposition de Claude après relecture des traductions
+- **Contexte** : noms traduits proposés en ADR-018 et restés à valider. La relecture italienne
+  juge « Curriculum in 30 Secondi » moins naturel : majuscule à « Secondi » à l'anglaise, et
+  « Il mio CV » est déjà le libellé du menu.
+- **Décision** : noms FR, EN, ES et DE gardés. Italien : « Il mio CV in 30 secondi » (logo :
+  « Il mio CV », puis « in » et la pastille « 30 secondi »). Mis à jour : textes, titre des
+  pages et e-mail de connexion en italien (nom entre guillemets, « di «Il mio CV…» »).
+- **Alternatives écartées** : « Lebenslauf in 30 Sekunden » en allemand (plus court, mais perd
+  la symétrie avec « Mon CV ») ; « CV in 30 Seconds » en anglais (pas urgent).
+- **Conséquences** : le filigrane des PDF en italien porte le nouveau nom (il suit les
+  messages). Domaines `ilmiocvin30secondi.it` et `.com` absents du DNS, donc probablement
+  libres.
+- **Impact** : métier (faible).
+
+---
+
 ## ADR-047 — Publicités par AdSense en attendant Ad Manager (tâche 10)
 
 - **Date** : 25/11/2026

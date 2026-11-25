@@ -1,12 +1,12 @@
 {
   "brand": {
-    "name": "Curriculum in 30 Secondi",
-    "lead": "Curriculum",
+    "name": "Il mio CV in 30 secondi",
+    "lead": "Il mio CV",
     "connector": "in",
-    "pill": "30 Secondi"
+    "pill": "30 secondi"
   },
   "metadata": {
-    "title": "Curriculum in 30 Secondi — Crea il tuo CV con l'IA",
+    "title": "Il mio CV in 30 secondi — Crea il tuo curriculum con l'IA",
     "description": "Rispondi a 5 domande e l'IA scrive per te un CV professionale in pochi secondi. Inizia gratis."
   },
   "a11y": {
@@ -50,7 +50,7 @@
       "cvLanguages": "CV in 5 lingue"
     },
     "features": {
-      "title": "Tutto per ottenere il tuo prossimo lavoro",
+      "title": "Tutto ciò che ti serve per ottenere il tuo prossimo lavoro",
       "subtitle": "Prima il tuo CV, poi gli strumenti per ogni candidatura.",
       "freeNote": "Primo CV gratis",
       "paidNote": "Con crediti o abbonamento",
@@ -60,7 +60,7 @@
           "description": "Rispondi a 5 domande: l'IA organizza e scrive il tuo CV."
         },
         "experiences": {
-          "title": "Esperienze valorizzate",
+          "title": "Miglioramento delle esperienze",
           "description": "L'IA riformula le tue esperienze e il tuo profilo per metterli in risalto."
         },
         "adaptation": {
@@ -77,7 +77,7 @@
         },
         "interview": {
           "title": "Simulazione di colloquio",
-          "description": "Allenati sulle domande più frequenti e ricevi consigli."
+          "description": "Esercitati con le domande più frequenti e ricevi consigli."
         }
       }
     },
@@ -85,10 +85,10 @@
       "title": "Offerte semplici",
       "subtitle": "Inizia gratis, poi scegli ciò che ti serve.",
       "seeAll": "Vedi tutti i prezzi",
-      "priceFrom": "Da {price}",
+      "priceFrom": "A partire da {price}",
       "free": {
         "name": "Gratis",
-        "description": "Il tuo primo CV completo e il suo PDF con filigrana."
+        "description": "Il tuo primo CV completo, esportabile in PDF con filigrana."
       },
       "credits": {
         "name": "Crediti IA",
@@ -113,7 +113,7 @@
     "descriptions": {
       "essential": "Le funzioni essenziali per creare e migliorare i tuoi CV.",
       "pro": "Il piano completo per ogni candidatura.",
-      "premium": "Tutti gli strumenti ogni giorno, con la massima priorità."
+      "premium": "Tutti gli strumenti per l'uso quotidiano, con la massima priorità."
     },
     "recommended": "Consigliato",
     "perMonth": "/ mese",
@@ -131,8 +131,8 @@
       "missingKeywords": "Analisi delle parole chiave mancanti",
       "coverLetter": "Lettere di presentazione",
       "interview": "Simulazione di colloquio",
-      "unlimitedHistory": "Cronologia illimitata dei CV",
-      "aiPriority": "Priorità delle generazioni IA",
+      "unlimitedHistory": "Storico illimitato dei CV",
+      "aiPriority": "Priorità di generazione IA",
       "noAds": "Senza pubblicità"
     },
     "priority": {
@@ -143,18 +143,18 @@
   },
   "pricing": {
     "metaTitle": "Prezzi",
-    "metaDescription": "Piani Essential, Pro e Premium, pacchetti di crediti IA e CV Pro. Prezzi IVA inclusa, prova gratuita di 3 giorni di Pro.",
+    "metaDescription": "Piani Essential, Pro e Premium, pacchetti di crediti IA e CV Pro. Prezzi IVA inclusa, prova gratuita di Pro per 3 giorni.",
     "title": "Scegli il piano più adatto a te",
     "subtitle": "Il tuo primo CV è gratis. Piani e crediti sbloccano gli strumenti avanzati.",
     "startFree": "Crea il mio CV gratis",
     "billing": {
-      "label": "Periodicità di pagamento",
+      "label": "Frequenza di fatturazione",
       "monthly": "Mensile",
       "yearly": "Annuale",
       "yearlyHint": "fino a −{percent}%"
     },
-    "savings": "Risparmi il {percent}% rispetto al mensile",
-    "conditions": "Prova gratuita di {days} giorni di Pro, con {credits} crediti. Rinnovo automatico. Disdici quando vuoi.",
+    "savings": "Risparmi il {percent}% rispetto alla tariffa mensile",
+    "conditions": "Prova gratuita di Pro per {days} giorni, con {credits} crediti. Rinnovo automatico. Disdici quando vuoi.",
     "pricesNote": "Prezzi in euro, IVA inclusa.",
     "withoutSubscription": {
       "title": "Senza abbonamento",
@@ -168,7 +168,7 @@
       },
       "adsRemoval": {
         "title": "Rimozione della pubblicità",
-        "description": "Acquisto unico: nessuna pubblicità sul tuo account."
+        "description": "Acquisto unico: mai più pubblicità sul tuo account."
       }
     },
     "comparison": {
@@ -196,7 +196,7 @@
     }
   },
   "auth": {
-    "metaTitle": "Accedi",
+    "metaTitle": "Accesso",
     "title": "Accedi per salvare il tuo CV",
     "subtitle": "Nessuna password: ricevi un codice di 6 cifre via email.",
     "google": "Continua con Google",
@@ -225,7 +225,7 @@
         "text": "Ospitati nell'Unione europea e mai venduti."
       }
     },
-    "terms": "Continuando, accetti i <terms>termini e condizioni</terms> e l'<privacy>informativa sulla privacy</privacy>.",
+    "terms": "Continuando, accetti i <terms>termini e condizioni</terms> e confermi di aver letto l'<privacy>informativa sulla privacy</privacy>.",
     "linkInvalid": "Questo link di accesso non è più valido. Richiedi un nuovo codice.",
     "googleFailed": "L'accesso con Google non è riuscito. Riprova o usa la tua email."
   },
@@ -256,7 +256,7 @@
     "metaTitle": "Il mio account",
     "title": "Il mio account",
     "infoTitle": "I miei dati",
-    "infoHint": "Vengono ripresi nell'intestazione dei tuoi nuovi CV.",
+    "infoHint": "Compaiono nell'intestazione dei tuoi nuovi CV.",
     "email": "Email",
     "emailHint": "L'indirizzo di accesso non può essere modificato.",
     "save": "Salva",
@@ -286,7 +286,7 @@
     "FORBIDDEN": "Non hai accesso a questo contenuto.",
     "VALIDATION_ERROR": "Controlla i campi segnalati.",
     "NOT_FOUND": "Contenuto non trovato.",
-    "RATE_LIMITED": "Troppe richieste ravvicinate. Attendi un momento prima di riprovare.",
+    "RATE_LIMITED": "Troppe richieste in poco tempo. Attendi un momento prima di riprovare.",
     "BOT_CHECK_FAILED": "La verifica anti-robot non è andata a buon fine. Ricarica la pagina e riprova.",
     "INTERNAL": "Si è verificato un errore. Riprova tra un attimo.",
     "fields": {
@@ -300,8 +300,8 @@
       "tooShort": "Questo testo è troppo breve."
     },
     "INSUFFICIENT_CREDITS": "Non hai abbastanza crediti per questa azione.",
-    "CV_LIMIT_REACHED": "Il tuo piano conserva un numero limitato di CV: scegli quale sostituire.",
-    "FREE_LIMIT_REACHED": "Limite giornaliero di CV gratuiti raggiunto da questa connessione. Riprova domani o scopri le nostre offerte.",
+    "CV_LIMIT_REACHED": "Il tuo piano consente di conservare un numero limitato di CV: scegli quale sostituire.",
+    "FREE_LIMIT_REACHED": "Hai raggiunto il limite giornaliero di CV gratuiti da questa connessione. Riprova domani o scopri le nostre offerte.",
     "AI_UNAVAILABLE": "La generazione non è andata a buon fine. I tuoi crediti sono stati restituiti: riprova.",
     "AI_INVALID_OUTPUT": "La generazione non è andata a buon fine. I tuoi crediti sono stati restituiti: riprova.",
     "CONFLICT": "Questa azione non è più possibile.",
@@ -333,14 +333,14 @@
     "summaryTitle": "Le tue risposte",
     "notAnswered": "Nessuna risposta per ora",
     "counter": "{count, number} / {max, number}",
-    "jobRequired": "Indica il lavoro che cerchi per continuare.",
+    "jobRequired": "Per continuare, indica il lavoro che cerchi.",
     "shortAnswers": "Le tue risposte sono brevi: più dettagli dai (ruoli, mansioni, strumenti, titoli di studio), più preciso sarà il tuo CV.",
     "languageLabel": "Lingua del CV",
-    "languageHint": "Puoi scrivere le risposte in qualsiasi lingua: il CV sarà redatto in questa.",
+    "languageHint": "Puoi scrivere le risposte in qualsiasi lingua: il CV sarà redatto nella lingua scelta qui.",
     "previous": "Indietro",
     "next": "Avanti",
     "generate": "Genera il mio CV",
-    "freeHint": "La tua prima generazione è gratuita. Le tue risposte restano salvate su questo dispositivo.",
+    "freeHint": "La prima generazione è gratuita. Le tue risposte restano salvate su questo dispositivo.",
     "questions": {
       "job": {
         "title": "Quale lavoro cerchi?",
@@ -377,7 +377,7 @@
       "writing": "Stesura del tuo CV",
       "formatting": "Impaginazione"
     },
-    "wait": "Il tuo CV arriva tra pochi secondi.",
+    "wait": "Il tuo CV sarà pronto tra pochi secondi.",
     "noDraft": "Inizia rispondendo alle domande: non è stata trovata nessuna risposta su questo dispositivo.",
     "answerQuestions": "Rispondi alle domande",
     "retry": "Riprova",
@@ -386,12 +386,12 @@
     "cancel": "Annulla",
     "replace": {
       "title": "Sostituire un CV?",
-      "description": "Il tuo piano conserva {limit, plural, one {# CV} other {# CV}}. Il nuovo CV sostituirà:",
+      "description": "Il tuo piano consente di conservare {limit, plural, one {# CV} other {# CV}}. Il nuovo CV sostituirà:",
       "legend": "CV da sostituire",
       "updated": "Modificato il {date}",
       "proWarning": "Sbloccato con CV Pro: questo sblocco andrà perso.",
       "confirm": "Sostituisci e genera",
-      "upgrade": "Passa a Pro per tenere tutto"
+      "upgrade": "Passa a Pro per conservarli tutti"
     }
   },
   "cvEditor": {
@@ -412,17 +412,17 @@
       "invalid": "Correggi il campo segnalato per salvare",
       "retry": "Riprova"
     },
-    "moveUp": "Sposta su «{item}»",
-    "moveDown": "Sposta giù «{item}»",
+    "moveUp": "Sposta «{item}» in alto",
+    "moveDown": "Sposta «{item}» in basso",
     "remove": "Elimina «{item}»",
     "removeBullet": "Elimina il punto {number}",
     "untitled": "elemento senza titolo",
     "addExperience": "Aggiungi un'esperienza",
-    "addEducation": "Aggiungi una formazione",
+    "addEducation": "Aggiungi un titolo di studio",
     "addLanguage": "Aggiungi una lingua",
     "addBullet": "Aggiungi un punto",
     "skillsHint": "Una competenza per riga.",
-    "skillsLimit": "Massimo {count} competenze, di {max} caratteri ciascuna.",
+    "skillsLimit": "Massimo {count} competenze, di non più di {max} caratteri ciascuna.",
     "fields": {
       "fullName": "Nome e cognome",
       "title": "Titolo del CV",
@@ -448,7 +448,7 @@
       "summary": "Aggiungi un profilo.",
       "experiences": "Aggiungi un'esperienza.",
       "skills": "Aggiungi le tue competenze.",
-      "education": "Aggiungi una formazione.",
+      "education": "Aggiungi un titolo di studio.",
       "languages": "Aggiungi le lingue che parli."
     },
     "notFound": "Questo CV non è stato trovato.",
@@ -472,12 +472,12 @@
     "history": {
       "title": "Il tuo storico",
       "count": "{count, plural, one {# CV conservato} other {# CV conservati}}",
-      "unlimited": "Il tuo piano conserva tutti i tuoi CV, senza limiti.",
-      "limited": "Il tuo piano conserva {limit} CV: per crearne uno nuovo, scegli quale sostituire.",
-      "kept": "Conservi tutti i tuoi CV. Per crearne uno nuovo, scegli quale sostituire.",
+      "unlimited": "Con il tuo piano conservi tutti i tuoi CV, senza limiti.",
+      "limited": "Il tuo piano consente di conservare {limit} CV: per crearne uno nuovo, scegli quale sostituire.",
+      "kept": "I tuoi CV esistenti restano tutti conservati. Per crearne uno nuovo, sceglierai quale sostituire.",
       "upgrade": "Con Pro o Premium, conserva tutti i tuoi CV senza limiti.",
       "seeOffers": "Vedi le offerte",
-      "contents": "Lettere, versioni LinkedIn, adattamenti e simulazioni di colloquio restano insieme a ogni CV."
+      "contents": "Lettere, versioni LinkedIn, adattamenti e simulazioni di colloquio restano associati a ogni CV."
     },
     "delete": {
       "short": "Elimina",
@@ -496,10 +496,10 @@
       "adapt": "Adattare il CV a ogni offerta di lavoro",
       "letter": "Scrivere la lettera di presentazione",
       "linkedin": "Ottimizzare il profilo LinkedIn",
-      "interview": "Allenarti per il colloquio"
+      "interview": "Esercitarti per il colloquio"
     },
     "cta": "Vedi le offerte",
-    "close": "Chiudi",
+    "close": "Chiudi il riquadro",
     "upgradeTitle": "Passa a {plan}",
     "upgradeText": "{count} crediti inclusi ogni mese invece di {current}."
   },
@@ -537,9 +537,9 @@
       "title": "I tuoi crediti",
       "total": "Saldo totale",
       "included": "Crediti inclusi",
-      "includedReset": "Riportati a {count} il {date}",
+      "includedReset": "Tornano a {count} il {date}",
       "purchased": "Crediti acquistati",
-      "purchasedHint": "Non scadono mai."
+      "purchasedHint": "Senza scadenza."
     },
     "topUp": {
       "title": "Ricarica",
@@ -554,7 +554,7 @@
       "adsRemoval": "Rimozione della pubblicità"
     },
     "return": {
-      "pending": "Pagamento ricevuto, aggiornamento del tuo account…",
+      "pending": "Pagamento ricevuto, stiamo aggiornando il tuo account…",
       "done": "Pagamento confermato: il tuo account è aggiornato.",
       "slow": "Abbiamo ricevuto il pagamento; il tuo account si aggiornerà tra pochi istanti.",
       "refresh": "Aggiorna",
@@ -564,7 +564,7 @@
       "subscribe": "Scegli {plan}",
       "trial": "Prova Pro gratis per {days} giorni",
       "trialTerms": "{days} giorni gratuiti con {credits} crediti, poi un abbonamento Pro con rinnovo automatico. La carta è richiesta ma durante la prova non viene addebitato nulla; puoi disdire in qualsiasi momento.",
-      "terms": "Accetto le [condizioni generali di vendita]({url}) e chiedo l'accesso immediato al servizio: rinuncio al diritto di recesso."
+      "terms": "Accetto le [condizioni generali di vendita]({url}) e chiedo la fornitura immediata del servizio: rinuncio al diritto di recesso."
     },
     "conflict": {
       "subscribed": "Hai già un abbonamento: cambia piano da «Gestisci il mio abbonamento», in Crediti e piano.",
@@ -577,12 +577,12 @@
       "text": "PDF senza filigrana e DOCX per questo CV, per sempre, senza abbonamento.",
       "unlock": "Sblocca questo CV"
     },
-    "pricingCvPro": "Da sbloccare dall'anteprima del tuo CV.",
+    "pricingCvPro": "Si sblocca dall'anteprima del tuo CV.",
     "ads": {
       "title": "Pubblicità",
       "hint": "Rimuovi per sempre la pubblicità dal tuo account, anche dopo la fine di un abbonamento.",
       "remove": "Rimuovi la pubblicità — {price}",
-      "removed": "La pubblicità è rimossa dal tuo account."
+      "removed": "La pubblicità è stata rimossa dal tuo account."
     }
   },
   "creditsDialog": {
@@ -595,7 +595,7 @@
       "generateCv": "Generare un CV",
       "improveExperience": "Migliorare un'esperienza",
       "improveSummary": "Migliorare il profilo",
-      "adaptToJob": "Adattare il CV a un'offerta",
+      "adaptToJob": "Adattare il CV a un annuncio",
       "linkedin": "Creare una versione LinkedIn",
       "interview": "Simulare un colloquio",
       "coverLetter": "Generare una lettera di presentazione"
@@ -605,7 +605,7 @@
     "tabs": {
       "label": "Strumenti del CV",
       "preview": "Anteprima",
-      "adapt": "Adatta a un'offerta",
+      "adapt": "Adatta a un annuncio",
       "linkedin": "LinkedIn",
       "letter": "Lettera di presentazione",
       "interview": "Colloquio"
@@ -615,7 +615,7 @@
       "title": "Esperienza migliorata",
       "before": "Prima",
       "after": "Dopo",
-      "charged": "Il credito viene usato in ogni caso, che tu sostituisca o no.",
+      "charged": "Il credito viene consumato comunque, che tu sostituisca il testo o no.",
       "keep": "Mantieni l'originale",
       "replace": "Sostituisci"
     },
@@ -628,8 +628,8 @@
       "cancel": "Annulla"
     },
     "adapt": {
-      "metaTitle": "Adatta a un'offerta",
-      "title": "Adatta il mio CV a un'offerta",
+      "metaTitle": "Adatta a un annuncio",
+      "title": "Adatta il mio CV a un annuncio",
       "intro": "Incolla un annuncio: l'IA mette in risalto ciò che conta per questo ruolo in «{title}», senza inventare nulla.",
       "postingLabel": "Testo dell'annuncio",
       "postingHint": "Incolla l'annuncio completo (mansioni, profilo ricercato, competenze): da 50 a 10.000 caratteri.",
@@ -653,10 +653,10 @@
     },
     "generated": {
       "counter": "{count, number} / {max, number}",
-      "pending": "Scrittura in corso…",
+      "pending": "Stesura in corso…",
       "historyTitle": "Versioni precedenti",
       "show": "Mostra",
-      "justNow": "Adesso"
+      "justNow": "Proprio ora"
     },
     "linkedin": {
       "metaTitle": "Versione LinkedIn",
@@ -682,7 +682,7 @@
       "position": "Ruolo desiderato",
       "company": "Azienda (facoltativo)",
       "posting": "Annuncio (facoltativo)",
-      "postingHint": "Incolla l'annuncio per una lettera che risponde alle attese del ruolo.",
+      "postingHint": "Incolla l'annuncio per una lettera che risponda ai requisiti del ruolo.",
       "language": "Lingua della lettera",
       "generate": "Scrivi la mia lettera — {cost, plural, one {# credito} other {# crediti}}",
       "resultTitle": "La tua lettera",
@@ -694,20 +694,20 @@
     "interview": {
       "metaTitle": "Simulazione di colloquio",
       "title": "Simula un colloquio",
-      "intro": "Indica il ruolo che cerchi: l'IA ti pone 8 domande frequenti adatte a «{title}». Rispondi per iscritto, poi ricevi un riscontro su ogni risposta.",
+      "intro": "Indica il ruolo che cerchi: l'IA ti pone 8 domande frequenti adatte a «{title}». Rispondi per iscritto, poi ricevi un feedback su ogni risposta.",
       "empty": "Le tue 8 domande appariranno qui, con lo spazio per rispondere.",
       "position": "Ruolo desiderato",
       "language": "Lingua del colloquio",
       "start": "Avvia la simulazione — {cost, plural, one {# credito} other {# crediti}}",
       "restart": "Nuova simulazione — {cost, plural, one {# credito} other {# crediti}}",
       "resultTitle": "Colloquio: {position}",
-      "answerHint": "Rispondi per iscritto a tutte o ad alcune domande (al massimo 2.000 caratteri per risposta), poi chiedi il tuo riscontro: è gratuito.",
-      "reviewedHint": "Il tuo riscontro, domanda per domanda. Questa simulazione resta disponibile con il tuo CV.",
+      "answerHint": "Rispondi per iscritto a tutte o ad alcune domande (al massimo 2.000 caratteri per risposta), poi chiedi il tuo feedback: è gratuito.",
+      "reviewedHint": "Il tuo feedback, domanda per domanda. Questa simulazione resta disponibile con il tuo CV.",
       "questionNumber": "Domanda {number}",
-      "review": "Ottieni il mio riscontro — gratis",
+      "review": "Ricevi il feedback — gratis",
       "reviewPending": "Analisi delle tue risposte…",
-      "reviewFailed": "Il riscontro non è andato a buon fine. Non è stato addebitato nulla: riprova.",
-      "reviewed": "riscontro ricevuto",
+      "reviewFailed": "Non è stato possibile generare il feedback. Non è stato addebitato nulla: riprova.",
+      "reviewed": "feedback ricevuto",
       "yourAnswer": "La tua risposta",
       "strengths": "Punti di forza",
       "improvements": "Da migliorare",
@@ -734,7 +734,7 @@
       "watch": "Guarda l'annuncio",
       "loading": "Caricamento dell'annuncio…",
       "playing": "Annuncio in corso…",
-      "done": "1 credito è stato aggiunto al tuo saldo.",
+      "done": "È stato aggiunto 1 credito al tuo saldo.",
       "interrupted": "Annuncio interrotto: nessun credito aggiunto.",
       "unavailable": "Nessun annuncio disponibile al momento. Riprova più tardi.",
       "limit": "Hai ottenuto i tuoi 3 crediti di oggi con gli annunci. Torna domani.",

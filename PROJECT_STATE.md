@@ -20,7 +20,7 @@
     mesurée, ADR-041) ;
   - tâche 10 : l'utilisateur garde un seul compte AdSense qui accepte les sites et donne son
     identifiant `pub-…` ; Claude active alors `ADS_MODE=adsense` sur le serveur ;
-  - tâche 12. Les noms de marque traduits restent ceux proposés tant qu'elle n'est pas faite ;
+  - faire valider par un juriste la case de renonciation au droit de rétractation (tâche 12) ;
   - dans quelques jours : vérifier dans Search Console que l'accueil et les tarifs sont
     indexés (tâche 13).
 - **Git** : **toute mise en ligne passe par GitHub** (choix de l'utilisateur). Envoi sur `main`,
@@ -85,10 +85,9 @@ jusqu'au bout : mise en ligne le 25/11/2026.
 
 | Tâche manuelle (`docs/manual-tasks.md`) | État | Remarque |
 |-----------------------------------------|------|----------|
-| 1 à 9, 11, 13, 14, 16, 17 | ✅ faites | Outils, clé Anthropic, Stripe réel, Google, Resend, infos légales, logo, VPS et domaine, GitHub, moteurs de recherche, déploiement automatique, Turnstile, administrateurs (tâche 2 sans objet) |
+| 1 à 9, 11 à 14, 16, 17 | ✅ faites | Outils, clé Anthropic, Stripe réel, Google, Resend, infos légales, logo, VPS et domaine, GitHub, noms de marque et traductions, moteurs de recherche, déploiement automatique, Turnstile, administrateurs (tâche 2 sans objet) |
 | 15 — Surveillance et sauvegardes hors du serveur | 🔄 | Surveillance faite ; sauvegardes hPanel et copie hebdomadaire à faire |
 | 10 — Comptes publicitaires | 🔄 | Site prêt pour AdSense (ADR-047) ; bloqué côté comptes : un seul compte AdSense à garder, qui accepte les sites |
-| 12 — Noms de marque et relecture des traductions | ⬜ | Noms proposés utilisés en attendant |
 
 Risques : `docs/risks.md` (aucun 🔴).
 
@@ -104,8 +103,8 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - [x] Q6 — App mobile / backend existant : aucun
 - [x] Q7 à Q10 — Multilingue : FR, EN, IT, ES, DE dès le lancement ; langue du CV au choix ;
   nom de marque traduit (ADR-018)
-- [ ] Noms de marque par langue à valider (tâche manuelle 12 ; noms proposés utilisés en
-  attendant)
+- [x] Noms de marque par langue validés le 25/11/2026 ; italien « Il mio CV in 30 secondi »
+  (tâche manuelle 12, ADR-048)
 
 ## Blocages
 
@@ -116,6 +115,21 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Tâche 12 : traductions relues**.
+  - Une relecture par langue, en parallèle. Corrections : EN 119 textes (anglais
+    britannique), IT 55, ES 72, DE 78.
+  - Deux textes de référence corrigés dans les 5 langues (historique, mention RGPD de la
+    connexion).
+  - Domaines des noms traduits libres selon le DNS ; expression « CV in 30 seconds »
+    courante, donc marque verbale difficile à déposer.
+  - Vérifié : parité des clés et des variables, format, tests e2e multilingues (vitrine,
+    i18n, crédits, comptes, administration, audit), largeur de 375 px sous Linux sur 20 pages.
+    Ce contrôle a trouvé un débordement déjà présent en ligne (bouton final de l'accueil en
+    allemand), corrigé.
+  - Noms de marque validés par l'utilisateur : italien « Il mio CV in 30 secondi » au lieu de
+    « Curriculum in 30 Secondi » (ADR-048), les quatre autres gardés.
+  - Reste : clause de rétractation à faire valider par un juriste.
 
 - 25/11/2026 — **Tâche 10 : publicités par AdSense (ADR-047, choix de l'utilisateur)**.
   - Constat : Ad Manager sans inscription en libre-service ; comptes AdSense de l'utilisateur

@@ -225,7 +225,7 @@
         "text": "Hébergées dans l'Union européenne et jamais vendues."
       }
     },
-    "terms": "En continuant, tu acceptes les <terms>CGU / CGV</terms> et la <privacy>politique de confidentialité</privacy>.",
+    "terms": "En continuant, tu acceptes les <terms>CGU / CGV</terms> et tu confirmes avoir lu la <privacy>politique de confidentialité</privacy>.",
     "linkInvalid": "Ce lien de connexion n'est plus valable. Demande un nouveau code.",
     "googleFailed": "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail."
   },
@@ -474,7 +474,7 @@
       "count": "{count, plural, one {# CV conservé} other {# CV conservés}}",
       "unlimited": "Ta formule conserve tous tes CV, sans limite.",
       "limited": "Ta formule conserve {limit} CV : pour en créer un nouveau, tu choisis celui à remplacer.",
-      "kept": "Tu gardes tous tes CV. Pour en créer un nouveau, tu choisis celui à remplacer.",
+      "kept": "Tes CV existants restent tous conservés. Pour en créer un nouveau, tu choisiras celui à remplacer.",
       "upgrade": "Avec Pro ou Premium, garde tous tes CV sans limite.",
       "seeOffers": "Voir les offres",
       "contents": "Les lettres, versions LinkedIn, adaptations et simulations d'entretien restent rangées avec chaque CV."

@@ -6,7 +6,7 @@
     "pill": "30 Sekunden"
   },
   "metadata": {
-    "title": "Mein Lebenslauf in 30 Sekunden — Erstelle deinen Lebenslauf mit KI",
+    "title": "Mein Lebenslauf in 30 Sekunden – Erstelle deinen Lebenslauf mit KI",
     "description": "Beantworte 5 Fragen und die KI schreibt in Sekunden einen professionellen Lebenslauf für dich. Kostenlos starten."
   },
   "a11y": {
@@ -57,10 +57,10 @@
       "items": {
         "creation": {
           "title": "Lebenslauf mit KI",
-          "description": "Beantworte 5 Fragen: Die KI ordnet und schreibt deinen Lebenslauf."
+          "description": "Beantworte 5 Fragen: Die KI strukturiert und schreibt deinen Lebenslauf."
         },
         "experiences": {
-          "title": "Stärkere Berufserfahrung",
+          "title": "Erfahrungen verbessern",
           "description": "Die KI formuliert deine Erfahrungen und dein Profil überzeugender."
         },
         "adaptation": {
@@ -73,7 +73,7 @@
         },
         "linkedin": {
           "title": "LinkedIn-Version",
-          "description": "Eine Headline, ein Info-Abschnitt und deine Erfahrungen, bereit zum Kopieren."
+          "description": "Eine Headline, ein Info-Bereich und deine Erfahrungen, bereit zum Kopieren."
         },
         "interview": {
           "title": "Vorstellungsgespräch üben",
@@ -88,7 +88,7 @@
       "priceFrom": "Ab {price}",
       "free": {
         "name": "Kostenlos",
-        "description": "Dein erster vollständiger Lebenslauf und sein PDF mit Wasserzeichen."
+        "description": "Dein erster vollständiger Lebenslauf als PDF mit Wasserzeichen."
       },
       "credits": {
         "name": "KI-Credits",
@@ -126,19 +126,19 @@
       "cvCreation": "Lebenslauf erstellen und verbessern",
       "exportsWithoutWatermark": "PDF- und DOCX-Export ohne Wasserzeichen",
       "linkedin": "LinkedIn-Version",
-      "summaryVariants": "Profil-Varianten",
-      "jobAdaptation": "Lebenslauf passend zur Stellenanzeige",
+      "summaryVariants": "Profilvarianten",
+      "jobAdaptation": "Anpassung an Stellenanzeigen",
       "missingKeywords": "Analyse fehlender Schlüsselwörter",
       "coverLetter": "Anschreiben",
       "interview": "Vorstellungsgespräch üben",
-      "unlimitedHistory": "Unbegrenzter Lebenslauf-Verlauf",
+      "unlimitedHistory": "Unbegrenzt viele Lebensläufe",
       "aiPriority": "Priorität bei KI-Generierungen",
       "noAds": "Werbefrei"
     },
     "priority": {
       "standard": "Standard",
-      "priority": "Bevorzugt",
-      "max": "Höchste"
+      "priority": "Hoch",
+      "max": "Maximal"
     }
   },
   "pricing": {
@@ -153,7 +153,7 @@
       "yearly": "Jährlich",
       "yearlyHint": "bis zu −{percent} %"
     },
-    "savings": "Du sparst {percent} % gegenüber monatlich",
+    "savings": "Du sparst {percent} % gegenüber monatlicher Zahlung",
     "conditions": "{days} Tage Pro kostenlos testen, mit {credits} Credits. Automatische Verlängerung. Jederzeit kündbar.",
     "pricesNote": "Preise in Euro inkl. MwSt.",
     "withoutSubscription": {
@@ -167,7 +167,7 @@
         "description": "Schalte einen Lebenslauf frei: PDF- und DOCX-Export ohne Wasserzeichen, dauerhaft."
       },
       "adsRemoval": {
-        "title": "Werbung entfernen",
+        "title": "Werbefreiheit",
         "description": "Einmalkauf: keine Werbung mehr in deinem Konto."
       }
     },
@@ -213,7 +213,7 @@
     "answersKept": "Deine Antworten bleiben gespeichert.",
     "benefits": {
       "saved": {
-        "title": "Dein Lebenslauf gespeichert",
+        "title": "Gespeicherter Lebenslauf",
         "text": "Du findest ihn jederzeit wieder, kannst ihn bearbeiten und herunterladen – auf all deinen Geräten."
       },
       "tools": {
@@ -221,11 +221,11 @@
         "text": "Anschreiben, LinkedIn-Profil und Vorbereitung auf das Vorstellungsgespräch, auf Basis deines Lebenslaufs."
       },
       "privacy": {
-        "title": "Deine Daten geschützt",
+        "title": "Geschützte Daten",
         "text": "In der Europäischen Union gehostet und niemals verkauft."
       }
     },
-    "terms": "Wenn du fortfährst, akzeptierst du die <terms>AGB</terms> und die <privacy>Datenschutzerklärung</privacy>.",
+    "terms": "Wenn du fortfährst, akzeptierst du die <terms>AGB</terms> und bestätigst, dass du die <privacy>Datenschutzerklärung</privacy> gelesen hast.",
     "linkInvalid": "Dieser Anmeldelink ist nicht mehr gültig. Fordere einen neuen Code an.",
     "googleFailed": "Die Anmeldung mit Google hat nicht geklappt. Versuche es noch einmal oder nutze deine E-Mail-Adresse."
   },
@@ -246,19 +246,19 @@
     "count": "{count, plural, one {# Credit} other {# Credits}}",
     "balanceLabel": "{count, plural, one {Credit} other {Credits}}, Details anzeigen",
     "title": "Dein Credit-Guthaben",
-    "included": "Inklusive Credits",
+    "included": "Inklusiv-Credits",
     "includedHint": "Werden jeden Monat mit deinem Abo erneuert.",
     "purchased": "Gekaufte Credits",
-    "purchasedHint": "Sie verfallen nicht.",
+    "purchasedHint": "Sie verfallen nie.",
     "topUp": "Aufladen"
   },
   "account": {
     "metaTitle": "Mein Konto",
     "title": "Mein Konto",
     "infoTitle": "Meine Angaben",
-    "infoHint": "Sie erscheinen im Kopf deiner neuen Lebensläufe.",
+    "infoHint": "Sie erscheinen im Kopfbereich deiner neuen Lebensläufe.",
     "email": "E-Mail",
-    "emailHint": "Die Anmeldeadresse kann nicht geändert werden.",
+    "emailHint": "Die E-Mail-Adresse für die Anmeldung kann nicht geändert werden.",
     "save": "Speichern",
     "saved": "Angaben gespeichert.",
     "signOut": "Abmelden",
@@ -267,9 +267,9 @@
       "button": "Mein Konto löschen",
       "title": "Dein Konto löschen?",
       "description": "Das lässt sich nicht rückgängig machen. Du verlierst:",
-      "lossCvs": "deine Lebensläufe und ihre generierten Inhalte",
+      "lossCvs": "deine Lebensläufe und alle damit erstellten Inhalte",
       "lossCredits": "deine restlichen Credits",
-      "lossSubscription": "dein Abo, sofort gekündigt ohne Erstattung",
+      "lossSubscription": "dein Abo, das sofort und ohne Erstattung gekündigt wird",
       "confirmLabel": "Gib zur Bestätigung {word} ein",
       "cancel": "Abbrechen",
       "confirm": "Endgültig löschen"
@@ -287,7 +287,7 @@
     "VALIDATION_ERROR": "Prüfe die markierten Felder.",
     "NOT_FOUND": "Dieser Inhalt wurde nicht gefunden.",
     "RATE_LIMITED": "Zu viele Anfragen kurz hintereinander. Warte einen Moment, bevor du es erneut versuchst.",
-    "BOT_CHECK_FAILED": "Die Prüfung gegen Bots ist fehlgeschlagen. Lade die Seite neu und versuche es erneut.",
+    "BOT_CHECK_FAILED": "Die Bot-Prüfung ist fehlgeschlagen. Lade die Seite neu und versuche es erneut.",
     "INTERNAL": "Ein Fehler ist aufgetreten. Versuche es gleich noch einmal.",
     "fields": {
       "required": "Dieses Feld ist erforderlich.",
@@ -300,12 +300,12 @@
       "tooShort": "Dieser Text ist zu kurz."
     },
     "INSUFFICIENT_CREDITS": "Dir fehlen Credits für diese Aktion.",
-    "CV_LIMIT_REACHED": "Dein Tarif speichert nur eine begrenzte Zahl an Lebensläufen: Wähle den aus, der ersetzt werden soll.",
+    "CV_LIMIT_REACHED": "In deinem Tarif ist die Anzahl der Lebensläufe begrenzt: Wähle aus, welcher ersetzt werden soll.",
     "FREE_LIMIT_REACHED": "Das Tageslimit für kostenlose Lebensläufe ist für diese Verbindung erreicht. Versuche es morgen erneut oder entdecke unsere Angebote.",
-    "AI_UNAVAILABLE": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet: Versuche es erneut.",
-    "AI_INVALID_OUTPUT": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet: Versuche es erneut.",
+    "AI_UNAVAILABLE": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet. Versuche es erneut.",
+    "AI_INVALID_OUTPUT": "Die Erstellung hat nicht geklappt. Deine Credits wurden zurückerstattet. Versuche es erneut.",
     "CONFLICT": "Diese Aktion ist nicht mehr möglich.",
-    "PAYMENT_ERROR": "Die Zahlung ist vorübergehend nicht verfügbar. Versuche es gleich noch einmal."
+    "PAYMENT_ERROR": "Die Zahlung ist vorübergehend nicht möglich. Versuche es gleich noch einmal."
   },
   "legal": {
     "updatedAt": "Zuletzt aktualisiert: {date}",
@@ -336,15 +336,15 @@
     "jobRequired": "Gib den angestrebten Beruf an, um fortzufahren.",
     "shortAnswers": "Deine Antworten sind kurz: Je mehr Details du angibst (Stellen, Aufgaben, Tools, Abschlüsse), desto genauer wird dein Lebenslauf.",
     "languageLabel": "Sprache des Lebenslaufs",
-    "languageHint": "Deine Antworten können in jeder Sprache geschrieben sein: Der Lebenslauf wird in dieser Sprache verfasst.",
+    "languageHint": "Du kannst in jeder Sprache antworten: Der Lebenslauf wird in der hier gewählten Sprache verfasst.",
     "previous": "Zurück",
     "next": "Weiter",
     "generate": "Lebenslauf erstellen",
-    "freeHint": "Deine erste Erstellung ist kostenlos. Deine Antworten bleiben auf diesem Gerät gespeichert.",
+    "freeHint": "Die erste Erstellung ist kostenlos. Deine Antworten bleiben auf diesem Gerät gespeichert.",
     "questions": {
       "job": {
         "title": "Welchen Beruf strebst du an?",
-        "help": "Die Stelle oder den Beruf, den du suchst. Das ist die einzige Pflichtantwort.",
+        "help": "Die gesuchte Stelle oder der gesuchte Beruf. Nur diese Antwort ist Pflicht.",
         "example": "Frontend-Webentwicklerin"
       },
       "experiences": {
@@ -364,7 +364,7 @@
       },
       "goal": {
         "title": "Was ist dein berufliches Ziel?",
-        "help": "Was du suchst: Art der Stelle, Branche, Vertrag, gewünschte Entwicklung.",
+        "help": "Was du suchst: Art der Stelle, Branche, Vertragsart, gewünschte Entwicklung.",
         "example": "In einem Produktteam barrierefreie Webanwendungen entwickeln, unbefristet in Berlin oder remote."
       }
     }
@@ -386,7 +386,7 @@
     "cancel": "Abbrechen",
     "replace": {
       "title": "Lebenslauf ersetzen?",
-      "description": "Dein Tarif speichert {limit, plural, one {# Lebenslauf} other {# Lebensläufe}}. Der neue Lebenslauf ersetzt:",
+      "description": "In deinem Tarif kannst du {limit, plural, one {# Lebenslauf} other {# Lebensläufe}} speichern. Der neue Lebenslauf ersetzt:",
       "legend": "Zu ersetzender Lebenslauf",
       "updated": "Geändert am {date}",
       "proWarning": "Mit CV Pro freigeschaltet: Diese Freischaltung geht verloren.",
@@ -421,8 +421,8 @@
     "addEducation": "Ausbildung hinzufügen",
     "addLanguage": "Sprache hinzufügen",
     "addBullet": "Punkt hinzufügen",
-    "skillsHint": "Eine Kenntnis pro Zeile.",
-    "skillsLimit": "Höchstens {count} Kenntnisse mit je {max} Zeichen.",
+    "skillsHint": "Ein Eintrag pro Zeile.",
+    "skillsLimit": "Maximal {count} Einträge mit je bis zu {max} Zeichen.",
     "fields": {
       "fullName": "Vollständiger Name",
       "title": "Titel des Lebenslaufs",
@@ -438,7 +438,7 @@
       "bullet": "Punkt {number}",
       "skills": "Kenntnisse",
       "degree": "Abschluss oder Ausbildung",
-      "school": "Schule oder Einrichtung",
+      "school": "Bildungseinrichtung",
       "year": "Jahr",
       "details": "Details",
       "language": "Sprache",
@@ -472,12 +472,12 @@
     "history": {
       "title": "Dein Verlauf",
       "count": "{count, plural, one {# gespeicherter Lebenslauf} other {# gespeicherte Lebensläufe}}",
-      "unlimited": "Dein Tarif speichert alle deine Lebensläufe, ohne Begrenzung.",
-      "limited": "Dein Tarif speichert {limit} Lebenslauf: Für einen neuen wählst du, welcher ersetzt wird.",
-      "kept": "Du behältst alle deine Lebensläufe. Für einen neuen wählst du, welcher ersetzt wird.",
+      "unlimited": "In deinem Tarif bleiben alle deine Lebensläufe gespeichert, ohne Begrenzung.",
+      "limited": "In deinem Tarif wird {limit} Lebenslauf gespeichert: Für einen neuen wählst du aus, welcher ersetzt wird.",
+      "kept": "Deine bisherigen Lebensläufe bleiben alle erhalten. Für einen neuen wählst du aus, welcher ersetzt wird.",
       "upgrade": "Mit Pro oder Premium behältst du alle deine Lebensläufe ohne Begrenzung.",
       "seeOffers": "Tarife ansehen",
-      "contents": "Anschreiben, LinkedIn-Versionen, Anpassungen und Gesprächssimulationen bleiben bei jedem Lebenslauf."
+      "contents": "Anschreiben, LinkedIn-Versionen, Anpassungen und Gesprächssimulationen bleiben beim jeweiligen Lebenslauf gespeichert."
     },
     "delete": {
       "short": "Löschen",
@@ -491,7 +491,7 @@
   },
   "upsell": {
     "title": "Mehr aus deinem Lebenslauf machen",
-    "intro": "Dein Lebenslauf ist fertig. Mit den erweiterten Funktionen bekommst du mehr Vorstellungsgespräche:",
+    "intro": "Dein Lebenslauf ist fertig. Die erweiterten Funktionen helfen dir, mehr Vorstellungsgespräche zu bekommen:",
     "features": {
       "adapt": "Lebenslauf an jede Stellenanzeige anpassen",
       "letter": "Anschreiben verfassen",
@@ -501,7 +501,7 @@
     "cta": "Angebote ansehen",
     "close": "Schließen",
     "upgradeTitle": "Wechsle zu {plan}",
-    "upgradeText": "{count} inklusive Credits pro Monat statt {current}."
+    "upgradeText": "{count} statt {current} Inklusiv-Credits pro Monat."
   },
   "cvDocument": {
     "watermark": "Erstellt mit {brand}"
@@ -512,7 +512,7 @@
     "docxLocked": "DOCX",
     "docxLockedLabel": "DOCX-Format: So schaltest du es frei",
     "lockedTitle": "PDF ohne Wasserzeichen und DOCX",
-    "lockedText": "Dein kostenloses PDF enthält in der Fußzeile einen dezenten Hinweis auf unsere Website. Das PDF ohne Wasserzeichen und das DOCX-Format sind in allen Abos enthalten oder mit CV Pro ({price}) für diesen Lebenslauf.",
+    "lockedText": "Dein kostenloses PDF enthält in der Fußzeile einen dezenten Hinweis auf unsere Website. Das PDF ohne Wasserzeichen und das DOCX-Format sind in allen Abos enthalten – oder für diesen Lebenslauf mit CV Pro ({price}) erhältlich.",
     "seeOffers": "Angebote ansehen"
   },
   "billing": {
@@ -529,27 +529,27 @@
       },
       "renews": "Verlängert sich am {date}.",
       "ends": "Endet am {date}.",
-      "trialEnds": "Kostenloser Test bis {date}.",
+      "trialEnds": "Kostenloser Test bis zum {date}.",
       "pastDue": "Zahlung ausstehend: Aktualisiere deine Zahlungsmethode, um dein Abo zu behalten.",
       "manage": "Abo verwalten"
     },
     "credits": {
       "title": "Deine Credits",
       "total": "Gesamtguthaben",
-      "included": "Inklusive Credits",
+      "included": "Inklusiv-Credits",
       "includedReset": "Am {date} wieder auf {count}",
       "purchased": "Gekaufte Credits",
       "purchasedHint": "Sie verfallen nie."
     },
     "topUp": {
       "title": "Aufladen",
-      "pack": "{count} Credits — {price}",
+      "pack": "{count} Credits – {price}",
       "buy": "{count} Credits kaufen"
     },
     "purchases": {
       "title": "Deine Käufe",
       "pack": "Paket mit {count} Credits",
-      "cvPro": "CV Pro — {title}",
+      "cvPro": "CV Pro – {title}",
       "cvDeleted": "gelöschter Lebenslauf",
       "adsRemoval": "Werbefreiheit"
     },
@@ -563,32 +563,32 @@
     "checkout": {
       "subscribe": "{plan} wählen",
       "trial": "Pro {days} Tage kostenlos testen",
-      "trialTerms": "{days} kostenlose Tage mit {credits} Credits, danach ein Pro-Abo mit automatischer Verlängerung. Deine Karte wird benötigt, während des Tests wird aber nichts abgebucht; du kannst jederzeit kündigen.",
+      "trialTerms": "{days} Tage kostenlos mit {credits} Credits, danach ein Pro-Abo mit automatischer Verlängerung. Deine Kartendaten werden abgefragt, während des Tests wird aber nichts abgebucht. Du kannst jederzeit kündigen.",
       "terms": "Ich akzeptiere die [Allgemeinen Geschäftsbedingungen]({url}) und verlange die sofortige Bereitstellung des Dienstes: Ich verzichte auf mein Widerrufsrecht."
     },
     "conflict": {
-      "subscribed": "Du hast bereits ein Abo: Wechsle das Abo über „Abo verwalten“ unter Credits und Abo.",
+      "subscribed": "Du hast bereits ein Abo. Ein Wechsel ist über „Abo verwalten“ unter „Credits und Abo“ möglich.",
       "trialUsed": "Der kostenlose Test wurde für dieses Konto bereits genutzt.",
       "cvUnlocked": "Dieser Lebenslauf ist bereits freigeschaltet.",
-      "adsRemoved": "Die Werbung ist in deinem Konto bereits entfernt."
+      "adsRemoved": "Die Werbung wurde bereits aus deinem Konto entfernt."
     },
     "cvPro": {
-      "title": "CV Pro — {price}",
-      "text": "PDF ohne Wasserzeichen und DOCX für diesen Lebenslauf, für immer, ohne Abo.",
+      "title": "CV Pro – {price}",
+      "text": "PDF ohne Wasserzeichen und DOCX für diesen Lebenslauf – dauerhaft und ohne Abo.",
       "unlock": "Diesen Lebenslauf freischalten"
     },
-    "pricingCvPro": "Freischaltung in der Vorschau deines Lebenslaufs.",
+    "pricingCvPro": "Freischaltbar in der Vorschau deines Lebenslaufs.",
     "ads": {
       "title": "Werbung",
       "hint": "Entferne die Werbung dauerhaft aus deinem Konto, auch nach dem Ende eines Abos.",
-      "remove": "Werbung entfernen — {price}",
-      "removed": "Die Werbung ist aus deinem Konto entfernt."
+      "remove": "Werbung entfernen – {price}",
+      "removed": "Die Werbung wurde aus deinem Konto entfernt."
     }
   },
   "creditsDialog": {
     "title": "Dir {missing, plural, one {fehlt # Credit} other {fehlen # Credits}}",
     "description": "{operation} kostet {cost, plural, one {# Credit} other {# Credits}}. Dein Guthaben: {balance, plural, one {# Credit} other {# Credits}}.",
-    "purchasedOnly": "Mit Essential wird diese Funktion mit gekauften Credits bezahlt. Lade Credits auf, um sie zu nutzen, oder wechsle zu Pro, um sie mit deinen inklusiven Credits zu bezahlen.",
+    "purchasedOnly": "Mit Essential wird diese Funktion mit gekauften Credits bezahlt. Lade Credits auf, um sie zu nutzen, oder wechsle zu Pro, um sie mit deinen Inklusiv-Credits zu bezahlen.",
     "upgrade": "Zu Pro wechseln",
     "cancel": "Abbrechen",
     "operations": {
@@ -603,7 +603,7 @@
   },
   "cvTools": {
     "tabs": {
-      "label": "Lebenslauf-Werkzeuge",
+      "label": "Lebenslauf-Tools",
       "preview": "Vorschau",
       "adapt": "An eine Stelle anpassen",
       "linkedin": "LinkedIn",
@@ -611,16 +611,16 @@
       "interview": "Vorstellungsgespräch"
     },
     "experience": {
-      "button": "Mit KI verbessern — {cost, plural, one {# Credit} other {# Credits}}",
+      "button": "Mit KI verbessern – {cost, plural, one {# Credit} other {# Credits}}",
       "title": "Verbesserte Erfahrung",
       "before": "Vorher",
       "after": "Nachher",
-      "charged": "Der Credit wird verbraucht, ob du ersetzt oder nicht.",
+      "charged": "Der Credit wird verbraucht, egal ob du ersetzt oder nicht.",
       "keep": "Original behalten",
       "replace": "Ersetzen"
     },
     "summary": {
-      "button": "Profil verbessern — {cost, plural, one {# Credit} other {# Credits}}",
+      "button": "Profil verbessern – {cost, plural, one {# Credit} other {# Credits}}",
       "history": "Vorschläge ({count})",
       "title": "Wähle dein Profil",
       "previous": "Frühere Vorschläge",
@@ -635,7 +635,7 @@
       "postingHint": "Füge die vollständige Anzeige ein (Aufgaben, gesuchtes Profil, Kenntnisse): 50 bis 10.000 Zeichen.",
       "counter": "{count, number} / {max, number}",
       "languageLabel": "Sprache des angepassten Lebenslaufs",
-      "submit": "Anpassen — {cost, plural, one {# Credit} other {# Credits}}",
+      "submit": "Anpassen – {cost, plural, one {# Credit} other {# Credits}}",
       "pending": "Anpassung läuft…",
       "resultTitle": "Dein angepasster Lebenslauf",
       "missingTitle": "Schlüsselwörter der Anzeige, die in deinem Lebenslauf fehlen",
@@ -648,12 +648,12 @@
       "previewLabel": "Vorschau des angepassten Lebenslaufs",
       "historyTitle": "Frühere Anpassungen",
       "show": "Anzeigen",
-      "newTitle": "{title} — angepasst",
+      "newTitle": "{title} – angepasst",
       "empty": "Dein angepasster Lebenslauf und die fehlenden Schlüsselwörter erscheinen hier."
     },
     "generated": {
       "counter": "{count, number} / {max, number}",
-      "pending": "Wird geschrieben …",
+      "pending": "Wird geschrieben…",
       "historyTitle": "Frühere Versionen",
       "show": "Anzeigen",
       "justNow": "Gerade eben"
@@ -661,13 +661,13 @@
     "linkedin": {
       "metaTitle": "LinkedIn-Version",
       "title": "Meine LinkedIn-Version",
-      "intro": "Die KI macht aus „{title}“ Texte, die du direkt in dein LinkedIn-Profil einfügen kannst: Profilslogan, Info-Bereich und Berufserfahrung, ohne etwas zu erfinden.",
+      "intro": "Die KI macht aus „{title}“ Texte, die du direkt in dein LinkedIn-Profil einfügen kannst: Headline, Info-Bereich und Berufserfahrung – ohne etwas zu erfinden.",
       "language": "Sprache der LinkedIn-Version",
-      "generate": "Meine LinkedIn-Version erstellen — {cost, plural, one {# Credit} other {# Credits}}",
-      "regenerate": "Neue Version erstellen — {cost, plural, one {# Credit} other {# Credits}}",
+      "generate": "Meine LinkedIn-Version erstellen – {cost, plural, one {# Credit} other {# Credits}}",
+      "regenerate": "Neue Version erstellen – {cost, plural, one {# Credit} other {# Credits}}",
       "resultTitle": "Deine LinkedIn-Texte",
-      "headline": "Profilslogan",
-      "copyHeadline": "Profilslogan kopieren",
+      "headline": "Headline",
+      "copyHeadline": "Headline kopieren",
       "about": "Info",
       "copyAbout": "Info-Bereich kopieren",
       "experiences": "Berufserfahrung",
@@ -684,7 +684,7 @@
       "posting": "Stellenanzeige (optional)",
       "postingHint": "Füge die Anzeige ein, damit das Anschreiben auf die Anforderungen der Stelle eingeht.",
       "language": "Sprache des Anschreibens",
-      "generate": "Mein Anschreiben schreiben — {cost, plural, one {# Credit} other {# Credits}}",
+      "generate": "Anschreiben erstellen – {cost, plural, one {# Credit} other {# Credits}}",
       "resultTitle": "Dein Anschreiben",
       "letter": "Anschreiben",
       "copy": "Anschreiben kopieren",
@@ -698,15 +698,15 @@
       "empty": "Deine 8 Fragen erscheinen hier, mit Platz für deine Antworten.",
       "position": "Gewünschte Stelle",
       "language": "Sprache des Gesprächs",
-      "start": "Simulation starten — {cost, plural, one {# Credit} other {# Credits}}",
-      "restart": "Neue Simulation — {cost, plural, one {# Credit} other {# Credits}}",
+      "start": "Simulation starten – {cost, plural, one {# Credit} other {# Credits}}",
+      "restart": "Neue Simulation – {cost, plural, one {# Credit} other {# Credits}}",
       "resultTitle": "Vorstellungsgespräch: {position}",
-      "answerHint": "Beantworte alle oder einige Fragen schriftlich (höchstens 2.000 Zeichen pro Antwort) und fordere dann dein Feedback an: Es ist kostenlos.",
+      "answerHint": "Beantworte alle oder einige Fragen schriftlich (höchstens 2.000 Zeichen pro Antwort) und fordere dann dein Feedback an – kostenlos.",
       "reviewedHint": "Dein Feedback, Frage für Frage. Diese Simulation bleibt bei deinem Lebenslauf gespeichert.",
       "questionNumber": "Frage {number}",
-      "review": "Mein Feedback erhalten — kostenlos",
-      "reviewPending": "Deine Antworten werden ausgewertet …",
-      "reviewFailed": "Das Feedback konnte nicht erstellt werden. Es wurde nichts abgebucht: Versuche es erneut.",
+      "review": "Feedback anfordern – kostenlos",
+      "reviewPending": "Deine Antworten werden ausgewertet…",
+      "reviewFailed": "Das Feedback konnte nicht erstellt werden. Es wurde nichts abgebucht. Versuche es erneut.",
       "reviewed": "Feedback erhalten",
       "yourAnswer": "Deine Antwort",
       "strengths": "Stärken",
@@ -719,7 +719,7 @@
     "label": "Werbung",
     "consent": {
       "title": "Werbe-Cookies",
-      "text": "Mit deiner Zustimmung verwendet unser Partner Google Cookies, um dir passende Anzeigen zu zeigen. Ohne Zustimmung bleiben die Anzeigen nicht personalisiert.",
+      "text": "Mit deiner Zustimmung verwendet unser Partner Google Cookies, um dir passende Anzeigen zu zeigen. Ohne Zustimmung sind die Anzeigen nicht personalisiert.",
       "more": "Mehr erfahren",
       "accept": "Akzeptieren",
       "refuse": "Ablehnen",
@@ -732,12 +732,12 @@
     "rewarded": {
       "offer": "Sieh dir eine kurze Anzeige an und erhalte 1 KI-Credit.",
       "watch": "Anzeige ansehen",
-      "loading": "Anzeige wird geladen …",
-      "playing": "Anzeige läuft …",
-      "done": "1 Credit wurde deinem Guthaben hinzugefügt.",
-      "interrupted": "Anzeige abgebrochen: kein Credit hinzugefügt.",
+      "loading": "Anzeige wird geladen…",
+      "playing": "Anzeige läuft…",
+      "done": "1 Credit wurde deinem Guthaben gutgeschrieben.",
+      "interrupted": "Anzeige abgebrochen: kein Credit gutgeschrieben.",
       "unavailable": "Gerade ist keine Anzeige verfügbar. Versuche es später erneut.",
-      "limit": "Du hast heute schon deine 3 Credits mit Anzeigen erhalten. Komm morgen wieder.",
+      "limit": "Du hast heute bereits deine 3 Credits durch Anzeigen erhalten. Komm morgen wieder.",
       "error": "Die Anzeige konnte nicht gestartet werden. Versuche es erneut.",
       "dialogTitle": "Testanzeige",
       "remaining": "Noch {seconds, plural, =0 {einen Moment} one {# Sekunde} other {# Sekunden}} bis zu deinem Credit.",

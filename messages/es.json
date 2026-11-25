@@ -7,7 +7,7 @@
   },
   "metadata": {
     "title": "Mi CV en 30 Segundos — Crea tu CV con IA",
-    "description": "Responde 5 preguntas y la IA redacta para ti un CV profesional en segundos. Empieza gratis."
+    "description": "Responde a 5 preguntas y la IA te redacta un CV profesional en segundos. Empieza gratis."
   },
   "a11y": {
     "skipToContent": "Ir al contenido"
@@ -28,7 +28,7 @@
     "legal": "Información legal",
     "pricing": "Precios",
     "legalNotice": "Aviso legal",
-    "terms": "Condiciones",
+    "terms": "Términos y condiciones",
     "privacy": "Privacidad",
     "cookies": "Cookies",
     "signIn": "Iniciar sesión",
@@ -39,14 +39,14 @@
     "menu": "Menú"
   },
   "home": {
-    "eyebrow": "Optimizado para los programas de selección (ATS)",
+    "eyebrow": "Optimizado para el software de selección (ATS)",
     "title": "Tu CV profesional <highlight>en pocos segundos</highlight>, listo para superar los filtros de los reclutadores.",
-    "subtitle": "Responde a 5 preguntas: la IA redacta un CV claro, estructurado y legible por los programas de selección. Lo revisas, lo ajustas y lo descargas en PDF.",
-    "illustrationAlt": "Un candidato crea su CV en el ordenador: el CV queda listo en 30 segundos.",
+    "subtitle": "Responde a 5 preguntas: la IA redacta un CV claro, estructurado y fácil de leer para el software de selección. Lo revisas, lo ajustas y lo descargas en PDF.",
+    "illustrationAlt": "Un candidato crea su CV en su ordenador: el CV queda listo en 30 segundos.",
     "cta": "Crear mi CV gratis",
     "highlights": {
       "freeFirstCv": "Primer CV gratis",
-      "noCard": "Sin tarjeta bancaria",
+      "noCard": "Sin tarjeta de crédito",
       "cvLanguages": "CV en 5 idiomas"
     },
     "features": {
@@ -57,7 +57,7 @@
       "items": {
         "creation": {
           "title": "Creación de CV con IA",
-          "description": "Responde 5 preguntas: la IA organiza y redacta tu CV."
+          "description": "Responde a 5 preguntas: la IA organiza y redacta tu CV."
         },
         "experiences": {
           "title": "Experiencias mejoradas",
@@ -82,7 +82,7 @@
       }
     },
     "offers": {
-      "title": "Ofertas sencillas",
+      "title": "Opciones sencillas",
       "subtitle": "Empieza gratis y elige después lo que necesitas.",
       "seeAll": "Ver todos los precios",
       "priceFrom": "Desde {price}",
@@ -91,7 +91,7 @@
         "description": "Tu primer CV completo y su PDF con marca de agua."
       },
       "credits": {
-        "name": "Créditos IA",
+        "name": "Créditos de IA",
         "description": "Paquetes de pago por uso, sin suscripción."
       },
       "cvPro": {
@@ -101,7 +101,7 @@
     },
     "finalCta": {
       "title": "Tu CV está listo en segundos",
-      "subtitle": "Gratis, sin tarjeta bancaria."
+      "subtitle": "Gratis, sin tarjeta de crédito."
     }
   },
   "plans": {
@@ -118,22 +118,22 @@
     "recommended": "Recomendado",
     "perMonth": "/ mes",
     "perYear": "/ año",
-    "creditsPerMonth": "{count} créditos IA al mes",
+    "creditsPerMonth": "{count} créditos de IA al mes",
     "included": "Incluido",
     "notIncluded": "No incluido",
     "featureWithValue": "{feature}: {value}",
     "features": {
       "cvCreation": "Creación y mejora del CV",
-      "exportsWithoutWatermark": "Exportación PDF y DOCX sin marca de agua",
+      "exportsWithoutWatermark": "Exportación en PDF y DOCX sin marca de agua",
       "linkedin": "Versión para LinkedIn",
       "summaryVariants": "Variantes del perfil",
-      "jobAdaptation": "Adaptación del CV a una oferta",
-      "missingKeywords": "Análisis de palabras clave que faltan",
+      "jobAdaptation": "Adaptación del CV a una oferta de empleo",
+      "missingKeywords": "Análisis de las palabras clave que faltan",
       "coverLetter": "Cartas de presentación",
       "interview": "Simulación de entrevista",
       "unlimitedHistory": "Historial ilimitado de CV",
-      "aiPriority": "Prioridad de las generaciones IA",
-      "noAds": "Sin publicidad"
+      "aiPriority": "Prioridad en las generaciones de IA",
+      "noAds": "Sin anuncios"
     },
     "priority": {
       "standard": "Estándar",
@@ -143,43 +143,43 @@
   },
   "pricing": {
     "metaTitle": "Precios",
-    "metaDescription": "Planes Essential, Pro y Premium, paquetes de créditos IA y CV Pro. Precios con IVA, prueba gratuita de 3 días de Pro.",
-    "title": "Elige el plan que mejor te encaje",
+    "metaDescription": "Planes Essential, Pro y Premium, paquetes de créditos de IA y CV Pro. Precios con IVA incluido y prueba gratuita de Pro durante 3 días.",
+    "title": "Elige el plan que mejor se adapte a ti",
     "subtitle": "Tu primer CV es gratis. Los planes y los créditos desbloquean las herramientas avanzadas.",
     "startFree": "Crear mi CV gratis",
     "billing": {
-      "label": "Periodicidad de pago",
+      "label": "Frecuencia de pago",
       "monthly": "Mensual",
       "yearly": "Anual",
-      "yearlyHint": "hasta un −{percent} %"
+      "yearlyHint": "hasta −{percent} %"
     },
     "savings": "Ahorras un {percent} % frente al pago mensual",
-    "conditions": "Prueba gratuita de {days} días de Pro, con {credits} créditos. Renovación automática. Cancela cuando quieras.",
+    "conditions": "Prueba gratuita de Pro durante {days} días, con {credits} créditos. Renovación automática. Cancela cuando quieras.",
     "pricesNote": "Precios en euros, IVA incluido.",
     "withoutSubscription": {
       "title": "Sin suscripción",
       "subtitle": "Paga solo lo que uses.",
-      "packs": "Paquetes de créditos IA",
+      "packs": "Paquetes de créditos de IA",
       "packCredits": "{count} créditos",
       "oneTime": "Pago único",
       "cvPro": {
         "title": "CV Pro",
-        "description": "Desbloquea un CV: exportación PDF y DOCX sin marca de agua, para siempre."
+        "description": "Desbloquea un CV: exportación en PDF y DOCX sin marca de agua, para siempre."
       },
       "adsRemoval": {
-        "title": "Eliminación de la publicidad",
-        "description": "Compra única: sin publicidad en tu cuenta."
+        "title": "Eliminación de anuncios",
+        "description": "Compra única: ya no verás anuncios en tu cuenta."
       }
     },
     "comparison": {
-      "title": "Comparar los planes",
+      "title": "Compara los planes",
       "feature": "Función",
       "monthlyPrice": "Precio mensual",
       "yearlyPrice": "Precio anual",
-      "monthlyCredits": "Créditos IA al mes"
+      "monthlyCredits": "Créditos de IA al mes"
     },
     "costs": {
-      "title": "Coste de las operaciones IA",
+      "title": "Coste de las operaciones de IA",
       "subtitle": "Tu primer CV se genera gratis. Si una operación falla, te devolvemos los créditos.",
       "operation": "Operación",
       "cost": "Coste",
@@ -188,7 +188,7 @@
         "generateCv": "Generar un CV",
         "improveExperience": "Mejorar una experiencia profesional",
         "improveSummary": "Mejorar el perfil",
-        "adaptToJob": "Adaptar un CV a una oferta (con análisis de palabras clave)",
+        "adaptToJob": "Adaptar un CV a una oferta de empleo (con análisis de palabras clave)",
         "coverLetter": "Generar una carta de presentación",
         "linkedin": "Crear una versión para LinkedIn",
         "interview": "Simular una entrevista"
@@ -198,14 +198,14 @@
   "auth": {
     "metaTitle": "Iniciar sesión",
     "title": "Inicia sesión para guardar tu CV",
-    "subtitle": "Sin contraseña: te enviamos un código de 6 cifras por correo.",
+    "subtitle": "Sin contraseña: te enviamos un código de 6 dígitos por correo.",
     "google": "Continuar con Google",
     "or": "o",
     "emailLabel": "Correo electrónico",
     "emailPlaceholder": "nombre@ejemplo.es",
     "sendCode": "Recibir un código",
     "codeSent": "Código enviado a {email}.",
-    "codeLabel": "Código de 6 cifras",
+    "codeLabel": "Código de 6 dígitos",
     "verify": "Confirmar",
     "resend": "Reenviar el código",
     "resendIn": "Reenviar el código ({seconds} s)",
@@ -214,7 +214,7 @@
     "benefits": {
       "saved": {
         "title": "Tu CV guardado",
-        "text": "Encuéntralo, modifícalo y descárgalo cuando quieras, en todos tus dispositivos."
+        "text": "Accede a él, modifícalo y descárgalo cuando quieras, desde todos tus dispositivos."
       },
       "tools": {
         "title": "Todas tus herramientas en un solo lugar",
@@ -222,12 +222,12 @@
       },
       "privacy": {
         "title": "Tus datos protegidos",
-        "text": "Alojados en la Unión Europea y nunca vendidos."
+        "text": "Alojados en la Unión Europea y nunca se venden."
       }
     },
-    "terms": "Al continuar, aceptas las <terms>condiciones</terms> y la <privacy>política de privacidad</privacy>.",
+    "terms": "Al continuar, aceptas los <terms>términos y condiciones</terms> y confirmas que has leído la <privacy>política de privacidad</privacy>.",
     "linkInvalid": "Este enlace de acceso ya no es válido. Pide un nuevo código.",
-    "googleFailed": "No se pudo iniciar sesión con Google. Inténtalo de nuevo o usa tu correo."
+    "googleFailed": "No se ha podido iniciar sesión con Google. Inténtalo de nuevo o usa tu correo."
   },
   "welcome": {
     "metaTitle": "Te damos la bienvenida",
@@ -244,7 +244,7 @@
   },
   "credits": {
     "count": "{count, plural, one {# crédito} other {# créditos}}",
-    "balanceLabel": "{count, plural, one {crédito} other {créditos}}, ver el detalle",
+    "balanceLabel": "{count, plural, one {crédito} other {créditos}}, ver detalles",
     "title": "Tu saldo de créditos",
     "included": "Créditos incluidos",
     "includedHint": "Se renuevan cada mes con tu suscripción.",
@@ -258,7 +258,7 @@
     "infoTitle": "Mis datos",
     "infoHint": "Se usan en el encabezado de tus nuevos CV.",
     "email": "Correo electrónico",
-    "emailHint": "La dirección de acceso no se puede cambiar.",
+    "emailHint": "El correo electrónico de acceso no se puede cambiar.",
     "save": "Guardar",
     "saved": "Datos guardados.",
     "signOut": "Cerrar sesión",
@@ -287,7 +287,7 @@
     "VALIDATION_ERROR": "Revisa los campos marcados.",
     "NOT_FOUND": "No se ha encontrado este contenido.",
     "RATE_LIMITED": "Demasiadas solicitudes seguidas. Espera un momento antes de volver a intentarlo.",
-    "BOT_CHECK_FAILED": "La verificación anti-robots no se ha completado. Vuelve a cargar la página e inténtalo de nuevo.",
+    "BOT_CHECK_FAILED": "La verificación antibots no se ha completado. Vuelve a cargar la página e inténtalo de nuevo.",
     "INTERNAL": "Se ha producido un error. Inténtalo de nuevo en un momento.",
     "fields": {
       "required": "Este campo es obligatorio.",
@@ -300,7 +300,7 @@
       "tooShort": "Este texto es demasiado corto."
     },
     "INSUFFICIENT_CREDITS": "No tienes suficientes créditos para esta acción.",
-    "CV_LIMIT_REACHED": "Tu plan conserva un número limitado de CV: elige cuál sustituir.",
+    "CV_LIMIT_REACHED": "Tu plan permite guardar un número limitado de CV: elige cuál quieres sustituir.",
     "FREE_LIMIT_REACHED": "Se ha alcanzado el límite diario de CV gratuitos desde esta conexión. Vuelve a intentarlo mañana o descubre nuestros planes.",
     "AI_UNAVAILABLE": "La generación no se ha completado. Te hemos devuelto los créditos: vuelve a intentarlo.",
     "AI_INVALID_OUTPUT": "La generación no se ha completado. Te hemos devuelto los créditos: vuelve a intentarlo.",
@@ -324,7 +324,7 @@
   },
   "wizard": {
     "metaTitle": "Crear mi CV",
-    "metaDescription": "Responde a 5 preguntas sencillas: la IA redacta tu CV, listo para los programas de selección de personal.",
+    "metaDescription": "Responde a 5 preguntas sencillas: la IA redacta tu CV, listo para el software de selección.",
     "title": "Crea tu CV en 5 preguntas",
     "intro": "Responde con sencillez, con tus propias palabras. La IA redacta tu CV y le da formato.",
     "progress": "Pregunta {current} de {total}",
@@ -336,7 +336,7 @@
     "jobRequired": "Indica el puesto al que aspiras para continuar.",
     "shortAnswers": "Tus respuestas son cortas: cuantos más detalles des (puestos, tareas, herramientas, títulos), más preciso será tu CV.",
     "languageLabel": "Idioma del CV",
-    "languageHint": "Puedes escribir tus respuestas en cualquier idioma: el CV se redactará en este.",
+    "languageHint": "Puedes escribir tus respuestas en cualquier idioma: el CV se redactará en el que elijas aquí.",
     "previous": "Anterior",
     "next": "Siguiente",
     "generate": "Generar mi CV",
@@ -386,20 +386,20 @@
     "cancel": "Cancelar",
     "replace": {
       "title": "¿Sustituir un CV?",
-      "description": "Tu plan conserva {limit, plural, one {# CV} other {# CV}}. El nuevo CV sustituirá a:",
+      "description": "Tu plan guarda {limit, plural, one {# CV} other {# CV}}. El nuevo CV sustituirá a:",
       "legend": "CV que se sustituirá",
       "updated": "Modificado el {date}",
       "proWarning": "Desbloqueado con CV Pro: este desbloqueo se perderá.",
       "confirm": "Sustituir y generar",
-      "upgrade": "Pasarme a Pro para conservarlo todo"
+      "upgrade": "Pasar a Pro para conservarlo todo"
     }
   },
   "cvEditor": {
     "metaTitle": "Mi CV",
     "sheetLabel": "Vista previa del CV",
     "headerLabel": "Encabezado",
-    "edit": "Modificar: {section}",
-    "done": "Terminar de modificar: {section}",
+    "edit": "Editar: {section}",
+    "done": "Terminar de editar: {section}",
     "copy": "Copiar el texto",
     "copyShort": "Copiar",
     "copied": "Copiado",
@@ -432,7 +432,7 @@
       "summary": "Perfil",
       "role": "Puesto",
       "company": "Empresa",
-      "location": "Lugar",
+      "location": "Ubicación",
       "startDate": "Inicio",
       "endDate": "Fin",
       "bullet": "Punto {number}",
@@ -473,18 +473,18 @@
       "title": "Tu historial",
       "count": "{count, plural, one {# CV guardado} other {# CV guardados}}",
       "unlimited": "Tu plan guarda todos tus CV, sin límite.",
-      "limited": "Tu plan guarda {limit} CV: para crear uno nuevo, eliges cuál sustituir.",
-      "kept": "Conservas todos tus CV. Para crear uno nuevo, eliges cuál sustituir.",
+      "limited": "Tu plan guarda {limit} CV: para crear uno nuevo, tendrás que elegir cuál sustituir.",
+      "kept": "Todos tus CV existentes se conservan. Para crear uno nuevo, tendrás que elegir cuál sustituir.",
       "upgrade": "Con Pro o Premium, guarda todos tus CV sin límite.",
       "seeOffers": "Ver los planes",
-      "contents": "Las cartas, versiones de LinkedIn, adaptaciones y simulaciones de entrevista se quedan con cada CV."
+      "contents": "Las cartas, versiones para LinkedIn, adaptaciones y simulaciones de entrevista se guardan junto a cada CV."
     },
     "delete": {
       "short": "Eliminar",
       "button": "Eliminar «{title}»",
       "title": "¿Eliminar «{title}»?",
-      "description": "El CV y su contenido (cartas, versiones de LinkedIn, adaptaciones, simulaciones de entrevista) se eliminarán definitivamente.",
-      "proLost": "Se perderá el desbloqueo CV Pro de este CV; la compra sigue visible en «Créditos y plan».",
+      "description": "El CV y su contenido (cartas, versiones para LinkedIn, adaptaciones, simulaciones de entrevista) se eliminarán definitivamente.",
+      "proLost": "Se perderá el desbloqueo de CV Pro de este CV; la compra seguirá visible en «Créditos y plan».",
       "cancel": "Cancelar",
       "confirm": "Eliminar definitivamente"
     }
@@ -512,7 +512,7 @@
     "docxLocked": "DOCX",
     "docxLockedLabel": "Formato DOCX: cómo desbloquearlo",
     "lockedTitle": "PDF sin marca de agua y DOCX",
-    "lockedText": "Tu PDF gratuito lleva una discreta mención de nuestro sitio a pie de página. El PDF sin marca de agua y el formato DOCX están incluidos en todas las suscripciones, o con CV Pro ({price}) para este CV.",
+    "lockedText": "Tu PDF gratuito lleva una discreta mención de nuestro sitio en el pie de página. El PDF sin marca de agua y el formato DOCX están incluidos en todas las suscripciones, o con CV Pro ({price}) para este CV.",
     "seeOffers": "Ver los planes"
   },
   "billing": {
@@ -539,7 +539,7 @@
       "included": "Créditos incluidos",
       "includedReset": "Se restablecen a {count} el {date}",
       "purchased": "Créditos comprados",
-      "purchasedHint": "No caducan nunca."
+      "purchasedHint": "No caducan."
     },
     "topUp": {
       "title": "Recargar",
@@ -562,15 +562,15 @@
     },
     "checkout": {
       "subscribe": "Elegir {plan}",
-      "trial": "Probar Pro gratis {days} días",
-      "trialTerms": "{days} días gratis con {credits} créditos y, después, una suscripción Pro que se renueva automáticamente. Se pide la tarjeta, pero no se cobra nada durante la prueba; puedes cancelar en cualquier momento.",
+      "trial": "Probar Pro {days} días gratis",
+      "trialTerms": "{days} días gratis con {credits} créditos y, después, una suscripción Pro que se renueva automáticamente. Te pedimos la tarjeta, pero no se te cobra nada durante la prueba; puedes cancelar en cualquier momento.",
       "terms": "Acepto las [condiciones generales de venta]({url}) y solicito el acceso inmediato al servicio: renuncio a mi derecho de desistimiento."
     },
     "conflict": {
       "subscribed": "Ya tienes una suscripción: cambia de plan desde «Gestionar mi suscripción», en Créditos y plan.",
       "trialUsed": "La prueba gratuita ya se ha utilizado en esta cuenta.",
       "cvUnlocked": "Este CV ya está desbloqueado.",
-      "adsRemoved": "La publicidad ya se ha retirado de tu cuenta."
+      "adsRemoved": "Los anuncios ya se han eliminado de tu cuenta."
     },
     "cvPro": {
       "title": "CV Pro — {price}",
@@ -579,17 +579,17 @@
     },
     "pricingCvPro": "Se desbloquea desde la vista previa de tu CV.",
     "ads": {
-      "title": "Publicidad",
-      "hint": "Retira para siempre la publicidad de tu cuenta, incluso cuando termine una suscripción.",
-      "remove": "Retirar la publicidad — {price}",
-      "removed": "La publicidad está retirada de tu cuenta."
+      "title": "Anuncios",
+      "hint": "Elimina para siempre los anuncios de tu cuenta, incluso cuando termine una suscripción.",
+      "remove": "Eliminar los anuncios — {price}",
+      "removed": "Los anuncios se han eliminado de tu cuenta."
     }
   },
   "creditsDialog": {
     "title": "Te {missing, plural, one {falta # crédito} other {faltan # créditos}}",
     "description": "{operation} cuesta {cost, plural, one {# crédito} other {# créditos}}. Tu saldo: {balance, plural, one {# crédito} other {# créditos}}.",
     "purchasedOnly": "Con Essential, esta función se paga con créditos comprados. Recarga para usarla o pásate a Pro para pagarla con tus créditos incluidos.",
-    "upgrade": "Pasarme a Pro",
+    "upgrade": "Pasar a Pro",
     "cancel": "Cancelar",
     "operations": {
       "generateCv": "Generar un CV",
@@ -659,13 +659,13 @@
       "justNow": "Ahora mismo"
     },
     "linkedin": {
-      "metaTitle": "Versión LinkedIn",
-      "title": "Mi versión LinkedIn",
+      "metaTitle": "Versión para LinkedIn",
+      "title": "Mi versión para LinkedIn",
       "intro": "La IA convierte «{title}» en textos listos para pegar en tu perfil de LinkedIn: titular, sección Acerca de y experiencias, sin inventar nada.",
-      "language": "Idioma de la versión LinkedIn",
-      "generate": "Generar mi versión LinkedIn — {cost, plural, one {# crédito} other {# créditos}}",
+      "language": "Idioma de la versión para LinkedIn",
+      "generate": "Generar mi versión para LinkedIn — {cost, plural, one {# crédito} other {# créditos}}",
       "regenerate": "Generar una nueva versión — {cost, plural, one {# crédito} other {# créditos}}",
-      "resultTitle": "Tus textos de LinkedIn",
+      "resultTitle": "Tus textos para LinkedIn",
       "headline": "Titular del perfil",
       "copyHeadline": "Copiar el titular del perfil",
       "about": "Acerca de",
@@ -673,7 +673,7 @@
       "experiences": "Experiencia",
       "copyExperience": "Copiar la descripción de «{name}»",
       "untitled": "Experiencia sin título",
-      "empty": "Tus textos de LinkedIn aparecerán aquí, listos para copiar."
+      "empty": "Tus textos para LinkedIn aparecerán aquí, listos para copiar."
     },
     "letter": {
       "metaTitle": "Carta de presentación",
@@ -701,16 +701,16 @@
       "start": "Empezar la simulación — {cost, plural, one {# crédito} other {# créditos}}",
       "restart": "Nueva simulación — {cost, plural, one {# crédito} other {# créditos}}",
       "resultTitle": "Entrevista: {position}",
-      "answerHint": "Responde por escrito a todas o algunas preguntas (2.000 caracteres como máximo por respuesta) y pide tu valoración: es gratuita.",
+      "answerHint": "Responde por escrito a todas las preguntas o solo a algunas (máximo 2.000 caracteres por respuesta) y pide tu valoración: es gratuita.",
       "reviewedHint": "Tu valoración, pregunta por pregunta. Esta simulación queda disponible con tu CV.",
       "questionNumber": "Pregunta {number}",
       "review": "Obtener mi valoración — gratis",
       "reviewPending": "Analizando tus respuestas…",
-      "reviewFailed": "La valoración no se pudo completar. No se ha cobrado nada: inténtalo de nuevo.",
+      "reviewFailed": "No se ha podido completar la valoración. No se ha cobrado nada: inténtalo de nuevo.",
       "reviewed": "valoración recibida",
       "yourAnswer": "Tu respuesta",
       "strengths": "Puntos fuertes",
-      "improvements": "A mejorar",
+      "improvements": "Puntos de mejora",
       "example": "Ejemplo de respuesta",
       "unanswered": "Sin respuesta a esta pregunta."
     }
@@ -733,14 +733,14 @@
       "offer": "Mira un anuncio corto para obtener 1 crédito de IA.",
       "watch": "Ver el anuncio",
       "loading": "Cargando el anuncio…",
-      "playing": "Anuncio en curso…",
+      "playing": "Reproduciendo el anuncio…",
       "done": "Se ha añadido 1 crédito a tu saldo.",
       "interrupted": "Anuncio interrumpido: no se ha añadido ningún crédito.",
       "unavailable": "No hay ningún anuncio disponible por ahora. Inténtalo más tarde.",
       "limit": "Ya has obtenido tus 3 créditos de hoy con los anuncios. Vuelve mañana.",
       "error": "No se ha podido iniciar el anuncio. Inténtalo de nuevo.",
       "dialogTitle": "Anuncio de prueba",
-      "remaining": "{seconds, plural, =0 {Un momento} one {Falta # segundo} other {Faltan # segundos}} para tu crédito.",
+      "remaining": "{seconds, plural, =0 {Falta muy poco} one {Falta # segundo} other {Faltan # segundos}} para tu crédito.",
       "close": "Cerrar"
     },
     "interstitial": {
