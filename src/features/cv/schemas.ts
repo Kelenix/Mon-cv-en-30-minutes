@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import { localeSchema } from "@/i18n/locale-schema";
 import { countrySchema } from "./countries";
 import { cvTemplateSchema } from "./templates";

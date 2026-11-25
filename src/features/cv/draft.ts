@@ -1,5 +1,5 @@
 import { useMemo, useSyncExternalStore } from "react";
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import { localeSchema } from "@/i18n/locale-schema";
 import type { AppLocale } from "@/i18n/routing";
 import { type CountryCode, countrySchema } from "./countries";

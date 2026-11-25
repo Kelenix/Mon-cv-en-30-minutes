@@ -1,5 +1,5 @@
 import "server-only";
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import { titleLine } from "@/features/cv/content";
 import type { CvContent, CvExperience } from "@/features/cv/schemas";
 import type { AppLocale } from "@/i18n/routing";

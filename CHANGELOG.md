@@ -46,6 +46,9 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ### Corrigé
 
+- Plus de violation de la politique de sécurité (CSP) signalée par le navigateur sur l'accueil,
+  la page des modèles et la création de CV : Zod n'essaie plus `new Function` (mode
+  `jitless`).
 - Traductions relues (tâche 12) : anglais britannique, italien, espagnol et allemand plus
   naturels, vocabulaire unifié, tutoiement constant. Mentions de connexion conformes au RGPD
   (« tu confirmes avoir lu la politique de confidentialité ») et texte de l'historique clarifié

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import type { AppLocale } from "@/i18n/routing";
 import { CV_TEMPLATES, type CvTemplate, TEMPLATE_INFO } from "./templates";
 

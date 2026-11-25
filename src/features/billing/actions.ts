@@ -2,7 +2,7 @@
 
 import { getTranslations } from "next-intl/server";
 import type Stripe from "stripe";
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import {
   type ActionResult,
   fail,

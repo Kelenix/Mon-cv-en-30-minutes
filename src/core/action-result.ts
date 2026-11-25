@@ -1,4 +1,4 @@
-import type { z } from "zod";
+import type { z } from "@/lib/zod";
 
 // Format commun des réponses des Server Actions (docs/system-design.md §1 et §2). Le message
 // affiché est traduit côté client à partir du code (espace de traduction `errors`).

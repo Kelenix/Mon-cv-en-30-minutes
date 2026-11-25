@@ -14,7 +14,6 @@
 - **Santé** : 🟢 OK
 - **Prochaine action** : sauvegardes hors du serveur (tâche 15, étapes 2 et 3, dans hPanel).
   Ensuite, sur le domaine :
-  - mesure Lighthouse (NFR-01) ;
   - un premier achat réel de bout en bout (paiement, webhook, crédits) ;
   - qualité réelle des outils IA (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà
     mesurée, ADR-041) ;
@@ -62,7 +61,7 @@ Taille relative : S / M / L / XL.
 | Inc-9 | Simulation d'entretien | US-30 | Inc-6 | M | M4 | ✅ (IA simulée ; qualité et NFR-02 à mesurer avec la clé) |
 | Inc-10 | Historique des CV | US-31 | Inc-6 | S | M4 | ✅ (bannière et publicité native de la liste à l'Inc-11) |
 | Inc-11 | Publicités + retrait des pubs | US-24, 32 à 35 | Inc-6 | L | M5 | ✅ en simulation ; mode AdSense prêt (bannière et native, ADR-047), activation : tâche 10 |
-| Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ✅ (Lighthouse local : performance 90 et 91, SEO 100 ; mesure sur le domaine à faire) |
+| Inc-12 | Finitions UX, SEO, performance, accessibilité | US-39, audit US-36/37 | Inc-11 | M | M6 | ✅ (Lighthouse sur le domaine, mobile : performance 96 accueil, 96 tarifs, 95 modèles ; accessibilité et SEO 100 ; NFR-01 atteint) |
 | Inc-13 | Mise en production & passation | US-40, DoD projet | Inc-12, tâches 3, 4, 6, 7, 9 | M | M6 | ✅ en ligne sur https://cv30secondes.com depuis le 25/11/2026 (KVM 2 partagé, ADR-044) ; déploiement par GitHub (tâche 14) |
 | Inc-14 | Espace d'administration (demande de l'utilisateur) | — | Inc-13 | L | — | ✅ (ADR-040) |
 | Inc-15 | Modèles de CV par pays, photo, vitrine (demande de l'utilisateur) | US-43 à US-46 | Inc-14 | XL | — | ✅ (ADR-050) |
@@ -116,6 +115,17 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Inc-15 en ligne** (`e6d0e0b`, CI et déploiement verts ; migrations appliquées,
+  RLS active sur `cv_photos`). **Lighthouse sur le domaine (NFR-01 atteint)**, mobile,
+  médiane de 3 passages :
+  - performance 96 (accueil), 96 (tarifs), 95 (modèles) ;
+  - accessibilité 100, SEO 100 ;
+  - LCP 1,1 s, CLS 0, TBT 0,2 s.
+  - Correction : Chrome signalait une violation de la CSP sur l'accueil, les modèles et la
+    création (sonde `new Function` de Zod, rattrapée). Zod passe en mode `jitless`, importé
+    partout depuis `src/lib/zod.ts`. Vérifié : plus aucun incident, 179 tests unitaires, 56
+    tests e2e.
 
 - 25/11/2026 — **Inc-15 : modèles de CV par pays (ADR-050, US-43 à US-46)**. Choix de
   l'utilisateur : photo facultative, deux modèles gratuits et les autres payants, six modèles.

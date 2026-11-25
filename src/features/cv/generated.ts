@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import { localeSchema } from "@/i18n/locale-schema";
 import { CV_LIMITS } from "./schemas";
 

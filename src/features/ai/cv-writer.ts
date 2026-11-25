@@ -1,5 +1,5 @@
 import "server-only";
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import type { CvAnswers } from "@/features/cv/schemas";
 import type { AppLocale } from "@/i18n/routing";
 import { callClaude, escapeData, LANGUAGE_NAMES } from "./claude";

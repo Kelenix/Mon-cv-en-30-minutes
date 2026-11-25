@@ -1,5 +1,5 @@
 import "server-only";
-import { z } from "zod";
+import { z } from "@/lib/zod";
 
 // Variables d'environnement validées au démarrage (docs/architecture.md §5).
 // Chaque incrément ajoute les variables dont il a besoin.

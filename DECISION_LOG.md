@@ -610,7 +610,10 @@
     tarifs 91 en performance ; 100 en accessibilité, bonnes pratiques et SEO. LCP observé
     0,2 s ; LCP simulé 3,5 à 3,7 s, dû au JavaScript de React et de Next.js transporté en
     HTTP/1.1 par le serveur local.
-  - Mesure à refaire sur le domaine de production (HTTP/2, Brotli, CDN) à l'Inc-13.
+  - Mesure à refaire sur le domaine de production (HTTP/2, Brotli, CDN) à l'Inc-13. **Faite le
+    25/11/2026** (Lighthouse 13.6 mobile, médiane de 3) : accueil 96, tarifs 96, modèles 95 en
+    performance ; 100 en accessibilité et SEO ; LCP 1,1 s, CLS 0. Bonnes pratiques à 100 depuis
+    que Zod n'essaie plus `new Function` (`src/lib/zod.ts`, mode `jitless`).
   - `'unsafe-inline'` laisse passer un script injecté si une faille XSS existait : risque
     résiduel faible, car React échappe tout contenu et aucune donnée saisie n'est insérée en
     HTML brut (données structurées issues du catalogue, `<` échappé).

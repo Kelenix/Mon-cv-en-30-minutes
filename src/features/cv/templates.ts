@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 
 // Modèles de mise en page du CV (Inc-15, ADR-050). Logique pure, partagée par le serveur (export,
 // actions) et l'interface (galerie, cadenas). L'ordre est celui de la galerie.

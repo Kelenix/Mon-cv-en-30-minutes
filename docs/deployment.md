@@ -323,7 +323,7 @@ se termine par « Version … en ligne ».
     réactiver alors dans l'onglet Actions.
 - Les certificats sont renouvelés par certbot (tâche automatique du serveur), rien à faire.
 - Une fois en ligne, refais la mesure Lighthouse sur le domaine (performance ≥ 90 attendue sur
-  mobile, NFR-01).
+  mobile, NFR-01). Faite le 25/11/2026 : 95 à 96 en performance, 100 en accessibilité et SEO.
 
 ## 13. Exploitation courante
 

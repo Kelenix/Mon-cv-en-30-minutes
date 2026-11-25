@@ -1,7 +1,7 @@
 import "server-only";
 import Anthropic from "@anthropic-ai/sdk";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
-import type { z } from "zod";
+import type { z } from "@/lib/zod";
 import { env } from "@/core/env";
 import type { AppLocale } from "@/i18n/routing";
 import { AiError, type AiUsage, estimateCostUsdMicros } from "./client";

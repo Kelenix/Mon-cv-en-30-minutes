@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import { Appear } from "@/components/layout/appear";
 import { requireAdmin } from "@/features/admin/access";
 import { getUserDetail } from "@/features/admin/data";

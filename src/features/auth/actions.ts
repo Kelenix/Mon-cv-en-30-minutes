@@ -2,7 +2,7 @@
 
 import { isAuthApiError } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import {
   type ActionResult,
   fail,
