@@ -3,13 +3,14 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { getTranslations } from "next-intl/server";
-import logoFr from "@/assets/brand/logo-fr.png";
+import logoBadgeFr from "@/assets/brand/logo-badge-fr.png";
 import logoIcon from "@/assets/brand/logo-icone.png";
 import hero from "@/assets/marketing/hero-illustration.png";
 import { type AppLocale, routing } from "@/i18n/routing";
 
 // Image de partage (Open Graph, carte large, US-39 c.1), dans chaque langue, aux couleurs de la
-// marque : logo fourni (en français ; ailleurs, l'icône et le nom traduit), promesse, illustration.
+// marque : logo en badge (en français, ADR-046 ; ailleurs, l'icône et le nom traduit), promesse,
+// illustration.
 
 export const alt = "Mon CV en 30 Secondes";
 export const size = { width: 1200, height: 630 };
@@ -34,8 +35,8 @@ const poppins = (weight: 400 | 600 | 700, file: string) =>
     style: "normal" as const,
   }));
 
-const [logoFrSrc, logoIconSrc, heroSrc, ...fonts] = await Promise.all([
-  asset("brand/logo-fr.png"),
+const [logoBadgeFrSrc, logoIconSrc, heroSrc, ...fonts] = await Promise.all([
+  asset("brand/logo-badge-fr.png"),
   asset("brand/logo-icone.png"),
   asset("marketing/hero-illustration.png"),
   poppins(400, "400Regular/Poppins_400Regular.ttf"),
@@ -44,6 +45,7 @@ const [logoFrSrc, logoIconSrc, heroSrc, ...fonts] = await Promise.all([
 ]);
 
 const LOGO_HEIGHT = 96;
+const BADGE_HEIGHT = 170;
 const HERO_WIDTH = 480;
 
 export default async function OpenGraphImage({
@@ -76,10 +78,10 @@ export default async function OpenGraphImage({
       >
         {locale === "fr" ? (
           <img
-            src={logoFrSrc}
+            src={logoBadgeFrSrc}
             alt=""
-            height={LOGO_HEIGHT}
-            width={(logoFr.width * LOGO_HEIGHT) / logoFr.height}
+            height={BADGE_HEIGHT}
+            width={(logoBadgeFr.width * BADGE_HEIGHT) / logoBadgeFr.height}
           />
         ) : (
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>

@@ -191,7 +191,10 @@
 - **Coût** : selon le juriste et l'expert-comptable.
 - **Vérification** : les pages légales n'affichent aucun « [à fournir] ».
 
-## Tâche 8 : Fournir le logo et les illustrations en fichiers séparés (facultatif)
+## Tâche 8 ✅ : Fournir le logo et les illustrations en fichiers séparés (facultatif)
+- **Fait (25/11/2026)** : logo en badge et mascotte robot fournis en fichiers transparents
+  (originaux dans `assets-source/`), intégrés selon les choix de l'utilisateur (ADR-046). Le
+  logo en longueur de l'en-tête et l'illustration de l'accueil restent ceux du kit.
 - **Pourquoi** : les kits fournis sont des planches composites dont le fond en damier est incrusté
   dans l'image. Le logo a été détouré du kit web (ADR-023) et s'affiche proprement sur fond
   blanc ; un fichier source (SVG ou PNG transparent) donnerait un contour encore plus net,

@@ -1,5 +1,7 @@
-import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import logoBadgeFr from "@/assets/brand/logo-badge-fr.png";
 import { Link } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import { LanguageSwitcher } from "./language-switcher";
@@ -15,11 +17,23 @@ const FOOTER_LINKS = [
 /** `cookieChoices` : lien « Gérer les cookies » quand des publicités sont possibles (US-32 c.3). */
 export function SiteFooter({ cookieChoices }: { cookieChoices?: ReactNode }) {
   const t = useTranslations();
+  const locale = useLocale();
 
   return (
     <footer className="border-t border-border bg-surface">
       <div className="container-page flex flex-col gap-6 py-10 md:flex-row md:items-start md:justify-between">
-        <div className="flex flex-col gap-4">
+        {/* Logo en badge (ADR-046), en français seulement : son texte n'est pas traduit. */}
+        {locale === "fr" ? (
+          <Link href="/" className="inline-flex shrink-0 self-start rounded-md">
+            <Image
+              src={logoBadgeFr}
+              alt={t("brand.name")}
+              sizes="7rem"
+              className="h-auto w-28"
+            />
+          </Link>
+        ) : null}
+        <div className="flex flex-col gap-4 md:mr-auto">
           <nav aria-label={t("nav.legal")}>
             <ul className="flex flex-wrap gap-x-6 gap-y-2">
               {FOOTER_LINKS.map((link) => (

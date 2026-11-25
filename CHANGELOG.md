@@ -16,6 +16,12 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 - Page des tarifs sur mobile : le bouton « Essayer Pro gratuitement 3 jours » passe à la ligne au
   lieu d'élargir les cartes, qui débordaient de l'écran à 375 px (CI rouge depuis `ee79947`).
 
+### Ajouté — Logo en badge et mascotte
+
+- Nouveau logo en badge (en français) dans l'image de partage, les données structurées, la
+  colonne de la marque et le pied de page ; mascotte robot dans la colonne de la marque des
+  pages de connexion, bienvenue, génération et erreurs (ADR-046).
+
 ### Ajouté — Surveillance
 
 - Workflow GitHub « Surveillance » : toutes les 10 minutes, sonde du site, accueil et service de

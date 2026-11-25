@@ -6,6 +6,36 @@
 
 ---
 
+## ADR-046 — Logo en badge et mascotte robot (tâche 8)
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté (choix de l'utilisateur parmi deux propositions pour chaque image)
+- **Contexte** : l'utilisateur a fourni deux images séparées sur fond transparent. La première
+  est un nouveau logo en badge : icône au-dessus, « Mon CV en 30 Secondes » en dessous, en
+  français. La seconde est une mascotte robot qui tient un CV et lève le pouce. À la hauteur de
+  l'en-tête (44 à 64 px), le texte du badge ne ferait plus que 6 à 9 px.
+- **Décision** :
+  - Badge en **grand format seulement**, et en français seulement, car son texte n'est pas
+    traduit (H31) :
+    - image de partage ;
+    - logo de l'éditeur dans les données structurées ;
+    - haut de la colonne de la marque (connexion, bienvenue, génération, erreurs) ;
+    - pied de page.
+  - L'en-tête garde le logo en longueur d'ADR-023.
+  - Mascotte dans la colonne de la marque, dans toutes les langues, à la place de l'illustration
+    de l'accueil. L'accueil garde son illustration.
+  - Fichiers recadrés sur leur contenu et réduits à leur taille d'usage :
+    `src/assets/brand/logo-badge-fr.png` (800 px) et `src/assets/marketing/mascotte.png`
+    (720 px). Originaux dans `assets-source/`.
+- **Alternatives écartées** : badge dans l'en-tête, illisible en petit, surtout sur mobile ;
+  mascotte comme image principale de l'accueil.
+- **Conséquences** : pas de débordement à 375 px (vérifié sous Linux). Les images s'affichent
+  proprement sur fond blanc et sur le dégradé de la colonne. Dans les autres langues, la
+  colonne ne montre que la mascotte.
+- **Impact** : visuel (moyen), technique (faible).
+
+---
+
 ## ADR-045 — Premier lancement sans paiement ni mentions légales complètes
 
 - **Date** : 25/11/2026

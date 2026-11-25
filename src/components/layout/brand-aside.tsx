@@ -1,20 +1,34 @@
 import { CheckCircle2Icon } from "lucide-react";
 import Image from "next/image";
-import heroIllustration from "@/assets/marketing/hero-illustration.png";
+import { useLocale, useTranslations } from "next-intl";
+import logoBadgeFr from "@/assets/brand/logo-badge-fr.png";
+import mascot from "@/assets/marketing/mascotte.png";
 
 /**
  * Colonne de la marque des écrans à contenu court (connexion, bienvenue, génération, erreurs) :
- * sur ordinateur, l'illustration officielle et les atouts du service occupent l'espace à droite
- * (docs/design/design-system.md §4) ; masquée sur mobile.
+ * sur ordinateur, le logo en badge (en français : son texte n'est pas traduit), la mascotte et
+ * les atouts du service occupent l'espace à droite (docs/design/design-system.md §4, ADR-046) ;
+ * masquée sur mobile.
  */
 export function BrandAside({ points = [] }: { points?: string[] }) {
+  const locale = useLocale();
+  const t = useTranslations("brand");
+
   return (
     <aside className="hidden content-center justify-items-center gap-8 self-stretch rounded-3xl bg-linear-to-br from-surface via-surface to-primary/15 p-10 lg:grid">
+      {locale === "fr" ? (
+        <Image
+          src={logoBadgeFr}
+          alt={t("name")}
+          sizes="(min-width: 1024px) 14rem, 1px"
+          className="h-auto w-full max-w-56"
+        />
+      ) : null}
       <Image
-        src={heroIllustration}
+        src={mascot}
         alt=""
-        sizes="(min-width: 1024px) 45vw, 1px"
-        className="h-auto w-full max-w-[36rem]"
+        sizes="(min-width: 1024px) 22rem, 1px"
+        className="h-auto w-full max-w-88"
       />
       {points.length > 0 ? (
         <ul className="grid gap-3 text-lg font-medium">

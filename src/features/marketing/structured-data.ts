@@ -1,6 +1,6 @@
 import "server-only";
 import { getLocale, getTranslations } from "next-intl/server";
-import logoFr from "@/assets/brand/logo-fr.png";
+import logoBadgeFr from "@/assets/brand/logo-badge-fr.png";
 import { env } from "@/core/env";
 import {
   CREDIT_PACKS,
@@ -53,7 +53,7 @@ export async function homeStructuredData() {
         "@id": `${site}/#editeur`,
         name: t("brand.name"),
         url: site,
-        logo: `${site}${logoFr.src}`,
+        logo: `${site}${logoBadgeFr.src}`,
       },
       {
         "@type": "WebSite",

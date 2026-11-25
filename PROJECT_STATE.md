@@ -110,6 +110,11 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 25/11/2026 — **Logo en badge et mascotte robot (tâche 8, ADR-046)** : badge en grand format et
+  en français (partage, données structurées, colonne de la marque, pied de page), mascotte dans
+  la colonne de la marque de toutes les langues. En-tête et accueil inchangés. Vérifié par
+  captures (connexion FR et EN, pied de page, image de partage) et à 375 px sous Linux.
+
 - 25/11/2026 — **Surveillance (tâche 15, étape 1)** : workflow GitHub « Surveillance » toutes les
   10 minutes (sonde, accueil, connexion), trois essais avant de signaler une panne. Essayé en
   local, site en service et site en panne (code 1). Pas de compte UptimeRobot : dépôt public,

@@ -9,6 +9,7 @@ test-results
 coverage
 tests
 docs
+assets-source
 .env*
 deploy/.env
 *.png
