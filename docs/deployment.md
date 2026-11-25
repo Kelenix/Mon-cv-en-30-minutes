@@ -307,8 +307,14 @@ se termine par « Version … en ligne ».
 
 ## 12. Étape 10 : surveillance
 
-- Crée une sonde gratuite (par exemple UptimeRobot) sur `https://cv30secondes.com/api/health`, avec
-  alerte par e-mail.
+- **Sonde en place (25/11/2026)** : le workflow GitHub « Surveillance »
+  (`.github/workflows/surveillance.yml`) teste toutes les 10 minutes la sonde du site,
+  l'accueil et le service de connexion, avec trois essais avant de signaler une panne. En cas
+  d'échec, GitHub envoie un e-mail : vérifie sur github.com, **Settings → Notifications →
+  Actions**, que « Email » est coché pour les workflows en échec.
+  - GitHub peut décaler un passage planifié de quelques minutes.
+  - Il suspend les workflows planifiés d'un dépôt public sans activité depuis 60 jours : le
+    réactiver alors dans l'onglet Actions.
 - Les certificats sont renouvelés par certbot (tâche automatique du serveur), rien à faire.
 - Une fois en ligne, refais la mesure Lighthouse sur le domaine (performance ≥ 90 attendue sur
   mobile, NFR-01).

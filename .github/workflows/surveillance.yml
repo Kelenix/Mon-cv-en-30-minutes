@@ -1,0 +1,46 @@
+name: Surveillance
+
+# Vérifie toutes les 10 minutes que https://cv30secondes.com répond (tâche manuelle 15). Un échec
+# rend le passage rouge : GitHub prévient alors par e-mail (Settings → Notifications → Actions).
+# Sans clé : seules des adresses publiques sont appelées.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: surveillance
+  cancel-in-progress: true
+
+jobs:
+  site:
+    name: Site, accueil et connexion
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Sondes (trois essais avant de signaler une panne)
+        run: |
+          check() {
+            local label=$1 expected=$2 url=$3 status
+            status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$url") || true
+            if [ "$status" = "$expected" ]; then
+              echo "✔ $label ($status)"
+            else
+              echo "✖ $label : $status au lieu de $expected"
+              return 1
+            fi
+          }
+          probe() {
+            check "Sonde du site" 200 "https://cv30secondes.com/api/health" &&
+              check "Accueil" 200 "https://cv30secondes.com/fr" &&
+              check "Connexion (authentification)" 302 \
+                "https://api.cv30secondes.com/auth/v1/authorize?provider=google"
+          }
+          for attempt in 1 2 3; do
+            probe && exit 0
+            [ "$attempt" -lt 3 ] && sleep 30
+          done
+          echo "::error::cv30secondes.com ne répond pas correctement depuis plus d'une minute"
+          exit 1

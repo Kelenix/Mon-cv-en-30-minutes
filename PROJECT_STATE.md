@@ -8,8 +8,8 @@
 - **Phase courante** : 6 — Mise en production : **site en ligne sur https://cv30secondes.com** depuis le 25/11/2026, paiements Stripe en mode réel ouverts
 - **Dernière mise à jour** : 25/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : surveillance et sauvegardes hors du serveur (tâches 14 et 15). Ensuite,
-  sur le domaine :
+- **Prochaine action** : sauvegardes hors du serveur (tâche 15, étapes 2 et 3). Ensuite, sur le
+  domaine :
   mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle des outils IA
   (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà mesurée, ADR-041), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
   que la tâche 12 n'est pas faite.
@@ -109,6 +109,12 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Surveillance (tâche 15, étape 1)** : workflow GitHub « Surveillance » toutes les
+  10 minutes (sonde, accueil, connexion), trois essais avant de signaler une panne. Essayé en
+  local, site en service et site en panne (code 1). Pas de compte UptimeRobot : dépôt public,
+  minutes gratuites, et tout reste dans GitHub. **Tâche 14** (déploiement automatique) faite : premier
+  déploiement par GitHub de `2b4511d` réussi, avec la correction des tarifs et Google.
 
 - 25/11/2026 — **Connexion Google en production (tâche 5)** : adresses de production ajoutées
   au client OAuth, Branding complété (accueil, confidentialité, CGV), application publiée en

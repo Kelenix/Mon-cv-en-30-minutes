@@ -218,7 +218,8 @@
     seule), et chaque envoi sur `main` avec une CI verte se met en ligne seul. C'est le seul
     chemin de mise en ligne.
   - Connexion Google ouverte en production (tâche 5).
-  - **Reste** : surveillance (étape 10, tâche 14), sauvegardes hors du serveur (tâche 15).
+  - Surveillance par GitHub toutes les 10 minutes (tâche 15).
+  - **Reste** : sauvegardes hors du serveur (tâche 15).
   - **Conseillé** : fermer la connexion SSH root par mot de passe, encore ouverte sur ce
     serveur, une fois tes connexions passées par clé.
 - **Mettre à jour le site** : envoyer `main` sur GitHub ; la CI puis le workflow « Déploiement »
@@ -294,7 +295,9 @@
 - **Vérification** : le sitemap apparaît « Réussi » avec 30 adresses (6 pages dans 5 langues) ;
   dans les jours qui suivent, l'accueil et les tarifs apparaissent dans « Pages » comme indexés.
 
-## Tâche 14 : Activer le déploiement automatique
+## Tâche 14 ✅ : Activer le déploiement automatique
+- **Fait (25/11/2026)** : `DEPLOY_ENABLED=true`, environnement `production` (3 secrets), clé
+  limitée à `deploy.sh`. Premier déploiement automatique réussi (`2b4511d`, CI verte).
 - **Pourquoi** : chaque envoi sur `main` dont la CI est verte est mis en ligne sans commande
   (`.github/workflows/deploy.yml`), avec retour automatique en cas d'échec.
 - **Quand** : après la première mise en ligne (tâche 9). Facultatif : `deploy/scripts/deploy.sh`
@@ -307,12 +310,15 @@
   journal se termine par « Version … en ligne ».
 
 ## Tâche 15 : Surveillance et sauvegardes hors du serveur
+- **Surveillance faite (25/11/2026)** : workflow GitHub « Surveillance », toutes les 10 minutes,
+  sans compte de plus (dépôt public, gratuit). Alerte par l'e-mail d'échec de GitHub.
+  - **Reste** : les étapes 2 et 3 (sauvegardes hors du serveur).
 - **Pourquoi** : être prévenu si le site tombe, et ne pas perdre les données si le VPS est perdu
   (les sauvegardes de la nuit restent sur le serveur).
 - **Quand** : dès la mise en ligne.
 - **Étapes** :
-  1. Créer une sonde gratuite (ex. UptimeRobot) sur `https://cv30secondes.com/api/health`, avec alerte
-     par e-mail.
+  1. ~~Sonde externe~~ : remplacée par le workflow GitHub « Surveillance »
+     (`docs/deployment.md`, étape 10).
   2. Activer les sauvegardes automatiques du VPS dans hPanel.
   3. Une fois par semaine, copier la dernière sauvegarde dans un dossier chiffré de ton
      ordinateur (`docs/deployment.md` §14).

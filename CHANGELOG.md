@@ -16,6 +16,11 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 - Page des tarifs sur mobile : le bouton « Essayer Pro gratuitement 3 jours » passe à la ligne au
   lieu d'élargir les cartes, qui débordaient de l'écran à 375 px (CI rouge depuis `ee79947`).
 
+### Ajouté — Surveillance
+
+- Workflow GitHub « Surveillance » : toutes les 10 minutes, sonde du site, accueil et service de
+  connexion, avec trois essais avant de signaler une panne par l'e-mail d'échec de GitHub.
+
 ### Modifié
 
 - Déploiement uniquement par GitHub : le serveur lit le dépôt GitHub, et le workflow
