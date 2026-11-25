@@ -35,7 +35,7 @@ test("sans abonnement : formule, essai, recharge, et paiement indisponible signa
   ).toBeVisible();
   await expectNoAccessibilityViolations(page);
 
-  await main.getByRole("button", { name: /^15 crédits — 6,99/ }).click();
+  await main.getByRole("button", { name: /^15 crédits \(6,99/ }).click();
   await expect(main.getByRole("alert")).toHaveText(fr.errors.PAYMENT_ERROR);
 });
 

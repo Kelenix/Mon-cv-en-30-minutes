@@ -1,5 +1,6 @@
 import "server-only";
 import { z } from "zod";
+import { titleLine } from "@/features/cv/content";
 import type { CvContent, CvExperience } from "@/features/cv/schemas";
 import type { AppLocale } from "@/i18n/routing";
 import { callClaude, escapeData, LANGUAGE_NAMES } from "./claude";
@@ -305,12 +306,10 @@ export async function coverLetter(
     return simulate(
       {
         letter: [
-          [request.position, request.company].filter(Boolean).join(" — "),
+          titleLine(request.position, request.company),
           content.summary,
           content.experiences
-            .map((item) =>
-              [item.role, item.company].filter(Boolean).join(" — "),
-            )
+            .map((item) => titleLine(item.role, item.company))
             .join(NEWLINE),
           content.header.fullName,
         ]
@@ -371,7 +370,7 @@ export async function interviewQuestions(
         questions: Array.from(
           { length: 8 },
           (_, index) =>
-            `${position} — ${topics[index % topics.length] ?? index + 1} (${index + 1}/8)`,
+            `${position}: ${topics[index % topics.length] ?? index + 1} (${index + 1}/8)`,
         ),
       },
       position,

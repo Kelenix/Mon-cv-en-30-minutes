@@ -5,6 +5,7 @@ import type { z } from "zod";
 import { env } from "@/core/env";
 import type { AppLocale } from "@/i18n/routing";
 import { AiError, type AiUsage, estimateCostUsdMicros } from "./client";
+import { deepWithoutDashes, NO_DASH_RULE } from "./typography";
 
 // Appel commun à Claude (docs/architecture.md §7) : flux côté serveur, effort `low`, sortie
 // structurée, repli automatique ; motif d'arrêt contrôlé avant toute lecture, sortie validée par
@@ -59,7 +60,7 @@ export async function callClaude<Schema extends z.ZodType>(
           max_tokens: maxTokens,
           betas: ["server-side-fallback-2026-07-01"],
           fallbacks: "default",
-          system,
+          system: `${system}\n\n${NO_DASH_RULE}`,
           messages: [{ role: "user", content: user }],
           output_config: {
             effort: "low",
@@ -111,5 +112,5 @@ export async function callClaude<Schema extends z.ZodType>(
   const parsed = schema.safeParse(text && parseJson(text));
   if (!parsed.success) throw new AiError("AI_INVALID_OUTPUT", "schema", usage);
 
-  return { output: parsed.data, usage };
+  return { output: deepWithoutDashes(parsed.data), usage };
 }

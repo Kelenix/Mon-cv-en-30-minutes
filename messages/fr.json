@@ -6,7 +6,7 @@
     "pill": "30 Secondes"
   },
   "metadata": {
-    "title": "Mon CV en 30 Secondes — Crée ton CV avec l'IA",
+    "title": "Mon CV en 30 Secondes | Crée ton CV avec l'IA",
     "description": "Réponds à 5 questions et l'IA rédige pour toi un CV professionnel en quelques secondes. Commence gratuitement."
   },
   "a11y": {
@@ -543,13 +543,13 @@
     },
     "topUp": {
       "title": "Recharger",
-      "pack": "{count} crédits — {price}",
+      "pack": "{count} crédits ({price})",
       "buy": "Acheter {count} crédits"
     },
     "purchases": {
       "title": "Tes achats",
       "pack": "Pack de {count} crédits",
-      "cvPro": "CV Pro — {title}",
+      "cvPro": "CV Pro : {title}",
       "cvDeleted": "CV supprimé",
       "adsRemoval": "Suppression des publicités"
     },
@@ -573,7 +573,7 @@
       "adsRemoved": "Les publicités sont déjà retirées de ton compte."
     },
     "cvPro": {
-      "title": "CV Pro — {price}",
+      "title": "CV Pro ({price})",
       "text": "PDF sans filigrane et DOCX pour ce CV, pour toujours, sans abonnement.",
       "unlock": "Débloquer ce CV"
     },
@@ -581,7 +581,7 @@
     "ads": {
       "title": "Publicités",
       "hint": "Retire définitivement les publicités de ton compte, même après la fin d'un abonnement.",
-      "remove": "Retirer les publicités — {price}",
+      "remove": "Retirer les publicités ({price})",
       "removed": "Les publicités sont retirées de ton compte."
     }
   },
@@ -611,7 +611,7 @@
       "interview": "Entretien"
     },
     "experience": {
-      "button": "Améliorer avec l'IA — {cost, plural, one {# crédit} other {# crédits}}",
+      "button": "Améliorer avec l'IA ({cost, plural, one {# crédit} other {# crédits}})",
       "title": "Expérience améliorée",
       "before": "Avant",
       "after": "Après",
@@ -620,7 +620,7 @@
       "replace": "Remplacer"
     },
     "summary": {
-      "button": "Améliorer l'accroche — {cost, plural, one {# crédit} other {# crédits}}",
+      "button": "Améliorer l'accroche ({cost, plural, one {# crédit} other {# crédits}})",
       "history": "Propositions ({count})",
       "title": "Choisis ton accroche",
       "previous": "Propositions précédentes",
@@ -635,7 +635,7 @@
       "postingHint": "Colle l'annonce complète (missions, profil recherché, compétences) : 50 à 10 000 caractères.",
       "counter": "{count, number} / {max, number}",
       "languageLabel": "Langue du CV adapté",
-      "submit": "Adapter — {cost, plural, one {# crédit} other {# crédits}}",
+      "submit": "Adapter ({cost, plural, one {# crédit} other {# crédits}})",
       "pending": "Adaptation en cours…",
       "resultTitle": "Ton CV adapté",
       "missingTitle": "Mots-clés de l'annonce absents de ton CV",
@@ -648,7 +648,7 @@
       "previewLabel": "Aperçu du CV adapté",
       "historyTitle": "Adaptations précédentes",
       "show": "Afficher",
-      "newTitle": "{title} — adapté",
+      "newTitle": "{title} (adapté)",
       "empty": "Ton CV adapté et les mots-clés manquants apparaîtront ici."
     },
     "generated": {
@@ -663,8 +663,8 @@
       "title": "Ma version LinkedIn",
       "intro": "L'IA transforme « {title} » en textes prêts à coller sur ton profil LinkedIn : titre, section Infos et expériences, sans rien inventer.",
       "language": "Langue de la version LinkedIn",
-      "generate": "Générer ma version LinkedIn — {cost, plural, one {# crédit} other {# crédits}}",
-      "regenerate": "Générer une nouvelle version — {cost, plural, one {# crédit} other {# crédits}}",
+      "generate": "Générer ma version LinkedIn ({cost, plural, one {# crédit} other {# crédits}})",
+      "regenerate": "Générer une nouvelle version ({cost, plural, one {# crédit} other {# crédits}})",
       "resultTitle": "Tes textes LinkedIn",
       "headline": "Titre du profil",
       "copyHeadline": "Copier le titre du profil",
@@ -684,7 +684,7 @@
       "posting": "Annonce (facultatif)",
       "postingHint": "Colle l'annonce pour une lettre qui répond aux attentes du poste.",
       "language": "Langue de la lettre",
-      "generate": "Rédiger ma lettre — {cost, plural, one {# crédit} other {# crédits}}",
+      "generate": "Rédiger ma lettre ({cost, plural, one {# crédit} other {# crédits}})",
       "resultTitle": "Ta lettre",
       "letter": "Lettre de motivation",
       "copy": "Copier la lettre",
@@ -698,13 +698,13 @@
       "empty": "Tes 8 questions apparaîtront ici, avec un espace pour répondre.",
       "position": "Poste visé",
       "language": "Langue de l'entretien",
-      "start": "Lancer la simulation — {cost, plural, one {# crédit} other {# crédits}}",
-      "restart": "Nouvelle simulation — {cost, plural, one {# crédit} other {# crédits}}",
+      "start": "Lancer la simulation ({cost, plural, one {# crédit} other {# crédits}})",
+      "restart": "Nouvelle simulation ({cost, plural, one {# crédit} other {# crédits}})",
       "resultTitle": "Entretien : {position}",
       "answerHint": "Réponds par écrit à tout ou partie des questions (2 000 caractères au plus par réponse), puis demande ton retour : il est gratuit.",
       "reviewedHint": "Ton retour, question par question. Cette simulation reste disponible avec ton CV.",
       "questionNumber": "Question {number}",
-      "review": "Obtenir mon retour — gratuit",
+      "review": "Obtenir mon retour (gratuit)",
       "reviewPending": "Analyse de tes réponses…",
       "reviewFailed": "Le retour n'a pas abouti. Rien n'a été débité : réessaie.",
       "reviewed": "retour reçu",

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { joinFilled } from "../content";
+import { joinFilled, titleLine } from "../content";
 import { CV_LIMITS, type CvContent } from "../schemas";
 
 // Modification sur place de chaque rubrique (US-14) : longueurs maximales imposées à la saisie,
@@ -239,7 +239,7 @@ export function ExperiencesEditor({
         return (
           <ListItem
             key={item.id}
-            name={joinFilled([item.role, item.company], " — ") || t("untitled")}
+            name={titleLine(item.role, item.company) || t("untitled")}
             index={index}
             count={items.length}
             onMove={(from, to) => onChange(move(items, from, to))}
@@ -392,9 +392,7 @@ export function EducationEditor({
         return (
           <ListItem
             key={item.id}
-            name={
-              joinFilled([item.degree, item.school], " — ") || t("untitled")
-            }
+            name={titleLine(item.degree, item.school) || t("untitled")}
             index={index}
             count={items.length}
             onMove={(from, to) => onChange(move(items, from, to))}

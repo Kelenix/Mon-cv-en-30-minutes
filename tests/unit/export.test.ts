@@ -65,7 +65,7 @@ const ORDER = [
   "Refonte d'une application de facturation en TypeScript et PostgreSQL",
   "COMPÉTENCES",
   "FORMATION",
-  "Master Informatique — Université Lyon 1",
+  "Master Informatique, Université Lyon 1",
   "LANGUES",
   "Anglais (courant)",
 ];
@@ -109,6 +109,38 @@ describe("PDF", () => {
     );
     expect(pages.length).toBeGreaterThan(1);
     for (const page of pages) expect(page).toContain(WATERMARK);
+  });
+
+  it("ne laisse jamais un intitulé seul en bas de page", async () => {
+    const pageOf = (pages: string[], part: string) =>
+      pages.findIndex((page) => page.replace(/\s+/g, " ").includes(part));
+    // Longueurs variées : l'intitulé « FORMATION » tombe tôt ou tard en bas d'une page, avec une
+    // formation plus haute que la marge d'avance de l'intitulé (diplôme, année et détails).
+    for (let bullets = 1; bullets <= 12; bullets += 1) {
+      const long: CvContent = {
+        ...CONTENT,
+        education: [
+          {
+            ...CONTENT.education[0],
+            details: "Projet de fin d'études en équipe. ".repeat(8),
+          },
+        ],
+        experiences: Array.from({ length: 6 }, (_, index) => ({
+          ...CONTENT.experiences[0],
+          id: `e${index}`,
+          bullets: Array.from({ length: bullets }, () =>
+            "Mission détaillée ".repeat(6),
+          ),
+        })),
+      };
+      const pages = await pdfPages(await renderCvPdf(long, TEXTS));
+      expect(pageOf(pages, "FORMATION"), `${bullets} puces`).toBe(
+        pageOf(pages, "Master Informatique"),
+      );
+      expect(pageOf(pages, "COMPÉTENCES"), `${bullets} puces`).toBe(
+        pageOf(pages, "TypeScript · React"),
+      );
+    }
   });
 });
 

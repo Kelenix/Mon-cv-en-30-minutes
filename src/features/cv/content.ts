@@ -90,9 +90,17 @@ export function joinFilled(parts: (string | undefined)[], separator: string) {
   return parts.filter((part) => part?.trim()).join(separator);
 }
 
-/** Période d'une expérience (« 2021 – 2024 », « 2021 », « – 2024 »). */
+/**
+ * Poste et entreprise, diplôme et école : séparés par une virgule. Aucun tiret cadratin ni
+ * demi-cadratin dans les CV : ils font « texte écrit par une IA » (demande de l'utilisateur).
+ */
+export function titleLine(first?: string, second?: string) {
+  return joinFilled([first, second], ", ");
+}
+
+/** Période d'une expérience (« 2021 - 2024 », « 2021 », « 2024 »). */
 export function period(start?: string, end?: string) {
-  return start && end ? `${start} – ${end}` : start || (end ? `– ${end}` : "");
+  return start && end ? `${start} - ${end}` : start || end || "";
 }
 
 /** Texte brut organisé par rubriques, prêt à coller dans un formulaire de candidature. */
@@ -121,7 +129,7 @@ export function cvToPlainText(content: CvContent, titles: CvSectionTitles) {
           [
             joinFilled(
               [
-                joinFilled([item.role, item.company], " — "),
+                titleLine(item.role, item.company),
                 item.location,
                 period(item.startDate, item.endDate),
               ],
@@ -141,10 +149,7 @@ export function cvToPlainText(content: CvContent, titles: CvSectionTitles) {
       .map((item) =>
         joinFilled(
           [
-            joinFilled(
-              [joinFilled([item.degree, item.school], " — "), item.year],
-              ", ",
-            ),
+            joinFilled([titleLine(item.degree, item.school), item.year], ", "),
             item.details,
           ],
           "\n",

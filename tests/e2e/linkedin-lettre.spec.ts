@@ -41,7 +41,7 @@ test("version LinkedIn : générée, modifiée, conservée et copiable (US-28)",
     timeout: 20_000,
   });
   await page
-    .getByRole("button", { name: "Générer ma version LinkedIn — 1 crédit" })
+    .getByRole("button", { name: "Générer ma version LinkedIn (1 crédit)" })
     .click();
 
   const result = page.getByRole("region", {
@@ -72,7 +72,7 @@ test("version LinkedIn : générée, modifiée, conservée et copiable (US-28)",
   ).toHaveValue("Comptable | Paie et fiscalité");
   await expect(
     page.getByRole("button", {
-      name: "Générer une nouvelle version — 1 crédit",
+      name: "Générer une nouvelle version (1 crédit)",
     }),
   ).toBeVisible();
 
@@ -114,7 +114,7 @@ test("lettre de motivation : poste obligatoire, lettre modifiable, versions cons
     timeout: 20_000,
   });
   const submit = page.getByRole("button", {
-    name: "Rédiger ma lettre — 2 crédits",
+    name: "Rédiger ma lettre (2 crédits)",
   });
 
   // Poste vide (des espaces) : refusé par le serveur, sans débit.
@@ -133,7 +133,7 @@ test("lettre de motivation : poste obligatoire, lettre modifiable, versions cons
     name: fr.cvTools.letter.resultTitle,
   });
   const letter = result.getByLabel(fr.cvTools.letter.letter, { exact: true });
-  await expect(letter).toHaveValue(/^Responsable comptable — Cabinet Martin/);
+  await expect(letter).toHaveValue(/^Responsable comptable, Cabinet Martin/);
   await expect(letter).toHaveValue(/Awa Diallo$/);
   await expect(result.getByText(/^\d+ mots$/)).toBeVisible();
   await expect(balance(page, 58)).toBeVisible();
@@ -171,7 +171,7 @@ test("lettre de motivation : poste obligatoire, lettre modifiable, versions cons
   ).toBe(true);
   await versions
     .getByRole("listitem")
-    .filter({ hasText: "Responsable comptable — Cabinet Martin" })
+    .filter({ hasText: "Responsable comptable, Cabinet Martin" })
     .getByRole("button", { name: fr.cvTools.generated.show })
     .click();
   await expect(
@@ -190,7 +190,7 @@ test("Essential : la lettre se paie en crédits achetés (US-09 c.2)", async ({
   await page.getByRole("link", { name: fr.cvTools.tabs.letter }).click();
   await page.getByLabel(fr.cvTools.letter.position).fill("Comptable");
   await page
-    .getByRole("button", { name: "Rédiger ma lettre — 2 crédits" })
+    .getByRole("button", { name: "Rédiger ma lettre (2 crédits)" })
     .click();
   const dialog = page.getByRole("alertdialog", {
     name: "Il te manque 2 crédits",

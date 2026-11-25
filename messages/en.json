@@ -6,7 +6,7 @@
     "pill": "30 Seconds"
   },
   "metadata": {
-    "title": "My CV in 30 Seconds — Build your CV with AI",
+    "title": "My CV in 30 Seconds | Build your CV with AI",
     "description": "Answer 5 questions and AI will write a professional CV for you in seconds. Start for free."
   },
   "a11y": {
@@ -543,13 +543,13 @@
     },
     "topUp": {
       "title": "Top up",
-      "pack": "{count} credits — {price}",
+      "pack": "{count} credits ({price})",
       "buy": "Buy {count} credits"
     },
     "purchases": {
       "title": "Your purchases",
       "pack": "Pack of {count} credits",
-      "cvPro": "CV Pro — {title}",
+      "cvPro": "CV Pro: {title}",
       "cvDeleted": "deleted CV",
       "adsRemoval": "Ad removal"
     },
@@ -573,7 +573,7 @@
       "adsRemoved": "Ads have already been removed from your account."
     },
     "cvPro": {
-      "title": "CV Pro — {price}",
+      "title": "CV Pro ({price})",
       "text": "Watermark-free PDF and DOCX for this CV, forever, with no subscription.",
       "unlock": "Unlock this CV"
     },
@@ -581,7 +581,7 @@
     "ads": {
       "title": "Ads",
       "hint": "Remove ads from your account for good, even after a subscription ends.",
-      "remove": "Remove ads — {price}",
+      "remove": "Remove ads ({price})",
       "removed": "Ads have been removed from your account."
     }
   },
@@ -611,7 +611,7 @@
       "interview": "Interview"
     },
     "experience": {
-      "button": "Improve with AI — {cost, plural, one {# credit} other {# credits}}",
+      "button": "Improve with AI ({cost, plural, one {# credit} other {# credits}})",
       "title": "Improved experience",
       "before": "Before",
       "after": "After",
@@ -620,7 +620,7 @@
       "replace": "Replace"
     },
     "summary": {
-      "button": "Improve the summary — {cost, plural, one {# credit} other {# credits}}",
+      "button": "Improve the summary ({cost, plural, one {# credit} other {# credits}})",
       "history": "Suggestions ({count})",
       "title": "Choose your summary",
       "previous": "Previous suggestions",
@@ -635,7 +635,7 @@
       "postingHint": "Paste the full posting (duties, required profile, skills): 50 to 10,000 characters.",
       "counter": "{count, number} / {max, number}",
       "languageLabel": "Language of the tailored CV",
-      "submit": "Tailor — {cost, plural, one {# credit} other {# credits}}",
+      "submit": "Tailor ({cost, plural, one {# credit} other {# credits}})",
       "pending": "Tailoring your CV…",
       "resultTitle": "Your tailored CV",
       "missingTitle": "Keywords from the posting that are missing from your CV",
@@ -648,7 +648,7 @@
       "previewLabel": "Tailored CV preview",
       "historyTitle": "Previous tailored versions",
       "show": "Show",
-      "newTitle": "{title} — tailored",
+      "newTitle": "{title} (tailored)",
       "empty": "Your tailored CV and the missing keywords will appear here."
     },
     "generated": {
@@ -663,8 +663,8 @@
       "title": "My LinkedIn version",
       "intro": "AI turns “{title}” into text ready to paste into your LinkedIn profile (headline, About section and experience) without making anything up.",
       "language": "Language of the LinkedIn version",
-      "generate": "Generate my LinkedIn version — {cost, plural, one {# credit} other {# credits}}",
-      "regenerate": "Generate a new version — {cost, plural, one {# credit} other {# credits}}",
+      "generate": "Generate my LinkedIn version ({cost, plural, one {# credit} other {# credits}})",
+      "regenerate": "Generate a new version ({cost, plural, one {# credit} other {# credits}})",
       "resultTitle": "Your LinkedIn content",
       "headline": "Profile headline",
       "copyHeadline": "Copy the profile headline",
@@ -684,7 +684,7 @@
       "posting": "Job posting (optional)",
       "postingHint": "Paste the posting to get a letter that matches what the employer is looking for.",
       "language": "Language of the letter",
-      "generate": "Write my letter — {cost, plural, one {# credit} other {# credits}}",
+      "generate": "Write my letter ({cost, plural, one {# credit} other {# credits}})",
       "resultTitle": "Your letter",
       "letter": "Cover letter",
       "copy": "Copy the letter",
@@ -698,13 +698,13 @@
       "empty": "Your 8 questions will appear here, with space for your answers.",
       "position": "Target job",
       "language": "Interview language",
-      "start": "Start the mock interview — {cost, plural, one {# credit} other {# credits}}",
-      "restart": "New mock interview — {cost, plural, one {# credit} other {# credits}}",
+      "start": "Start the mock interview ({cost, plural, one {# credit} other {# credits}})",
+      "restart": "New mock interview ({cost, plural, one {# credit} other {# credits}})",
       "resultTitle": "Interview: {position}",
       "answerHint": "Answer as many questions as you like in writing (up to 2,000 characters each), then ask for feedback. It's free.",
       "reviewedHint": "Your feedback, question by question. This mock interview stays saved with your CV.",
       "questionNumber": "Question {number}",
-      "review": "Get my feedback — free",
+      "review": "Get my feedback (free)",
       "reviewPending": "Reviewing your answers…",
       "reviewFailed": "We couldn't generate your feedback and you haven't been charged. Try again.",
       "reviewed": "feedback received",

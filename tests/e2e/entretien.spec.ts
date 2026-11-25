@@ -36,7 +36,7 @@ async function openInterview(page: Page, plan: "pro" | "essential") {
 async function startSimulation(page: Page, position: string) {
   await page.getByLabel(t.position, { exact: true }).fill(position);
   await page
-    .getByRole("button", { name: "Lancer la simulation — 2 crédits" })
+    .getByRole("button", { name: "Lancer la simulation (2 crédits)" })
     .click();
   const simulation = page.getByRole("region", {
     name: new RegExp(`^Entretien.+${position}$`),
@@ -54,7 +54,7 @@ test("8 questions, réponses écrites, retour gratuit conservé avec le CV (US-3
   // Poste vide (des espaces) : refusé par le serveur, sans débit.
   await page.getByLabel(t.position, { exact: true }).fill("  ");
   await page
-    .getByRole("button", { name: "Lancer la simulation — 2 crédits" })
+    .getByRole("button", { name: "Lancer la simulation (2 crédits)" })
     .click();
   await expect(page.getByRole("main").getByRole("alert")).toHaveText(
     fr.errors.fields.required,
@@ -126,7 +126,7 @@ test("Essential : la simulation se paie en crédits achetés (US-30 c.5)", async
   await openInterview(page, "essential");
   await page.getByLabel(t.position, { exact: true }).fill("Comptable");
   await page
-    .getByRole("button", { name: "Lancer la simulation — 2 crédits" })
+    .getByRole("button", { name: "Lancer la simulation (2 crédits)" })
     .click();
   const dialog = page.getByRole("alertdialog", {
     name: "Il te manque 2 crédits",

@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { Appear } from "@/components/layout/appear";
 import { requireUser } from "@/features/auth/session";
 import { TopUpOptions } from "@/app/[locale]/_ui/top-up-options";
+import { titleLine } from "@/features/cv/content";
 import type { LetterOutput } from "@/features/cv/generated";
 import { CvNotFound } from "@/features/cv/presentation/cv-not-found";
 import { ToolSkeleton } from "@/features/cv/presentation/tool-layout";
@@ -69,7 +70,7 @@ async function LetterLoader({
       language: generation.language,
       output: generation.output as LetterOutput,
       createdAt: generation.created_at,
-      label: [input.position, input.company].filter(Boolean).join(" — "),
+      label: titleLine(input.position, input.company),
     };
   });
 

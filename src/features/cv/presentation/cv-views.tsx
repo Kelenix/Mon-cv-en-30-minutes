@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { joinFilled, period } from "../content";
+import { joinFilled, period, titleLine } from "../content";
 import type { CvContent } from "../schemas";
 
 // Rendu en lecture du CV (US-12) : une seule colonne, du texte réel, des intitulés standard
@@ -33,9 +33,7 @@ export function ExperiencesView({
     <div className="grid gap-4">
       {items.map((item) => (
         <div key={item.id}>
-          <p className="font-bold">
-            {joinFilled([item.role, item.company], " — ")}
-          </p>
+          <p className="font-bold">{titleLine(item.role, item.company)}</p>
           <p className="text-cv-muted">
             {joinFilled(
               [item.location, period(item.startDate, item.endDate)],
@@ -61,9 +59,7 @@ export function EducationView({ items }: { items: CvContent["education"] }) {
     <div className="grid gap-3">
       {items.map((item) => (
         <div key={item.id}>
-          <p className="font-bold">
-            {joinFilled([item.degree, item.school], " — ")}
-          </p>
+          <p className="font-bold">{titleLine(item.degree, item.school)}</p>
           {item.year ? <p className="text-cv-muted">{item.year}</p> : null}
           {item.details ? <p>{item.details}</p> : null}
         </div>

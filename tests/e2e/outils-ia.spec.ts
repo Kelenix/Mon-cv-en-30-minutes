@@ -54,7 +54,7 @@ test("améliorer une expérience puis l'accroche, crédit débité à chaque foi
 
   // Avant / après, puis Remplacer.
   await page
-    .getByRole("button", { name: "Améliorer avec l'IA — 1 crédit" })
+    .getByRole("button", { name: "Améliorer avec l'IA (1 crédit)" })
     .first()
     .click();
   const compare = page.getByRole("alertdialog", {
@@ -81,7 +81,7 @@ test("améliorer une expérience puis l'accroche, crédit débité à chaque foi
     page.getByText(fr.cvEditor.status.saved, { exact: true }),
   ).toBeVisible();
   await page
-    .getByRole("button", { name: "Améliorer l'accroche — 1 crédit" })
+    .getByRole("button", { name: "Améliorer l'accroche (1 crédit)" })
     .click();
   const variants = page.getByRole("alertdialog", {
     name: fr.cvTools.summary.title,
@@ -115,7 +115,7 @@ test("sans crédit, la fenêtre « Solde insuffisant » propose de recharger (US
   await generate(page);
 
   await page
-    .getByRole("button", { name: "Améliorer l'accroche — 1 crédit" })
+    .getByRole("button", { name: "Améliorer l'accroche (1 crédit)" })
     .click();
   const dialog = page.getByRole("alertdialog", {
     name: "Il te manque 1 crédit",
@@ -124,7 +124,7 @@ test("sans crédit, la fenêtre « Solde insuffisant » propose de recharger (US
     dialog.getByText("Améliorer l'accroche coûte 1 crédit."),
   ).toBeVisible();
   await expect(
-    dialog.getByRole("button", { name: /^15 crédits — 6,99/ }),
+    dialog.getByRole("button", { name: /^15 crédits \(6,99/ }),
   ).toBeVisible();
 });
 
@@ -145,7 +145,7 @@ test("adapter à une offre : mots-clés manquants, nouveau CV en Pro (US-27)", a
   // Annonce trop courte : refusée sans débit.
   const posting = page.getByLabel(fr.cvTools.adapt.postingLabel);
   await posting.fill("Comptable");
-  await page.getByRole("button", { name: "Adapter — 2 crédits" }).click();
+  await page.getByRole("button", { name: "Adapter (2 crédits)" }).click();
   await expect(page.getByRole("main").getByRole("alert")).toHaveText(
     fr.errors.fields.tooShort,
   );
@@ -154,7 +154,7 @@ test("adapter à une offre : mots-clés manquants, nouveau CV en Pro (US-27)", a
   await expect(page.getByLabel(fr.cvTools.adapt.languageLabel)).toHaveValue(
     "fr",
   );
-  await page.getByRole("button", { name: "Adapter — 2 crédits" }).click();
+  await page.getByRole("button", { name: "Adapter (2 crédits)" }).click();
   const result = page.getByRole("region", {
     name: fr.cvTools.adapt.resultTitle,
   });
@@ -175,7 +175,7 @@ test("adapter à une offre : mots-clés manquants, nouveau CV en Pro (US-27)", a
   await page.goto("/fr/cv");
   await expect(page.getByRole("main").getByRole("listitem")).toHaveCount(2);
   await expect(
-    page.getByRole("link", { name: /Comptable — adapté/ }),
+    page.getByRole("link", { name: /Comptable \(adapté\)/ }),
   ).toBeVisible();
 });
 
@@ -189,7 +189,7 @@ test("Essential : l'adaptation se paie en crédits achetés (US-09 c.2)", async 
 
   await page.getByRole("link", { name: fr.cvTools.tabs.adapt }).click();
   await page.getByLabel(fr.cvTools.adapt.postingLabel).fill(POSTING);
-  await page.getByRole("button", { name: "Adapter — 2 crédits" }).click();
+  await page.getByRole("button", { name: "Adapter (2 crédits)" }).click();
   const dialog = page.getByRole("alertdialog", {
     name: "Il te manque 2 crédits",
   });

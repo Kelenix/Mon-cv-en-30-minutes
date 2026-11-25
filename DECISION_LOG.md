@@ -6,6 +6,38 @@
 
 ---
 
+## ADR-049 — Aucun tiret cadratin ni demi-cadratin dans les CV et les textes
+
+- **Date** : 25/11/2026
+- **Statut** : Accepté (demande de l'utilisateur : « ça sent trop l'IA »)
+- **Décideur** : l'utilisateur ; mise en œuvre par Claude
+- **Contexte** : le CV affichait « Poste — Entreprise », « Diplôme — École » et « 2024 –
+  Présent ». Ces tirets longs sont perçus comme la marque d'un texte écrit par une IA. Les
+  textes générés par Claude et une quinzaine de libellés du site en contenaient aussi.
+- **Décision** :
+  - **CV** (aperçu, éditeur, PDF, DOCX, texte à copier) : poste et entreprise, diplôme et
+    école séparés par une virgule (`titleLine`). Période avec un simple trait d'union
+    (« 2021 - 2024 ») ; une date de fin seule s'affiche sans tiret devant.
+  - **Textes générés** (CV, amélioration, accroches, adaptation, LinkedIn, lettre, entretien) :
+    - consigne au modèle dans chaque appel : pas de tiret long ;
+    - nettoyage garanti de toute la sortie (`deepWithoutDashes`) : trait d'union entre deux
+      nombres, tiret de début de ligne retiré, sinon virgule.
+  - **Site** : libellés sans tiret long dans les 5 langues :
+    - coût entre parenthèses : « Adapter (2 crédits) », « 15 crédits (6,99 €) » ;
+    - titre des pages : « Mon CV en 30 Secondes | Crée ton CV avec l'IA » ;
+    - incises allemandes réécrites.
+  - Les textes saisis par l'utilisateur ne sont jamais modifiés.
+- **Alternatives écartées** :
+  - « | » entre poste et entreprise : la virgule est ce qu'écrit une personne.
+  - Nettoyer aussi les CV déjà enregistrés : ce serait modifier des textes que l'utilisateur
+    a pu écrire lui-même ; une nouvelle génération ou une modification suffit.
+- **Conséquences** : les CV existants gardent les tirets longs déjà présents dans leur texte
+  généré, jusqu'à leur prochaine modification. Les séparateurs ajoutés par le site, eux,
+  changent partout tout de suite.
+- **Impact** : produit (moyen : perception de qualité), technique (faible).
+
+---
+
 ## ADR-048 — Noms de marque validés ; italien « Il mio CV in 30 secondi » (tâche 12)
 
 - **Date** : 25/11/2026

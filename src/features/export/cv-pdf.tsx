@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { ReactNode } from "react";
+import { Children, type ReactNode } from "react";
 import {
   Document,
   Font,
@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import { joinFilled, period } from "@/features/cv/content";
+import { joinFilled, period, titleLine } from "@/features/cv/content";
 import { CV_COLORS, type CvDocumentTexts } from "@/features/cv/document-style";
 import type { CvContent } from "@/features/cv/schemas";
 
@@ -83,13 +83,18 @@ const styles = StyleSheet.create({
 });
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
+  const [first, ...rest] = Children.toArray(children);
   return (
     <View>
-      {/* Un intitulé n'est jamais laissé seul en bas de page. */}
-      <Text style={styles.heading} minPresenceAhead={40}>
-        {title}
-      </Text>
-      {children}
+      {/*
+        Un intitulé n'est jamais laissé seul en bas de page : il reste avec le premier élément de
+        sa rubrique, qui ne se coupe pas (une simple marge d'avance ne suffit pas).
+      */}
+      <View wrap={false}>
+        <Text style={styles.heading}>{title}</Text>
+        {first}
+      </View>
+      {rest}
     </View>
   );
 }
@@ -106,7 +111,7 @@ function CvPdf({
 
   return (
     <Document
-      title={joinFilled([header.fullName, header.title], " — ")}
+      title={titleLine(header.fullName, header.title)}
       author={header.fullName}
       language={texts.language}
     >
@@ -128,7 +133,7 @@ function CvPdf({
             {content.experiences.map((item) => (
               <View key={item.id} style={styles.item} wrap={false}>
                 <Text style={styles.strong}>
-                  {joinFilled([item.role, item.company], " — ")}
+                  {titleLine(item.role, item.company)}
                 </Text>
                 <Text style={styles.muted}>
                   {joinFilled(
@@ -158,7 +163,7 @@ function CvPdf({
             {content.education.map((item) => (
               <View key={item.id} style={styles.item} wrap={false}>
                 <Text style={styles.strong}>
-                  {joinFilled([item.degree, item.school], " — ")}
+                  {titleLine(item.degree, item.school)}
                 </Text>
                 {item.year ? (
                   <Text style={styles.muted}>{item.year}</Text>

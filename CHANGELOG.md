@@ -20,6 +20,14 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ### Modifié
 
+- Plus aucun tiret cadratin ni demi-cadratin (ADR-049) :
+  - dans le CV : « Poste, Entreprise », « Diplôme, École », « 2021 - 2024 » ;
+  - dans les textes générés par l'IA : consigne au modèle, plus nettoyage garanti de la
+    réponse ;
+  - dans les libellés du site, en 5 langues : « Adapter (2 crédits) », « Mon CV en 30
+    Secondes | Crée ton CV avec l'IA ».
+- PDF : un intitulé de rubrique reste avec le premier élément qui le suit. « FORMATION » ne
+  reste plus seul en bas de page quand la formation passe à la page suivante.
 - Nom de marque italien : « Il mio CV in 30 secondi » au lieu de « Curriculum in 30 Secondi »
   (logo, titre des pages, e-mail de connexion, filigrane des PDF ; ADR-048).
 

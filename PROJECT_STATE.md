@@ -116,6 +116,18 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 25/11/2026 — **Plus de tirets longs, « ça sent l'IA » (demande de l'utilisateur, ADR-049)**.
+  - CV : virgule entre poste et entreprise, et entre diplôme et école ; trait d'union simple
+    dans les périodes.
+  - Textes générés : consigne au modèle et nettoyage garanti de toute la réponse.
+  - Libellés du site sans tiret dans les 5 langues (coûts entre parenthèses, titre des pages
+    avec « | »).
+  - Correction PDF : un intitulé reste avec le premier élément de sa rubrique. Avant,
+    « FORMATION » pouvait rester seul en bas de page, comme sur la capture de l'utilisateur ;
+    un test unitaire reproduit maintenant ce cas.
+  - Vérifié : lint, types, 172 tests unitaires, CV de démonstration en PDF (rendu contrôlé,
+    aucun tiret), suite e2e complète.
+
 - 25/11/2026 — **Tâche 12 : traductions relues**.
   - Une relecture par langue, en parallèle. Corrections : EN 119 textes (anglais
     britannique), IT 55, ES 72, DE 78.

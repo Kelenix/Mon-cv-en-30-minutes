@@ -123,9 +123,9 @@ describe("texte copié (US-13)", () => {
       [
         "Awa Diallo\nDéveloppeuse web\nawa@exemple.test",
         "PROFIL\nDéveloppeuse web avec 4 ans d'expérience.",
-        "EXPÉRIENCE PROFESSIONNELLE\nDéveloppeuse web — Studio Lumière, Lyon, 2021 – Aujourd'hui\n- Création de sites pour des commerces",
+        "EXPÉRIENCE PROFESSIONNELLE\nDéveloppeuse web, Studio Lumière, Lyon, 2021 - Aujourd'hui\n- Création de sites pour des commerces",
         "COMPÉTENCES\nHTML, React",
-        "FORMATION\nLicence pro — Lyon 2, 2020",
+        "FORMATION\nLicence pro, Lyon 2, 2020",
         "LANGUES\nAnglais (courant)",
       ].join("\n\n"),
     );

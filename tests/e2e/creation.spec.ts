@@ -193,7 +193,7 @@ test("sans crédit, il faut remplacer le CV puis recharger ; le crédit est déb
   ).toBeVisible();
   // Recharge proposée sur place (US-18), retour sur la génération après paiement.
   await expect(
-    credits.getByRole("button", { name: /^15 crédits — 6,99/ }),
+    credits.getByRole("button", { name: /^15 crédits \(6,99/ }),
   ).toBeVisible();
   await credits.getByRole("button", { name: fr.generation.cancel }).click();
   await expect(page.getByRole("main").getByRole("alert")).toHaveText(

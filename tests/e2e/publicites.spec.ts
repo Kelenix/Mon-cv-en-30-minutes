@@ -130,7 +130,7 @@ test("la fenêtre « Solde insuffisant » propose aussi l'annonce (US-35 c.1)", 
   await saveDraft(page);
   await generate(page);
   await page
-    .getByRole("button", { name: "Améliorer l'accroche — 1 crédit" })
+    .getByRole("button", { name: "Améliorer l'accroche (1 crédit)" })
     .click();
   await expect(
     page
@@ -183,7 +183,7 @@ test("retrait des publicités : offre dans les crédits, puis plus aucune annonc
   const email = await signUp(page);
   await page.goto("/fr/compte/credits");
   await expect(
-    page.getByRole("button", { name: /^Retirer les publicités — 2,99/ }),
+    page.getByRole("button", { name: /^Retirer les publicités \(2,99/ }),
   ).toBeVisible();
 
   await fulfillAdsRemoval(email);

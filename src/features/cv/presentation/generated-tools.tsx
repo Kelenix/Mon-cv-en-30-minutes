@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { titleLine } from "@/features/cv/content";
 import { OPERATION_COSTS } from "@/features/plans/catalog";
 import { type AppLocale, routing } from "@/i18n/routing";
 import {
@@ -360,8 +361,7 @@ export function LinkedinTool({
                   <h3 className="text-xl font-semibold">{t("experiences")}</h3>
                   {current.output.experiences.map((item, index) => {
                     const name =
-                      [item.role, item.company].filter(Boolean).join(" — ") ||
-                      t("untitled");
+                      titleLine(item.role, item.company) || t("untitled");
                     return (
                       <CopyableField
                         key={item.id}
@@ -442,9 +442,7 @@ export function LetterTool({
                       generationId: result.generationId,
                       language,
                       output: result.output,
-                      label: [position.trim(), company.trim()]
-                        .filter(Boolean)
-                        .join(" — "),
+                      label: titleLine(position.trim(), company.trim()),
                     }),
                 );
               }}

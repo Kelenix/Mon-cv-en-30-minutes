@@ -6,7 +6,7 @@
     "pill": "30 Sekunden"
   },
   "metadata": {
-    "title": "Mein Lebenslauf in 30 Sekunden – Erstelle deinen Lebenslauf mit KI",
+    "title": "Mein Lebenslauf in 30 Sekunden | Erstelle deinen Lebenslauf mit KI",
     "description": "Beantworte 5 Fragen und die KI schreibt in Sekunden einen professionellen Lebenslauf für dich. Kostenlos starten."
   },
   "a11y": {
@@ -40,7 +40,7 @@
   },
   "home": {
     "eyebrow": "Optimiert für Bewerbermanagementsysteme (ATS)",
-    "title": "Dein professioneller Lebenslauf <highlight>in wenigen Sekunden</highlight> – bereit für die Filter der Personaler.",
+    "title": "Dein professioneller Lebenslauf <highlight>in wenigen Sekunden</highlight>, bereit für die Filter der Personaler.",
     "subtitle": "Beantworte 5 Fragen: Die KI schreibt einen klaren, strukturierten Lebenslauf, den Bewerbermanagementsysteme lesen können. Du prüfst ihn, passt ihn an und lädst ihn als PDF herunter.",
     "illustrationAlt": "Ein Bewerber erstellt seinen Lebenslauf am Laptop: Der Lebenslauf ist in 30 Sekunden fertig.",
     "cta": "Lebenslauf kostenlos erstellen",
@@ -214,7 +214,7 @@
     "benefits": {
       "saved": {
         "title": "Gespeicherter Lebenslauf",
-        "text": "Du findest ihn jederzeit wieder, kannst ihn bearbeiten und herunterladen – auf all deinen Geräten."
+        "text": "Du findest ihn auf all deinen Geräten jederzeit wieder und kannst ihn bearbeiten und herunterladen."
       },
       "tools": {
         "title": "Alle Tools an einem Ort",
@@ -512,7 +512,7 @@
     "docxLocked": "DOCX",
     "docxLockedLabel": "DOCX-Format: So schaltest du es frei",
     "lockedTitle": "PDF ohne Wasserzeichen und DOCX",
-    "lockedText": "Dein kostenloses PDF enthält in der Fußzeile einen dezenten Hinweis auf unsere Website. Das PDF ohne Wasserzeichen und das DOCX-Format sind in allen Abos enthalten – oder für diesen Lebenslauf mit CV Pro ({price}) erhältlich.",
+    "lockedText": "Dein kostenloses PDF enthält in der Fußzeile einen dezenten Hinweis auf unsere Website. Das PDF ohne Wasserzeichen und das DOCX-Format sind in allen Abos enthalten oder für diesen Lebenslauf mit CV Pro ({price}) erhältlich.",
     "seeOffers": "Angebote ansehen"
   },
   "billing": {
@@ -543,13 +543,13 @@
     },
     "topUp": {
       "title": "Aufladen",
-      "pack": "{count} Credits – {price}",
+      "pack": "{count} Credits ({price})",
       "buy": "{count} Credits kaufen"
     },
     "purchases": {
       "title": "Deine Käufe",
       "pack": "Paket mit {count} Credits",
-      "cvPro": "CV Pro – {title}",
+      "cvPro": "CV Pro: {title}",
       "cvDeleted": "gelöschter Lebenslauf",
       "adsRemoval": "Werbefreiheit"
     },
@@ -573,15 +573,15 @@
       "adsRemoved": "Die Werbung wurde bereits aus deinem Konto entfernt."
     },
     "cvPro": {
-      "title": "CV Pro – {price}",
-      "text": "PDF ohne Wasserzeichen und DOCX für diesen Lebenslauf – dauerhaft und ohne Abo.",
+      "title": "CV Pro ({price})",
+      "text": "PDF ohne Wasserzeichen und DOCX für diesen Lebenslauf, dauerhaft und ohne Abo.",
       "unlock": "Diesen Lebenslauf freischalten"
     },
     "pricingCvPro": "Freischaltbar in der Vorschau deines Lebenslaufs.",
     "ads": {
       "title": "Werbung",
       "hint": "Entferne die Werbung dauerhaft aus deinem Konto, auch nach dem Ende eines Abos.",
-      "remove": "Werbung entfernen – {price}",
+      "remove": "Werbung entfernen ({price})",
       "removed": "Die Werbung wurde aus deinem Konto entfernt."
     }
   },
@@ -611,7 +611,7 @@
       "interview": "Vorstellungsgespräch"
     },
     "experience": {
-      "button": "Mit KI verbessern – {cost, plural, one {# Credit} other {# Credits}}",
+      "button": "Mit KI verbessern ({cost, plural, one {# Credit} other {# Credits}})",
       "title": "Verbesserte Erfahrung",
       "before": "Vorher",
       "after": "Nachher",
@@ -620,7 +620,7 @@
       "replace": "Ersetzen"
     },
     "summary": {
-      "button": "Profil verbessern – {cost, plural, one {# Credit} other {# Credits}}",
+      "button": "Profil verbessern ({cost, plural, one {# Credit} other {# Credits}})",
       "history": "Vorschläge ({count})",
       "title": "Wähle dein Profil",
       "previous": "Frühere Vorschläge",
@@ -635,7 +635,7 @@
       "postingHint": "Füge die vollständige Anzeige ein (Aufgaben, gesuchtes Profil, Kenntnisse): 50 bis 10.000 Zeichen.",
       "counter": "{count, number} / {max, number}",
       "languageLabel": "Sprache des angepassten Lebenslaufs",
-      "submit": "Anpassen – {cost, plural, one {# Credit} other {# Credits}}",
+      "submit": "Anpassen ({cost, plural, one {# Credit} other {# Credits}})",
       "pending": "Anpassung läuft…",
       "resultTitle": "Dein angepasster Lebenslauf",
       "missingTitle": "Schlüsselwörter der Anzeige, die in deinem Lebenslauf fehlen",
@@ -648,7 +648,7 @@
       "previewLabel": "Vorschau des angepassten Lebenslaufs",
       "historyTitle": "Frühere Anpassungen",
       "show": "Anzeigen",
-      "newTitle": "{title} – angepasst",
+      "newTitle": "{title} (angepasst)",
       "empty": "Dein angepasster Lebenslauf und die fehlenden Schlüsselwörter erscheinen hier."
     },
     "generated": {
@@ -661,10 +661,10 @@
     "linkedin": {
       "metaTitle": "LinkedIn-Version",
       "title": "Meine LinkedIn-Version",
-      "intro": "Die KI macht aus „{title}“ Texte, die du direkt in dein LinkedIn-Profil einfügen kannst: Headline, Info-Bereich und Berufserfahrung – ohne etwas zu erfinden.",
+      "intro": "Die KI macht aus „{title}“ Texte, die du direkt in dein LinkedIn-Profil einfügen kannst: Headline, Info-Bereich und Berufserfahrung. Dabei wird nichts erfunden.",
       "language": "Sprache der LinkedIn-Version",
-      "generate": "Meine LinkedIn-Version erstellen – {cost, plural, one {# Credit} other {# Credits}}",
-      "regenerate": "Neue Version erstellen – {cost, plural, one {# Credit} other {# Credits}}",
+      "generate": "Meine LinkedIn-Version erstellen ({cost, plural, one {# Credit} other {# Credits}})",
+      "regenerate": "Neue Version erstellen ({cost, plural, one {# Credit} other {# Credits}})",
       "resultTitle": "Deine LinkedIn-Texte",
       "headline": "Headline",
       "copyHeadline": "Headline kopieren",
@@ -684,7 +684,7 @@
       "posting": "Stellenanzeige (optional)",
       "postingHint": "Füge die Anzeige ein, damit das Anschreiben auf die Anforderungen der Stelle eingeht.",
       "language": "Sprache des Anschreibens",
-      "generate": "Anschreiben erstellen – {cost, plural, one {# Credit} other {# Credits}}",
+      "generate": "Anschreiben erstellen ({cost, plural, one {# Credit} other {# Credits}})",
       "resultTitle": "Dein Anschreiben",
       "letter": "Anschreiben",
       "copy": "Anschreiben kopieren",
@@ -698,13 +698,13 @@
       "empty": "Deine 8 Fragen erscheinen hier, mit Platz für deine Antworten.",
       "position": "Gewünschte Stelle",
       "language": "Sprache des Gesprächs",
-      "start": "Simulation starten – {cost, plural, one {# Credit} other {# Credits}}",
-      "restart": "Neue Simulation – {cost, plural, one {# Credit} other {# Credits}}",
+      "start": "Simulation starten ({cost, plural, one {# Credit} other {# Credits}})",
+      "restart": "Neue Simulation ({cost, plural, one {# Credit} other {# Credits}})",
       "resultTitle": "Vorstellungsgespräch: {position}",
-      "answerHint": "Beantworte alle oder einige Fragen schriftlich (höchstens 2.000 Zeichen pro Antwort) und fordere dann dein Feedback an – kostenlos.",
+      "answerHint": "Beantworte alle oder einige Fragen schriftlich (höchstens 2.000 Zeichen pro Antwort) und fordere dann dein kostenloses Feedback an.",
       "reviewedHint": "Dein Feedback, Frage für Frage. Diese Simulation bleibt bei deinem Lebenslauf gespeichert.",
       "questionNumber": "Frage {number}",
-      "review": "Feedback anfordern – kostenlos",
+      "review": "Feedback anfordern (kostenlos)",
       "reviewPending": "Deine Antworten werden ausgewertet…",
       "reviewFailed": "Das Feedback konnte nicht erstellt werden. Es wurde nichts abgebucht. Versuche es erneut.",
       "reviewed": "Feedback erhalten",

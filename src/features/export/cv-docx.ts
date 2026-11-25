@@ -6,7 +6,7 @@ import {
   Paragraph,
   TextRun,
 } from "docx";
-import { joinFilled, period } from "@/features/cv/content";
+import { joinFilled, period, titleLine } from "@/features/cv/content";
 import {
   CV_COLORS,
   CV_FONT,
@@ -71,9 +71,7 @@ export function renderCvDocx(content: CvContent, texts: CvDocumentTexts) {
   if (content.experiences.length > 0) {
     children.push(heading(titles.experiences));
     for (const item of content.experiences) {
-      children.push(
-        line(joinFilled([item.role, item.company], " — "), { bold: true }),
-      );
+      children.push(line(titleLine(item.role, item.company), { bold: true }));
       const meta = joinFilled(
         [item.location, period(item.startDate, item.endDate)],
         " · ",
@@ -88,9 +86,7 @@ export function renderCvDocx(content: CvContent, texts: CvDocumentTexts) {
   if (content.education.length > 0) {
     children.push(heading(titles.education));
     for (const item of content.education) {
-      children.push(
-        line(joinFilled([item.degree, item.school], " — "), { bold: true }),
-      );
+      children.push(line(titleLine(item.degree, item.school), { bold: true }));
       if (item.year) children.push(line(item.year, { muted: true }));
       if (item.details) children.push(line(item.details));
     }
@@ -105,7 +101,7 @@ export function renderCvDocx(content: CvContent, texts: CvDocumentTexts) {
   }
 
   const document = new Document({
-    title: joinFilled([header.fullName, header.title], " — "),
+    title: titleLine(header.fullName, header.title),
     creator: header.fullName,
     styles: {
       default: {
