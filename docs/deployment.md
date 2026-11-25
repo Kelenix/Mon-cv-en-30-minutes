@@ -255,7 +255,7 @@ téléchargement du PDF.
      « laisser en retard », qui garderait l'accès). Ce réglage vaut pour tous les produits du
      compte.
 
-2. **Google** (facultatif, tâche 5) : dans le client OAuth du projet Google Cloud
+2. **Google** (tâche 5, fait le 25/11/2026) : dans le client OAuth du projet Google Cloud
    `mon-cv-en-30-secondes`, ajoute l'origine `https://cv30secondes.com` et l'URI de redirection
    `https://api.cv30secondes.com/auth/v1/callback`. Dans **Branding**, renseigne la page d'accueil,
    les liens de confidentialité et des CGV, et le domaine autorisé, puis **Audience → Publier

@@ -8,8 +8,8 @@
 - **Phase courante** : 6 — Mise en production : **site en ligne sur https://cv30secondes.com** depuis le 25/11/2026, paiements Stripe en mode réel ouverts
 - **Dernière mise à jour** : 25/11/2026
 - **Santé** : 🟢 OK
-- **Prochaine action** : Google en production (tâche 5), surveillance et sauvegardes hors du
-  serveur (tâches 14 et 15). Ensuite, sur le domaine :
+- **Prochaine action** : surveillance et sauvegardes hors du serveur (tâches 14 et 15). Ensuite,
+  sur le domaine :
   mesure Lighthouse (NFR-01), paiements avec Stripe réel, qualité réelle des outils IA
   (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà mesurée, ADR-041), tâches 10 et 13. Noms de marque traduits utilisés tels que proposés tant
   que la tâche 12 n'est pas faite.
@@ -109,6 +109,11 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Connexion Google en production (tâche 5)** : adresses de production ajoutées
+  au client OAuth, Branding complété (accueil, confidentialité, CGV), application publiée en
+  production, `GOOGLE_AUTH_ENABLED=true` et identifiants dans le `deploy/.env` du serveur, pris
+  en compte au déploiement GitHub suivant.
 
 - 25/11/2026 — **Déploiement par GitHub réparé** (demande de l'utilisateur : « tout doit passer
   par GitHub »).

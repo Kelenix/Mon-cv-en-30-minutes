@@ -93,16 +93,20 @@
   compte en local ; le tableau de bord Stripe affiche « Compte activé » avant la mise en
   production.
 
-## Tâche 5 : Créer les identifiants Google OAuth
+## Tâche 5 ✅ : Créer les identifiants Google OAuth
+- **Production (25/11/2026)** : connexion Google ouverte à tous.
+  - Client Web : origine `https://cv30secondes.com` et redirection
+    `https://api.cv30secondes.com/auth/v1/callback` ajoutées (localhost gardé).
+  - Branding : page d'accueil, confidentialité (`/fr/confidentialite`) et conditions
+    (`/fr/cgv`), domaine `cv30secondes.com` autorisé.
+  - Application **publiée en production** (sans logo ni accès sensible : pas de validation
+    Google). `GOOGLE_AUTH_ENABLED=true` et identifiants dans `deploy/.env` sur le serveur.
 - **Avancement (24/11/2026)** :
   - Projet Google Cloud `mon-cv-en-30-secondes` créé, avec un écran de consentement externe en
     mode test et un client Web.
   - Identifiants placés dans `supabase/.env` ; Google activé dans `supabase/config.toml` et dans
     `.env.local`.
   - Connexion avec Google réussie en local : compte créé, arrivée sur l'espace attendu.
-  - **Reste à faire** : avec le domaine, ajouter les adresses de production, compléter le
-    Branding, publier l'application et remplir `deploy/.env` (étape 8 de `docs/deployment.md`).
-    D'ici là, seuls les utilisateurs tests déclarés peuvent se connecter avec Google.
 - **Pourquoi** : bouton « Continuer avec Google ».
 - **Quand** : avant l'Inc-2 pour tester ce bouton en local, sinon avant la mise en production.
   La connexion par e-mail fonctionne en local sans ce compte.
@@ -213,8 +217,8 @@
   - **Déploiement par GitHub activé** (étape 9) : le serveur lit le dépôt GitHub (clé en lecture
     seule), et chaque envoi sur `main` avec une CI verte se met en ligne seul. C'est le seul
     chemin de mise en ligne.
-  - **Reste** : Google en production (tâche 5), surveillance (étape 10, tâche 14), sauvegardes
-    hors du serveur (tâche 15).
+  - Connexion Google ouverte en production (tâche 5).
+  - **Reste** : surveillance (étape 10, tâche 14), sauvegardes hors du serveur (tâche 15).
   - **Conseillé** : fermer la connexion SSH root par mot de passe, encore ouverte sur ce
     serveur, une fois tes connexions passées par clé.
 - **Mettre à jour le site** : envoyer `main` sur GitHub ; la CI puis le workflow « Déploiement »
