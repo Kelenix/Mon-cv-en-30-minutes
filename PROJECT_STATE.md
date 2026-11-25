@@ -110,6 +110,12 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 25/11/2026 — **Correction : retour de connexion vers 0.0.0.0:3000** (signalé par l'utilisateur).
+  En ligne, `/auth/callback` (Google) et `/auth/confirm` (lien de l'e-mail) redirigeaient vers
+  l'adresse interne du conteneur (`request.url` vaut `https://0.0.0.0:3000` derrière le proxy).
+  Redirection désormais relative dans `finishSignIn`. Tests de bout en bout des comptes : 24 sur
+  24, dont le lien valide qui ouvre la session.
+
 - 25/11/2026 — **Logo en badge et mascotte robot (tâche 8, ADR-046)** : badge en grand format et
   en français (partage, données structurées, colonne de la marque, pied de page), mascotte dans
   la colonne de la marque de toutes les langues. En-tête et accueil inchangés. Vérifié par

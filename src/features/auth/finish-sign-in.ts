@@ -29,5 +29,7 @@ export async function finishSignIn(
     ? `${localizedPath(locale, "/connexion")}?erreur=${errorKey}`
     : await afterSignInPath(supabase, locale, next);
 
-  return NextResponse.redirect(new URL(path, request.url));
+  // Redirection relative : derrière le proxy, `request.url` porte l'adresse interne du conteneur
+  // (https://0.0.0.0:3000) ; le navigateur complète le chemin avec l'adresse publique.
+  return new NextResponse(null, { status: 307, headers: { Location: path } });
 }
