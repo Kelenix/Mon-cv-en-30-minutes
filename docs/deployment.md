@@ -265,7 +265,13 @@ téléchargement du PDF.
 
 3. Relance `deploy/scripts/deploy.sh` pour prendre en compte les nouvelles valeurs.
 
-4. Plus tard : publicités (tâche 10), moteurs de recherche (tâche 13).
+4. Moteurs de recherche (tâche 13, fait le 25/11/2026) : propriété « Domaine » dans Google
+   Search Console, validée par un enregistrement TXT `google-site-verification=…` sur `@` chez
+   Hostinger (**à garder** : sans lui, la propriété n'est plus validée) ; sitemap
+   `https://cv30secondes.com/sitemap.xml` envoyé à Google et à Bing (site importé depuis Search
+   Console).
+
+5. Plus tard : publicités (tâche 10).
 
 ## 11. Étape 9 : déploiement automatique depuis GitHub
 

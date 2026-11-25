@@ -18,8 +18,10 @@
   - un premier achat réel de bout en bout (paiement, webhook, crédits) ;
   - qualité réelle des outils IA (US-25 c.3, US-27 c.5, NFR-02 ; la création de CV est déjà
     mesurée, ADR-041) ;
-  - tâches 10, 12 et 13. Les noms de marque traduits restent ceux proposés tant que la
-    tâche 12 n'est pas faite.
+  - tâches 10 et 12. Les noms de marque traduits restent ceux proposés tant que la tâche 12
+    n'est pas faite ;
+  - dans quelques jours : vérifier dans Search Console que l'accueil et les tarifs sont
+    indexés (tâche 13).
 - **Git** : **toute mise en ligne passe par GitHub** (choix de l'utilisateur). Envoi sur `main`,
   CI, puis workflow « Déploiement » qui lance `deploy.sh` sur le KVM 2. Le serveur lit `origin`
   sur GitHub avec sa clé en lecture seule.
@@ -82,11 +84,10 @@ jusqu'au bout : mise en ligne le 25/11/2026.
 
 | Tâche manuelle (`docs/manual-tasks.md`) | État | Remarque |
 |-----------------------------------------|------|----------|
-| 1 à 9, 11, 14, 16, 17 | ✅ faites | Outils, clé Anthropic, Stripe réel, Google, Resend, infos légales, logo, VPS et domaine, GitHub, déploiement automatique, Turnstile, administrateurs (tâche 2 sans objet) |
+| 1 à 9, 11, 13, 14, 16, 17 | ✅ faites | Outils, clé Anthropic, Stripe réel, Google, Resend, infos légales, logo, VPS et domaine, GitHub, moteurs de recherche, déploiement automatique, Turnstile, administrateurs (tâche 2 sans objet) |
 | 15 — Surveillance et sauvegardes hors du serveur | 🔄 | Surveillance faite ; sauvegardes hPanel et copie hebdomadaire à faire |
 | 10 — Comptes publicitaires | ⬜ | Annonces réelles ; possible maintenant que le site est en ligne |
 | 12 — Noms de marque et relecture des traductions | ⬜ | Noms proposés utilisés en attendant |
-| 13 — Search Console et Bing | ⬜ | Suivi du référencement |
 
 Risques : `docs/risks.md` (aucun 🔴).
 
@@ -114,6 +115,14 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 - voir `docs/manual-tasks.md`
 
 ## Journal de session (résumé court, le plus récent en haut)
+
+- 25/11/2026 — **Tâche 13 faite (moteurs de recherche)**.
+  - Google Search Console : propriété « Domaine » validée par un enregistrement TXT chez
+    Hostinger. Sitemap lu par Googlebot : « Opération effectuée », 30 pages découvertes.
+  - Bing Webmaster Tools : `cv30secondes.com` importé depuis Search Console (lecture seule,
+    accord de l'utilisateur ; l'autre site du compte n'a pas été importé). Sitemap envoyé, en
+    cours de traitement.
+  - Icône de l'onglet déployée (`77456cf`), vérifiée en ligne.
 
 - 25/11/2026 — **Icône de l'onglet** (signalée par l'utilisateur) : l'icône Next.js du modèle
   de départ est remplacée par l'icône du logo (`favicon.ico` 16, 32 et 48 px). Ajout de

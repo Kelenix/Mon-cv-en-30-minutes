@@ -285,7 +285,18 @@
   vidéo récompensée qui crédite 1 crédit, interstitiel une seule fois en quittant l'aperçu du
   premier CV, « Gérer les cookies » qui rouvre le choix.
 
-## Tâche 13 : Déclarer le site aux moteurs de recherche
+## Tâche 13 ✅ : Déclarer le site aux moteurs de recherche
+- **Fait (25/11/2026)** :
+  - **Google Search Console** : propriété « Domaine » `cv30secondes.com`, validée par
+    l'enregistrement TXT `google-site-verification=…` ajouté sur `@` chez Hostinger. **Ne pas le
+    supprimer** : il garde la propriété validée.
+  - **Sitemap** : envoyé, état « Opération effectuée », 30 pages découvertes (Googlebot l'a lu
+    dans la minute).
+  - **Bing Webmaster Tools** : compte existant ; seul `cv30secondes.com` a été importé depuis
+    Search Console (accès en lecture seule à Search Console accordé à Bing, révocable dans le
+    compte Google). Sitemap envoyé, en cours de traitement.
+  - **Reste à constater** : dans les jours qui suivent, l'accueil et les tarifs apparaissent
+    dans « Pages » comme indexés.
 - **Pourquoi** : faire connaître le plan du site à Google et Bing et suivre le référencement
   (US-39).
 - **Quand** : une fois le site en ligne sur son domaine (tâche 9).
