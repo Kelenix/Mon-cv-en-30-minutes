@@ -110,7 +110,7 @@ test("test ATS : note sur 100 pour un CV en PDF, refus d'un autre fichier", asyn
     mimeType: "text/plain",
     buffer: Buffer.from("Awa Diallo"),
   });
-  await expect(page.getByRole("alert")).toHaveText(
+  await expect(page.getByRole("main").getByRole("alert")).toHaveText(
     "Ce fichier n'est pas un PDF. Enregistre ton CV au format PDF, puis réessaie.",
   );
 });
