@@ -13,6 +13,8 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · Versionnage
 
 ### Corrigé
 
+- Icône de l'onglet du navigateur : celle de Next.js (modèle de départ) est remplacée par
+  l'icône du logo. Ajout de l'icône d'écran d'accueil iPhone.
 - Connexion par Google ou par le lien de l'e-mail, en ligne : le retour renvoyait vers
   l'adresse interne du serveur (`https://0.0.0.0:3000/...`). La redirection est désormais relative.
 - Page des tarifs sur mobile : le bouton « Essayer Pro gratuitement 3 jours » passe à la ligne au

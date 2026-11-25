@@ -120,6 +120,11 @@ automatique sur iOS).
   (`src/assets/brand/logo-icone.png`) suivie du nom traduit sur deux lignes, comme le logo :
   nom en gras bleu nuit, puis connecteur et pastille `primary` en italique blanc (H31). Hauteur
   44 px sur mobile, 56 px à partir de 640 px.
+- **Icône d'onglet** : l'icône du logo entière, centrée dans un carré transparent
+  (`src/app/favicon.ico` en 16, 32 et 48 px). Elle reste lisible sur les onglets clairs et
+  sombres, alors qu'un recadrage sur le chronomètre coupait la fiche du CV. Écran d'accueil
+  iPhone : `src/app/apple-icon.png` (180 px) sur fond blanc avec une marge, car iOS remplit la
+  transparence en noir.
 
 ---
 

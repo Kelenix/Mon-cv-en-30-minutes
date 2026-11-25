@@ -115,6 +115,11 @@ Détail dans `docs/PLAN_DE_REALISATION.md` §10 et `DECISION_LOG.md` (ADR-006).
 
 ## Journal de session (résumé court, le plus récent en haut)
 
+- 25/11/2026 — **Icône de l'onglet** (signalée par l'utilisateur) : l'icône Next.js du modèle
+  de départ est remplacée par l'icône du logo (`favicon.ico` 16, 32 et 48 px). Ajout de
+  `apple-icon.png` (180 px, fond blanc). Contrôlé sur onglet clair et sombre ; les deux balises
+  sont générées par le build.
+
 - 25/11/2026 — **Connexion vérifiée en production par l'utilisateur** après la correction de
   la redirection (`f865ce1`, CI et déploiement GitHub verts). État du projet remis à jour :
   phase 6 terminée, phase 8 (maintenance) en cours, tableaux des phases, des incréments, des
